@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -76,10 +77,27 @@ public final class CrowdPlusExceptionResolver {
 	 * @throws IOException
 	 */
 	@ExceptionHandler(value = CrowdPlusException.class)
-	public ModelAndView resolveCrowdPlusException(final Exception exception, final HttpServletRequest request,
+	public ModelAndView resolveCrowdPlusException(final CrowdPlusException exception, final HttpServletRequest request,
 			final HttpServletResponse response) throws IOException {
 		// 現在の例外に対応するページを指定する
 		final String viewName = "system-error";
+		return this.commonResolveException(exception, request, response, viewName);
+	}
+
+	/**
+	 * ログイン例外を処理する
+	 *
+	 * @param exception 例外名
+	 * @param request   リクエスト
+	 * @param response  リスポンス
+	 * @return ModelAndView モデルビューオブジェクト
+	 * @throws IOException
+	 */
+	@ExceptionHandler(value = UsernameNotFoundException.class)
+	public ModelAndView resolveUsernameNotFoundException(final UsernameNotFoundException exception,
+			final HttpServletRequest request, final HttpServletResponse response) throws IOException {
+		// 現在の例外に対応するページを指定する
+		final String viewName = "admin-login";
 		return this.commonResolveException(exception, request, response, viewName);
 	}
 }
