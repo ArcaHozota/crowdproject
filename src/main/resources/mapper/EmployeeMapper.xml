@@ -40,19 +40,19 @@
 		parameterType="jp.co.sony.ppog.entity.Employee">
 		UPDATE PPOG_EMPLOYEE PE 
 		<set>
-			<if test="name != null">
+			<if test="loginAccount != null">
 				PE.LOGIN_ACCT = #{loginAccount,jdbcType=NVARCHAR},
 			</if>
-			<if test="countryCode != null">
+			<if test="password != null">
 				PE.PASSWORD = #{password,jdbcType=NCHAR},
 			</if>
-			<if test="district != null">
+			<if test="username != null">
 				PE.USERNAME = #{username,jdbcType=NVARCHAR},
 			</if>
-			<if test="population != null">
+			<if test="email != null">
 				PE.EMAIL = #{email,jdbcType=NUMERIC},
 			</if>
-			<if test="district != null">
+			<if test="createdTime != null">
 				PE.CREATED_TIME = #{createdTime,jdbcType=NVARCHAR},
 			</if>
 		</set>
