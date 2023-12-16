@@ -52,6 +52,8 @@
 		    PPOG_ROLE PR 
 		WHERE
 		    PR.DEL_FLG = 'approved' 
+		ORDER BY
+			PR.ID
 	</select>
 	<select id="selectById" parameterType="java.lang.Long" 
 		resultMap="BasicResultMap">

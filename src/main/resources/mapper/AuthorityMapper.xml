@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.sony.ppog.mapper.AuthorityMapper">
+	<resultMap id="BasicResultMap"
+		type="jp.co.sony.ppog.entity.Authority" autoMapping="true">
+		<id property="id" jdbcType="NUMERIC" column="ID" />
+	</resultMap>
+	<select id="selectAll" resultMap="BasicResultMap">
+		SELECT
+		    PA.ID
+		    , PA.NAME
+		    , PA.TITLE
+		    , PA.CATEGORY_ID 
+		FROM
+		    PPOG_AUTHORITY PA 
+		ORDER BY
+		    PA.ID
+	</select>
+</mapper>
