@@ -29,4 +29,9 @@ public final class Role implements Serializable {
 	 * 論理削除フラグ
 	 */
 	private String delFlg;
+
+	/**
+	 * 役割権限連携エンティティ
+	 */
+	private RoleAuth roleAuth;
 }
