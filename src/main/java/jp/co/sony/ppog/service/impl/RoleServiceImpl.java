@@ -49,7 +49,7 @@ public class RoleServiceImpl implements IRoleService {
 	/**
 	 * 社員役割連携マッパー
 	 */
-	private EmployeeRoleMapper employeeRoleMapper;
+	private final EmployeeRoleMapper employeeRoleMapper;
 
 	@Override
 	public ResultDto<String> check(final String name) {
