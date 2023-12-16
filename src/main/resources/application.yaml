@@ -1,0 +1,28 @@
+server:
+  port: 8687
+spring:
+  application:
+    name: crowdplus
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@//52.199.163.241:1521/FREEPDB1
+    username: JPTCRSDBA1
+    password: JPTCRSDBA1
+    hikari:
+      maximum-pool-size: 30
+      max-lifetime: 1500000
+  thymeleaf:
+    cache: false
+    mode: HTML
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    prefix: classpath:/templates/
+    suffix: .html
+mybatis:
+  configuration:
+    lazy-loading-enabled: true
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: jp.co.sony.ppog.entity

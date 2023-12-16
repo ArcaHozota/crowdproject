@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja-JP" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>PGアプリケーション</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="stylesheet" th:href="@{/static/bootstrap/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/static/css/font-awesome.min.css}">
+	<link rel="stylesheet" th:href="@{/static/css/main.css}">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+	<link rel="shortcut icon" type="image/x-icon" th:href="@{/static/favicon.ico}">
+	<style>
+		.tree li {
+			list-style-type: none;
+			cursor: pointer;
+		}
+
+		a {
+			text-decoration: none;
+		}
+	</style>
+	<script type="text/javascript" th:src="@{/static/jquery/jquery-3.7.1.min.js}"></script>
+	<script type="text/javascript" th:src="@{/static/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<script type="text/javascript" th:src="@{/static/script/docs.min.js}"></script>
+	<script type="text/javascript" th:src="@{/static/layer/layer.js}"></script>
+	<script type="text/javascript" th:src="@{/static/customizes/mainmenu.js}"></script>
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top" data-bs-theme="dark">
+		<div class="container-fluid"> <a class="navbar-brand" style="font-size:24px;"
+				th:href="@{/pgcrowd/to/index}">PGアプリケーション</a>
+			<div class="collapse navbar-collapse">
+				<div class="input-group d-flex justify-content-end">
+					<input type="text" class="form-control" id="searchInput" placeholder="検索" style="max-width: 180px;">
+					<button class="input-group-text bg-transparent p-0 px-2" id="searchBtn">
+						<i class="bi bi-search"></i>
+					</button>
+				</div>
+				<ul class="navbar-nav mb-2 mb-lg-0 d-flex" id="dropdown-info">
+					<li class="nav-item dropdown"> <a id="userinfo"
+							class="nav-link dropdown-toggle btn btn-success me-2" href="#" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 13.34px;">
+							<i class="bi bi-person-fill"
+								th:text="${#authentication.getPrincipal().getOriginalAdmin().getUsername()}"></i></a>
+						<ul class="dropdown-menu dropdown-menu-end" role="menu">
+							<li><a class="dropdown-item" href="#"><i class="bi bi-gear-wide-connected"></i> 個人設定</a>
+							</li>
+							<li><a class="dropdown-item" href="#"><i class="bi bi-chat-dots"></i> メッセージ</a></li>
+							<li>
+								<hr class="dropdown-divider">
+							</li>
+							<li><a id="logoutLink" class="dropdown-item" href="#"><i class="bi bi-box-arrow-right"></i>
+									ログアウト</a></li>
+							<form id="logoutForm" method="post" th:action="@{/pgcrowd/employee/logout}"
+								style="display:none;"></form>
+						</ul>
+					</li>
+				</ul>
+				<div class="d-flex"> <button id="button-help" type="button" class="btn btn-danger me-2"> <i
+							class="bi bi-info-circle"></i></button>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3 col-md-2 sidebar">
+				<div class="tree">
+					<ul style="padding-left: 0px;" class="list-group">
+						<li class="list-group-item list-group-item-action collapsed">
+							<a href="#" id="toMainmenu">
+								<i class="bi bi-speedometer"></i> コントロールパネル
+							</a>
+						</li>
+						<li class="list-group-item list-group-item-action collapsed" id="adminKanri">
+							<span><i class="bi bi-bank"></i> 権限管理</span>
+							<ul style="margin-top: 10px; display: none;">
+								<li style="height: 30px;">
+									<a href="user.html" id="toAdmin">
+										<i class="bi bi-people-fill"></i> ユーザメンテナンス
+									</a>
+								</li>
+								<li style="height: 30px;">
+									<a href="role.html" id="toRole">
+										<i class="bi bi-list-check"></i> 役割メンテナンス
+									</a>
+								</li>
+								<li style="height: 30px;">
+									<a href="permission.html" id="toMenu">
+										<i class="bi bi-menu-down"></i> メニューメンテナンス
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li class="list-group-item list-group-item-action collapsed"><span><i
+									class="glyphicon glyphicon-ok"></i>事業レビュー<span class="badge"
+									style="float: right">3</span></span>
+							<ul style="margin-top: 10px; display: none;">
+								<li style="height: 30px;"><a href="auth_cert.html"><i
+											class="glyphicon glyphicon-check"></i>実名認証の見直し</a></li>
+								<li style="height: 30px;"><a href="auth_adv.html"><i
+											class="glyphicon glyphicon-check"></i>広告レビュー</a></li>
+								<li style="height: 30px;"><a href="auth_project.html"><i
+											class="glyphicon glyphicon-check"></i>プロジェクトのレビュー</a></li>
+							</ul>
+						</li>
+						<li class="list-group-item list-group-item-action collapsed"><span><i
+									class="glyphicon glyphicon-th-large"></i>ビジネス管理<span class="badge"
+									style="float: right">7</span></span>
+							<ul style="margin-top: 10px; display: none;">
+								<li style="height: 30px;"><a href="cert.html"><i
+											class="glyphicon glyphicon-picture"></i>資格維持</a></li>
+								<li style="height: 30px;"><a href="type.html"><i
+											class="glyphicon glyphicon-equalizer"></i>分類管理</a></li>
+								<li style="height: 30px;"><a href="process.html"><i
+											class="glyphicon glyphicon-random"></i>プロセス管理</a></li>
+								<li style="height: 30px;"><a href="advertisement.html"><i
+											class="glyphicon glyphicon-hdd"></i>広告管理</a></li>
+								<li style="height: 30px;"><a href="message.html"><i
+											class="glyphicon glyphicon-comment"></i>メッセージテンプレート</a></li>
+								<li style="height: 30px;"><a href="project_type.html"><i
+											class="glyphicon glyphicon-list"></i>セクションの種類</a></li>
+								<li style="height: 30px;"><a href="tag.html"><i
+											class="glyphicon glyphicon-tags"></i>プロジェクトタグ</a></li>
+							</ul>
+						</li>
+						<li class="list-group-item list-group-item-action collapsed"><a href="param.html"><i
+									class="glyphicon glyphicon-list-alt"></i>パラメータ管理</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 main">
+				<h1 class="page-header">コントロールパネル</h1>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
