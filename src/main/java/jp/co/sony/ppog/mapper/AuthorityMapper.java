@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import jp.co.sony.ppog.entity.Authority;
-import jp.co.sony.ppog.entity.Role;
 
 /**
  * 権限マッパー
@@ -30,5 +29,5 @@ public interface AuthorityMapper {
 	 * @param authIds 権限ID集合
 	 * @return List<Authority>
 	 */
-	List<Role> selectByIds(@Param("ids") List<Long> authIds);
+	List<Authority> selectByIds(@Param("ids") List<Long> authIds);
 }

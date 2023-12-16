@@ -11,6 +11,9 @@ spring:
     hikari:
       maximum-pool-size: 30
       max-lifetime: 1500000
+  output:
+    ansi:
+      enabled: ALWAYS
   thymeleaf:
     cache: false
     mode: HTML
