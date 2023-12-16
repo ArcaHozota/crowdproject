@@ -76,6 +76,22 @@
 		    PE.DEL_FLG = 'approved' 
 		    AND PE.ID = #{id,jdbcType=NUMERIC}
 	</select>
+	<select id="selectByLoginAcct" parameterType="java.lang.String" 
+		resultMap="BasicResultMap">
+		SELECT
+		    PE.ID
+		    , PE.LOGIN_ACCT
+		    , PE.PASSWORD
+		    , PE.USERNAME
+		    , PE.EMAIL
+		    , PE.CREATED_TIME
+		    , PE.DEL_FLG 
+		FROM
+		    PPOG_EMPLOYEE PE 
+		WHERE
+		    PE.DEL_FLG = 'approved' 
+		    AND PE.LOGIN_ACCT = #{loginAccout,jdbcType=NVARCHAR}
+	</select>
 	<select id="selectByKeyword" parameterType="java.lang.String" 
 		resultMap="BasicResultMap">
 		SELECT

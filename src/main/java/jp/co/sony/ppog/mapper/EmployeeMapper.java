@@ -61,6 +61,14 @@ public interface EmployeeMapper {
 	List<Employee> selectByKeyword(@Param("keyword") String keyword);
 
 	/**
+	 * アカウントによって社員情報を検索する
+	 *
+	 * @param loginAccout アカウント
+	 * @return Employee
+	 */
+	Employee selectByLoginAcct(@Param("loginAccout") String loginAccout);
+
+	/**
 	 * IDによって情報を更新する
 	 *
 	 * @param employee 社員エンティティ
