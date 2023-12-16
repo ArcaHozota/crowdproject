@@ -1,6 +1,7 @@
 package jp.co.sony.ppog.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 社員マッパー
@@ -10,4 +11,18 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface EmployeeMapper {
+
+	/**
+	 * ログインアカウントを重複するかどうかを確認する
+	 *
+	 * @param loginAccount ログインアカウント
+	 */
+	Integer checkDuplicated(@Param("loginAccount") String loginAccount);
+
+	/**
+	 * ID採番値を取得する
+	 *
+	 * @return Long
+	 */
+	Long saiban();
 }

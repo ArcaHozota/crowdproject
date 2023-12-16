@@ -1,9 +1,11 @@
 package jp.co.sony.ppog.service.impl;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Sort;
@@ -94,6 +96,35 @@ public class RoleServiceImpl implements IRoleService {
 	public List<PgAuth> getAuthlist() {
 		return this.pgAuthRepository.findAll().stream().sorted(Comparator.comparing(PgAuth::getId))
 				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Role> getEmployeeRolesById(final Long id) {
+		final List<Role> secondRoles = new ArrayList<>();
+		final Role secondRole = new Role();
+		secondRole.setId(0L);
+		secondRole.setName(PgCrowdConstants.DEFAULT_ROLE_NAME);
+		final Specification<Role> where1 = (root, query, criteriaBuilder) -> criteriaBuilder
+				.equal(root.get("deleteFlg"), PgCrowdConstants.LOGIC_DELETE_INITIAL);
+		final Specification<Role> specification1 = Specification.where(where1);
+		final List<Role> roles = this.roleRepository.findAll(specification1);
+		if (id == null) {
+			secondRoles.add(secondRole);
+			secondRoles.addAll(roles);
+			return secondRoles;
+		}
+		final Optional<EmployeeEx> roledOptional = this.employeeExRepository.findById(id);
+		if (roledOptional.isEmpty()) {
+			secondRoles.add(secondRole);
+			secondRoles.addAll(roles);
+			return secondRoles;
+		}
+		final Long roleId = roledOptional.get().getRoleId();
+		final List<Role> selectedRole = roles.stream().filter(a -> Objects.equals(a.getId(), roleId))
+				.collect(Collectors.toList());
+		secondRoles.addAll(selectedRole);
+		secondRoles.addAll(roles);
+		return secondRoles.stream().distinct().collect(Collectors.toList());
 	}
 
 	@Override

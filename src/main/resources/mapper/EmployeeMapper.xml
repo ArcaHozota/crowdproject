@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.sony.ppog.mapper.EmployeeMapper">
+	<resultMap id="BasicResultMap"
+		type="jp.co.sony.ppog.entity.Employee" autoMapping="true">
+		<id property="id" jdbcType="NUMERIC" column="ID" />
+		<result property="loginAccount" jdbcType="NVARCHAR"
+			column="LOGIN_ACCT"></result>
+	</resultMap>
+	<insert id="saveById"
+		parameterType="jp.co.sony.ppog.entity.Employee">
+		INSERT
+		INTO WORLD_CITY(
+		ID,
+		NAME,
+		COUNTRY_CODE,
+		DISTRICT,
+		POPULATION,
+		DELETE_FLG
+		)
+		VALUES (
+		#{id,jdbcType=NUMERIC},
+		#{name,jdbcType=NVARCHAR},
+		#{countryCode,jdbcType=NCHAR},
+		#{district,jdbcType=NVARCHAR},
+		#{population,jdbcType=NUMERIC},
+		#{logicDeleteFlg,jdbcType=NVARCHAR}
+		)
+	</insert>
+	<update id="removeById" parameterType="java.lang.Integer">
+		UPDATE WORLD_CITY WCN
+		SET
+		WCN.DELETE_FLG = 'removed'
+		WHERE
+		WCN.ID = #{id,jdbcType=NUMERIC}
+	</update>
+	<update id="updateById"
+		parameterType="jp.co.toshiba.ppok.entity.City">
+		UPDATE WORLD_CITY WCN
+		<set>
+			<if test="name != null">
+				WCN.NAME = #{name,jdbcType=NVARCHAR},
+			</if>
+			<if test="countryCode != null">
+				WCN.COUNTRY_CODE = #{countryCode,jdbcType=NCHAR},
+			</if>
+			<if test="district != null">
+				WCN.DISTRICT = #{district,jdbcType=NVARCHAR},
+			</if>
+			<if test="population != null">
+				WCN.POPULATION = #{population,jdbcType=NUMERIC},
+			</if>
+		</set>
+		WHERE
+		WCN.DELETE_FLG = 'visible'
+		AND WCN.ID = #{id,jdbcType=NUMERIC}
+	</update>
+	<select id="saiban" resultType="java.lang.Long">
+		SELECT
+			COUNT(PE.ID) + 1
+		FROM
+			PPOG_EMPLOYEE PE
+	</select>
+	<select id="checkDuplicated"
+		parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT
+			COUNT(1)
+		FROM
+			PPOG_EMPLOYEE PE
+		WHERE
+			PE.LOGIN_ACCT = #{loginAccount,jdbcType=NVARCHAR}
+	</select>
+</mapper>

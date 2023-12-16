@@ -1,11 +1,7 @@
 package jp.co.sony.ppog.service.impl;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,8 +9,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.BCryptVe
 import org.springframework.stereotype.Service;
 
 import apple.laf.JRSUIConstants.Direction;
+import jp.co.sony.ppog.commons.CrowdPlusConstants;
 import jp.co.sony.ppog.dto.EmployeeDto;
 import jp.co.sony.ppog.entity.Employee;
+import jp.co.sony.ppog.entity.EmployeeRole;
 import jp.co.sony.ppog.mapper.EmployeeMapper;
 import jp.co.sony.ppog.mapper.EmployeeRoleMapper;
 import jp.co.sony.ppog.service.IEmployeeService;
@@ -46,11 +44,8 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 	@Override
 	public ResultDto<String> check(final String loginAccount) {
-		final Employee employee = new Employee();
-		employee.setLoginAccount(loginAccount);
-		final Example<Employee> example = Example.of(employee, ExampleMatcher.matching());
-		return this.employeeRepository.findOne(example).isPresent()
-				? ResultDto.failed(PgCrowdConstants.MESSAGE_STRING_DUPLICATED)
+		final Integer checkInteger = this.employeeMapper.checkDuplicated(loginAccount);
+		return checkInteger > 0 ? ResultDto.failed(CrowdPlusConstants.MESSAGE_STRING_DUPLICATED)
 				: ResultDto.successWithoutData();
 	}
 
@@ -71,35 +66,6 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		return this.employeeRepository.findById(id).orElseThrow(() -> {
 			throw new PgCrowdException(PgCrowdConstants.MESSAGE_STRING_PROHIBITED);
 		});
-	}
-
-	@Override
-	public List<Role> getEmployeeRolesById(final Long id) {
-		final List<Role> secondRoles = new ArrayList<>();
-		final Role secondRole = new Role();
-		secondRole.setId(0L);
-		secondRole.setName(PgCrowdConstants.DEFAULT_ROLE_NAME);
-		final Specification<Role> where1 = (root, query, criteriaBuilder) -> criteriaBuilder
-				.equal(root.get("deleteFlg"), PgCrowdConstants.LOGIC_DELETE_INITIAL);
-		final Specification<Role> specification1 = Specification.where(where1);
-		final List<Role> roles = this.roleRepository.findAll(specification1);
-		if (id == null) {
-			secondRoles.add(secondRole);
-			secondRoles.addAll(roles);
-			return secondRoles;
-		}
-		final Optional<EmployeeEx> roledOptional = this.employeeExRepository.findById(id);
-		if (roledOptional.isEmpty()) {
-			secondRoles.add(secondRole);
-			secondRoles.addAll(roles);
-			return secondRoles;
-		}
-		final Long roleId = roledOptional.get().getRoleId();
-		final List<Role> selectedRole = roles.stream().filter(a -> Objects.equals(a.getId(), roleId))
-				.collect(Collectors.toList());
-		secondRoles.addAll(selectedRole);
-		secondRoles.addAll(roles);
-		return secondRoles.stream().distinct().collect(Collectors.toList());
 	}
 
 	@Override
@@ -132,22 +98,22 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 	@Override
 	public void save(final EmployeeDto employeeDto) {
-		final Long saibanId = this.employeeRepository.saiban();
-		final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(BCryptVersion.$2A, 7);
-		final String password = encoder.encode(employeeDto.getPassword());
 		final Employee employee = new Employee();
+		final Long saibanId = this.employeeMapper.saiban();
+		final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(BCryptVersion.$2Y, 7);
+		final String password = encoder.encode(employeeDto.getPassword());
 		SecondBeanUtils.copyNullableProperties(employeeDto, employee);
 		employee.setId(saibanId);
 		employee.setPassword(password);
-		employee.setStatus(PgCrowdConstants.EMPLOYEE_NORMAL_STATUS);
 		employee.setCreatedTime(LocalDateTime.now());
+		employee.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
 		if (employeeDto.getRoleId() != null && !Objects.equals(Long.valueOf(0L), employeeDto.getRoleId())) {
-			final EmployeeEx employeeEx = new EmployeeEx();
+			final EmployeeRole employeeEx = new EmployeeRole();
 			employeeEx.setEmployeeId(employeeDto.getId());
 			employeeEx.setRoleId(employeeDto.getRoleId());
-			this.employeeExRepository.saveAndFlush(employeeEx);
+			this.employeeRoleMapper.saveById(employeeEx);
 		}
-		this.employeeRepository.saveAndFlush(employee);
+		this.employeeMapper.saveById(employee);
 	}
 
 	@Override
