@@ -28,7 +28,7 @@ public interface EmployeeMapper {
 	 *
 	 * @param id 社員ID
 	 */
-	void deleteById(Long id);
+	void deleteById(@Param("id") Long id);
 
 	/**
 	 * IDによって情報を挿入する
@@ -50,7 +50,7 @@ public interface EmployeeMapper {
 	 * @param id 社員ID
 	 * @return Employee
 	 */
-	Employee selectById(Long id);
+	Employee selectById(@Param("id") Long id);
 
 	/**
 	 * キーワードによって社員情報を検索する
@@ -58,7 +58,7 @@ public interface EmployeeMapper {
 	 * @param keyword 検索キーワード
 	 * @return List<Employee>
 	 */
-	List<Employee> selectByKeyword(String keyword);
+	List<Employee> selectByKeyword(@Param("keyword") String keyword);
 
 	/**
 	 * IDによって情報を更新する

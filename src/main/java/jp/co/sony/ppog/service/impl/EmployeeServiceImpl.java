@@ -81,7 +81,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 			final EmployeeRole employeeEx = new EmployeeRole();
 			employeeEx.setEmployeeId(employeeDto.getId());
 			employeeEx.setRoleId(employeeDto.getRoleId());
-			this.employeeRoleMapper.saveById(employeeEx);
+			this.employeeRoleMapper.insertById(employeeEx);
 		}
 		this.employeeMapper.insertById(employee);
 	}
@@ -94,6 +94,13 @@ public class EmployeeServiceImpl implements IEmployeeService {
 			final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(BCryptVersion.$2Y, 7);
 			final String encoded = encoder.encode(employeeDto.getPassword());
 			employee.setPassword(encoded);
+		}
+		if ((employeeDto.getRoleId() != null) && !Objects.equals(Long.valueOf(0L), employeeDto.getRoleId())) {
+			final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(employeeDto.getId());
+			if (!Objects.equals(employeeRole.getRoleId(), employeeDto.getRoleId())) {
+				employeeRole.setRoleId(employeeDto.getRoleId());
+				this.employeeRoleMapper.updateById(employeeRole);
+			}
 		}
 		this.employeeMapper.updateById(employee);
 	}
