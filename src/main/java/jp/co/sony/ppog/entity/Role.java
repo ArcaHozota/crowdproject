@@ -31,7 +31,7 @@ public final class Role implements Serializable {
 	private String delFlg;
 
 	/**
-	 * 役割権限連携エンティティ
+	 * 役割権限連携エンティティ権限ID
 	 */
-	private RoleAuth roleAuth;
+	private Long authId;
 }

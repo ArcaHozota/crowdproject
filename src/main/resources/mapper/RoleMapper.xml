@@ -4,11 +4,6 @@
 	<resultMap id="BasicResultMap"
 		type="jp.co.sony.ppog.entity.Role" autoMapping="true">
 		<id property="id" jdbcType="NUMERIC" column="ID" />
-		<association property="roleAuth" resultMap="detailResult"/>
-	</resultMap>
-	<resultMap id="detailResult" type="jp.co.sony.ppog.entity.RoleAuth">
-		<id property="roleId" column="ROLE_ID" />
-		<id property="authId" column="AUTH_ID" />
 	</resultMap>
 	<insert id="insertById"
 		parameterType="jp.co.sony.ppog.entity.Role">
