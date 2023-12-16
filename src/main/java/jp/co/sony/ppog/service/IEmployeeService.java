@@ -21,15 +21,6 @@ public interface IEmployeeService {
 	ResultDto<String> check(String loginAccount);
 
 	/**
-	 * ログイン処理
-	 *
-	 * @param account  アカウント
-	 * @param password パスワード
-	 * @return Employee
-	 */
-	Employee getAdminByLoginAccount(String account, String password);
-
-	/**
 	 * IDによって社員情報を取得する
 	 *
 	 * @param id 社員ID
