@@ -19,6 +19,18 @@
 		    , #{delFlg,jdbcType=NVARCHAR}
 		)
 	</insert>
+	<insert id="batchInsertByIds"
+		parameterType="java.util.List">
+		INSERT 
+		INTO PPOG_ROLE_AUTH PPRA(PPRA.AUTH_ID, PPRA.ROLE_ID) 
+		VALUES 
+		<foreach collection="roleAuths" item="roleAuth" index="index" separator=",">
+			( 
+			    #{roleAuth.authId,jdbcType=NUMERIC}
+			    , #{roleAuth.roleId,jdbcType=NUMERIC}
+			)
+		</foreach>
+	</insert>
 	<update id="removeById"
 		parameterType="java.lang.Long">
 		UPDATE PPOG_ROLE PR 

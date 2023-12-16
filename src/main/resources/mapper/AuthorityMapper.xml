@@ -5,6 +5,24 @@
 		type="jp.co.sony.ppog.entity.Authority" autoMapping="true">
 		<id property="id" jdbcType="NUMERIC" column="ID" />
 	</resultMap>
+	<select id="selectByIds" parameterType="java.util.List"
+		resultMap="BasicResultMap">
+		SELECT
+		    PA.ID
+		    , PA.NAME
+		    , PA.TITLE
+		    , PA.CATEGORY_ID 
+		FROM
+		    PPOG_AUTHORITY PA 
+		WHERE
+			PA.ID IN
+			<foreach collection="ids" item="id" index="index"
+				open="(" close=")" separator=",">
+				#{id,jdbcType=NUMERIC}
+			</foreach>
+		ORDER BY
+		    PA.ID
+	</select>
 	<select id="selectAll" resultMap="BasicResultMap">
 		SELECT
 		    PA.ID
