@@ -63,7 +63,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 	@Override
 	public void removeById(final Long userId) {
-		this.employeeMapper.deleteById(userId);
+		this.employeeMapper.removeById(userId);
 	}
 
 	@Override

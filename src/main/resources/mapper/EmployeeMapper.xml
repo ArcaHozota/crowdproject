@@ -29,7 +29,7 @@
 		    , #{delFlg,jdbcType=NVARCHAR}
 		)
 	</insert>
-	<update id="deleteById" parameterType="java.lang.Long">
+	<update id="removeById" parameterType="java.lang.Long">
 		UPDATE PPOG_EMPLOYEE PE 
 		SET
 		    PE.DEL_FLG = 'rejected' 

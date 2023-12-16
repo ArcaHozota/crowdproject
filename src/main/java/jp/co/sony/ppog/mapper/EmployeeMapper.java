@@ -24,18 +24,18 @@ public interface EmployeeMapper {
 	Integer checkDuplicated(@Param("loginAccount") String loginAccount);
 
 	/**
-	 * IDによって論理削除を行う
-	 *
-	 * @param id 社員ID
-	 */
-	void deleteById(@Param("id") Long id);
-
-	/**
 	 * IDによって情報を挿入する
 	 *
 	 * @param employee 社員エンティティ
 	 */
 	void insertById(Employee employee);
+
+	/**
+	 * IDによって論理削除を行う
+	 *
+	 * @param id 社員ID
+	 */
+	void removeById(@Param("id") Long id);
 
 	/**
 	 * ID採番値を取得する
