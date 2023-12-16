@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,6 +14,7 @@ import com.google.gson.Gson;
 
 import jp.co.sony.ppog.commons.CrowdPlusConstants;
 import jp.co.sony.ppog.exception.CrowdPlusException;
+import jp.co.sony.ppog.exception.LoginFailedException;
 import jp.co.sony.ppog.utils.CrowdPlusUtils;
 import jp.co.sony.ppog.utils.ResultDto;
 
@@ -93,8 +93,8 @@ public final class CrowdPlusExceptionResolver {
 	 * @return ModelAndView モデルビューオブジェクト
 	 * @throws IOException
 	 */
-	@ExceptionHandler(UsernameNotFoundException.class)
-	public ModelAndView resolveUsernameNotFoundException(final CrowdPlusException exception,
+	@ExceptionHandler(LoginFailedException.class)
+	public ModelAndView resolveLoginFailedException(final LoginFailedException exception,
 			final HttpServletRequest request, final HttpServletResponse response) throws IOException {
 		// 現在の例外に対応するページを指定する
 		final String viewName = "admin-login";
