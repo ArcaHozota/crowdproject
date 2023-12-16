@@ -31,7 +31,7 @@
 					<i class="bi bi-box-arrow-in-right"></i>社員登録
 				</h2>
 			</div>
-			<p th:text="${session['SPRING_SECURITY_LAST_EXCEPTION']} eq null ? '' : 'ログイン失敗、もう一度やり直してください。'"/>
+			<p th:text="${session['SPRING_SECURITY_LAST_EXCEPTION']} eq null ? '' : ${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"/>
 			<div class="input-group mb-3"> <span class="input-group-text"><span class="bi bi-people"></span></span>
 				<input type="text" name="loginAcct" class="form-control" id="inputSuccess" placeholder="アカウント名を入力してください"
 					autofocus>

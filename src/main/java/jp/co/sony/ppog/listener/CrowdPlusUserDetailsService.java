@@ -54,17 +54,17 @@ public final class CrowdPlusUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
 		final Employee employee = this.employeeMapper.selectByLoginAcct(username);
 		if (employee == null) {
-			return null;
+			throw new UsernameNotFoundException("当ユーザ" + username + "は存在しません。もう一度やり直してください。");
 		}
 		final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(employee.getId());
 		if (employeeRole == null) {
-			return null;
+			throw new UsernameNotFoundException("当ユーザ" + username + "の役割情報が存在しません。ログイン拒否。");
 		}
 		final List<Role> selectByIdWithAuth = this.roleMapper.selectByIdWithAuth(employeeRole.getRoleId());
 		final List<Long> authIds = selectByIdWithAuth.stream().map(item -> item.getRoleAuth().getAuthId())
 				.collect(Collectors.toList());
 		if (authIds.isEmpty()) {
-			return null;
+			throw new UsernameNotFoundException("当ユーザ" + username + "の役割がありますが、役割権限がないのでログイン拒否。");
 		}
 		final List<GrantedAuthority> authorities = this.authorityMapper.selectByIds(authIds).stream()
 				.map(item -> new SimpleGrantedAuthority(item.getName())).collect(Collectors.toList());
