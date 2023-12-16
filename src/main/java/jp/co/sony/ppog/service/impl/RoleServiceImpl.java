@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.sony.ppog.commons.CrowdPlusConstants;
 import jp.co.sony.ppog.dto.RoleDto;
@@ -25,6 +26,7 @@ import jp.co.sony.ppog.utils.SecondBeanUtils;
 import jp.co.sony.ppog.utils.SnowflakeUtils;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import oracle.jdbc.driver.OracleSQLException;
 
 /**
  * 役割サービス実装クラス
@@ -33,7 +35,8 @@ import lombok.RequiredArgsConstructor;
  * @since 1.00
  */
 @Service
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+@Transactional(rollbackFor = OracleSQLException.class)
 public class RoleServiceImpl implements IRoleService {
 
 	/**
