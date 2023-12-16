@@ -77,7 +77,7 @@ public final class CrowdPlusExceptionResolver {
 	 * @return ModelAndView モデルビューオブジェクト
 	 * @throws IOException
 	 */
-	@ExceptionHandler(value = CrowdPlusException.class)
+	@ExceptionHandler(CrowdPlusException.class)
 	public ModelAndView resolveCrowdPlusException(final CrowdPlusException exception, final HttpServletRequest request,
 			final HttpServletResponse response) throws IOException {
 		// 現在の例外に対応するページを指定する
