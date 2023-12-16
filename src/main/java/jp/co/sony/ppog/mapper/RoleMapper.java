@@ -40,6 +40,13 @@ public interface RoleMapper {
 	Integer checkDuplicated(@Param("name") String name);
 
 	/**
+	 * IDによって論理削除を行う
+	 *
+	 * @param id 役割ID
+	 */
+	void removeById(@Param("id") Long id);
+
+	/**
 	 * 全件検索を行う
 	 *
 	 * @return List<Role>

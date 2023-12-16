@@ -1,5 +1,7 @@
 package jp.co.sony.ppog.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -28,6 +30,14 @@ public interface EmployeeRoleMapper {
 	 * @return EmployeeRole
 	 */
 	EmployeeRole selectById(@Param("id") Long id);
+
+	/**
+	 * 役割IDによって情報を検索する
+	 *
+	 * @param roleId 役割ID
+	 * @return EmployeeRole
+	 */
+	List<EmployeeRole> selectByRoleId(@Param("roleId") Long roleId);
 
 	/**
 	 * IDによって情報を更新する

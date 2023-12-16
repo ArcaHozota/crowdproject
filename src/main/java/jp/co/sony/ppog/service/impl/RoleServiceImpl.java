@@ -7,7 +7,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import jp.co.sony.ppog.commons.CrowdPlusConstants;
@@ -129,18 +128,11 @@ public class RoleServiceImpl implements IRoleService {
 
 	@Override
 	public ResultDto<String> removeById(final Long roleId) {
-		final Specification<EmployeeEx> where = (root, query, criteriaBuilder) -> criteriaBuilder
-				.equal(root.get("roleId"), roleId);
-		final Specification<EmployeeEx> specification = Specification.where(where);
-		final List<EmployeeEx> list = this.employeeExRepository.findAll(specification);
-		if (!list.isEmpty()) {
-			return ResultDto.failed(PgCrowdConstants.MESSAGE_STRING_FORBIDDEN);
+		final List<EmployeeRole> list = this.employeeRoleMapper.selectByRoleId(roleId);
+		if ((list != null) || !list.isEmpty()) {
+			return ResultDto.failed(CrowdPlusConstants.MESSAGE_STRING_FORBIDDEN);
 		}
-		final Role role = this.roleRepository.findById(roleId).orElseThrow(() -> {
-			throw new PgCrowdException(PgCrowdConstants.MESSAGE_STRING_NOTEXISTS);
-		});
-		role.setDeleteFlg(PgCrowdConstants.LOGIC_DELETE_FLG);
-		this.roleRepository.saveAndFlush(role);
+		this.roleMapper.removeById(roleId);
 		return ResultDto.successWithoutData();
 	}
 
