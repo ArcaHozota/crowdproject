@@ -40,6 +40,13 @@ public interface RoleMapper {
 	Integer checkDuplicated(@Param("name") String name);
 
 	/**
+	 * IDによって情報を挿入する
+	 *
+	 * @param role 役割エンティティ
+	 */
+	void insertById(Role role);
+
+	/**
 	 * IDによって論理削除を行う
 	 *
 	 * @param id 役割ID
@@ -76,4 +83,11 @@ public interface RoleMapper {
 	 * @return List<Role>
 	 */
 	List<Role> selectByKeyword(String keyword);
+
+	/**
+	 * IDによって情報を更新する
+	 *
+	 * @param role 役割エンティティ
+	 */
+	void updateById(Role role);
 }

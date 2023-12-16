@@ -141,20 +141,18 @@ public class RoleServiceImpl implements IRoleService {
 		final Role role = new Role();
 		SecondBeanUtils.copyNullableProperties(roleDto, role);
 		role.setId(SnowflakeUtils.snowflakeId());
-		role.setDeleteFlg(PgCrowdConstants.LOGIC_DELETE_INITIAL);
-		this.roleRepository.saveAndFlush(role);
+		role.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
+		this.roleMapper.insertById(role);
 	}
 
 	@Override
 	public ResultDto<String> update(final RoleDto roleDto) {
-		final Role role = this.roleRepository.findById(roleDto.getId()).orElseThrow(() -> {
-			throw new PgCrowdException(PgCrowdConstants.MESSAGE_STRING_NOTEXISTS);
-		});
+		final Role role = new Role();
 		SecondBeanUtils.copyNullableProperties(roleDto, role);
 		try {
-			this.roleRepository.saveAndFlush(role);
+			this.roleMapper.updateById(role);
 		} catch (final DataIntegrityViolationException e) {
-			return ResultDto.failed(PgCrowdConstants.MESSAGE_ROLE_NAME_DUPLICATED);
+			return ResultDto.failed(CrowdPlusConstants.MESSAGE_ROLE_NAME_DUPLICATED);
 		}
 		return ResultDto.successWithoutData();
 	}

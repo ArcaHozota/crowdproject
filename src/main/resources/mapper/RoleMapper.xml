@@ -10,24 +10,31 @@
 		</association>
 	</resultMap>
 	<insert id="insertById"
-		parameterType="jp.co.sony.ppog.entity.EmployeeRole">
+		parameterType="jp.co.sony.ppog.entity.Role">
 		INSERT 
-		INTO PPOG_EMPLOYEE_ROLE PPER ( 
-		    PPER.EMPLOYEE_ID
-		    , PPER.ROLE_ID
-		) 
+		INTO PPOG_ROLE PR(PR.ID, PR.NAME, PR.DEL_FLG) 
 		VALUES ( 
-		    #{employeeId,jdbcType=NUMERIC}
-		    , #{roleId,jdbcType=NUMERIC}
+		    #{id,jdbcType=NUMERIC}
+		    , #{name,jdbcType=NVARCHAR}
+		    , #{delFlg,jdbcType=NVARCHAR}
 		)
 	</insert>
-	<update id="updateById"
-		parameterType="jp.co.sony.ppog.entity.EmployeeRole">
-		UPDATE PPOG_EMPLOYEE_ROLE PPER 
+	<update id="removeById"
+		parameterType="java.lang.Long">
+		UPDATE PPOG_ROLE PR 
 		SET
-		    PPER.ROLE_ID = #{roleId,jdbcType=NUMERIC} 
+		    PR.DEL_FLG = 'rejected' 
 		WHERE
-		    AND PPER.EMPLOYEE_ID = #{employeeId,jdbcType=NUMERIC}
+		    PR.ID = #{id,jdbcType=NUMERIC}
+	</update>
+	<update id="updateById"
+		parameterType="jp.co.sony.ppog.entity.Role">
+		UPDATE PPOG_ROLE PR 
+		SET
+		    PR.NAME = #{name,jdbcType=NUMERIC} 
+		WHERE
+		    PR.DEL_FLG = 'approved' 
+		    AND PR.ID = #{id,jdbcType=NUMERIC}
 	</update>
 	<delete id="batchDeleteByRoleId">
 		DELETE 
