@@ -21,6 +21,7 @@ import jp.co.sony.ppog.mapper.EmployeeMapper;
 import jp.co.sony.ppog.mapper.EmployeeRoleMapper;
 import jp.co.sony.ppog.mapper.RoleMapper;
 import jp.co.sony.ppog.utils.StringUtils;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import oracle.jdbc.driver.OracleSQLException;
 
@@ -31,7 +32,7 @@ import oracle.jdbc.driver.OracleSQLException;
  * @since 1.00beta
  */
 @Component
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 @Transactional(rollbackFor = OracleSQLException.class)
 public class CrowdPlusUserDetailsService implements UserDetailsService {
 
