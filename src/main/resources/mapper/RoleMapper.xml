@@ -99,7 +99,7 @@
 		    , PPRA.ROLE_ID 
 		FROM
 		    PPOG_ROLE PR 
-		    INNER JOIN PPOG_ROLE_AUTH PPRA 
+		    LEFT JOIN PPOG_ROLE_AUTH PPRA 
 		        ON PPRA.ROLE_ID = PR.ID 
 		WHERE
 		    PR.DEL_FLG = 'approved' 
