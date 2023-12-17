@@ -1,6 +1,7 @@
 package jp.co.sony.ppog.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import lombok.Data;
 
@@ -33,5 +34,5 @@ public final class Role implements Serializable {
 	/**
 	 * 役割権限連携エンティティ権限ID
 	 */
-	private Long authId;
+	private List<RoleAuth> roleAuths;
 }

@@ -4,6 +4,10 @@
 	<resultMap id="BasicResultMap"
 		type="jp.co.sony.ppog.entity.Role" autoMapping="true">
 		<id property="id" jdbcType="NUMERIC" column="ID" />
+		<association property="roleAuths">
+			<id property="roleId" jdbcType="NUMERIC" column="ROLE_ID" />
+			<id property="authId" jdbcType="NUMERIC" column="AUTH_ID" />
+		</association>
 	</resultMap>
 	<insert id="insertById"
 		parameterType="jp.co.sony.ppog.entity.Role">
@@ -94,6 +98,7 @@
 		    , PR.NAME
 		    , PR.DEL_FLG
 		    , PPRA.AUTH_ID 
+		    , PPRA.ROLE_ID 
 		FROM
 		    PPOG_ROLE PR 
 		    INNER JOIN PPOG_ROLE_AUTH PPRA 

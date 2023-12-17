@@ -74,7 +74,7 @@ public interface RoleMapper {
 	 * @param id 役割ID
 	 * @return Role
 	 */
-	List<Role> selectByIdWithAuth(@Param("id") Long id);
+	Role selectByIdWithAuth(@Param("id") Long id);
 
 	/**
 	 * キーワードによって役割情報を検索する
