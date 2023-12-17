@@ -4,10 +4,11 @@
 	<resultMap id="BasicResultMap"
 		type="jp.co.sony.ppog.entity.Role" autoMapping="true">
 		<id property="id" jdbcType="NUMERIC" column="ID" />
-		<association property="roleAuths">
-			<id property="roleId" jdbcType="NUMERIC" column="ROLE_ID" />
-			<id property="authId" jdbcType="NUMERIC" column="AUTH_ID" />
-		</association>
+		<collection property="roleAuths" resultMap="authMap"/>
+	</resultMap>
+	<resultMap id="authMap" type="jp.co.sony.ppog.entity.RoleAuth">
+		<id property="roleId" jdbcType="NUMERIC" column="ROLE_ID" />
+		<id property="authId" jdbcType="NUMERIC" column="AUTH_ID" />
 	</resultMap>
 	<insert id="insertById"
 		parameterType="jp.co.sony.ppog.entity.Role">
@@ -72,7 +73,6 @@
 		SELECT
 		    PR.ID
 		    , PR.NAME
-		    , PR.DEL_FLG
 		FROM
 		    PPOG_ROLE PR 
 		WHERE
@@ -84,7 +84,6 @@
 		SELECT
 		    PR.ID
 		    , PR.NAME
-		    , PR.DEL_FLG
 		FROM
 		    PPOG_ROLE PR 
 		WHERE
@@ -96,7 +95,6 @@
 		SELECT
 		    PR.ID
 		    , PR.NAME
-		    , PR.DEL_FLG
 		    , PPRA.AUTH_ID 
 		    , PPRA.ROLE_ID 
 		FROM
