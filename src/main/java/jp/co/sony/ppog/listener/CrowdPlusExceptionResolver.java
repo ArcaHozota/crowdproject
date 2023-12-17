@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -93,8 +93,8 @@ public final class CrowdPlusExceptionResolver {
 	 * @return ModelAndView モデルビューオブジェクト
 	 * @throws IOException
 	 */
-	@ExceptionHandler(UsernameNotFoundException.class)
-	public ModelAndView resolveLoginFailedException(final UsernameNotFoundException exception,
+	@ExceptionHandler(AuthenticationException.class)
+	public ModelAndView resolveLoginFailedException(final AuthenticationException exception,
 			final HttpServletRequest request, final HttpServletResponse response) throws IOException {
 		// 現在の例外に対応するページを指定する
 		final String viewName = "admin-login";

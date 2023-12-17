@@ -19,6 +19,7 @@ import jp.co.sony.ppog.mapper.AuthorityMapper;
 import jp.co.sony.ppog.mapper.EmployeeMapper;
 import jp.co.sony.ppog.mapper.EmployeeRoleMapper;
 import jp.co.sony.ppog.mapper.RoleMapper;
+import jp.co.sony.ppog.utils.StringUtils;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -55,15 +56,15 @@ public final class CrowdPlusUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
 		final Employee employee = this.employeeMapper.selectByLoginAcct(username);
 		if (employee == null) {
-			throw new UsernameNotFoundException("当ユーザ" + username + "は存在しません。もう一度やり直してください。");
+			throw new UsernameNotFoundException(StringUtils.EMPTY_STRING);
 		}
 		final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(employee.getId());
 		if (employeeRole == null) {
-			throw new UsernameNotFoundException("当ユーザ" + username + "の役割情報が存在しません。ログイン拒否。");
+			throw new UsernameNotFoundException(StringUtils.EMPTY_STRING);
 		}
 		final Role role = this.roleMapper.selectByIdWithAuth(employeeRole.getRoleId());
 		if (role.getRoleAuths().isEmpty()) {
-			throw new UsernameNotFoundException("当ユーザ" + username + "の役割がありますが、役割権限がないのでログイン拒否。");
+			throw new UsernameNotFoundException(StringUtils.EMPTY_STRING);
 		}
 		final List<Long> authIds = role.getRoleAuths().stream().map(RoleAuth::getAuthId).collect(Collectors.toList());
 		final List<GrantedAuthority> authorities = this.authorityMapper.selectByIds(authIds).stream()
