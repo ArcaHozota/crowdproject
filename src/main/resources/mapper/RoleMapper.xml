@@ -83,12 +83,14 @@
 		resultMap="BasicResultMap">
 		SELECT
 		    PR.ID
-		    , PR.NAME
+		    , PR.NAME 
 		FROM
 		    PPOG_ROLE PR 
 		WHERE
 		    PR.DEL_FLG = 'approved' 
-		    AND PR.NAME LIKE #{keyword,jdbcType=NUMERIC}
+		    AND PR.NAME LIKE #{keyword,jdbcType=NUMERIC} 
+		ORDER BY
+		    PR.ID
 	</select>
 	<select id="selectByIdWithAuth" parameterType="java.lang.Long" 
 		resultMap="BasicResultMap">

@@ -68,12 +68,12 @@
 		    , PE.PASSWORD
 		    , PE.USERNAME
 		    , PE.EMAIL
-		    , PE.CREATED_TIME
+		    , PE.CREATED_TIME 
 		FROM
 		    PPOG_EMPLOYEE PE 
 		WHERE
 		    PE.DEL_FLG = 'approved' 
-		    AND PE.ID = #{id,jdbcType=NUMERIC}
+		    AND PE.ID = #{id,jdbcType=NUMERIC} 
 	</select>
 	<select id="selectByLoginAcct" parameterType="java.lang.String" 
 		resultMap="BasicResultMap">
@@ -83,12 +83,12 @@
 		    , PE.PASSWORD
 		    , PE.USERNAME
 		    , PE.EMAIL
-		    , PE.CREATED_TIME
+		    , PE.CREATED_TIME 
 		FROM
 		    PPOG_EMPLOYEE PE 
 		WHERE
 		    PE.DEL_FLG = 'approved' 
-		    AND PE.LOGIN_ACCT = #{loginAccout,jdbcType=NVARCHAR}
+		    AND PE.LOGIN_ACCT = #{loginAccout,jdbcType=NVARCHAR} 
 	</select>
 	<select id="selectByKeyword" parameterType="java.lang.String" 
 		resultMap="BasicResultMap">
@@ -98,7 +98,7 @@
 		    , PE.PASSWORD
 		    , PE.USERNAME
 		    , PE.EMAIL
-		    , PE.CREATED_TIME
+		    , PE.CREATED_TIME 
 		FROM
 		    PPOG_EMPLOYEE PE 
 		WHERE
@@ -107,7 +107,9 @@
 		        PE.USERNAME LIKE #{keyword,jdbcType=NVARCHAR} 
 		        OR PE.LOGIN_ACCT LIKE #{keyword,jdbcType=NVARCHAR} 
 		        OR PE.EMAIL LIKE #{keyword,jdbcType=NVARCHAR}
-		    )
+		    ) 
+		ORDER BY
+		    PE.ID
 	</select>
 	<select id="saiban" resultType="java.lang.Long">
 		SELECT
