@@ -14,6 +14,7 @@ import jp.co.sony.ppog.dto.SecurityAdmin;
 import jp.co.sony.ppog.entity.Employee;
 import jp.co.sony.ppog.entity.EmployeeRole;
 import jp.co.sony.ppog.entity.Role;
+import jp.co.sony.ppog.entity.RoleAuth;
 import jp.co.sony.ppog.mapper.AuthorityMapper;
 import jp.co.sony.ppog.mapper.EmployeeMapper;
 import jp.co.sony.ppog.mapper.EmployeeRoleMapper;
@@ -60,8 +61,8 @@ public final class CrowdPlusUserDetailsService implements UserDetailsService {
 		if (employeeRole == null) {
 			throw new UsernameNotFoundException("当ユーザ" + username + "の役割情報が存在しません。ログイン拒否。");
 		}
-		final List<Role> selectByIdWithAuth = this.roleMapper.selectByIdWithAuth(employeeRole.getRoleId());
-		final List<Long> authIds = selectByIdWithAuth.stream().map(Role::getAuthId).collect(Collectors.toList());
+		final Role role = this.roleMapper.selectByIdWithAuth(employeeRole.getRoleId());
+		final List<Long> authIds = role.getRoleAuths().stream().map(RoleAuth::getAuthId).collect(Collectors.toList());
 		if (authIds.isEmpty()) {
 			throw new UsernameNotFoundException("当ユーザ" + username + "の役割がありますが、役割権限がないのでログイン拒否。");
 		}

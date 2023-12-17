@@ -83,8 +83,8 @@ public class RoleServiceImpl implements IRoleService {
 
 	@Override
 	public List<Long> getAuthIdListByRoleId(final Long roleId) {
-		final List<Role> selectByIdWithAuth = this.roleMapper.selectByIdWithAuth(roleId);
-		return selectByIdWithAuth.stream().map(Role::getAuthId).collect(Collectors.toList());
+		final Role role = this.roleMapper.selectByIdWithAuth(roleId);
+		return role.getRoleAuths().stream().map(RoleAuth::getAuthId).collect(Collectors.toList());
 	}
 
 	@Override
