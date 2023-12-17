@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.sony.ppog.dto.SecurityAdmin;
 import jp.co.sony.ppog.entity.Employee;
@@ -21,6 +22,7 @@ import jp.co.sony.ppog.mapper.EmployeeRoleMapper;
 import jp.co.sony.ppog.mapper.RoleMapper;
 import jp.co.sony.ppog.utils.StringUtils;
 import lombok.RequiredArgsConstructor;
+import oracle.jdbc.driver.OracleSQLException;
 
 /**
  * ログインコントローラ(SpringSecurity関連)
@@ -30,7 +32,8 @@ import lombok.RequiredArgsConstructor;
  */
 @Component
 @RequiredArgsConstructor
-public final class CrowdPlusUserDetailsService implements UserDetailsService {
+@Transactional(rollbackFor = OracleSQLException.class)
+public class CrowdPlusUserDetailsService implements UserDetailsService {
 
 	/**
 	 * 権限マッパー
