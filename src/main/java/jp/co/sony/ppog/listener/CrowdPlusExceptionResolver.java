@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,7 +24,7 @@ import jp.co.sony.ppog.utils.ResultDto;
  * @author ArkamaHozota
  * @since 1.00beta
  */
-@ControllerAdvice
+@Controller
 public final class CrowdPlusExceptionResolver {
 
 	/**
