@@ -62,6 +62,8 @@ public class CrowdPlusConstants {
 
 	public static final String MESSAGE_SPRINGSECURITY_LOGINERROR3 = "当ユーザの役割がありますが、役割権限がないのでログイン拒否。";
 
+	public static final String MESSAGE_SPRINGSECURITY_LOGINERROR4 = "入力したパスワードが正しくありません。";
+
 	public static final String DEFAULT_ROLE_NAME = "---------------------------";
 
 	public static final String MESSAGE_SPRING_SECURITY = "スプリングセキュリティ作動中。";

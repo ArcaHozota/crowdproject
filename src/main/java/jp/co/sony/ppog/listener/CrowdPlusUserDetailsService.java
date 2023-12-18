@@ -3,7 +3,7 @@ package jp.co.sony.ppog.listener;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
@@ -63,15 +63,15 @@ public class CrowdPlusUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
 		final Employee employee = this.employeeMapper.selectByLoginAcct(username);
 		if (employee == null) {
-			throw new BadCredentialsException(CrowdPlusConstants.MESSAGE_SPRINGSECURITY_LOGINERROR1);
+			throw new DisabledException(CrowdPlusConstants.MESSAGE_SPRINGSECURITY_LOGINERROR1);
 		}
 		final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(employee.getId());
 		if (employeeRole == null) {
-			throw new DisabledException(CrowdPlusConstants.MESSAGE_SPRINGSECURITY_LOGINERROR2);
+			throw new InsufficientAuthenticationException(CrowdPlusConstants.MESSAGE_SPRINGSECURITY_LOGINERROR2);
 		}
 		final Role role = this.roleMapper.selectByIdWithAuth(employeeRole.getRoleId());
 		if (role.getRoleAuths().isEmpty()) {
-			throw new InsufficientAuthenticationException(CrowdPlusConstants.MESSAGE_SPRINGSECURITY_LOGINERROR3);
+			throw new AuthenticationCredentialsNotFoundException(CrowdPlusConstants.MESSAGE_SPRINGSECURITY_LOGINERROR3);
 		}
 		final List<Long> authIds = role.getRoleAuths().stream().map(RoleAuth::getAuthId).collect(Collectors.toList());
 		final List<GrantedAuthority> authorities = this.authorityMapper.selectByIds(authIds).stream()
