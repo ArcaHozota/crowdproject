@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 
 import com.google.gson.Gson;
 
-import jp.co.sony.ppog.config.ResponseResult;
+import jp.co.sony.ppog.config.ResponseLoginDto;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -45,7 +45,7 @@ public final class CrowdPlusUtils {
 	 * @param response リスポンス
 	 * @param string   ストリング
 	 */
-	public static void renderString(final HttpServletResponse response, final ResponseResult aResult) {
+	public static void renderString(final HttpServletResponse response, final ResponseLoginDto aResult) {
 		final Gson gson = new Gson();
 		try {
 			response.setStatus(aResult.getCode());

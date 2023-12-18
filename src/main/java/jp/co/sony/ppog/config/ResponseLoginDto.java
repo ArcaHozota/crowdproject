@@ -13,7 +13,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class ResponseResult implements Serializable {
+public class ResponseLoginDto implements Serializable {
 
 	private static final long serialVersionUID = -5033762283136118856L;
 
@@ -30,7 +30,7 @@ public class ResponseResult implements Serializable {
 	/**
 	 * コンストラクタ
 	 */
-	protected ResponseResult() {
+	ResponseLoginDto() {
 		this.code = 200;
 	}
 
@@ -40,7 +40,7 @@ public class ResponseResult implements Serializable {
 	 * @param code    コード
 	 * @param message メッセージ
 	 */
-	protected ResponseResult(final Integer code, final String message) {
+	ResponseLoginDto(final Integer code, final String message) {
 		this.code = code;
 		this.message = message;
 	}

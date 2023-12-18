@@ -63,7 +63,7 @@ public class WebSecurityConfig {
 				e.printStackTrace();
 			}
 		}).exceptionHandling().authenticationEntryPoint((request, response, authenticationException) -> {
-			final ResponseResult responseResult = new ResponseResult(401, authenticationException.getMessage());
+			final ResponseLoginDto responseResult = new ResponseLoginDto(403, authenticationException.getMessage());
 			CrowdPlusUtils.renderString(response, responseResult);
 		}).and().formLogin(formLogin -> {
 			formLogin.loginPage("/pgcrowd/employee/login").loginProcessingUrl("/pgcrowd/employee/do/login")
