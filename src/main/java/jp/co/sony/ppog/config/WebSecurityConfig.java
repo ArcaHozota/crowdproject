@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,6 +17,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import jp.co.sony.ppog.commons.CrowdPlusConstants;
 import jp.co.sony.ppog.exception.CrowdPlusException;
+import jp.co.sony.ppog.listener.CrowdPlusAuthenticationEntryPointImpl;
 import jp.co.sony.ppog.listener.CrowdPlusUserDetailsService;
 import lombok.extern.log4j.Log4j2;
 
@@ -36,7 +36,13 @@ public class WebSecurityConfig {
 	 * ログインサービス
 	 */
 	@Resource
-	private CrowdPlusUserDetailsService pgCrowdUserDetailsService;
+	private CrowdPlusUserDetailsService crowdPlusUserDetailsService;
+
+	/**
+	 * ハンドラー
+	 */
+	@Resource
+	private CrowdPlusAuthenticationEntryPointImpl crowdPlusAuthenticationEntryPointImpl;
 
 	@Bean
 	protected AuthenticationManager authenticationManager(final AuthenticationManagerBuilder auth) {
@@ -46,7 +52,7 @@ public class WebSecurityConfig {
 	@Bean
 	protected DaoAuthenticationProvider daoAuthenticationProvider() {
 		final DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-		provider.setUserDetailsService(this.pgCrowdUserDetailsService);
+		provider.setUserDetailsService(this.crowdPlusUserDetailsService);
 		provider.setPasswordEncoder(new BCryptPasswordEncoder(BCryptVersion.$2Y, 7));
 		return provider;
 	}
@@ -71,7 +77,7 @@ public class WebSecurityConfig {
 			} catch (final Exception e) {
 				throw new CrowdPlusException(CrowdPlusConstants.MESSAGE_STRING_FATALERROR);
 			}
-		}).httpBasic(Customizer.withDefaults());
+		}).exceptionHandling().authenticationEntryPoint(this.crowdPlusAuthenticationEntryPointImpl);
 		log.info(CrowdPlusConstants.MESSAGE_SPRING_SECURITY);
 		return http.build();
 	}
