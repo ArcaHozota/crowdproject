@@ -5,6 +5,11 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.MediaType;
+
+import com.google.gson.Gson;
+
+import jp.co.sony.ppog.config.ResponseResult;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -40,14 +45,14 @@ public final class CrowdPlusUtils {
 	 * @param response リスポンス
 	 * @param string   ストリング
 	 */
-	public static void renderString(final HttpServletResponse response, final String string) {
+	public static void renderString(final HttpServletResponse response, final ResponseResult aResult) {
+		final Gson gson = new Gson();
 		try {
-			response.setStatus(200);
-			response.setContentType("application/json");
-			response.setCharacterEncoding("utf-8");
-			response.getWriter().print(string);
+			response.setStatus(aResult.getCode());
+			response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+			response.getWriter().print(gson.toJson(aResult));
 		} catch (final IOException e) {
-			e.printStackTrace();
+			// do nothing
 		}
 	}
 }
