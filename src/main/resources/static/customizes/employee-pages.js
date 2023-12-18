@@ -1,9 +1,8 @@
-let pageNum = /*[[${pageNum}]]*/{};
-let totalRecords, totalPages, keyword;
+let pageNum, totalRecords, totalPages, keyword;
 $(document).ready(function() {
 	$("#adminKanri").removeClass('collapsed');
 	$("ul", $("#adminKanri")).show('fast');
-	toSelectedPg(pageNum, keyword);
+	toSelectedPg(1, keyword);
 });
 $("#searchBtn2").on('click', function() {
 	keyword = $("#keywordInput").val();
