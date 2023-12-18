@@ -4,8 +4,10 @@ import javax.annotation.Resource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,9 +17,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.BCryptVe
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.google.gson.Gson;
+
 import jp.co.sony.ppog.commons.CrowdPlusConstants;
 import jp.co.sony.ppog.exception.CrowdPlusException;
-import jp.co.sony.ppog.listener.CrowdPlusAuthenticationEntryPointImpl;
 import jp.co.sony.ppog.listener.CrowdPlusUserDetailsService;
 import lombok.extern.log4j.Log4j2;
 
@@ -37,12 +40,6 @@ public class WebSecurityConfig {
 	 */
 	@Resource
 	private CrowdPlusUserDetailsService crowdPlusUserDetailsService;
-
-	/**
-	 * ハンドラー
-	 */
-	@Resource
-	private CrowdPlusAuthenticationEntryPointImpl crowdPlusAuthenticationEntryPointImpl;
 
 	@Bean
 	protected AuthenticationManager authenticationManager(final AuthenticationManagerBuilder auth) {
@@ -67,7 +64,13 @@ public class WebSecurityConfig {
 			} catch (final Exception e) {
 				e.printStackTrace();
 			}
-		}).formLogin(formLogin -> {
+		}).exceptionHandling().authenticationEntryPoint((request, response, authenticationException) -> {
+			final ResponseResult responseResult = new ResponseResult(401, authenticationException.getMessage());
+			final Gson gson = new Gson();
+			response.setStatus(responseResult.getCode());
+			response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
+			response.getWriter().println(gson.toJson(responseResult));
+		}).and().formLogin(formLogin -> {
 			formLogin.loginPage("/pgcrowd/employee/login").loginProcessingUrl("/pgcrowd/employee/do/login")
 					.defaultSuccessUrl("/pgcrowd/to/mainmenu").permitAll().usernameParameter("loginAcct")
 					.passwordParameter("userPswd");
@@ -77,7 +80,7 @@ public class WebSecurityConfig {
 			} catch (final Exception e) {
 				throw new CrowdPlusException(CrowdPlusConstants.MESSAGE_STRING_FATALERROR);
 			}
-		}).exceptionHandling().authenticationEntryPoint(this.crowdPlusAuthenticationEntryPointImpl);
+		}).httpBasic(Customizer.withDefaults());
 		log.info(CrowdPlusConstants.MESSAGE_SPRING_SECURITY);
 		return http.build();
 	}

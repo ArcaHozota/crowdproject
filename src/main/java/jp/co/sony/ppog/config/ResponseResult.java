@@ -1,4 +1,4 @@
-package jp.co.sony.ppog.listener;
+package jp.co.sony.ppog.config;
 
 import java.io.Serializable;
 
