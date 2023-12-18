@@ -30,7 +30,7 @@ import lombok.RequiredArgsConstructor;
  * 社員コントローラ
  *
  * @author ArkamaHozota
- * @since 1.16
+ * @since 1.00beta
  */
 @Controller
 @RequestMapping("/pgcrowd/employee")
@@ -70,20 +70,6 @@ public final class EmployeeController {
 	public ResultDto<String> deleteInfo(@PathVariable("userId") final Long userId) {
 		this.iEmployeeService.removeById(userId);
 		return ResultDto.successWithoutData();
-	}
-
-	/**
-	 * 社員情報初期表示
-	 *
-	 * @param userId  ユーザID
-	 * @param pageNum ページナンバー
-	 * @return ModelAndView
-	 */
-	@GetMapping("/to/pages")
-	public ModelAndView initialPages(@RequestParam(name = "pageNum") final Integer pageNum) {
-		final ModelAndView modelAndView = new ModelAndView("admin-pages");
-		modelAndView.addObject(CrowdPlusConstants.ATTRNAME_PAGE_NUMBER, pageNum);
-		return modelAndView;
 	}
 
 	/**
