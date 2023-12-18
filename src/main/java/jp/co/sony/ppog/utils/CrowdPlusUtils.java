@@ -1,13 +1,10 @@
 package jp.co.sony.ppog.utils;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import jp.co.sony.ppog.commons.CrowdPlusConstants;
-import jp.co.sony.ppog.exception.CrowdPlusException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -31,40 +28,26 @@ public final class CrowdPlusUtils {
 		final String acceptInformation = request.getHeader("Accept");
 		final String xRequestInformation = request.getHeader("X-Requested-With");
 		// 判断して返却する
-		return acceptInformation != null && acceptInformation.length() > 0
-				&& acceptInformation.contains("application/json")
-				|| xRequestInformation != null && xRequestInformation.length() > 0
-						&& "XMLHttpRequest".equals(xRequestInformation);
+		return ((acceptInformation != null) && (acceptInformation.length() > 0)
+				&& acceptInformation.contains("application/json"))
+				|| ((xRequestInformation != null) && (xRequestInformation.length() > 0)
+						&& "XMLHttpRequest".equals(xRequestInformation));
 	}
 
 	/**
-	 * 平文文字列をMD5暗号化する
+	 * 文字列をクライアントにレンダリングする
 	 *
-	 * @param source 文字列
-	 * @return String
+	 * @param response リスポンス
+	 * @param string   ストリング
 	 */
-	public static String plainToMD5(final String source) {
-		// 1.ソースが有効かどうかを判断する
-		if (source == null || source.length() == 0) {
-			// 2.有効な文字列でない場合は例外をスローする
-			throw new CrowdPlusException(CrowdPlusConstants.MESSAGE_STRING_INVALIDATE);
-		}
+	public static void renderString(final HttpServletResponse response, final String string) {
 		try {
-			// 3.MessageDigestオブジェクトを取得する
-			final MessageDigest messageDigest = MessageDigest.getInstance("md5");
-			// 4.平文文字列に対応するバイト配列を取得する
-			final byte[] input = source.getBytes();
-			// 5.暗号化を実行する
-			final byte[] output = messageDigest.digest(input);
-			// 6.BigIntegerオブジェクトを作成する
-			final int signum = 1;
-			final BigInteger bigInteger = new BigInteger(signum, output);
-			// 7.BigIntegerの値を16進数に従って文字列に変換する
-			final int radix = 16;
-			return bigInteger.toString(radix).toUpperCase();
-		} catch (final NoSuchAlgorithmException e) {
+			response.setStatus(200);
+			response.setContentType("application/json");
+			response.setCharacterEncoding("utf-8");
+			response.getWriter().print(string);
+		} catch (final IOException e) {
 			e.printStackTrace();
 		}
-		return StringUtils.EMPTY_STRING;
 	}
 }

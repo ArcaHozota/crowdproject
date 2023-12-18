@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import jp.co.sony.ppog.commons.CrowdPlusConstants;
 import jp.co.sony.ppog.dto.SecurityAdmin;
 import jp.co.sony.ppog.entity.Employee;
 import jp.co.sony.ppog.entity.EmployeeRole;
@@ -20,7 +21,6 @@ import jp.co.sony.ppog.mapper.AuthorityMapper;
 import jp.co.sony.ppog.mapper.EmployeeMapper;
 import jp.co.sony.ppog.mapper.EmployeeRoleMapper;
 import jp.co.sony.ppog.mapper.RoleMapper;
-import jp.co.sony.ppog.utils.StringUtils;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import oracle.jdbc.driver.OracleSQLException;
@@ -60,15 +60,15 @@ public class CrowdPlusUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
 		final Employee employee = this.employeeMapper.selectByLoginAcct(username);
 		if (employee == null) {
-			throw new UsernameNotFoundException(StringUtils.EMPTY_STRING);
+			throw new UsernameNotFoundException(CrowdPlusConstants.MESSAGE_SPRINGSECURITY_LOGINERROR1);
 		}
 		final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(employee.getId());
 		if (employeeRole == null) {
-			throw new UsernameNotFoundException(StringUtils.EMPTY_STRING);
+			throw new UsernameNotFoundException(CrowdPlusConstants.MESSAGE_SPRINGSECURITY_LOGINERROR2);
 		}
 		final Role role = this.roleMapper.selectByIdWithAuth(employeeRole.getRoleId());
 		if (role.getRoleAuths().isEmpty()) {
-			throw new UsernameNotFoundException(StringUtils.EMPTY_STRING);
+			throw new UsernameNotFoundException(CrowdPlusConstants.MESSAGE_SPRINGSECURITY_LOGINERROR3);
 		}
 		final List<Long> authIds = role.getRoleAuths().stream().map(RoleAuth::getAuthId).collect(Collectors.toList());
 		final List<GrantedAuthority> authorities = this.authorityMapper.selectByIds(authIds).stream()
