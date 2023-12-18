@@ -3,6 +3,8 @@ package jp.co.sony.ppog.listener;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -64,11 +66,11 @@ public class CrowdPlusUserDetailsService implements UserDetailsService {
 		}
 		final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(employee.getId());
 		if (employeeRole == null) {
-			throw new UsernameNotFoundException(CrowdPlusConstants.MESSAGE_SPRINGSECURITY_LOGINERROR2);
+			throw new DisabledException(CrowdPlusConstants.MESSAGE_SPRINGSECURITY_LOGINERROR2);
 		}
 		final Role role = this.roleMapper.selectByIdWithAuth(employeeRole.getRoleId());
 		if (role.getRoleAuths().isEmpty()) {
-			throw new UsernameNotFoundException(CrowdPlusConstants.MESSAGE_SPRINGSECURITY_LOGINERROR3);
+			throw new InsufficientAuthenticationException(CrowdPlusConstants.MESSAGE_SPRINGSECURITY_LOGINERROR3);
 		}
 		final List<Long> authIds = role.getRoleAuths().stream().map(RoleAuth::getAuthId).collect(Collectors.toList());
 		final List<GrantedAuthority> authorities = this.authorityMapper.selectByIds(authIds).stream()
