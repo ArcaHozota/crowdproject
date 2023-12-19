@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.MediaType;
 
-import com.google.gson.Gson;
+import com.alibaba.fastjson2.JSON;
 
 import jp.co.sony.ppog.config.ResponseLoginDto;
 import lombok.AccessLevel;
@@ -34,7 +34,7 @@ public final class CrowdPlusUtils {
 		final String xRequestInformation = request.getHeader("X-Requested-With");
 		// 判断して返却する
 		return ((acceptInformation != null) && (acceptInformation.length() > 0)
-				&& acceptInformation.contains("application/json"))
+				&& acceptInformation.contains(MediaType.APPLICATION_JSON_VALUE))
 				|| ((xRequestInformation != null) && (xRequestInformation.length() > 0)
 						&& "XMLHttpRequest".equals(xRequestInformation));
 	}
@@ -46,11 +46,10 @@ public final class CrowdPlusUtils {
 	 * @param string   ストリング
 	 */
 	public static void renderString(final HttpServletResponse response, final ResponseLoginDto aResult) {
-		final Gson gson = new Gson();
 		try {
 			response.setStatus(aResult.getCode());
 			response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-			response.getWriter().print(gson.toJson(aResult));
+			response.getWriter().print(JSON.toJSONString(aResult));
 		} catch (final IOException e) {
 			// do nothing
 		}

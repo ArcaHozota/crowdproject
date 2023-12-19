@@ -1,7 +1,6 @@
 package jp.co.sony.ppog.listener;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
+import com.alibaba.fastjson2.JSON;
 
 import jp.co.sony.ppog.commons.CrowdPlusConstants;
 import jp.co.sony.ppog.exception.CrowdPlusException;
@@ -48,13 +47,11 @@ public final class CrowdPlusExceptionResolver {
 			// 4.ResultDtoオブジェクトを作成する。
 			final ResultDto<Object> resultEntity = ResultDto.failed(message);
 			// 5.GSONオブジェクトを作成する。
-			final Gson gson = new Gson();
 			// 6.JSONストリングに変換する。
-			final String json = gson.toJson(resultEntity);
+			final String json = JSON.toJSONString(resultEntity);
 			// 7.PrintWriterオブジェクトを取得する。
-			final PrintWriter writer = response.getWriter();
 			// 8.JSONデータをライトしてNULLを返却する。
-			writer.write(json);
+			response.getWriter().write(json);
 			return null;
 		}
 		// 9.ModelAndViewオブジェクトを作成する。
