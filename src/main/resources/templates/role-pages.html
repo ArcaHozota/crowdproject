@@ -1,36 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja-JP" xmlns:th="http://www.thymeleaf.org">
-
-<head>
-	<title>PGアプリケーション</title>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<link rel="stylesheet" th:href="@{/static/bootstrap/css/bootstrap.min.css}">
-	<link rel="stylesheet" th:href="@{/static/css/font-awesome.min.css}">
-	<link rel="stylesheet" th:href="@{/static/css/main.css}">
-	<link rel="stylesheet" th:href="@{/static/ztree/metroStyle.css}">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-	<link rel="shortcut icon" type="image/x-icon" th:href="@{/static/favicon.ico}">
-	<style>
-		.tree li {
-			list-style-type: none;
-			cursor: pointer;
-		}
-
-		a {
-			text-decoration: none;
-		}
-	</style>
-	<script type="text/javascript" th:src="@{/static/jquery/jquery-3.7.1.min.js}"></script>
-	<script type="text/javascript" th:src="@{/static/bootstrap/js/bootstrap.bundle.min.js}"></script>
-	<script type="text/javascript" th:src="@{/static/script/docs.min.js}"></script>
-	<script type="text/javascript" th:src="@{/static/layer/layer.js}"></script>
-	<script type="text/javascript" th:src="@{/static/ztree/jquery.ztree.all.js}"></script>
-	<script type="text/javascript" th:src="@{/static/customizes/mainmenu.js}"></script>
-</head>
+<div th:replace="include-header.html"></div>
 
 <body>
 	<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top" data-bs-theme="dark">
@@ -139,7 +109,7 @@
 			<div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 main">
 				<div class="card border-warning mb-3">
 					<div class="card-header text-bg-warning mb-3">
-						<h5 class="card-title"  style="padding-top: 8px;">
+						<h5 class="card-title" style="padding-top: 8px;">
 							<i class="bi bi-grid-fill"></i> 役割メンテナンス
 						</h5>
 					</div>
