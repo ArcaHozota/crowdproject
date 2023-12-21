@@ -3,10 +3,12 @@
 <div th:replace="commons::header"></div>
 
 <body>
-	<nav class="navbar navbar-dark bg-dark fixed-top" role="navigation">
-		<div class="container-fluid"> <a class="navbar-brand" th:href="@{/pgcrowd/to/index}"
-				style="font-size:24px;">PGアプリケーション</a> </div>
-	</nav>
+	<div>
+		<nav class="navbar navbar-dark bg-dark fixed-top" role="navigation">
+			<div class="container-fluid"> <a class="navbar-brand" th:href="@{/pgcrowd/to/index}"
+					style="font-size:24px;">PGアプリケーション</a> </div>
+		</nav>
+	</div>
 	<div class="container" style="margin-top: 60px;">
 		<form th:action="@{/pgcrowd/employee/do/login}" method="post" class="form-signin" role="form">
 			<div class="text-center">
