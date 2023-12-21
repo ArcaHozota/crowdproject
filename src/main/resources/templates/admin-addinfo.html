@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ja-JP" xmlns:th="http://www.thymeleaf.org">
-<div th:replace="commons::header"></div>
+<div th:replace="~{commons::header}"></div>
 
 <body>
-	<div th:insert="commons::navibar"></div>
+	<div th:replace="~{commons::navibar}"></div>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-3 col-md-2 sidebar">
