@@ -23,7 +23,7 @@
 		SET
 		    PPER.ROLE_ID = #{roleId,jdbcType=NUMERIC} 
 		WHERE
-		    AND PPER.EMPLOYEE_ID = #{employeeId,jdbcType=NUMERIC}
+		    PPER.EMPLOYEE_ID = #{employeeId,jdbcType=NUMERIC}
 	</update>
 	<select id="selectById" parameterType="java.lang.Long" 
 		resultMap="BasicResultMap">
