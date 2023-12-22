@@ -10,10 +10,10 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.BCryptVersion;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import jp.co.sony.ppog.commons.CrowdPlusConstants;
@@ -55,27 +55,25 @@ public class WebSecurityConfig {
 	@Bean
 	protected SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
 		final AntPathRequestMatcher[] pathMatchers = { new AntPathRequestMatcher("/static/**", "GET") };
-		http.authorizeHttpRequests(authorize -> {
-			authorize.requestMatchers(pathMatchers).permitAll().anyRequest().authenticated();
-			try {
-				authorize.and().csrf(CsrfConfigurer::disable);
-			} catch (final Exception e) {
-				e.printStackTrace();
-			}
-		}).exceptionHandling().authenticationEntryPoint((request, response, authenticationException) -> {
-			final ResponseLoginDto responseResult = new ResponseLoginDto(403, authenticationException.getMessage());
-			CrowdPlusUtils.renderString(response, responseResult);
-		}).and().formLogin(formLogin -> {
-			formLogin.loginPage("/pgcrowd/employee/login").loginProcessingUrl("/pgcrowd/employee/do/login")
-					.defaultSuccessUrl("/pgcrowd/to/mainmenu").permitAll().usernameParameter("loginAcct")
-					.passwordParameter("userPswd");
-			try {
-				formLogin.and().logout(logout -> logout.logoutUrl("/pgcrowd/employee/logout")
-						.logoutSuccessUrl("/pgcrowd/employee/login"));
-			} catch (final Exception e) {
-				throw new CrowdPlusException(CrowdPlusConstants.MESSAGE_STRING_FATALERROR);
-			}
-		}).httpBasic(Customizer.withDefaults());
+		http.authorizeHttpRequests(
+				authorize -> authorize.requestMatchers(pathMatchers).permitAll().anyRequest().authenticated())
+				.csrf(csrf -> csrf.ignoringRequestMatchers(pathMatchers)
+						.csrfTokenRepository(new CookieCsrfTokenRepository()))
+				.exceptionHandling().authenticationEntryPoint((request, response, authenticationException) -> {
+					final ResponseLoginDto responseResult = new ResponseLoginDto(403,
+							authenticationException.getMessage());
+					CrowdPlusUtils.renderString(response, responseResult);
+				}).and().formLogin(formLogin -> {
+					formLogin.loginPage("/pgcrowd/employee/login").loginProcessingUrl("/pgcrowd/employee/do/login")
+							.defaultSuccessUrl("/pgcrowd/to/mainmenu").permitAll().usernameParameter("loginAcct")
+							.passwordParameter("userPswd");
+					try {
+						formLogin.and().logout(logout -> logout.logoutUrl("/pgcrowd/employee/logout")
+								.logoutSuccessUrl("/pgcrowd/employee/login"));
+					} catch (final Exception e) {
+						throw new CrowdPlusException(CrowdPlusConstants.MESSAGE_STRING_FATALERROR);
+					}
+				}).httpBasic(Customizer.withDefaults());
 		log.info(CrowdPlusConstants.MESSAGE_SPRING_SECURITY);
 		return http.build();
 	}
