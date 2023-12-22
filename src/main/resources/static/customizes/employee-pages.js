@@ -229,7 +229,7 @@ $("#saveInfoBtn").on('click', function() {
 			}),
 			contentType: 'application/json;charset=UTF-8',
 			success: function() {
-				window.location.replace('/pgcrowd/employee/to/pages?pageNum=' + pageNum);
+				window.location.replace('/pgcrowd/employee/to/pages?pageNum=' + totalRecords);
 			}
 		});
 	}
