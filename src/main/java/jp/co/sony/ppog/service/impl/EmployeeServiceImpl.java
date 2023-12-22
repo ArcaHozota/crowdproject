@@ -102,6 +102,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 			final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(employeeDto.getId());
 			if (!Objects.equals(employeeRole.getRoleId(), employeeDto.getRoleId())) {
 				employeeRole.setRoleId(employeeDto.getRoleId());
+				System.out.println(employeeRole);
 				this.employeeRoleMapper.updateById(employeeRole);
 			}
 		}

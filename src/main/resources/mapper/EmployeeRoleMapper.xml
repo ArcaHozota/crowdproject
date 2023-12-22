@@ -3,46 +3,46 @@
 <mapper namespace="jp.co.sony.ppog.mapper.EmployeeRoleMapper">
 	<resultMap id="BasicResultMap"
 		type="jp.co.sony.ppog.entity.EmployeeRole" autoMapping="true">
-		<id property="employeeId" jdbcType="NUMERIC" column="ID" />
+		<id property="employeeId" jdbcType="NUMERIC" column="EMPLOYEE_ID" />
 	</resultMap>
 	<insert id="insertById"
 		parameterType="jp.co.sony.ppog.entity.EmployeeRole">
-		INSERT 
-		INTO PPOG_EMPLOYEE_ROLE PPER ( 
-		    PPER.EMPLOYEE_ID
-		    , PPER.ROLE_ID
-		) 
-		VALUES ( 
-		    #{employeeId,jdbcType=NUMERIC}
-		    , #{roleId,jdbcType=NUMERIC}
+		INSERT
+		INTO PPOG_EMPLOYEE_ROLE PPER (
+		PPER.EMPLOYEE_ID
+		, PPER.ROLE_ID
+		)
+		VALUES (
+		#{employeeId,jdbcType=NUMERIC}
+		, #{roleId,jdbcType=NUMERIC}
 		)
 	</insert>
 	<update id="updateById"
 		parameterType="jp.co.sony.ppog.entity.EmployeeRole">
-		UPDATE PPOG_EMPLOYEE_ROLE PPER 
+		UPDATE PPOG_EMPLOYEE_ROLE PPER
 		SET
-		    PPER.ROLE_ID = #{roleId,jdbcType=NUMERIC} 
+		PPER.ROLE_ID = #{roleId,jdbcType=NUMERIC}
 		WHERE
-		    PPER.EMPLOYEE_ID = #{employeeId,jdbcType=NUMERIC}
+		PPER.EMPLOYEE_ID = #{employeeId,jdbcType=NUMERIC}
 	</update>
-	<select id="selectById" parameterType="java.lang.Long" 
+	<select id="selectById" parameterType="java.lang.Long"
 		resultMap="BasicResultMap">
 		SELECT
-		    PPER.EMPLOYEE_ID
-		    , PPER.ROLE_ID 
+		PPER.EMPLOYEE_ID
+		, PPER.ROLE_ID
 		FROM
-		    PPOG_EMPLOYEE_ROLE PPER 
+		PPOG_EMPLOYEE_ROLE PPER
 		WHERE
-		    PPER.EMPLOYEE_ID = #{id,jdbcType=NUMERIC}
+		PPER.EMPLOYEE_ID = #{id,jdbcType=NUMERIC}
 	</select>
-	<select id="selectByRoleId" parameterType="java.lang.Long" 
+	<select id="selectByRoleId" parameterType="java.lang.Long"
 		resultMap="BasicResultMap">
 		SELECT
-		    PPER.EMPLOYEE_ID
-		    , PPER.ROLE_ID 
+		PPER.EMPLOYEE_ID
+		, PPER.ROLE_ID
 		FROM
-		    PPOG_EMPLOYEE_ROLE PPER 
+		PPOG_EMPLOYEE_ROLE PPER
 		WHERE
-		    PPER.ROLE_ID = #{roleId,jdbcType=NUMERIC}
+		PPER.ROLE_ID = #{roleId,jdbcType=NUMERIC}
 	</select>
 </mapper>
