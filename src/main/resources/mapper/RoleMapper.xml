@@ -88,7 +88,10 @@
 		    PPOG_ROLE PR 
 		WHERE
 		    PR.DEL_FLG = 'approved' 
-		    AND PR.NAME LIKE #{keyword,jdbcType=NUMERIC} 
+		    AND ( 
+		        PR.ID LIKE #{keyword,jdbcType=NUMERIC} 
+		        OR PR.NAME LIKE #{keyword,jdbcType=NVARCHAR}
+		    ) 
 		ORDER BY
 		    PR.ID
 	</select>

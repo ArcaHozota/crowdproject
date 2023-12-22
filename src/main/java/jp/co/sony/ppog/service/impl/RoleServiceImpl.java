@@ -126,7 +126,7 @@ public class RoleServiceImpl implements IRoleService {
 	@Override
 	public Pagination<Role> getRolesByKeyword(final Integer pageNum, final String keyword) {
 		if (StringUtils.isDigital(keyword)) {
-			final List<Role> pages = this.roleMapper.selectByKeyword(keyword);
+			final List<Role> pages = this.roleMapper.selectByKeyword("%" + keyword + "%");
 			return Pagination.of(pages, pages.size(), pageNum, CrowdPlusConstants.DEFAULT_PAGE_SIZE);
 		}
 		final String searchStr = StringUtils.getDetailKeyword(keyword);
