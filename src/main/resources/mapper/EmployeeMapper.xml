@@ -90,7 +90,7 @@
 		    PE.DEL_FLG = 'approved' 
 		    AND PE.LOGIN_ACCT = #{loginAccout,jdbcType=NVARCHAR} 
 	</select>
-	<select id="selectByKeyword" parameterType="java.lang.String" 
+	<select id="paginationByKeyword" parameterType="java.lang.String" 
 		resultMap="BasicResultMap">
 		SELECT
 		    PE.ID
@@ -109,7 +109,7 @@
 		        OR PE.EMAIL LIKE #{keyword,jdbcType=NVARCHAR}
 		    ) 
 		ORDER BY
-		    PE.ID
+		    PE.ID OFFSET #{offset,jdbcType=INTEGER} ROWS FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
 	</select>
 	<select id="saiban" resultType="java.lang.Long">
 		SELECT

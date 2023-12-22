@@ -31,6 +31,16 @@ public interface EmployeeMapper {
 	void insertById(Employee employee);
 
 	/**
+	 * キーワードによって社員情報を検索する
+	 *
+	 * @param keyword  検索キーワード
+	 * @param pageSize
+	 * @param pageNum
+	 * @return List<Employee>
+	 */
+	List<Employee> paginationByKeyword(@Param("keyword") String keyword, Integer offset, Integer pageSize);
+
+	/**
 	 * IDによって論理削除を行う
 	 *
 	 * @param id 社員ID
@@ -51,14 +61,6 @@ public interface EmployeeMapper {
 	 * @return Employee
 	 */
 	Employee selectById(@Param("id") Long id);
-
-	/**
-	 * キーワードによって社員情報を検索する
-	 *
-	 * @param keyword 検索キーワード
-	 * @return List<Employee>
-	 */
-	List<Employee> selectByKeyword(@Param("keyword") String keyword);
 
 	/**
 	 * アカウントによって社員情報を検索する
