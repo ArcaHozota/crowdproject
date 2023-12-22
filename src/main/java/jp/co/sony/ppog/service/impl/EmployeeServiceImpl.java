@@ -80,13 +80,13 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		employee.setPassword(password);
 		employee.setCreatedTime(LocalDateTime.now());
 		employee.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
+		this.employeeMapper.insertById(employee);
 		if ((employeeDto.getRoleId() != null) && !Objects.equals(Long.valueOf(0L), employeeDto.getRoleId())) {
 			final EmployeeRole employeeEx = new EmployeeRole();
-			employeeEx.setEmployeeId(employeeDto.getId());
+			employeeEx.setEmployeeId(saibanId);
 			employeeEx.setRoleId(employeeDto.getRoleId());
 			this.employeeRoleMapper.insertById(employeeEx);
 		}
-		this.employeeMapper.insertById(employee);
 	}
 
 	@Override

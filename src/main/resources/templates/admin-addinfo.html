@@ -124,7 +124,9 @@
 						</form>
 					</div>
 					<div class="card-footer">
-						<button type="button" class="btn btn-success my-2 my-sm-0" id="saveInfoBtn">
+						<button type="button" class="btn btn-success my-2 my-sm-0"
+							th:attr="data-csrf-header-name=${_csrf.headerName}, data-csrf-token=${_csrf.token}"
+							id="saveInfoBtn">
 							<i class="bi bi-person-plus"></i> 追加
 						</button>
 						<button type="button" class="btn btn-primary my-2 my-sm-0" id="resetBtn">

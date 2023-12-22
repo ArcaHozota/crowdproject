@@ -216,6 +216,8 @@ $("#saveInfoBtn").on('click', function() {
 			showValidationMsg("#emailInput", "error", "メールアドレスを空になってはいけません。");
 		}
 	} else {
+		let header = $(this).attr("data-csrf-header-name");
+		let token = $(this).attr("data-csrf-token");
 		$.ajax({
 			url: '/pgcrowd/employee/infosave',
 			type: 'POST',
@@ -227,6 +229,9 @@ $("#saveInfoBtn").on('click', function() {
 				'email': inputEmail,
 				'roleId': inputRole
 			}),
+			headers: {
+				[header]: token
+			},
 			contentType: 'application/json;charset=UTF-8',
 			success: function() {
 				window.location.replace('/pgcrowd/employee/to/pages?pageNum=' + totalRecords);
@@ -308,6 +313,8 @@ $("#editInfoBtn").on('click', function() {
 		if (editPassword === "**************************************") {
 			editPassword = null;
 		}
+		let header = $(this).attr("data-csrf-header-name");
+		let token = $(this).attr("data-csrf-token");
 		$.ajax({
 			url: '/pgcrowd/employee/infoupd',
 			type: 'PUT',
@@ -320,6 +327,9 @@ $("#editInfoBtn").on('click', function() {
 				'email': editEmail,
 				'roleId': editRole
 			}),
+			headers: {
+				[header]: token
+			},
 			contentType: 'application/json;charset=UTF-8',
 			success: function() {
 				window.location.replace('/pgcrowd/employee/to/pages?pageNum=' + pageNum);
