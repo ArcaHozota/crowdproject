@@ -125,13 +125,15 @@ public class RoleServiceImpl implements IRoleService {
 
 	@Override
 	public Pagination<Role> getRolesByKeyword(final Integer pageNum, final String keyword) {
+		final Integer pageSize = CrowdPlusConstants.DEFAULT_PAGE_SIZE;
+		final Integer offset = (pageNum - 1) * pageSize;
 		if (StringUtils.isDigital(keyword)) {
-			final List<Role> pages = this.roleMapper.selectByKeyword("%" + keyword + "%");
-			return Pagination.of(pages, pages.size(), pageNum, CrowdPlusConstants.DEFAULT_PAGE_SIZE);
+			final List<Role> pages = this.roleMapper.paginationByKeyword("%" + keyword + "%", offset, pageSize);
+			return Pagination.of(pages, pages.size(), pageNum, pageSize);
 		}
 		final String searchStr = StringUtils.getDetailKeyword(keyword);
-		final List<Role> pages = this.roleMapper.selectByKeyword(searchStr);
-		return Pagination.of(pages, pages.size(), pageNum, CrowdPlusConstants.DEFAULT_PAGE_SIZE);
+		final List<Role> pages = this.roleMapper.paginationByKeyword(searchStr, offset, pageSize);
+		return Pagination.of(pages, pages.size(), pageNum, pageSize);
 	}
 
 	@Override

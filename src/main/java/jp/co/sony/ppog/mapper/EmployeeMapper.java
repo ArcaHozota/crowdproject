@@ -34,8 +34,8 @@ public interface EmployeeMapper {
 	 * キーワードによって社員情報を検索する
 	 *
 	 * @param keyword  検索キーワード
-	 * @param pageSize
-	 * @param pageNum
+	 * @param offset   オフセット
+	 * @param pageSize ページサイズ
 	 * @return List<Employee>
 	 */
 	List<Employee> paginationByKeyword(@Param("keyword") String keyword, Integer offset, Integer pageSize);

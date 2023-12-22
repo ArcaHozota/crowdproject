@@ -47,6 +47,16 @@ public interface RoleMapper {
 	void insertById(Role role);
 
 	/**
+	 * キーワードによって役割情報を検索する
+	 *
+	 * @param keyword  キーワード
+	 * @param offset   オフセット
+	 * @param pageSize ページサイズ
+	 * @return List<Role>
+	 */
+	List<Role> paginationByKeyword(String keyword, Integer offset, Integer pageSize);
+
+	/**
 	 * IDによって論理削除を行う
 	 *
 	 * @param id 役割ID
@@ -75,14 +85,6 @@ public interface RoleMapper {
 	 * @return Role
 	 */
 	Role selectByIdWithAuth(@Param("id") Long id);
-
-	/**
-	 * キーワードによって役割情報を検索する
-	 *
-	 * @param keyword キーワード
-	 * @return List<Role>
-	 */
-	List<Role> selectByKeyword(String keyword);
 
 	/**
 	 * IDによって情報を更新する

@@ -79,7 +79,7 @@
 		    PR.DEL_FLG = 'approved' 
 		    AND PR.ID = #{id,jdbcType=NUMERIC}
 	</select>
-	<select id="selectByKeyword" parameterType="java.lang.String" 
+	<select id="paginationByKeyword" parameterType="java.lang.String" 
 		resultMap="BasicResultMap">
 		SELECT
 		    PR.ID
@@ -93,7 +93,7 @@
 		        OR PR.NAME LIKE #{keyword,jdbcType=NVARCHAR}
 		    ) 
 		ORDER BY
-		    PR.ID
+		    PR.ID OFFSET #{offset,jdbcType=INTEGER} ROWS FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
 	</select>
 	<select id="selectByIdWithAuth" parameterType="java.lang.Long" 
 		resultMap="BasicResultMap">
