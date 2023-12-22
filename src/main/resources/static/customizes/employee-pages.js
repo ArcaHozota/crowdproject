@@ -18,13 +18,13 @@ function toSelectedPg(pageNum, keyword) {
 		type: 'GET',
 		dataType: 'json',
 		success: function(result) {
-			buildCityTable(result);
+			buildTableBody(result);
 			buildPageInfos(result);
 			buildPageNavi(result);
 		}
 	})
 }
-function buildCityTable(result) {
+function buildTableBody(result) {
 	$("#tableBody").empty();
 	let index = result.data.records;
 	$.each(index, (index, item) => {
@@ -61,10 +61,10 @@ function buildPageNavi(result) {
 		previousPageLi.addClass("disabled");
 	} else {
 		firstPageLi.click(function() {
-			toSelectedPg(1, searchName);
+			toSelectedPg(1, keyword);
 		});
 		previousPageLi.click(function() {
-			toSelectedPg(pageNum - 1, searchName);
+			toSelectedPg(pageNum - 1, keyword);
 		});
 	}
 	let nextPageLi = $("<li class='page-item'></li>").append(
@@ -77,10 +77,10 @@ function buildPageNavi(result) {
 	} else {
 		lastPageLi.addClass("success");
 		nextPageLi.click(function() {
-			toSelectedPg(pageNum + 1, searchName);
+			toSelectedPg(pageNum + 1, keyword);
 		});
 		lastPageLi.click(function() {
-			toSelectedPg(totalPages, searchName);
+			toSelectedPg(totalPages, keyword);
 		});
 	}
 	ul.append(firstPageLi).append(previousPageLi);
@@ -91,7 +91,7 @@ function buildPageNavi(result) {
 			numsLi.attr("href", "#").addClass("active");
 		}
 		numsLi.click(function() {
-			toSelectedPg(item, searchName);
+			toSelectedPg(item, keyword);
 		});
 		ul.append(numsLi);
 	});

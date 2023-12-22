@@ -136,6 +136,8 @@ $("#roleInfoSaveBtn").on('click', function() {
 	} else if (inputName === "") {
 		showValidationMsg("#nameInput", "error", "役割名称を空になってはいけません。");
 	} else {
+		let header = $('meta[name=_csrf_header]').attr('content');
+		let token = $('meta[name=_csrf_token]').attr('content');
 		$.ajax({
 			url: '/pgcrowd/role/infosave',
 			type: 'POST',
@@ -143,6 +145,9 @@ $("#roleInfoSaveBtn").on('click', function() {
 			data: JSON.stringify({
 				'name': inputName
 			}),
+			headers: {
+				[header]: token
+			},
 			contentType: 'application/json;charset=UTF-8',
 			success: function() {
 				$("#roleAddModal").modal('hide');
@@ -179,6 +184,8 @@ $("#roleInfoChangeBtn").on('click', function() {
 	if ($(this).attr("ajax-va") === "error") {
 		return false;
 	} else {
+		let header = $('meta[name=_csrf_header]').attr('content');
+		let token = $('meta[name=_csrf_token]').attr('content');
 		$.ajax({
 			url: '/pgcrowd/role/infoupd',
 			type: 'PUT',
@@ -187,6 +194,9 @@ $("#roleInfoChangeBtn").on('click', function() {
 				'id': $(this).attr("editId"),
 				'name': editName
 			}),
+			headers: {
+				[header]: token
+			},
 			contentType: 'application/json;charset=UTF-8',
 			success: function(result) {
 				if (result.status === 'SUCCESS') {
@@ -205,10 +215,15 @@ $("#tableBody").on('click', '.delete-btn', function() {
 	let roleName = $(this).parents("tr").find("td:eq(0)").text().trim();
 	let roleId = $(this).attr("deleteId");
 	if (confirm("この" + roleName + "という役割情報を削除する、よろしいでしょうか。")) {
+		let header = $('meta[name=_csrf_header]').attr('content');
+		let token = $('meta[name=_csrf_token]').attr('content');
 		$.ajax({
 			url: '/pgcrowd/role/delete/' + roleId,
 			type: 'DELETE',
 			dataType: 'json',
+			headers: {
+				[header]: token
+			},
 			success: function(result) {
 				if (result.status === 'SUCCESS') {
 					layer.msg('削除済み');
@@ -288,6 +303,8 @@ $("#authChangeBtn").on('click', function() {
 		let authId = checkedNode.id;
 		authIdArray.push(authId);
 	}
+	let header = $('meta[name=_csrf_header]').attr('content');
+	let token = $('meta[name=_csrf_token]').attr('content');
 	$.ajax({
 		url: '/pgcrowd/role/do/assignment',
 		data: JSON.stringify({
@@ -295,8 +312,11 @@ $("#authChangeBtn").on('click', function() {
 			'roleId': [fuyoId]
 		}),
 		type: 'PUT',
-		contentType: 'application/json;charset=UTF-8',
 		dataType: 'json',
+		contentType: 'application/json;charset=UTF-8',
+		headers: {
+			[header]: token
+		},
 		success: function(result) {
 			$("#authEditModal").modal('hide');
 			if (result.status === 'SUCCESS') {
