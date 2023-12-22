@@ -40,6 +40,14 @@ public interface RoleMapper {
 	Integer checkDuplicated(@Param("name") String name);
 
 	/**
+	 * キーワードによって役割情報の数を取得する
+	 *
+	 * @param keyword 検索キーワード
+	 * @return Integer
+	 */
+	Long countByKeyword(String keyword);
+
+	/**
 	 * IDによって情報を挿入する
 	 *
 	 * @param role 役割エンティティ

@@ -109,6 +109,19 @@
 		    PR.DEL_FLG = 'approved' 
 		    AND PR.ID = #{id,jdbcType=NUMERIC}
 	</select>
+	<select id="countByKeyword" parameterType="java.lang.String" 
+		resultType="java.lang.Long">
+		SELECT
+		    COUNT(1) 
+		FROM
+		    PPOG_ROLE PR 
+		WHERE
+		    PR.DEL_FLG = 'approved' 
+		    AND ( 
+		        PR.ID LIKE #{keyword,jdbcType=NUMERIC} 
+		        OR PR.NAME LIKE #{keyword,jdbcType=NVARCHAR}
+		    )
+	</select>
 	<select id="checkDuplicated"
 		parameterType="java.lang.String" resultType="java.lang.Integer">
 		SELECT

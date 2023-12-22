@@ -1,5 +1,6 @@
 package jp.co.sony.ppog.utils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -143,16 +144,16 @@ public final class Pagination<T> {
 	 */
 	private Pagination(final List<T> records, final long totalRecords, final int pageNum, final int pageSize,
 			final int navigatePages) {
-		if (records != null && !records.isEmpty()) {
+		if ((records != null) && !records.isEmpty()) {
 			this.pageNum = pageNum;
 			this.records = records;
 			this.pageSize = records.size();
 			this.totalRecords = totalRecords;
 			final long ape = this.totalRecords / pageSize;
-			this.totalPages = this.totalRecords % pageSize == 0 ? ape : ape + 1;
+			this.totalPages = (this.totalRecords % pageSize) == 0 ? ape : ape + 1;
 		} else if (records != null) {
 			this.pageNum = 1;
-			this.records = null;
+			this.records = new ArrayList<>();
 			this.pageSize = 0;
 			this.totalRecords = 0L;
 			this.totalPages = 1L;
@@ -190,9 +191,9 @@ public final class Pagination<T> {
 			return;
 		}
 		this.navigatePageNums = new int[this.navigatePages];
-		int startNum = this.pageNum - this.navigatePages / 2;
-		int endNum = this.pageNum + this.navigatePages / 2;
-		if (endNum > this.totalPages && startNum >= 1) {
+		int startNum = this.pageNum - (this.navigatePages / 2);
+		int endNum = this.pageNum + (this.navigatePages / 2);
+		if ((endNum > this.totalPages) && (startNum >= 1)) {
 			endNum = (int) this.totalPages;
 			// 最後のナビゲーションページ
 			for (int i = this.navigatePages - 1; i >= 0; i--) {
@@ -215,7 +216,7 @@ public final class Pagination<T> {
 	 * 前のページ、次のページ、最初及び最後のページを取得する
 	 */
 	private void calcPage() {
-		if (this.navigatePageNums != null && this.navigatePageNums.length > 0) {
+		if ((this.navigatePageNums != null) && (this.navigatePageNums.length > 0)) {
 			this.naviFirstPage = this.navigatePageNums[0];
 			this.naviLastPage = this.navigatePageNums[this.navigatePageNums.length - 1];
 			if (this.pageNum > 1) {

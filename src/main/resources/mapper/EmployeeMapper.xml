@@ -110,6 +110,20 @@
 		ORDER BY
 		    PE.ID OFFSET #{offset,jdbcType=INTEGER} ROWS FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
 	</select>
+	<select id="countByKeyword" parameterType="java.lang.String" 
+		resultType="java.lang.Long">
+		SELECT
+		    COUNT(1) 
+		FROM
+		    PPOG_EMPLOYEE PE 
+		WHERE
+		    PE.DEL_FLG = 'approved' 
+		    AND ( 
+		        PE.USERNAME LIKE #{keyword,jdbcType=NVARCHAR} 
+		        OR PE.LOGIN_ACCT LIKE #{keyword,jdbcType=NVARCHAR} 
+		        OR PE.EMAIL LIKE #{keyword,jdbcType=NVARCHAR}
+		    )
+	</select>
 	<select id="saiban" resultType="java.lang.Long">
 		SELECT
 			COUNT(PE.ID) + 1

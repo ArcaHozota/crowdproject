@@ -62,8 +62,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		final Integer pageSize = CrowdPlusConstants.DEFAULT_PAGE_SIZE;
 		final Integer offset = (pageNum - 1) * pageSize;
 		final String searchStr = StringUtils.getDetailKeyword(keyword);
+		final Long records = this.employeeMapper.countByKeyword(searchStr);
 		final List<Employee> pages = this.employeeMapper.paginationByKeyword(searchStr, offset, pageSize);
-		return Pagination.of(pages, pages.size(), pageNum, pageSize);
+		return Pagination.of(pages, records, pageNum, pageSize);
 	}
 
 	@Override

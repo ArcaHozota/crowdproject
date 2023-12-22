@@ -24,6 +24,14 @@ public interface EmployeeMapper {
 	Integer checkDuplicated(@Param("loginAccount") String loginAccount);
 
 	/**
+	 * キーワードによって社員情報の数を取得する
+	 *
+	 * @param keyword 検索キーワード
+	 * @return Integer
+	 */
+	Long countByKeyword(String keyword);
+
+	/**
 	 * IDによって情報を挿入する
 	 *
 	 * @param employee 社員エンティティ
