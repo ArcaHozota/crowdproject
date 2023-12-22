@@ -79,8 +79,7 @@
 		    PR.DEL_FLG = 'approved' 
 		    AND PR.ID = #{id,jdbcType=NUMERIC}
 	</select>
-	<select id="paginationByKeyword" parameterType="java.lang.String" 
-		resultMap="BasicResultMap">
+	<select id="paginationByKeyword" resultMap="BasicResultMap">
 		SELECT
 		    PR.ID
 		    , PR.NAME 

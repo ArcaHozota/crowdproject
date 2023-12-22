@@ -90,8 +90,7 @@
 		    PE.DEL_FLG = 'approved' 
 		    AND PE.LOGIN_ACCT = #{loginAccout,jdbcType=NVARCHAR} 
 	</select>
-	<select id="paginationByKeyword" parameterType="java.lang.String" 
-		resultMap="BasicResultMap">
+	<select id="paginationByKeyword" resultMap="BasicResultMap">
 		SELECT
 		    PE.ID
 		    , PE.LOGIN_ACCT
