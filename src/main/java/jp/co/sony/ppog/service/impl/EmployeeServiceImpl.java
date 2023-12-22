@@ -59,8 +59,8 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 	@Override
 	public Pagination<Employee> getEmployeesByKeyword(final Integer pageNum, final String keyword) {
-		final String searchString = "%" + keyword + "%";
-		final List<Employee> pages = this.employeeMapper.selectByKeyword(searchString);
+		final String searchStr = StringUtils.getDetailKeyword(keyword);
+		final List<Employee> pages = this.employeeMapper.selectByKeyword(searchStr);
 		return Pagination.of(pages, pages.size(), pageNum, CrowdPlusConstants.DEFAULT_PAGE_SIZE);
 	}
 

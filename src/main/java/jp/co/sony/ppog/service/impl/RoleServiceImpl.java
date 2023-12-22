@@ -24,6 +24,7 @@ import jp.co.sony.ppog.utils.Pagination;
 import jp.co.sony.ppog.utils.ResultDto;
 import jp.co.sony.ppog.utils.SecondBeanUtils;
 import jp.co.sony.ppog.utils.SnowflakeUtils;
+import jp.co.sony.ppog.utils.StringUtils;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import oracle.jdbc.driver.OracleSQLException;
@@ -124,8 +125,12 @@ public class RoleServiceImpl implements IRoleService {
 
 	@Override
 	public Pagination<Role> getRolesByKeyword(final Integer pageNum, final String keyword) {
-		final String searchString = "%" + keyword + "%";
-		final List<Role> pages = this.roleMapper.selectByKeyword(searchString);
+		if (StringUtils.isDigital(keyword)) {
+			final List<Role> pages = this.roleMapper.selectByKeyword(keyword);
+			return Pagination.of(pages, pages.size(), pageNum, CrowdPlusConstants.DEFAULT_PAGE_SIZE);
+		}
+		final String searchStr = StringUtils.getDetailKeyword(keyword);
+		final List<Role> pages = this.roleMapper.selectByKeyword(searchStr);
 		return Pagination.of(pages, pages.size(), pageNum, CrowdPlusConstants.DEFAULT_PAGE_SIZE);
 	}
 
