@@ -54,7 +54,8 @@ public interface RoleMapper {
 	 * @param pageSize ページサイズ
 	 * @return List<Role>
 	 */
-	List<Role> paginationByKeyword(String keyword, Integer offset, Integer pageSize);
+	List<Role> paginationByKeyword(@Param("keyword") String keyword, @Param("offset") Integer offset,
+			@Param("pageSize") Integer pageSize);
 
 	/**
 	 * IDによって論理削除を行う

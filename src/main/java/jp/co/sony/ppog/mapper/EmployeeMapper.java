@@ -38,7 +38,8 @@ public interface EmployeeMapper {
 	 * @param pageSize ページサイズ
 	 * @return List<Employee>
 	 */
-	List<Employee> paginationByKeyword(@Param("keyword") String keyword, Integer offset, Integer pageSize);
+	List<Employee> paginationByKeyword(@Param("keyword") String keyword, @Param("offset") Integer offset,
+			@Param("pageSize") Integer pageSize);
 
 	/**
 	 * IDによって論理削除を行う
