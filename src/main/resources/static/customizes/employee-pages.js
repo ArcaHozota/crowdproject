@@ -216,8 +216,8 @@ $("#saveInfoBtn").on('click', function() {
 			showValidationMsg("#emailInput", "error", "メールアドレスを空になってはいけません。");
 		}
 	} else {
-		let header = $('meta[name=_csrf_header]').content;
-		let token = $('meta[name=_csrf_token]').content;
+		let header = $('meta[name=_csrf_header]').attr('content');
+		let token = $('meta[name=_csrf_token]').attr('content');
 		$.ajax({
 			url: '/pgcrowd/employee/infosave',
 			type: 'POST',
