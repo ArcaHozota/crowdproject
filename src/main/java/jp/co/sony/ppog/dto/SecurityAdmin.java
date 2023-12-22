@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import jp.co.sony.ppog.entity.Employee;
+import jp.co.sony.ppog.utils.StringUtils;
 import lombok.EqualsAndHashCode;
 
 /**
@@ -24,6 +25,7 @@ public final class SecurityAdmin extends User {
 	public SecurityAdmin(final Employee admin, final Collection<GrantedAuthority> authorities) {
 		super(admin.getLoginAccount(), admin.getPassword(), true, true, true, true, authorities);
 		this.originalAdmin = admin;
+		this.originalAdmin.setPassword(StringUtils.EMPTY_STRING);
 	}
 
 	public Employee getOriginalAdmin() {
