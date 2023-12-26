@@ -10,8 +10,6 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.BCryptVersion;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -46,9 +44,9 @@ public class WebSecurityConfig {
 
 	@Bean
 	protected DaoAuthenticationProvider daoAuthenticationProvider() {
-		final DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+		final CrowdPlusDaoAuthenticationProvider provider = new CrowdPlusDaoAuthenticationProvider();
 		provider.setUserDetailsService(this.crowdPlusUserDetailsService);
-		provider.setPasswordEncoder(new BCryptPasswordEncoder(BCryptVersion.$2Y, 7));
+		provider.setPasswordEncoder(new CrowdPlusPasswordEncoder());
 		return provider;
 	}
 
