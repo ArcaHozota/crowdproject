@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
@@ -58,8 +59,12 @@ public class WebSecurityConfig {
 				.csrf(csrf -> csrf.ignoringRequestMatchers(pathMatchers)
 						.csrfTokenRepository(new CookieCsrfTokenRepository()))
 				.exceptionHandling().authenticationEntryPoint((request, response, authenticationException) -> {
-					final ResponseLoginDto responseResult = new ResponseLoginDto(403,
+					final ResponseLoginDto responseResult = new ResponseLoginDto(HttpStatus.UNAUTHORIZED.value(),
 							authenticationException.getMessage());
+					CrowdPlusUtils.renderString(response, responseResult);
+				}).accessDeniedHandler((request, response, accessDeniedException) -> {
+					final ResponseLoginDto responseResult = new ResponseLoginDto(HttpStatus.FORBIDDEN.value(),
+							CrowdPlusConstants.MESSAGE_SPRINGSECURITY_REQUIREDAUTH);
 					CrowdPlusUtils.renderString(response, responseResult);
 				}).and().formLogin(formLogin -> {
 					formLogin.loginPage("/pgcrowd/employee/login").loginProcessingUrl("/pgcrowd/employee/do/login")
