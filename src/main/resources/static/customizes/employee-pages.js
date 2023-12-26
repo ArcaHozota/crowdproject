@@ -21,8 +21,11 @@ function toSelectedPg(pageNum, keyword) {
 			buildTableBody(result);
 			buildPageInfos(result);
 			buildPageNavi(result);
+		},
+		error: function(result) {
+			layer.msg(result.responseJSON.message);
 		}
-	})
+	});
 }
 function buildTableBody(result) {
 	$("#tableBody").empty();
@@ -235,13 +238,26 @@ $("#saveInfoBtn").on('click', function() {
 			contentType: 'application/json;charset=UTF-8',
 			success: function() {
 				window.location.replace('/pgcrowd/employee/to/pages?pageNum=' + totalRecords);
+			},
+			error: function(result) {
+				layer.msg(result.responseJSON.message);
 			}
 		});
 	}
 });
 $("#addInfoBtn").on('click', function(e) {
 	e.preventDefault();
-	window.location.replace('/pgcrowd/employee/to/addition');
+	$.ajax({
+		url: '/pgcrowd/employee/to/addition',
+		type: 'GET',
+		dataType: 'json',
+		success: function() {
+			window.location.replace('/pgcrowd/employee/to/addition');
+		},
+		error: function(result) {
+			layer.msg(result.responseJSON.message);
+		}
+	});
 });
 $("#tableBody").on('click', '.delete-btn', function() {
 	let userName = $(this).parents("tr").find("td:eq(0)").text().trim();
@@ -259,13 +275,26 @@ $("#tableBody").on('click', '.delete-btn', function() {
 			success: function() {
 				layer.msg('削除済み');
 				toSelectedPg(pageNum, keyword);
+			},
+			error: function(result) {
+				layer.msg(result.responseJSON.message);
 			}
 		});
 	}
 });
 $("#tableBody").on('click', '.edit-btn', function() {
 	let editId = $(this).attr("editId");
-	window.location.replace('/pgcrowd/employee/to/edition?editId=' + editId);
+	$.ajax({
+		url: '/pgcrowd/employee/to/edition?editId=1',
+		type: 'GET',
+		dataType: 'json',
+		success: function() {
+			window.location.replace('/pgcrowd/employee/to/edition?editId=' + editId);
+		},
+		error: function(result) {
+			layer.msg(result.responseJSON.message);
+		}
+	});
 });
 $("#usernameEdit").change(function() {
 	let editUsername = this.value;
@@ -338,6 +367,9 @@ $("#editInfoBtn").on('click', function() {
 			contentType: 'application/json;charset=UTF-8',
 			success: function() {
 				window.location.replace('/pgcrowd/employee/to/pages?pageNum=' + pageNum);
+			},
+			error: function(result) {
+				layer.msg(result.responseJSON.message);
 			}
 		});
 	}

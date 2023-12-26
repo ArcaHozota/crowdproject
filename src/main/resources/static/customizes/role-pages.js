@@ -21,8 +21,11 @@ function toSelectedPg(pageNum, keyword) {
 			buildTableBody(result);
 			buildPageInfos(result);
 			buildPageNavi(result);
+		},
+		error: function(result) {
+			layer.msg(result.responseJSON.message);
 		}
-	})
+	});
 }
 function buildTableBody(result) {
 	$("#tableBody").empty();
@@ -153,6 +156,9 @@ $("#roleInfoSaveBtn").on('click', function() {
 				$("#roleAddModal").modal('hide');
 				layer.msg('追加処理成功');
 				toSelectedPg(pageNum, keyword);
+			},
+			error: function(result) {
+				layer.msg(result.responseJSON.message);
 			}
 		});
 	}
@@ -207,6 +213,9 @@ $("#roleInfoChangeBtn").on('click', function() {
 					showValidationMsg("#nameEdit", "error", result.message);
 					$(this).attr("ajax-va", "error");
 				}
+			},
+			error: function(result) {
+				layer.msg(result.responseJSON.message);
 			}
 		});
 	}
@@ -231,6 +240,9 @@ $("#tableBody").on('click', '.delete-btn', function() {
 				} else {
 					layer.msg(result.message);
 				}
+			},
+			error: function(result) {
+				layer.msg(result.responseJSON.message);
 			}
 		});
 	}
@@ -317,13 +329,12 @@ $("#authChangeBtn").on('click', function() {
 		headers: {
 			[header]: token
 		},
-		success: function(result) {
+		success: function() {
 			$("#authEditModal").modal('hide');
-			if (result.status === 'SUCCESS') {
-				layer.msg('権限付与成功！');
-			} else {
-				layer.msg(result.message);
-			}
+			layer.msg('権限付与成功！');
+		},
+		error: function(result) {
+			layer.msg(result.responseJSON.message);
 		}
 	});
 });
