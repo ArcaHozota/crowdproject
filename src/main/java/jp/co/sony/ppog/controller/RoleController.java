@@ -82,7 +82,7 @@ public class RoleController {
 	 * @return ResultDto<String>
 	 */
 	@PutMapping("/do/assignment")
-	@PreAuthorize("hasAuthority('role%addition')")
+	@PreAuthorize("hasAuthority('role%delete')")
 	public ResultDto<String> doAssignment(@RequestBody final Map<String, List<Long>> paramMap) {
 		return this.iRoleService.doAssignment(paramMap);
 	}

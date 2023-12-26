@@ -45,10 +45,11 @@ public final class CrowdPlusUtils {
 	 * @param response リスポンス
 	 * @param string   ストリング
 	 */
+	@SuppressWarnings("deprecation")
 	public static void renderString(final HttpServletResponse response, final ResponseLoginDto aResult) {
 		try {
 			response.setStatus(aResult.getCode());
-			response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+			response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
 			response.getWriter().print(JSON.toJSONString(aResult));
 		} catch (final IOException e) {
 			// do nothing
