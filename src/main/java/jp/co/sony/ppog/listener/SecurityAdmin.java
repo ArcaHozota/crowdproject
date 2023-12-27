@@ -1,4 +1,4 @@
-package jp.co.sony.ppog.dto;
+package jp.co.sony.ppog.listener;
 
 import java.util.Collection;
 
@@ -22,7 +22,7 @@ public final class SecurityAdmin extends User {
 
 	private final Employee originalAdmin;
 
-	public SecurityAdmin(final Employee admin, final Collection<GrantedAuthority> authorities) {
+	SecurityAdmin(final Employee admin, final Collection<GrantedAuthority> authorities) {
 		super(admin.getLoginAccount(), admin.getPassword(), true, true, true, true, authorities);
 		this.originalAdmin = admin;
 		this.originalAdmin.setPassword(StringUtils.EMPTY_STRING);
