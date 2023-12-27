@@ -3,6 +3,7 @@ package jp.co.sony.ppog.service.impl;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.BCryptVersion;
@@ -53,17 +54,25 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	}
 
 	@Override
-	public Employee getEmployeeById(final Long id) {
-		return this.employeeMapper.selectById(id);
+	public EmployeeDto getEmployeeById(final Long id) {
+		final Employee employee = this.employeeMapper.selectById(id);
+		final EmployeeDto employeeDto = new EmployeeDto();
+		SecondBeanUtils.copyNullableProperties(employee, employeeDto);
+		return employeeDto;
 	}
 
 	@Override
-	public Pagination<Employee> getEmployeesByKeyword(final Integer pageNum, final String keyword) {
+	public Pagination<EmployeeDto> getEmployeesByKeyword(final Integer pageNum, final String keyword) {
 		final Integer pageSize = CrowdPlusConstants.DEFAULT_PAGE_SIZE;
 		final Integer offset = (pageNum - 1) * pageSize;
 		final String searchStr = StringUtils.getDetailKeyword(keyword);
 		final Long records = this.employeeMapper.countByKeyword(searchStr);
-		final List<Employee> pages = this.employeeMapper.paginationByKeyword(searchStr, offset, pageSize);
+		final List<EmployeeDto> pages = this.employeeMapper.paginationByKeyword(searchStr, offset, pageSize).stream()
+				.map(item -> {
+					final EmployeeDto employeeDto = new EmployeeDto();
+					SecondBeanUtils.copyNullableProperties(item, employeeDto);
+					return employeeDto;
+				}).collect(Collectors.toList());
 		return Pagination.of(pages, records, pageNum, pageSize);
 	}
 
