@@ -54,7 +54,7 @@ public interface IRoleService {
 	 * @param id 社員ID
 	 * @return List<String>
 	 */
-	List<Role> getEmployeeRolesById(Long id);
+	List<RoleDto> getEmployeeRolesById(Long id);
 
 	/**
 	 * IDによって役割情報を取得する
@@ -71,7 +71,7 @@ public interface IRoleService {
 	 * @param keyword キーワード
 	 * @return Pagination<Role>
 	 */
-	Pagination<Role> getRolesByKeyword(Integer pageNum, String keyword);
+	Pagination<RoleDto> getRolesByKeyword(Integer pageNum, String keyword);
 
 	/**
 	 * 役割IDによって情報を削除する

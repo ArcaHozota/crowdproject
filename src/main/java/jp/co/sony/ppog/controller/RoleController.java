@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jp.co.sony.ppog.dto.RoleDto;
 import jp.co.sony.ppog.entity.Authority;
-import jp.co.sony.ppog.entity.Role;
 import jp.co.sony.ppog.service.IRoleService;
 import jp.co.sony.ppog.utils.Pagination;
 import jp.co.sony.ppog.utils.ResultDto;
@@ -108,10 +107,10 @@ public class RoleController {
 	 */
 	@GetMapping("/pagination")
 	@PreAuthorize("hasAuthority('role%retrieve')")
-	public ResultDto<Pagination<Role>> pagination(
+	public ResultDto<Pagination<RoleDto>> pagination(
 			@RequestParam(name = "pageNum", defaultValue = "1") final Integer pageNum,
 			@RequestParam(name = "keyword", defaultValue = StringUtils.EMPTY_STRING) final String keyword) {
-		final Pagination<Role> roles = this.iRoleService.getRolesByKeyword(pageNum, keyword);
+		final Pagination<RoleDto> roles = this.iRoleService.getRolesByKeyword(pageNum, keyword);
 		return ResultDto.successWithData(roles);
 	}
 
