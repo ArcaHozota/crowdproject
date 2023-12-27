@@ -56,8 +56,11 @@ public class WebSecurityConfig {
 	@Bean
 	protected SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
 		final AntPathRequestMatcher[] pathMatchers = { new AntPathRequestMatcher("/static/**", "GET") };
-		http.authorizeHttpRequests(
-				authorize -> authorize.requestMatchers(pathMatchers).permitAll().anyRequest().authenticated())
+		http.authorizeHttpRequests(authorize -> authorize.requestMatchers(pathMatchers).permitAll()
+				.requestMatchers(new AntPathRequestMatcher("/pgcrowd/employee/to/pages", "GET"))
+				.hasAuthority("employee%retrieve")
+				.requestMatchers(new AntPathRequestMatcher("/pgcrowd/role/to/pages", "GET"))
+				.hasAuthority("role%retrieve").anyRequest().authenticated())
 				.csrf(csrf -> csrf.ignoringRequestMatchers(pathMatchers)
 						.csrfTokenRepository(new CookieCsrfTokenRepository()))
 				.exceptionHandling().authenticationEntryPoint((request, response, authenticationException) -> {
