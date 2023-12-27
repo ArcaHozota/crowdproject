@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import jp.co.sony.ppog.commons.CrowdPlusConstants;
 import jp.co.sony.ppog.dto.EmployeeDto;
-import jp.co.sony.ppog.entity.Employee;
 import jp.co.sony.ppog.entity.Role;
 import jp.co.sony.ppog.service.IEmployeeService;
 import jp.co.sony.ppog.service.IRoleService;
@@ -84,10 +83,10 @@ public class EmployeeController {
 	@GetMapping("/pagination")
 	@ResponseBody
 	@PreAuthorize("hasAuthority('employee%retrieve')")
-	public ResultDto<Pagination<Employee>> pagination(
+	public ResultDto<Pagination<EmployeeDto>> pagination(
 			@RequestParam(name = "pageNum", defaultValue = "1") final Integer pageNum,
 			@RequestParam(name = "keyword", defaultValue = StringUtils.EMPTY_STRING) final String keyword) {
-		final Pagination<Employee> employees = this.iEmployeeService.getEmployeesByKeyword(pageNum, keyword);
+		final Pagination<EmployeeDto> employees = this.iEmployeeService.getEmployeesByKeyword(pageNum, keyword);
 		return ResultDto.successWithData(employees);
 	}
 
@@ -99,8 +98,8 @@ public class EmployeeController {
 	 */
 	@GetMapping("/inforestore")
 	@ResponseBody
-	public ResultDto<Employee> restoreInfo(@RequestParam("userId") final Long userId) {
-		final Employee employee = this.iEmployeeService.getEmployeeById(userId);
+	public ResultDto<EmployeeDto> restoreInfo(@RequestParam("userId") final Long userId) {
+		final EmployeeDto employee = this.iEmployeeService.getEmployeeById(userId);
 		return ResultDto.successWithData(employee);
 	}
 
@@ -142,7 +141,7 @@ public class EmployeeController {
 	@GetMapping("/to/edition")
 	@PreAuthorize("hasAuthority('employee%addition')")
 	public ModelAndView toEdition(@RequestParam("editId") final Long id) {
-		final Employee employee = this.iEmployeeService.getEmployeeById(id);
+		final EmployeeDto employee = this.iEmployeeService.getEmployeeById(id);
 		final List<Role> employeeRolesById = this.iRoleService.getEmployeeRolesById(id);
 		final ModelAndView modelAndView = new ModelAndView("admin-editinfo");
 		modelAndView.addObject(CrowdPlusConstants.ATTRNAME_EDITED_INFO, employee);

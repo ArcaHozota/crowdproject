@@ -1,7 +1,6 @@
 package jp.co.sony.ppog.service;
 
 import jp.co.sony.ppog.dto.EmployeeDto;
-import jp.co.sony.ppog.entity.Employee;
 import jp.co.sony.ppog.utils.Pagination;
 import jp.co.sony.ppog.utils.ResultDto;
 
@@ -26,7 +25,7 @@ public interface IEmployeeService {
 	 * @param id 社員ID
 	 * @return Employee
 	 */
-	Employee getEmployeeById(Long id);
+	EmployeeDto getEmployeeById(Long id);
 
 	/**
 	 * キーワードによって社員情報を取得する
@@ -35,7 +34,7 @@ public interface IEmployeeService {
 	 * @param keyword キーワード
 	 * @return Pagination<Employee>
 	 */
-	Pagination<Employee> getEmployeesByKeyword(Integer pageNum, String keyword);
+	Pagination<EmployeeDto> getEmployeesByKeyword(Integer pageNum, String keyword);
 
 	/**
 	 * 社員情報削除
