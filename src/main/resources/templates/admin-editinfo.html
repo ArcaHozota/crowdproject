@@ -119,8 +119,8 @@
 							<div class="form-group col-md-3">
 								<label for="roleEdit">役割</label>
 								<select id="roleEdit" class="form-select">
-									<option th:each="item:${employeeRoles}" th:value="${item.getId()}"
-										th:text="${item.getName()}">
+									<option th:each="item:${employeeRoles}" th:value="${item.id}"
+										th:text="${item.name}">
 									</option>
 								</select>
 							</div>
