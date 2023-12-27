@@ -94,12 +94,16 @@ public class RoleServiceImpl implements IRoleService {
 	}
 
 	@Override
-	public List<Role> getEmployeeRolesById(final Long id) {
-		final List<Role> secondRoles = new ArrayList<>();
-		final Role secondRole = new Role();
+	public List<RoleDto> getEmployeeRolesById(final Long id) {
+		final List<RoleDto> secondRoles = new ArrayList<>();
+		final RoleDto secondRole = new RoleDto();
 		secondRole.setId(0L);
 		secondRole.setName(CrowdPlusConstants.DEFAULT_ROLE_NAME);
-		final List<Role> roles = this.roleMapper.selectAll();
+		final List<RoleDto> roles = this.roleMapper.selectAll().stream().map(item -> {
+			final RoleDto roleDto = new RoleDto();
+			SecondBeanUtils.copyNullableProperties(item, roleDto);
+			return roleDto;
+		}).collect(Collectors.toList());
 		secondRoles.add(secondRole);
 		secondRoles.addAll(roles);
 		if (id == null) {
@@ -111,8 +115,11 @@ public class RoleServiceImpl implements IRoleService {
 		}
 		secondRoles.clear();
 		final Long roleId = employeeRole.getRoleId();
-		final List<Role> selectedRole = roles.stream().filter(a -> Objects.equals(a.getId(), roleId))
-				.collect(Collectors.toList());
+		final List<RoleDto> selectedRole = roles.stream().filter(a -> Objects.equals(a.getId(), roleId)).map(item -> {
+			final RoleDto roleDto = new RoleDto();
+			SecondBeanUtils.copyNullableProperties(item, roleDto);
+			return roleDto;
+		}).collect(Collectors.toList());
 		secondRoles.addAll(selectedRole);
 		secondRoles.addAll(roles);
 		return secondRoles.stream().distinct().collect(Collectors.toList());
@@ -124,17 +131,27 @@ public class RoleServiceImpl implements IRoleService {
 	}
 
 	@Override
-	public Pagination<Role> getRolesByKeyword(final Integer pageNum, final String keyword) {
+	public Pagination<RoleDto> getRolesByKeyword(final Integer pageNum, final String keyword) {
 		final Integer pageSize = CrowdPlusConstants.DEFAULT_PAGE_SIZE;
 		final Integer offset = (pageNum - 1) * pageSize;
 		if (StringUtils.isDigital(keyword)) {
 			final Long records = this.roleMapper.countByKeyword(keyword);
-			final List<Role> pages = this.roleMapper.paginationByKeyword("%" + keyword + "%", offset, pageSize);
+			final List<RoleDto> pages = this.roleMapper.paginationByKeyword("%" + keyword + "%", offset, pageSize)
+					.stream().map(item -> {
+						final RoleDto roleDto = new RoleDto();
+						SecondBeanUtils.copyNullableProperties(item, roleDto);
+						return roleDto;
+					}).collect(Collectors.toList());
 			return Pagination.of(pages, records, pageNum, pageSize);
 		}
 		final String searchStr = StringUtils.getDetailKeyword(keyword);
 		final Long records = this.roleMapper.countByKeyword(searchStr);
-		final List<Role> pages = this.roleMapper.paginationByKeyword(searchStr, offset, pageSize);
+		final List<RoleDto> pages = this.roleMapper.paginationByKeyword(searchStr, offset, pageSize).stream()
+				.map(item -> {
+					final RoleDto roleDto = new RoleDto();
+					SecondBeanUtils.copyNullableProperties(item, roleDto);
+					return roleDto;
+				}).collect(Collectors.toList());
 		return Pagination.of(pages, records, pageNum, pageSize);
 	}
 
