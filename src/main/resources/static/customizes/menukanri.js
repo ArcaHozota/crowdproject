@@ -54,15 +54,3 @@ $("#treeView").on('click', '.list-group-item', function() {
 	}
 	checkPermissionAndTransfer(url);
 });
-function checkPermissionAndTransfer(stringUrl) {
-	let ajaxResult = $.ajax({
-		url: stringUrl,
-		type: 'GET',
-		async: false
-	});
-	if (ajaxResult.status === 200) {
-		window.location.replace(stringUrl);
-	} else {
-		layer.msg(ajaxResult.responseJSON.message);
-	}
-}

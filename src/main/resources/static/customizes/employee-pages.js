@@ -375,18 +375,6 @@ $("#restoreBtn").on('click', function() {
 		}
 	});
 });
-function checkPermissionAndTransfer(stringUrl) {
-	let ajaxResult = $.ajax({
-		url: stringUrl,
-		type: 'GET',
-		async: false
-	});
-	if (ajaxResult.status === 200) {
-		window.location.replace(stringUrl);
-	} else {
-		layer.msg(ajaxResult.responseJSON.message);
-	}
-}
 function formReset(element) {
 	$(element)[0].reset();
 	$(element).find(".form-control").removeClass("is-valid is-invalid");

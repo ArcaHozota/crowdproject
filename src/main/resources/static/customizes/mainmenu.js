@@ -23,11 +23,13 @@ $(function() {
 	});
 	$("#toAdmin").on('click', function(e) {
 		e.preventDefault();
-		window.location.replace('/pgcrowd/employee/to/pages?pageNum=1');
+		let url = '/pgcrowd/employee/to/pages?pageNum=1';
+		checkPermissionAndTransfer(url);
 	});
 	$("#toRole").on('click', function(e) {
 		e.preventDefault();
-		window.location.replace('/pgcrowd/role/to/pages?pageNum=1');
+		let url = '/pgcrowd/role/to/pages?pageNum=1';
+		checkPermissionAndTransfer(url);
 	});
 	$("#toMenu").on('click', function(e) {
 		e.preventDefault();
@@ -35,6 +37,19 @@ $(function() {
 	});
 	$("#toPages").on('click', function(e) {
 		e.preventDefault();
-		window.location.replace('/pgcrowd/employee/to/pages?pageNum=1');
+		let url = '/pgcrowd/employee/to/pages?pageNum=1';
+		checkPermissionAndTransfer(url);
 	});
 });
+function checkPermissionAndTransfer(stringUrl) {
+	let ajaxResult = $.ajax({
+		url: stringUrl,
+		type: 'GET',
+		async: false
+	});
+	if (ajaxResult.status === 200) {
+		window.location.replace(stringUrl);
+	} else {
+		layer.msg(ajaxResult.responseJSON.message);
+	}
+}
