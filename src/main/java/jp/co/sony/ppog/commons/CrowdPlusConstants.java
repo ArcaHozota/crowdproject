@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class CrowdPlusConstants {
 
-	public static final Integer DEFAULT_PAGE_SIZE = 7;
+	public static final Integer DEFAULT_PAGE_SIZE = 5;
 
 	public static final String MESSAGE_SPRING_MVCCONVERTOR = "拡張メッセージコンバーターの設置は完了しました。";
 
