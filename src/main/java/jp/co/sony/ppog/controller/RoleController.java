@@ -121,7 +121,7 @@ public class RoleController {
 	 * @return ResultDto<String>
 	 */
 	@PostMapping("/infosave")
-	@PreAuthorize("hasAuthority('role%addition')")
+	@PreAuthorize("hasAuthority('role%edition')")
 	public ResultDto<String> saveInfo(@RequestBody final RoleDto roleDto) {
 		this.iRoleService.save(roleDto);
 		return ResultDto.successWithoutData();
@@ -134,7 +134,7 @@ public class RoleController {
 	 * @return ResultDto<String>
 	 */
 	@PutMapping("/infoupd")
-	@PreAuthorize("hasAuthority('role%addition')")
+	@PreAuthorize("hasAuthority('role%edition')")
 	public ResultDto<String> updateInfo(@RequestBody final RoleDto roleDto) {
 		return this.iRoleService.update(roleDto);
 	}

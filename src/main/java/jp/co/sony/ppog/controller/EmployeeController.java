@@ -111,7 +111,7 @@ public class EmployeeController {
 	 */
 	@PostMapping("/infosave")
 	@ResponseBody
-	@PreAuthorize("hasAuthority('employee%addition')")
+	@PreAuthorize("hasAuthority('employee%edition')")
 	public ResultDto<String> saveInfo(@RequestBody final EmployeeDto employeeDto) {
 		this.iEmployeeService.save(employeeDto);
 		return ResultDto.successWithoutData();
@@ -124,7 +124,7 @@ public class EmployeeController {
 	 * @return ModelAndView
 	 */
 	@GetMapping("/to/addition")
-	@PreAuthorize("hasAuthority('employee%addition')")
+	@PreAuthorize("hasAuthority('employee%edition')")
 	public ModelAndView toAddition() {
 		final List<RoleDto> employeeRolesById = this.iRoleService.getEmployeeRolesById(null);
 		final ModelAndView modelAndView = new ModelAndView("admin-addinfo");
@@ -139,7 +139,7 @@ public class EmployeeController {
 	 * @return ModelAndView
 	 */
 	@GetMapping("/to/edition")
-	@PreAuthorize("hasAuthority('employee%addition')")
+	@PreAuthorize("hasAuthority('employee%edition')")
 	public ModelAndView toEdition(@RequestParam("editId") final Long id) {
 		final EmployeeDto employee = this.iEmployeeService.getEmployeeById(id);
 		final List<RoleDto> employeeRolesById = this.iRoleService.getEmployeeRolesById(id);
@@ -157,7 +157,7 @@ public class EmployeeController {
 	 */
 	@PutMapping("/infoupd")
 	@ResponseBody
-	@PreAuthorize("hasAuthority('employee%addition')")
+	@PreAuthorize("hasAuthority('employee%edition')")
 	public ResultDto<String> updateInfo(@RequestBody final EmployeeDto employeeDto) {
 		this.iEmployeeService.update(employeeDto);
 		return ResultDto.successWithoutData();
