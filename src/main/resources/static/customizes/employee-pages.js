@@ -248,12 +248,7 @@ $("#saveInfoBtn").on('click', function() {
 $("#addInfoBtn").on('click', function(e) {
 	e.preventDefault();
 	let url = '/pgcrowd/employee/to/addition';
-	let checkResult = checkPermission(url);
-	if (checkResult.status === 200) {
-		window.location.replace(url);
-	} else {
-		layer.msg(checkResult.responseJSON.message);
-	}
+	checkPermissionAndTransfer(url);
 });
 $("#tableBody").on('click', '.delete-btn', function() {
 	let userName = $(this).parents("tr").find("td:eq(0)").text().trim();
@@ -281,12 +276,7 @@ $("#tableBody").on('click', '.delete-btn', function() {
 $("#tableBody").on('click', '.edit-btn', function() {
 	let editId = $(this).attr("editId");
 	let url = '/pgcrowd/employee/to/edition?editId=' + editId;
-	let checkResult = checkPermission(url);
-	if (checkResult.status === 200) {
-		window.location.replace(url);
-	} else {
-		layer.msg(checkResult.responseJSON.message);
-	}
+	checkPermissionAndTransfer(url);
 });
 $("#usernameEdit").change(function() {
 	let editUsername = this.value;
@@ -385,13 +375,17 @@ $("#restoreBtn").on('click', function() {
 		}
 	});
 });
-function checkPermission(stringUrl) {
+function checkPermissionAndTransfer(stringUrl) {
 	let ajaxResult = $.ajax({
 		url: stringUrl,
 		type: 'GET',
 		async: false
 	});
-	return ajaxResult;
+	if (ajaxResult.status === 200) {
+		window.location.replace(stringUrl);
+	} else {
+		layer.msg(ajaxResult.responseJSON.message);
+	}
 }
 function formReset(element) {
 	$(element)[0].reset();

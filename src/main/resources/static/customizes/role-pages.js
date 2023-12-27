@@ -117,7 +117,7 @@ $("#nameInput").on('change', function() {
 		$("#roleInfoSaveBtn").attr("ajax-va", "error");
 	} else {
 		$.ajax({
-			url: '/pgcrowd/role/checkname',
+			url: '/pgcrowd/role/check',
 			data: 'name=' + nameVal,
 			type: 'GET',
 			success: function(result) {

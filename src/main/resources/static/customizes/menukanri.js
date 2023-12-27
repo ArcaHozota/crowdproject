@@ -39,16 +39,30 @@ $(document).ready(function() {
 	});
 });
 $("#treeView").on('click', '.list-group-item', function() {
+	let url;
 	let titleName = $(this).text();
 	switch (titleName) {
 		case "社員情報追加":
-			window.location.replace("/pgcrowd/employee/to/addition");
+			url = '/pgcrowd/employee/to/addition';
 			break;
 		case "社員情報一覧":
-			window.location.replace("/pgcrowd/employee/to/pages?pageNum=1");
+			url = '/pgcrowd/employee/to/pages?pageNum=1';
 			break;
 		case "役割情報一覧":
-			window.location.replace("/pgcrowd/role/to/pages?pageNum=1");
+			url = '/pgcrowd/role/to/pages?pageNum=1';
 			break;
 	}
+	checkPermissionAndTransfer(url);
 });
+function checkPermissionAndTransfer(stringUrl) {
+	let ajaxResult = $.ajax({
+		url: stringUrl,
+		type: 'GET',
+		async: false
+	});
+	if (ajaxResult.status === 200) {
+		window.location.replace(stringUrl);
+	} else {
+		layer.msg(ajaxResult.responseJSON.message);
+	}
+}
