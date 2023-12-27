@@ -99,13 +99,13 @@ public class RoleServiceImpl implements IRoleService {
 		final RoleDto secondRole = new RoleDto();
 		secondRole.setId(0L);
 		secondRole.setName(CrowdPlusConstants.DEFAULT_ROLE_NAME);
-		final List<RoleDto> roles = this.roleMapper.selectAll().stream().map(item -> {
+		final List<RoleDto> roleDtos = this.roleMapper.selectAll().stream().map(item -> {
 			final RoleDto roleDto = new RoleDto();
 			SecondBeanUtils.copyNullableProperties(item, roleDto);
 			return roleDto;
 		}).collect(Collectors.toList());
 		secondRoles.add(secondRole);
-		secondRoles.addAll(roles);
+		secondRoles.addAll(roleDtos);
 		if (id == null) {
 			return secondRoles;
 		}
@@ -115,13 +115,10 @@ public class RoleServiceImpl implements IRoleService {
 		}
 		secondRoles.clear();
 		final Long roleId = employeeRole.getRoleId();
-		final List<RoleDto> selectedRole = roles.stream().filter(a -> Objects.equals(a.getId(), roleId)).map(item -> {
-			final RoleDto roleDto = new RoleDto();
-			SecondBeanUtils.copyNullableProperties(item, roleDto);
-			return roleDto;
-		}).collect(Collectors.toList());
+		final List<RoleDto> selectedRole = roleDtos.stream().filter(a -> Objects.equals(a.getId(), roleId))
+				.collect(Collectors.toList());
 		secondRoles.addAll(selectedRole);
-		secondRoles.addAll(roles);
+		secondRoles.addAll(roleDtos);
 		return secondRoles.stream().distinct().collect(Collectors.toList());
 	}
 
