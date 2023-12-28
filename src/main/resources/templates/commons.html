@@ -78,6 +78,58 @@
 			</div>
 		</nav>
 	</div>
+	<div th:fragment="sidebar" th:remove="tag">
+		<div class="col-sm-3 col-md-2 sidebar">
+			<div class="tree">
+				<ul style="padding-left: 0px;" class="list-group">
+					<li class="list-group-item list-group-item-action collapsed">
+						<a href="#" id="toMainmenu">
+							<i class="bi bi-speedometer"></i> コントロールパネル
+						</a>
+					</li>
+					<li class="list-group-item list-group-item-action collapsed" id="adminKanri">
+						<span><i class="bi bi-bank"></i> 権限管理</span>
+						<ul style="margin-top: 10px; display: none;">
+							<li style="height: 30px;">
+								<a href="user.html" id="toAdmin">
+									<i class="bi bi-people-fill"></i> ユーザメンテナンス
+								</a>
+							</li>
+							<li style="height: 30px;">
+								<a href="role.html" id="toRole">
+									<i class="bi bi-list-check"></i> 役割メンテナンス
+								</a>
+							</li>
+							<li style="height: 30px;">
+								<a href="permission.html" id="toMenu">
+									<i class="bi bi-menu-down"></i> メニューメンテナンス
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="list-group-item list-group-item-action collapsed" id="businessKanri">
+						<span><i class="bi bi-boombox-fill"></i> ビジネス管理</span>
+						<ul style="margin-top: 10px; display: none;">
+							<li style="height: 30px;"><a href="cert.html"><i
+										class="glyphicon glyphicon-picture"></i>資格維持</a></li>
+							<li style="height: 30px;"><a href="type.html"><i
+										class="glyphicon glyphicon-equalizer"></i>分類管理</a></li>
+							<li style="height: 30px;"><a href="process.html"><i
+										class="glyphicon glyphicon-random"></i>プロセス管理</a></li>
+							<li style="height: 30px;"><a href="advertisement.html"><i
+										class="glyphicon glyphicon-hdd"></i>広告管理</a></li>
+							<li style="height: 30px;"><a href="message.html"><i
+										class="glyphicon glyphicon-comment"></i>メッセージテンプレート</a></li>
+							<li style="height: 30px;"><a href="project_type.html"><i
+										class="glyphicon glyphicon-list"></i>セクションの種類</a></li>
+							<li style="height: 30px;"><a href="tag.html"><i
+										class="glyphicon glyphicon-tags"></i>プロジェクトタグ</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 </body>
 
 </html>
