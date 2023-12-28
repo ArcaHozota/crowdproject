@@ -28,6 +28,25 @@ $(document).ready(function() {
 					icon: "bi bi-person-vcard-fill"
 				}
 			]
+		},
+		{
+			text: "分類管理",
+			icon: "bi bi-list",
+			expanded: true,
+			nodes: [
+				{
+					text: "地域一覧",
+					icon: "bi bi-globe-americas"
+				},
+				{
+					text: "都市一覧",
+					icon: "bi bi-building-fill-check"
+				},
+				{
+					text: "駅一覧",
+					icon: "bi bi-buildings-fill"
+				}
+			]
 		}
 	];
 	$('#treeView').bstreeview({
@@ -51,6 +70,15 @@ $("#treeView").on('click', '.list-group-item', function() {
 			break;
 		case "役割情報一覧":
 			url = '/pgcrowd/role/to/pages?pageNum=1';
+			break;
+		case "地域一覧":
+			url = '/pgcrowd/category/to/districtPages';
+			break;
+		case "都市一覧":
+			url = '/pgcrowd/category/to/cityPages';
+			break;
+		case "駅一覧":
+			url = '/pgcrowd/category/to/stationPages';
 			break;
 	}
 	checkPermissionAndTransfer(url);
