@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja-JP" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{commons::header}"></div>
+
+<body>
+	<div th:replace="~{commons::navibar}"></div>
+	<div class="container-fluid">
+		<div class="row">
+			<div th:insert="~{commons::sidebar}"></div>
+			<div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 main">
+				<div class="card border-danger mb-3">
+					<div class="card-header text-bg-danger mb-3">
+						<h5 class="card-title" style="padding-top: 8px;">
+							<i class="bi bi-grid-fill"></i> 分類管理
+						</h5>
+					</div>
+					<div class="card-body">
+						<div id="categroyTreeView"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" th:src="@{/static/customizes/category-pages.js}"></script>
+</body>
+
+</html>
