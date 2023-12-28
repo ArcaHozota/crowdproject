@@ -40,6 +40,11 @@ $(function() {
 		let url = '/pgcrowd/employee/to/pages?pageNum=1';
 		checkPermissionAndTransfer(url);
 	});
+	$("#toCategory").on('click', function(e) {
+		e.preventDefault();
+		let url = '/pgcrowd/category/initial';
+		checkPermissionAndTransfer(url);
+	});
 });
 function checkPermissionAndTransfer(stringUrl) {
 	let ajaxResult = $.ajax({
