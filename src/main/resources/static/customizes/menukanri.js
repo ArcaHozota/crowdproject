@@ -1,6 +1,7 @@
 $(document).ready(function() {
 	$("#adminKanri").removeClass('collapsed');
 	$("ul", $("#adminKanri")).show('fast');
+	$("#toMenu").css('color', 'darkred');
 	let treeData = [
 		{
 			text: "社員管理",
