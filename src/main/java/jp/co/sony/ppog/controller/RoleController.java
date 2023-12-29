@@ -42,7 +42,7 @@ public class RoleController {
 	/**
 	 * 権限付与モダルを初期表示する
 	 *
-	 * @return ResultDto<List<PgAuth>>
+	 * @return ResultDto<List<Authority>>
 	 */
 	@GetMapping("/authlists")
 	public ResultDto<List<Authority>> authlists() {
@@ -103,7 +103,7 @@ public class RoleController {
 	 *
 	 * @param pageNum ページ数
 	 * @param keyword キーワード
-	 * @return ResultDto<Pagination<Role>>
+	 * @return ResultDto<Pagination<RoleDto>>
 	 */
 	@GetMapping("/pagination")
 	@PreAuthorize("hasAuthority('role%retrieve')")

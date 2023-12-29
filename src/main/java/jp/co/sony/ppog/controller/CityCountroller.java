@@ -2,6 +2,8 @@ package jp.co.sony.ppog.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,7 +37,7 @@ public class CityCountroller {
 	 *
 	 * @param pageNum ページ数
 	 * @param keyword キーワード
-	 * @return ResultDto<Pagination<Role>>
+	 * @return ResultDto<Pagination<CityDto>>
 	 */
 	@GetMapping("/pagination")
 	@PreAuthorize("hasAuthority('city%retrieve')")
@@ -44,5 +46,18 @@ public class CityCountroller {
 			@RequestParam(name = "keyword", defaultValue = StringUtils.EMPTY_STRING) final String keyword) {
 		final Pagination<CityDto> cities = this.iCityService.getCitiesByKeyword(pageNum, keyword);
 		return ResultDto.successWithData(cities);
+	}
+
+	/**
+	 * 情報追加
+	 *
+	 * @param roleDto 役割情報DTO
+	 * @return ResultDto<String>
+	 */
+	@PostMapping("/infosave")
+	@PreAuthorize("hasAuthority('city%edition')")
+	public ResultDto<String> saveInfo(@RequestBody final CityDto cityDto) {
+		this.iCityService.save(cityDto);
+		return ResultDto.successWithoutData();
 	}
 }

@@ -35,7 +35,7 @@ public class DistrictController {
 	 *
 	 * @param pageNum ページ数
 	 * @param keyword キーワード
-	 * @return ResultDto<Pagination<Role>>
+	 * @return ResultDto<Pagination<DistrictDto>>
 	 */
 	@GetMapping("/pagination")
 	@PreAuthorize("hasAuthority('district%retrieve')")
