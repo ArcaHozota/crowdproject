@@ -5,7 +5,7 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * 権限エンティティ
+ * 地域エンティティ
  *
  * @author ArkamaHozota
  * @since 2.28
@@ -39,5 +39,4 @@ public final class District implements Serializable {
 	 * 論理削除フラグ
 	 */
 	private String delFlg;
-
 }
