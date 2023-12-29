@@ -54,6 +54,44 @@
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="cityAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">都市情報追加</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal">
+						<div class="form-group row">
+							<label for="nameInput" class="col-sm-3 col-form-label text-end">都市名</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="nameInput" placeholder="都市の名称">
+								<span class="form-text" style="font-size: 12px;"></span>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="districtInput" class="col-sm-3 col-form-label text-end">都道府県</label>
+							<div class="col-sm-9">
+								<select id="districtInput" class="form-select">
+									<option th:each="item:${districts}" th:value="${item.id}" th:text="${item.name}" />
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="populationInput" class="col-sm-3 col-form-label text-end">人口数量</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="populationInput" placeholder="都市の人口数量">
+								<span class="form-text" style="font-size: 12px;"></span>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+					<button type="button" class="btn btn-primary" id="roleInfoSaveBtn">保存</button>
+				</div>
+			</div>
+		</div>
 	</div>
 	<script type="text/javascript" th:src="@{/static/customizes/city-pages.js}"></script>
 </body>

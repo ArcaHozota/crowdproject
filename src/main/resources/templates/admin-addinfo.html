@@ -53,8 +53,7 @@
 								<label for="roleInput">役割</label>
 								<select id="roleInput" class="form-select">
 									<option th:each="item:${employeeRoles}" th:value="${item.id}"
-										th:text="${item.name}">
-									</option>
+										th:text="${item.name}" />
 								</select>
 							</div>
 						</form>
