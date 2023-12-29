@@ -25,16 +25,21 @@
 									</button>
 								</div>
 							</form>
+							<div class="col-md-2 offset-md-5">
+								<button class="btn btn-danger my-2 my-sm-0" id="addRoleBtn">
+									<i class="bi bi-person-plus-fill"></i> 情報追加
+								</button>
+							</div>
 						</div>
 						<table class="table table-sm">
-							<caption style="font-size: 10px;">地域情報一覧</caption>
+							<caption style="font-size: 10px;">都市情報一覧</caption>
 							<thead>
-								<tr class="table-danger">
+								<tr class="table-primary">
 									<th scope="col" class="text-center" style="width: 100px;">ID</th>
 									<th scope="col" class="text-center" style="width: 70px;">名称</th>
-									<th scope="col" class="text-center" style="width: 70px;">県庁</th>
-									<th scope="col" class="text-center" style="width: 70px;">地域</th>
+									<th scope="col" class="text-center" style="width: 70px;">都道府県</th>
 									<th scope="col" class="text-center" style="width: 70px;">人口数量</th>
+									<th scope="col" class="text-center" style="width: 70px;">駅数量</th>
 									<th scope="col" class="text-center" style="width: 120px;">操作</th>
 								</tr>
 							</thead>
@@ -50,7 +55,7 @@
 		</div>
 	</div>
 	</div>
-	<script type="text/javascript" th:src="@{/static/customizes/district-pages.js}"></script>
+	<script type="text/javascript" th:src="@{/static/customizes/city-pages.js}"></script>
 </body>
 
 </html>
