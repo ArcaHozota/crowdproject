@@ -42,7 +42,7 @@ public class CityCountroller {
 	public ResultDto<Pagination<CityDto>> pagination(
 			@RequestParam(name = "pageNum", defaultValue = "1") final Integer pageNum,
 			@RequestParam(name = "keyword", defaultValue = StringUtils.EMPTY_STRING) final String keyword) {
-		final Pagination<CityDto> cities = this.iCityService.getDistrictsByKeyword(pageNum, keyword);
+		final Pagination<CityDto> cities = this.iCityService.getCitiesByKeyword(pageNum, keyword);
 		return ResultDto.successWithData(cities);
 	}
 }

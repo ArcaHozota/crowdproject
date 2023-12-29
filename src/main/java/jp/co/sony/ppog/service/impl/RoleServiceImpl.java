@@ -132,17 +132,12 @@ public class RoleServiceImpl implements IRoleService {
 	public Pagination<RoleDto> getRolesByKeyword(final Integer pageNum, final String keyword) {
 		final Integer pageSize = CrowdPlusConstants.DEFAULT_PAGE_SIZE;
 		final Integer offset = (pageNum - 1) * pageSize;
+		String searchStr;
 		if (StringUtils.isDigital(keyword)) {
-			final Long records = this.roleMapper.countByKeyword(keyword);
-			final List<RoleDto> pages = this.roleMapper.paginationByKeyword("%" + keyword + "%", offset, pageSize)
-					.stream().map(item -> {
-						final RoleDto roleDto = new RoleDto();
-						SecondBeanUtils.copyNullableProperties(item, roleDto);
-						return roleDto;
-					}).collect(Collectors.toList());
-			return Pagination.of(pages, records, pageNum, pageSize);
+			searchStr = "%".concat(keyword).concat("%");
+		} else {
+			searchStr = StringUtils.getDetailKeyword(keyword);
 		}
-		final String searchStr = StringUtils.getDetailKeyword(keyword);
 		final Long records = this.roleMapper.countByKeyword(searchStr);
 		final List<RoleDto> pages = this.roleMapper.paginationByKeyword(searchStr, offset, pageSize).stream()
 				.map(item -> {

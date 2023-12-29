@@ -18,5 +18,5 @@ public interface ICityService {
 	 * @param keyword キーワード
 	 * @return Pagination<Role>
 	 */
-	Pagination<CityDto> getDistrictsByKeyword(Integer pageNum, String keyword);
+	Pagination<CityDto> getCitiesByKeyword(Integer pageNum, String keyword);
 }
