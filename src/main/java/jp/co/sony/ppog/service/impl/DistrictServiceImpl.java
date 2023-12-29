@@ -43,6 +43,7 @@ public class DistrictServiceImpl implements IDistrictService {
 				.map(item -> {
 					final DistrictDto districtDto = new DistrictDto();
 					SecondBeanUtils.copyNullableProperties(item, districtDto);
+					districtDto.setShutoName(item.getCity().getName());
 					return districtDto;
 				}).collect(Collectors.toList());
 		return Pagination.of(pages, records, pageNum, pageSize);
