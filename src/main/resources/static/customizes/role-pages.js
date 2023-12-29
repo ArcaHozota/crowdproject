@@ -47,63 +47,6 @@ function buildTableBody(result) {
 		$("<tr></tr>").append(idTd).append(nameTd).append(btnTd).appendTo("#tableBody");
 	});
 }
-function buildPageInfos(result) {
-	let pageInfos = $("#pageInfos");
-	pageInfos.empty();
-	pageNum = result.data.pageNum;
-	totalPages = result.data.totalPages;
-	totalRecords = result.data.totalRecords;
-	pageInfos.append(totalPages + "ページ中の" + pageNum + "ページ、" + totalRecords + "件のレコードが見つかりました。");
-}
-function buildPageNavi(result) {
-	$("#pageNavi").empty();
-	let ul = $("<ul></ul>").addClass("pagination");
-	let firstPageLi = $("<li class='page-item'></li>").append(
-		$("<a class='page-link'></a>").append("最初のページへ").attr("href", "#"));
-	let previousPageLi = $("<li class='page-item'></li>").append(
-		$("<a class='page-link'></a>").append("&laquo;").attr("href", "#"));
-	if (!result.data.hasPreviousPage) {
-		firstPageLi.addClass("disabled");
-		previousPageLi.addClass("disabled");
-	} else {
-		firstPageLi.click(function() {
-			toSelectedPg(1, keyword);
-		});
-		previousPageLi.click(function() {
-			toSelectedPg(pageNum - 1, keyword);
-		});
-	}
-	let nextPageLi = $("<li class='page-item'></li>").append(
-		$("<a class='page-link'></a>").append("&raquo;").attr("href", "#"));
-	let lastPageLi = $("<li class='page-item'></li>").append(
-		$("<a class='page-link'></a>").append("最後のページへ").attr("href", "#"));
-	if (!result.data.hasNextPage) {
-		nextPageLi.addClass("disabled");
-		lastPageLi.addClass("disabled");
-	} else {
-		lastPageLi.addClass("success");
-		nextPageLi.click(function() {
-			toSelectedPg(pageNum + 1, keyword);
-		});
-		lastPageLi.click(function() {
-			toSelectedPg(totalPages, keyword);
-		});
-	}
-	ul.append(firstPageLi).append(previousPageLi);
-	$.each(result.data.navigatePageNums, (index, item) => {
-		let numsLi = $("<li class='page-item'></li>").append(
-			$("<a class='page-link'></a>").append(item).attr("href", "#"));
-		if (pageNum === item) {
-			numsLi.attr("href", "#").addClass("active");
-		}
-		numsLi.click(function() {
-			toSelectedPg(item, keyword);
-		});
-		ul.append(numsLi);
-	});
-	ul.append(nextPageLi).append(lastPageLi);
-	$("<nav></nav>").append(ul).appendTo("#pageNavi");
-}
 $("#addRoleBtn").on('click', function() {
 	formReset("#roleAddModal form");
 	let addModal = new bootstrap.Modal($("#roleAddModal"), {
@@ -339,24 +282,6 @@ $("#authChangeBtn").on('click', function() {
 		}
 	});
 });
-function formReset(element) {
-	$(element)[0].reset();
-	$(element).find(".form-control").removeClass("is-valid is-invalid");
-	$(element).find(".form-text").removeClass("valid-feedback invalid-feedback");
-	$(element).find(".form-text").text("");
-}
-function showValidationMsg(element, status, msg) {
-	$(element).removeClass("is-valid is-invalid");
-	$(element).next("span").removeClass("valid-feedback invalid-feedback");
-	$(element).next("span").text("");
-	if (status === "success") {
-		$(element).addClass("is-valid");
-		$(element).next("span").addClass("valid-feedback");
-	} else if (status === "error") {
-		$(element).addClass("is-invalid");
-		$(element).next("span").addClass("invalid-feedback").text(msg);
-	}
-}
 function zTreeOnNodeCreated(event, treeId, treeNode) { // 设置节点创建时的回调函数
 	let iconObj = $("#" + treeNode.tId + "_ico"); // 获取图标元素
 	iconObj.removeClass("button ico_docu ico_open ico_close");

@@ -1,5 +1,7 @@
 package jp.co.sony.ppog.controller;
 
+import java.util.List;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jp.co.sony.ppog.dto.CityDto;
+import jp.co.sony.ppog.entity.District;
 import jp.co.sony.ppog.service.ICityService;
+import jp.co.sony.ppog.service.IDistrictService;
 import jp.co.sony.ppog.utils.Pagination;
 import jp.co.sony.ppog.utils.ResultDto;
 import jp.co.sony.ppog.utils.StringUtils;
@@ -33,6 +37,25 @@ public class CityCountroller {
 	private final ICityService iCityService;
 
 	/**
+	 * 地域サービスインターフェス
+	 */
+	private final IDistrictService iDistrictService;
+
+	/**
+	 * 地域情報初期表示
+	 *
+	 * @param cityId 都市ID
+	 * @return ResultDto<String>
+	 */
+	@GetMapping("/districtlist")
+	@PreAuthorize("hasAuthority('city%retrieve')")
+	public ResultDto<List<District>> getDistrictList(
+			@RequestParam(value = "cityId", defaultValue = StringUtils.EMPTY_STRING) final Long id) {
+		final List<District> districts = this.iDistrictService.getDistrictList(id);
+		return ResultDto.successWithData(districts);
+	}
+
+	/**
 	 * キーワードによってページング検索
 	 *
 	 * @param pageNum ページ数
@@ -51,7 +74,7 @@ public class CityCountroller {
 	/**
 	 * 情報追加
 	 *
-	 * @param roleDto 役割情報DTO
+	 * @param cityDto 都市情報DTO
 	 * @return ResultDto<String>
 	 */
 	@PostMapping("/infosave")
