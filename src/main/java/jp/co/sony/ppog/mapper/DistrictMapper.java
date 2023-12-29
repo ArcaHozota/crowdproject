@@ -16,6 +16,22 @@ import jp.co.sony.ppog.entity.District;
 @Mapper
 public interface DistrictMapper {
 
+	/**
+	 * キーワードによって地域情報の数を取得する
+	 *
+	 * @param keyword 検索キーワード
+	 * @return Integer
+	 */
+	Long countByKeyword(String searchStr);
+
+	/**
+	 * キーワードによって地域情報を検索する
+	 *
+	 * @param keyword  キーワード
+	 * @param offset   オフセット
+	 * @param pageSize ページサイズ
+	 * @return List<Role>
+	 */
 	List<District> paginationByKeyword(@Param("keyword") String keyword, @Param("offset") Integer offset,
 			@Param("pageSize") Integer pageSize);
 }

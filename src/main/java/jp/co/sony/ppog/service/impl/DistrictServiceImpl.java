@@ -1,5 +1,8 @@
 package jp.co.sony.ppog.service.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -8,6 +11,7 @@ import jp.co.sony.ppog.dto.DistrictDto;
 import jp.co.sony.ppog.mapper.DistrictMapper;
 import jp.co.sony.ppog.service.IDistrictService;
 import jp.co.sony.ppog.utils.Pagination;
+import jp.co.sony.ppog.utils.SecondBeanUtils;
 import jp.co.sony.ppog.utils.StringUtils;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +38,13 @@ public class DistrictServiceImpl implements IDistrictService {
 		final Integer pageSize = CrowdPlusConstants.DEFAULT_PAGE_SIZE;
 		final Integer offset = (pageNum - 1) * pageSize;
 		final String searchStr = StringUtils.getDetailKeyword(keyword);
-		this.districtMapper.paginationByKeyword(searchStr, offset, pageSize);
-		return null;
+		final Long records = this.districtMapper.countByKeyword(searchStr);
+		final List<DistrictDto> pages = this.districtMapper.paginationByKeyword(searchStr, offset, pageSize).stream()
+				.map(item -> {
+					final DistrictDto districtDto = new DistrictDto();
+					SecondBeanUtils.copyNullableProperties(item, districtDto);
+					return districtDto;
+				}).collect(Collectors.toList());
+		return Pagination.of(pages, records, pageNum, pageSize);
 	}
 }
