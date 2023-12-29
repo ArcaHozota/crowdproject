@@ -55,11 +55,11 @@ $("#addCityBtn").on('click', function() {
 	});
 	addModal.show();
 });
-function getDistricts(element, cityId) {
+function getDistricts(element, districtId) {
 	$(element).empty();
 	$.ajax({
 		url: '/pgcrowd/city/districtlist',
-		data: 'cityId=' + cityId,
+		data: 'districtId=' + districtId,
 		type: 'GET',
 		dataType: 'json',
 		success: function(result) {

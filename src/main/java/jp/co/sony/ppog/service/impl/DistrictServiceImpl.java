@@ -1,6 +1,8 @@
 package jp.co.sony.ppog.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -8,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.sony.ppog.commons.CrowdPlusConstants;
 import jp.co.sony.ppog.dto.DistrictDto;
+import jp.co.sony.ppog.entity.District;
 import jp.co.sony.ppog.mapper.DistrictMapper;
 import jp.co.sony.ppog.service.IDistrictService;
 import jp.co.sony.ppog.utils.Pagination;
@@ -32,6 +35,25 @@ public class DistrictServiceImpl implements IDistrictService {
 	 * 地域マッパー
 	 */
 	private final DistrictMapper districtMapper;
+
+	@Override
+	public List<District> getDistrictList(final String id) {
+		final List<District> list = new ArrayList<>();
+		final List<District> districts = this.districtMapper.selectAll();
+		if (StringUtils.isEmpty(id)) {
+			final District district = new District();
+			district.setId(0L);
+			district.setName(CrowdPlusConstants.DEFAULT_ROLE_NAME);
+			list.add(district);
+			list.addAll(districts);
+			return list;
+		}
+		final List<District> collect = districts.stream().filter(a -> Objects.equals(Long.parseLong(id), a.getId()))
+				.collect(Collectors.toList());
+		list.addAll(collect);
+		list.addAll(districts);
+		return list.stream().distinct().collect(Collectors.toList());
+	}
 
 	@Override
 	public Pagination<DistrictDto> getDistrictsByKeyword(final Integer pageNum, final String keyword) {

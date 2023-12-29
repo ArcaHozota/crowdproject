@@ -50,8 +50,8 @@ public class CityCountroller {
 	@GetMapping("/districtlist")
 	@PreAuthorize("hasAuthority('city%retrieve')")
 	public ResultDto<List<District>> getDistrictList(
-			@RequestParam(value = "cityId", defaultValue = StringUtils.EMPTY_STRING) final Long id) {
-		final List<District> districts = this.iDistrictService.getDistrictList(id);
+			@RequestParam(value = "districtId", defaultValue = StringUtils.EMPTY_STRING) final String districtId) {
+		final List<District> districts = this.iDistrictService.getDistrictList(districtId);
 		return ResultDto.successWithData(districts);
 	}
 
