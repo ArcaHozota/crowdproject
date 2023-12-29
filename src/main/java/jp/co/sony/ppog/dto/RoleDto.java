@@ -1,5 +1,7 @@
 package jp.co.sony.ppog.dto;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
 /**
@@ -9,7 +11,9 @@ import lombok.Data;
  * @since 1.00beta
  */
 @Data
-public final class RoleDto {
+public final class RoleDto implements Serializable {
+
+	private static final long serialVersionUID = 9004635352261624444L;
 
 	/**
 	 * ID
@@ -17,7 +21,7 @@ public final class RoleDto {
 	private Long id;
 
 	/**
-	 * アカウント
+	 * 名称
 	 */
 	private String name;
 }
