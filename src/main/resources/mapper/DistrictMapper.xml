@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.sony.ppog.mapper.DistrictMapper">
+	<resultMap id="BasicResultMap"
+		type="jp.co.sony.ppog.entity.District" autoMapping="true">
+		<id property="id" jdbcType="NUMERIC" column="ID" />
+		<association property="city" javaType="jp.co.sony.ppog.entity.City">
+			<id property="id" jdbcType="NUMERIC" column="ID" />
+			<result property="name" jdbcType="NVARCHAR" column="CITY_NAME" />
+		</association>
+	</resultMap>
+	<update id="updateById"
+		parameterType="jp.co.sony.ppog.entity.District">
+	</update>
+	<select id="selectAll" resultMap="BasicResultMap">
+	</select>
+	<select id="paginationByKeyword" resultMap="BasicResultMap">
+		SELECT
+		    PD.ID
+		    , PD.NAME
+		    , PC.NAME AS CITY_NAME
+		    , PD.CHIHO
+		    , PD.SHUTO_ID 
+		FROM
+		    PPOG_DISTRICTS PD 
+		    LEFT JOIN PPOG_CITIES PC 
+		        ON PC.ID = PD.SHUTO_ID 
+		WHERE
+		    PD.DEL_FLG = 'approved' 
+		    AND ( 
+		        PD.NAME LIKE #{keyword,jdbcType=NVARCHAR} 
+		        OR PC.NAME LIKE #{keyword,jdbcType=NVARCHAR} 
+		        OR PD.CHIHO LIKE #{keyword,jdbcType=NVARCHAR}
+		    ) 
+		ORDER BY
+		    PD.ID OFFSET #{offset,jdbcType=INTEGER} ROWS FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
+	</select>
+	<select id="countByKeyword" parameterType="java.lang.String"
+		resultType="java.lang.Long">
+		SELECT
+		    COUNT(1) 
+		FROM
+		    PPOG_DISTRICTS PD 
+		    LEFT JOIN PPOG_CITIES PC 
+		        ON PC.ID = PD.SHUTO_ID 
+		WHERE
+		    PD.DEL_FLG = 'approved'
+		    AND ( 
+		        PD.NAME LIKE #{keyword,jdbcType=NVARCHAR} 
+		        OR PC.NAME LIKE #{keyword,jdbcType=NVARCHAR} 
+		        OR PD.CHIHO LIKE #{keyword,jdbcType=NVARCHAR}
+		    )
+	</select>
+</mapper>
