@@ -13,6 +13,17 @@
 		parameterType="jp.co.sony.ppog.entity.District">
 	</update>
 	<select id="selectAll" resultMap="BasicResultMap">
+		SELECT
+		    PD.ID
+		    , PD.NAME
+		    , PD.CHIHO
+		    , PD.SHUTO_ID 
+		FROM
+		    PPOG_DISTRICTS PD 
+		WHERE
+		    PD.DEL_FLG = 'approved' 
+		ORDER BY
+		    PD.ID
 	</select>
 	<select id="paginationByKeyword" resultMap="BasicResultMap">
 		SELECT
