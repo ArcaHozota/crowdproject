@@ -19,4 +19,11 @@ public interface ICityService {
 	 * @return Pagination<Role>
 	 */
 	Pagination<CityDto> getCitiesByKeyword(Integer pageNum, String keyword);
+
+	/**
+	 * 都市情報追加
+	 *
+	 * @param cityDto 都市情報転送クラス
+	 */
+	void save(CityDto cityDto);
 }

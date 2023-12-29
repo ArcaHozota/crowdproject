@@ -4,6 +4,10 @@
 	<resultMap id="BasicResultMap"
 		type="jp.co.sony.ppog.entity.City" autoMapping="true">
 		<id property="id" jdbcType="NUMERIC" column="ID" />
+		<association property="district" javaType="jp.co.sony.ppog.entity.District">
+			<id property="id" jdbcType="NUMERIC" column="ID" />
+			<result property="name" jdbcType="NVARCHAR" column="DISTRICT_NAME" />
+		</association>
 	</resultMap>
 	<insert id="insertById"
 		parameterType="jp.co.sony.ppog.entity.City">
@@ -32,8 +36,11 @@
 		    , PC.NAME
 		    , PC.DISTRICT_ID
 		    , PC.POPULATION 
+		    , PD.NAME AS DISTRICT_NAME
 		FROM
 		    PPOG_CITIES PC 
+		    INNER JOIN PPOG_DISTRICTS PD 
+		        ON PD.ID = PC.DISTRICT_ID 
 		WHERE
 		    PC.DEL_FLG = 'approved' 
 		    AND ( 
@@ -49,6 +56,8 @@
 		    COUNT(1) 
 		FROM
 		    PPOG_CITIES PC 
+		    INNER JOIN PPOG_DISTRICTS PD 
+		        ON PD.ID = PC.DISTRICT_ID 
 		WHERE
 		    PC.DEL_FLG = 'approved' 
 		    AND ( 

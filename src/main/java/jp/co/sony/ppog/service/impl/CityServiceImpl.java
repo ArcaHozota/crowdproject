@@ -8,10 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.sony.ppog.commons.CrowdPlusConstants;
 import jp.co.sony.ppog.dto.CityDto;
+import jp.co.sony.ppog.entity.City;
 import jp.co.sony.ppog.mapper.CityMapper;
 import jp.co.sony.ppog.service.ICityService;
 import jp.co.sony.ppog.utils.Pagination;
 import jp.co.sony.ppog.utils.SecondBeanUtils;
+import jp.co.sony.ppog.utils.SnowflakeUtils;
 import jp.co.sony.ppog.utils.StringUtils;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -48,9 +50,18 @@ public class CityServiceImpl implements ICityService {
 				.map(item -> {
 					final CityDto cityDto = new CityDto();
 					SecondBeanUtils.copyNullableProperties(item, cityDto);
+					cityDto.setDistrictName(item.getDistrict().getName());
 					return cityDto;
 				}).collect(Collectors.toList());
 		return Pagination.of(pages, records, pageNum, pageSize);
 	}
 
+	@Override
+	public void save(final CityDto cityDto) {
+		final City city = new City();
+		SecondBeanUtils.copyNullableProperties(cityDto, city);
+		city.setId(SnowflakeUtils.snowflakeId());
+		city.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
+		this.cityMapper.insertById(city);
+	}
 }

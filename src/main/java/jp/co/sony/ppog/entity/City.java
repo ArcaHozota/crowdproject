@@ -39,4 +39,9 @@ public final class City implements Serializable {
 	 * 論理削除フラグ
 	 */
 	private String delFlg;
+
+	/**
+	 * 地域都市連携エンティティ地域ID
+	 */
+	private District district;
 }
