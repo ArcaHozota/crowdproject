@@ -1,6 +1,7 @@
 package jp.co.sony.ppog.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -64,16 +65,16 @@ public class RoleServiceImpl implements IRoleService {
 
 	@Override
 	public ResultDto<String> doAssignment(final Map<String, List<Long>> paramMap) {
+		final Long[] idArray = { 1L, 5L, 9L, 12L };
 		final Long roleId = paramMap.get("roleId").get(0);
 		this.roleMapper.batchDeleteByRoleId(roleId);
 		final List<Long> authIds = paramMap.get("authIdArray");
-		final List<RoleAuth> list = authIds.stream().filter(a -> (!Objects.equals(a, 1L) && !Objects.equals(a, 5L)))
-				.map(item -> {
-					final RoleAuth roleEx = new RoleAuth();
-					roleEx.setAuthId(item);
-					roleEx.setRoleId(roleId);
-					return roleEx;
-				}).collect(Collectors.toList());
+		final List<RoleAuth> list = authIds.stream().filter(a -> !Arrays.asList(idArray).contains(a)).map(item -> {
+			final RoleAuth roleEx = new RoleAuth();
+			roleEx.setAuthId(item);
+			roleEx.setRoleId(roleId);
+			return roleEx;
+		}).collect(Collectors.toList());
 		try {
 			this.roleMapper.batchInsertByIds(list);
 		} catch (final Exception e) {
