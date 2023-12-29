@@ -42,7 +42,7 @@ public class DistrictController {
 	public ResultDto<Pagination<DistrictDto>> pagination(
 			@RequestParam(name = "pageNum", defaultValue = "1") final Integer pageNum,
 			@RequestParam(name = "keyword", defaultValue = StringUtils.EMPTY_STRING) final String keyword) {
-		final Pagination<DistrictDto> roles = this.iDistrictService.getDistrictsByKeyword(pageNum, keyword);
-		return ResultDto.successWithData(roles);
+		final Pagination<DistrictDto> districts = this.iDistrictService.getDistrictsByKeyword(pageNum, keyword);
+		return ResultDto.successWithData(districts);
 	}
 }
