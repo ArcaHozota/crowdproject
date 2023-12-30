@@ -141,14 +141,19 @@ $("#cityInfoSaveBtn").on('click', function() {
 function checkName() {
 	let nameVal = $("#nameInput").val().trim();
 	let districtVal = $("#districtInput").val();
+	let header = $('meta[name=_csrf_header]').attr('content');
+	let token = $('meta[name=_csrf_token]').attr('content');
 	$.ajax({
 		url: '/pgcrowd/city/check',
+		type: 'POST',
+		dataType: 'json',
 		data: JSON.stringify({
 			'name': nameVal,
 			'districtId': districtVal
 		}),
-		type: 'GET',
-		dataType: 'json',
+		headers: {
+			[header]: token
+		},
 		contentType: 'application/json;charset=UTF-8',
 		success: function(result) {
 			if (result.status === 'SUCCESS') {
