@@ -104,6 +104,7 @@ $("#districtInput").on('change', function() {
 			'districtId': districtVal
 		},
 		type: 'GET',
+		dataType: 'json',
 		success: function(result) {
 			if (result.status === 'SUCCESS') {
 				showValidationMsg("#nameInput", "success", "√");

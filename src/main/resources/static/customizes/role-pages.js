@@ -64,6 +64,7 @@ $("#nameInput").on('change', function() {
 			url: '/pgcrowd/role/check',
 			data: 'name=' + nameVal,
 			type: 'GET',
+			dataType: 'json',
 			success: function(result) {
 				if (result.status === 'SUCCESS') {
 					showValidationMsg("#nameInput", "success", "");

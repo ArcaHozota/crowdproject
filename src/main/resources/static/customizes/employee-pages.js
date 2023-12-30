@@ -55,6 +55,7 @@ $("#loginAccountInput").change(function() {
 			url: '/pgcrowd/employee/check',
 			data: 'loginAcct=' + inputLoginAccount,
 			type: 'GET',
+			dataType: 'json',
 			success: function(result) {
 				if (result.status === 'SUCCESS') {
 					showValidationMsg("#loginAccountInput", "success", "√");
