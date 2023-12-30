@@ -94,6 +94,27 @@ $("#populationInput").on('change', function() {
 		$("#cityInfoSaveBtn").attr("ajax-va", "success");
 	}
 });
+$("#districtInput").on('change', function() {
+	let nameVal = $("#nameInput").val().trim();
+	let districtVal = this.value;
+	$.ajax({
+		url: '/pgcrowd/city/check',
+		data: {
+			'name': nameVal,
+			'districtId': districtVal
+		},
+		type: 'GET',
+		success: function(result) {
+			if (result.status === 'SUCCESS') {
+				showValidationMsg("#nameInput", "success", "√");
+				$("#saveInfoBtn").attr("ajax-va", "success");
+			} else {
+				showValidationMsg("#nameInput", "error", result.message);
+				$("#saveInfoBtn").attr("ajax-va", "error");
+			}
+		}
+	});
+});
 $("#cityInfoSaveBtn").on('click', function() {
 	let inputName = $("#nameInput").val().trim();
 	let inputPopulation = $("#populationInput").val().trim();

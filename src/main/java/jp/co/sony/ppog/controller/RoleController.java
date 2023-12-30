@@ -56,7 +56,7 @@ public class RoleController {
 	 * @param name 役割名称
 	 * @return ResultDto<String>
 	 */
-	@GetMapping("/checkname")
+	@GetMapping("/check")
 	public ResultDto<String> checkDuplicated(
 			@RequestParam(name = "name", defaultValue = StringUtils.EMPTY_STRING) final String name) {
 		return this.iRoleService.check(name);
