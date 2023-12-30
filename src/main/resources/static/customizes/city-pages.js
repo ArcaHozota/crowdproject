@@ -97,6 +97,7 @@ $("#populationInput").on('change', function() {
 $("#cityInfoSaveBtn").on('click', function() {
 	let inputName = $("#nameInput").val().trim();
 	let inputPopulation = $("#populationInput").val().trim();
+	let inputDistrict = $("#districtInput").val();
 	if ($(this).attr("ajax-va") === "error") {
 		return false;
 	} else if (inputName === "" || inputPopulation === "") {
@@ -117,7 +118,7 @@ $("#cityInfoSaveBtn").on('click', function() {
 			dataType: 'json',
 			data: JSON.stringify({
 				'name': inputName,
-				'districtId': $("#districtInput option:selected").attr('value'),
+				'districtId': inputDistrict,
 				'population': inputPopulation
 			}),
 			headers: {
