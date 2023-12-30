@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.sony.ppog.commons.CrowdPlusConstants;
 import jp.co.sony.ppog.dto.DistrictDto;
-import jp.co.sony.ppog.entity.District;
 import jp.co.sony.ppog.mapper.DistrictMapper;
 import jp.co.sony.ppog.service.IDistrictService;
 import jp.co.sony.ppog.utils.Pagination;
@@ -37,21 +36,26 @@ public class DistrictServiceImpl implements IDistrictService {
 	private final DistrictMapper districtMapper;
 
 	@Override
-	public List<District> getDistrictList(final String id) {
-		final List<District> list = new ArrayList<>();
-		final List<District> districts = this.districtMapper.selectAll();
+	public List<DistrictDto> getDistrictList(final String id) {
+		final List<DistrictDto> list = new ArrayList<>();
+		final List<DistrictDto> districtDtos = this.districtMapper.selectAll().stream().map(item -> {
+			final DistrictDto districtDto = new DistrictDto();
+			SecondBeanUtils.copyNullableProperties(item, districtDto);
+			districtDto.setShutoName(item.getCity().getName());
+			return districtDto;
+		}).collect(Collectors.toList());
 		if (StringUtils.isEmpty(id)) {
-			final District district = new District();
-			district.setId(0L);
-			district.setName(CrowdPlusConstants.DEFAULT_ROLE_NAME);
-			list.add(district);
-			list.addAll(districts);
+			final DistrictDto districtDto = new DistrictDto();
+			districtDto.setId(0L);
+			districtDto.setName(CrowdPlusConstants.DEFAULT_ROLE_NAME);
+			list.add(districtDto);
+			list.addAll(districtDtos);
 			return list;
 		}
-		final List<District> collect = districts.stream().filter(a -> Objects.equals(Long.parseLong(id), a.getId()))
-				.collect(Collectors.toList());
+		final List<DistrictDto> collect = districtDtos.stream()
+				.filter(a -> Objects.equals(Long.parseLong(id), a.getId())).collect(Collectors.toList());
 		list.addAll(collect);
-		list.addAll(districts);
+		list.addAll(districtDtos);
 		return list.stream().distinct().collect(Collectors.toList());
 	}
 

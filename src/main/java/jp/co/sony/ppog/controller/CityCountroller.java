@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jp.co.sony.ppog.dto.CityDto;
-import jp.co.sony.ppog.entity.District;
+import jp.co.sony.ppog.dto.DistrictDto;
 import jp.co.sony.ppog.service.ICityService;
 import jp.co.sony.ppog.service.IDistrictService;
 import jp.co.sony.ppog.utils.Pagination;
@@ -54,8 +54,8 @@ public class CityCountroller {
 	public String getDistrictList(
 			@RequestParam(value = "districtId", defaultValue = StringUtils.EMPTY_STRING) final String districtId,
 			final Model model) {
-		final List<District> districts = this.iDistrictService.getDistrictList(districtId);
-		model.addAttribute("districts", districts);
+		final List<DistrictDto> districtDtos = this.iDistrictService.getDistrictList(districtId);
+		model.addAttribute("districts", districtDtos);
 		return "city-pages";
 	}
 

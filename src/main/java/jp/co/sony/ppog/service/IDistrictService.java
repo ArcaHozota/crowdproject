@@ -3,7 +3,6 @@ package jp.co.sony.ppog.service;
 import java.util.List;
 
 import jp.co.sony.ppog.dto.DistrictDto;
-import jp.co.sony.ppog.entity.District;
 import jp.co.sony.ppog.utils.Pagination;
 
 /**
@@ -20,7 +19,7 @@ public interface IDistrictService {
 	 * @param id 地域ID
 	 * @return List<District>
 	 */
-	List<District> getDistrictList(String id);
+	List<DistrictDto> getDistrictList(String id);
 
 	/**
 	 * キーワードによって地域情報を取得する
