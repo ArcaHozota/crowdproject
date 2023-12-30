@@ -143,12 +143,13 @@ function checkName() {
 	let districtVal = $("#districtInput").val();
 	$.ajax({
 		url: '/pgcrowd/city/check',
-		data: {
+		data: JSON.stringify({
 			'name': nameVal,
 			'districtId': districtVal
-		},
+		}),
 		type: 'GET',
 		dataType: 'json',
+		contentType: 'application/json;charset=UTF-8',
 		success: function(result) {
 			if (result.status === 'SUCCESS') {
 				showValidationMsg("#nameInput", "success", "√");
