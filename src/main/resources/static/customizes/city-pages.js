@@ -139,18 +139,13 @@ function checkName() {
 		showValidationMsg("#nameInput", "error", "名称を空になってはいけません。");
 		$("#cityInfoSaveBtn").attr("ajax-va", "error");
 	} else {
-		let header = $('meta[name=_csrf_header]').attr('content');
-		let token = $('meta[name=_csrf_token]').attr('content');
 		$.ajax({
 			url: '/pgcrowd/city/check',
-			type: 'POST',
+			type: 'GET',
 			dataType: 'json',
-			data: JSON.stringify({
+			data: {
 				'name': nameVal,
 				'districtId': districtVal
-			}),
-			headers: {
-				[header]: token
 			},
 			contentType: 'application/json;charset=UTF-8',
 			success: function(result) {

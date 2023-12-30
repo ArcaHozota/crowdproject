@@ -47,9 +47,11 @@ public class CityCountroller {
 	 * @param cityDto 都市情報転送クラス
 	 * @return ResultDto<String>
 	 */
-	@PostMapping("/check")
-	public ResultDto<String> checkDuplicated(@RequestBody final CityDto cityDto) {
-		return this.iCityService.check(cityDto);
+	@GetMapping("/check")
+	public ResultDto<String> checkDuplicated(
+			@RequestParam(value = "name", defaultValue = StringUtils.EMPTY_STRING) final String name,
+			@RequestParam("districtId") final Long districtId) {
+		return this.iCityService.check(name, districtId);
 	}
 
 	/**

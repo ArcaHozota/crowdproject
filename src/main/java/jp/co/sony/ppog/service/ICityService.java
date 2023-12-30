@@ -15,10 +15,11 @@ public interface ICityService {
 	/**
 	 * 都市名称が重複するかどうかをチェックする
 	 *
-	 * @param cityDto 都市情報転送クラス
+	 * @param name       都市名称
+	 * @param districtId 地域ID
 	 * @return true:重複する; false: 重複しない;
 	 */
-	ResultDto<String> check(CityDto cityDto);
+	ResultDto<String> check(String name, Long districtId);
 
 	/**
 	 * キーワードによって都市情報を取得する

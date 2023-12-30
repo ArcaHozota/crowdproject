@@ -37,9 +37,10 @@ public class CityServiceImpl implements ICityService {
 	private final CityMapper cityMapper;
 
 	@Override
-	public ResultDto<String> check(final CityDto cityDto) {
+	public ResultDto<String> check(final String name, final Long districtId) {
 		final City city = new City();
-		SecondBeanUtils.copyNullableProperties(cityDto, city);
+		city.setName(name);
+		city.setDistrictId(districtId);
 		return this.cityMapper.checkDuplicated(city) > 0
 				? ResultDto.failed(CrowdPlusConstants.MESSAGE_CITY_NAME_DUPLICATED)
 				: ResultDto.successWithoutData();
