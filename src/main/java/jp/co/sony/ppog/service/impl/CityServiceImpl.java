@@ -46,6 +46,17 @@ public class CityServiceImpl implements ICityService {
 			searchStr = StringUtils.getDetailKeyword(keyword);
 		}
 		final Long records = this.cityMapper.countByKeyword(searchStr);
+		final Integer pageMax = (int) ((records / pageSize) + ((records % pageSize) != 0 ? 1 : 0));
+		if (pageNum > pageMax) {
+			final List<CityDto> pages = this.cityMapper
+					.paginationByKeyword(searchStr, (pageMax - 1) * pageSize, pageSize).stream().map(item -> {
+						final CityDto cityDto = new CityDto();
+						SecondBeanUtils.copyNullableProperties(item, cityDto);
+						cityDto.setDistrictName(item.getDistrict().getName());
+						return cityDto;
+					}).collect(Collectors.toList());
+			return Pagination.of(pages, records, pageMax, pageSize);
+		}
 		final List<CityDto> pages = this.cityMapper.paginationByKeyword(searchStr, offset, pageSize).stream()
 				.map(item -> {
 					final CityDto cityDto = new CityDto();
