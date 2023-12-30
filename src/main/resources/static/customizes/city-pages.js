@@ -63,9 +63,8 @@ function getDistricts(element, districtId) {
 		type: 'GET',
 		dataType: 'json',
 		success: function(result) {
-			alert(result.data);
-			$.each(result.data, function() {
-				let optionElement = $("<option></option>").attr('value', this.id).attr('text', this.name);
+			$.each(result.data, (index, item) => {
+				let optionElement = $("<option></option>").attr('value', item.id).attr('text', item.name);
 				optionElement.appendTo(element);
 			});
 		}
