@@ -117,7 +117,7 @@ $("#cityInfoSaveBtn").on('click', function() {
 			dataType: 'json',
 			data: JSON.stringify({
 				'name': inputName,
-				'districtId': $("#districtInput option:selected").val(),
+				'districtId': $("#districtInput option:selected").attr('value'),
 				'population': inputPopulation
 			}),
 			headers: {
