@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import jp.co.sony.ppog.dto.CityDto;
 import jp.co.sony.ppog.entity.District;
@@ -51,12 +51,12 @@ public class CityCountroller {
 	 */
 	@GetMapping("/districtlist")
 	@PreAuthorize("hasAuthority('city%retrieve')")
-	public ModelAndView getDistrictList(
-			@RequestParam(value = "districtId", defaultValue = StringUtils.EMPTY_STRING) final String districtId) {
-		final ModelAndView modelAndView = new ModelAndView("city-pages");
+	public String getDistrictList(
+			@RequestParam(value = "districtId", defaultValue = StringUtils.EMPTY_STRING) final String districtId,
+			final Model model) {
 		final List<District> districts = this.iDistrictService.getDistrictList(districtId);
-		modelAndView.addObject("districts", districts);
-		return modelAndView;
+		model.addAttribute("districts", districts);
+		return "city-pages";
 	}
 
 	/**
