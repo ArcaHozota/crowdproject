@@ -49,7 +49,7 @@ function buildTableBody(result) {
 }
 $("#addCityBtn").on('click', function() {
 	formReset("#cityAddModal form");
-	getDistricts("#districtInput");
+	getDistricts("#districtInput", null);
 	let addModal = new bootstrap.Modal($("#cityAddModal"), {
 		backdrop: 'static'
 	});
