@@ -59,7 +59,6 @@ function getDistricts(element, districtId) {
 	$(element).empty();
 	$.ajax({
 		url: '/pgcrowd/city/districtlist',
-		data: 'districtId=' + districtId,
 		type: 'GET',
 		dataType: 'json',
 		success: function(result) {
