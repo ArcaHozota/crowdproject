@@ -17,6 +17,14 @@ import jp.co.sony.ppog.entity.City;
 public interface CityMapper {
 
 	/**
+	 * 都市名称を重複するかどうかを確認する
+	 *
+	 * @param city 都市エンティティ
+	 * @return Integer
+	 */
+	Integer checkDuplicated(City city);
+
+	/**
 	 * キーワードによって都市情報の数を取得する
 	 *
 	 * @param keyword 検索キーワード

@@ -65,4 +65,7 @@
 		        OR PC.NAME LIKE #{keyword,jdbcType=NVARCHAR}
 		    )
 	</select>
+	<select id="checkDuplicated"
+		parameterType="jp.co.sony.ppog.entity.City" resultType="java.lang.Integer">
+	</select>
 </mapper>
