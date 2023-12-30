@@ -128,7 +128,7 @@ $("#cityInfoSaveBtn").on('click', function() {
 			success: function() {
 				$("#cityAddModal").modal('hide');
 				layer.msg('追加処理成功');
-				toSelectedPg(pageNum, keyword);
+				toSelectedPg(totalRecords, keyword);
 			},
 			error: function(result) {
 				layer.msg(result.responseJSON.message);
