@@ -67,5 +67,12 @@
 	</select>
 	<select id="checkDuplicated"
 		parameterType="jp.co.sony.ppog.entity.City" resultType="java.lang.Integer">
+		SELECT
+		    COUNT(1) 
+		FROM
+		    PPOG_CITIES PC 
+		WHERE
+		    PC.NAME = #{name,jdbcType=NVARCHAR} 
+		    AND PC.DISTRICT_ID = #{districtId,jdbcType=NUMERIC}
 	</select>
 </mapper>
