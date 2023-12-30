@@ -3,12 +3,15 @@ package jp.co.sony.ppog.controller;
 import java.util.List;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ConcurrentModel;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import jp.co.sony.ppog.dto.CityDto;
 import jp.co.sony.ppog.entity.District;
@@ -26,7 +29,7 @@ import lombok.RequiredArgsConstructor;
  * @author ArkamaHozota
  * @since 2.33
  */
-@RestController
+@Controller
 @RequestMapping("/pgcrowd/city")
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class CityCountroller {
@@ -49,9 +52,12 @@ public class CityCountroller {
 	 */
 	@GetMapping("/districtlist")
 	@PreAuthorize("hasAuthority('city%retrieve')")
-	public ResultDto<List<District>> getDistrictList(@RequestParam("districtId") final String districtId) {
+	public Model getDistrictList(
+			@RequestParam(value = "districtId", defaultValue = StringUtils.EMPTY_STRING) final String districtId) {
+		final Model model = new ConcurrentModel();
 		final List<District> districts = this.iDistrictService.getDistrictList(districtId);
-		return ResultDto.successWithData(districts);
+		model.addAttribute("districts", districts);
+		return model;
 	}
 
 	/**
@@ -62,6 +68,7 @@ public class CityCountroller {
 	 * @return ResultDto<Pagination<CityDto>>
 	 */
 	@GetMapping("/pagination")
+	@ResponseBody
 	@PreAuthorize("hasAuthority('city%retrieve')")
 	public ResultDto<Pagination<CityDto>> pagination(
 			@RequestParam(name = "pageNum", defaultValue = "1") final Integer pageNum,
@@ -77,6 +84,7 @@ public class CityCountroller {
 	 * @return ResultDto<String>
 	 */
 	@PostMapping("/infosave")
+	@ResponseBody
 	@PreAuthorize("hasAuthority('city%edition')")
 	public ResultDto<String> saveInfo(@RequestBody final CityDto cityDto) {
 		this.iCityService.save(cityDto);

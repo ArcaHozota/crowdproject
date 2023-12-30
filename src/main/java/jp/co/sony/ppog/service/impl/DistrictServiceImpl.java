@@ -40,7 +40,7 @@ public class DistrictServiceImpl implements IDistrictService {
 	public List<District> getDistrictList(final String id) {
 		final List<District> list = new ArrayList<>();
 		final List<District> districts = this.districtMapper.selectAll();
-		if (StringUtils.isEmpty(id) || StringUtils.isEqual("null", id)) {
+		if (StringUtils.isEmpty(id)) {
 			final District district = new District();
 			district.setId(0L);
 			district.setName(CrowdPlusConstants.DEFAULT_ROLE_NAME);

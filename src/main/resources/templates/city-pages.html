@@ -72,7 +72,9 @@
 						<div class="form-group row">
 							<label for="districtInput" class="col-sm-3 col-form-label text-end">都道府県</label>
 							<div class="col-sm-9">
-								<select id="districtInput" class="form-select"></select>
+								<select id="districtInput" class="form-select">
+									<option th:each="item:${districts}" th:value="${item.id}" th:text="${item.name}" />
+								</select>
 							</div>
 						</div>
 						<div class="form-group row">
