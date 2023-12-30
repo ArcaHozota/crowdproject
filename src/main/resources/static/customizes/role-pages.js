@@ -99,7 +99,7 @@ $("#roleInfoSaveBtn").on('click', function() {
 			success: function() {
 				$("#roleAddModal").modal('hide');
 				layer.msg('追加処理成功');
-				toSelectedPg(totalRecords, keyword);
+				toSelectedPg(totalPages, keyword);
 			},
 			error: function(result) {
 				layer.msg(result.responseJSON.message);
