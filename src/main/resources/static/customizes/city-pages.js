@@ -141,13 +141,12 @@ function checkName() {
 	} else {
 		$.ajax({
 			url: '/pgcrowd/city/check',
-			type: 'GET',
-			dataType: 'json',
 			data: {
 				'name': nameVal,
 				'districtId': districtVal
 			},
-			contentType: 'application/json;charset=UTF-8',
+			type: 'GET',
+			dataType: 'json',
 			success: function(result) {
 				if (result.status === 'SUCCESS') {
 					showValidationMsg("#nameInput", "success", "√");
