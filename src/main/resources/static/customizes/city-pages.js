@@ -71,13 +71,7 @@ function getDistricts(element, districtId) {
 	});
 }
 $("#nameInput").on('change', function() {
-	let nameVal = this.value;
-	if (nameVal === "") {
-		showValidationMsg("#nameInput", "error", "名称を空になってはいけません。");
-		$("#cityInfoSaveBtn").attr("ajax-va", "error");
-	} else {
-		checkName();
-	}
+	checkName();
 });
 $("#populationInput").on('change', function() {
 	let populationVal = this.value;
@@ -141,28 +135,33 @@ $("#cityInfoSaveBtn").on('click', function() {
 function checkName() {
 	let nameVal = $("#nameInput").val().trim();
 	let districtVal = $("#districtInput").val();
-	let header = $('meta[name=_csrf_header]').attr('content');
-	let token = $('meta[name=_csrf_token]').attr('content');
-	$.ajax({
-		url: '/pgcrowd/city/check',
-		type: 'POST',
-		dataType: 'json',
-		data: JSON.stringify({
-			'name': nameVal,
-			'districtId': districtVal
-		}),
-		headers: {
-			[header]: token
-		},
-		contentType: 'application/json;charset=UTF-8',
-		success: function(result) {
-			if (result.status === 'SUCCESS') {
-				showValidationMsg("#nameInput", "success", "√");
-				$("#saveInfoBtn").attr("ajax-va", "success");
-			} else {
-				showValidationMsg("#nameInput", "error", result.message);
-				$("#saveInfoBtn").attr("ajax-va", "error");
+	if (nameVal === "") {
+		showValidationMsg("#nameInput", "error", "名称を空になってはいけません。");
+		$("#cityInfoSaveBtn").attr("ajax-va", "error");
+	} else {
+		let header = $('meta[name=_csrf_header]').attr('content');
+		let token = $('meta[name=_csrf_token]').attr('content');
+		$.ajax({
+			url: '/pgcrowd/city/check',
+			type: 'POST',
+			dataType: 'json',
+			data: JSON.stringify({
+				'name': nameVal,
+				'districtId': districtVal
+			}),
+			headers: {
+				[header]: token
+			},
+			contentType: 'application/json;charset=UTF-8',
+			success: function(result) {
+				if (result.status === 'SUCCESS') {
+					showValidationMsg("#nameInput", "success", "√");
+					$("#saveInfoBtn").attr("ajax-va", "success");
+				} else {
+					showValidationMsg("#nameInput", "error", result.message);
+					$("#saveInfoBtn").attr("ajax-va", "error");
+				}
 			}
-		}
-	});
+		});
+	}
 }
