@@ -70,3 +70,68 @@ function getDistricts(element, districtId) {
 		}
 	});
 }
+$("#nameInput").on('change', function() {
+	let nameVal = this.value;
+	if (nameVal === "") {
+		showValidationMsg("#nameInput", "error", "名称を空になってはいけません。");
+		$("#cityInfoSaveBtn").attr("ajax-va", "error");
+	} else {
+		showValidationMsg("#nameInput", "success", "");
+		$("#cityInfoSaveBtn").attr("ajax-va", "success");
+	}
+});
+$("#populationInput").on('change', function() {
+	let populationVal = this.value;
+	let regularPopulation = /^\d{3,12}$/;
+	if (populationVal === "") {
+		showValidationMsg("#populationInput", "error", "人口数量を空になってはいけません。");
+		$("#cityInfoSaveBtn").attr("ajax-va", "error");
+	} else if (!regularPopulation.test(populationVal)) {
+		showValidationMsg("#populationInput", "error", "入力した人口数量が3桁から12桁までの数字にしなければなりません。");
+		$("#cityInfoSaveBtn").attr("ajax-va", "error");
+	} else {
+		showValidationMsg("#populationInput", "success", "");
+		$("#cityInfoSaveBtn").attr("ajax-va", "success");
+	}
+});
+$("#cityInfoSaveBtn").on('click', function() {
+	let inputName = $("#nameInput").val().trim();
+	let inputPopulation = $("#populationInput").val().trim();
+	if ($(this).attr("ajax-va") === "error") {
+		return false;
+	} else if (inputName === "" || inputPopulation === "") {
+		if (inputName === "" && inputPopulation === "") {
+			showValidationMsg("#nameInput", "error", "名称を空になってはいけません。");
+			showValidationMsg("#populationInput", "error", "人口数量を空になってはいけません。");
+		} else if (inputName === "") {
+			showValidationMsg("#nameInput", "error", "名称を空になってはいけません。");
+		} else {
+			showValidationMsg("#populationInput", "error", "人口数量を空になってはいけません。");
+		}
+	} else {
+		let header = $('meta[name=_csrf_header]').attr('content');
+		let token = $('meta[name=_csrf_token]').attr('content');
+		$.ajax({
+			url: '/pgcrowd/city/infosave',
+			type: 'POST',
+			dataType: 'json',
+			data: JSON.stringify({
+				'name': inputName,
+				'districtId': $("#districtInput option:selected").val(),
+				'population': inputPopulation
+			}),
+			headers: {
+				[header]: token
+			},
+			contentType: 'application/json;charset=UTF-8',
+			success: function() {
+				$("#cityAddModal").modal('hide');
+				layer.msg('追加処理成功');
+				toSelectedPg(pageNum, keyword);
+			},
+			error: function(result) {
+				layer.msg(result.responseJSON.message);
+			}
+		});
+	}
+});
