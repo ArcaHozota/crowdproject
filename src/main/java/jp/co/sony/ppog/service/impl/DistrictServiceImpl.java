@@ -44,7 +44,7 @@ public class DistrictServiceImpl implements IDistrictService {
 			districtDto.setShutoName(item.getCity().getName());
 			return districtDto;
 		}).collect(Collectors.toList());
-		if (StringUtils.isEmpty(id)) {
+		if (StringUtils.isEmpty(id) || StringUtils.isEqual("null", id)) {
 			final DistrictDto districtDto = new DistrictDto();
 			districtDto.setId(0L);
 			districtDto.setName(CrowdPlusConstants.DEFAULT_ROLE_NAME);

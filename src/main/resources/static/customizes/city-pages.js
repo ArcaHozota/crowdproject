@@ -49,8 +49,7 @@ function buildTableBody(result) {
 }
 $("#addCityBtn").on('click', function() {
 	formReset("#cityAddModal form");
-	$("#districtInput").empty();
-	$.get('/pgcrowd/city/districtlist');
+	getDistricts("#districtInput", null);
 	let addModal = new bootstrap.Modal($("#cityAddModal"), {
 		backdrop: 'static'
 	});
@@ -64,6 +63,7 @@ function getDistricts(element, districtId) {
 		type: 'GET',
 		dataType: 'json',
 		success: function(result) {
+			alert(result.data);
 			$.each(result.data, function() {
 				let optionElement = $("<option></option>").attr('value', this.id).attr('text', this.name);
 				optionElement.appendTo(element);
