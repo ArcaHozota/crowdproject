@@ -76,8 +76,7 @@ $("#nameInput").on('change', function() {
 		showValidationMsg("#nameInput", "error", "名称を空になってはいけません。");
 		$("#cityInfoSaveBtn").attr("ajax-va", "error");
 	} else {
-		showValidationMsg("#nameInput", "success", "");
-		$("#cityInfoSaveBtn").attr("ajax-va", "success");
+		checkName();
 	}
 });
 $("#populationInput").on('change', function() {
@@ -95,26 +94,7 @@ $("#populationInput").on('change', function() {
 	}
 });
 $("#districtInput").on('change', function() {
-	let nameVal = $("#nameInput").val().trim();
-	let districtVal = this.value;
-	$.ajax({
-		url: '/pgcrowd/city/check',
-		data: {
-			'name': nameVal,
-			'districtId': districtVal
-		},
-		type: 'GET',
-		dataType: 'json',
-		success: function(result) {
-			if (result.status === 'SUCCESS') {
-				showValidationMsg("#nameInput", "success", "√");
-				$("#saveInfoBtn").attr("ajax-va", "success");
-			} else {
-				showValidationMsg("#nameInput", "error", result.message);
-				$("#saveInfoBtn").attr("ajax-va", "error");
-			}
-		}
-	});
+	checkName();
 });
 $("#cityInfoSaveBtn").on('click', function() {
 	let inputName = $("#nameInput").val().trim();
@@ -158,3 +138,25 @@ $("#cityInfoSaveBtn").on('click', function() {
 		});
 	}
 });
+function checkName() {
+	let nameVal = $("#nameInput").val().trim();
+	let districtVal = $("#districtInput").val();
+	$.ajax({
+		url: '/pgcrowd/city/check',
+		data: {
+			'name': nameVal,
+			'districtId': districtVal
+		},
+		type: 'GET',
+		dataType: 'json',
+		success: function(result) {
+			if (result.status === 'SUCCESS') {
+				showValidationMsg("#nameInput", "success", "√");
+				$("#saveInfoBtn").attr("ajax-va", "success");
+			} else {
+				showValidationMsg("#nameInput", "error", result.message);
+				$("#saveInfoBtn").attr("ajax-va", "error");
+			}
+		}
+	});
+}

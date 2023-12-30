@@ -2,6 +2,7 @@ package jp.co.sony.ppog.service;
 
 import jp.co.sony.ppog.dto.CityDto;
 import jp.co.sony.ppog.utils.Pagination;
+import jp.co.sony.ppog.utils.ResultDto;
 
 /**
  * 都市サービスインターフェス
@@ -10,6 +11,14 @@ import jp.co.sony.ppog.utils.Pagination;
  * @since 2.33
  */
 public interface ICityService {
+
+	/**
+	 * 都市名称が重複するかどうかをチェックする
+	 *
+	 * @param cityDto 都市情報転送クラス
+	 * @return true:重複する; false: 重複しない;
+	 */
+	ResultDto<String> check(CityDto cityDto);
 
 	/**
 	 * キーワードによって都市情報を取得する

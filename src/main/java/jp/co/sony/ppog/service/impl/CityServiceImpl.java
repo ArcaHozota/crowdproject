@@ -12,6 +12,7 @@ import jp.co.sony.ppog.entity.City;
 import jp.co.sony.ppog.mapper.CityMapper;
 import jp.co.sony.ppog.service.ICityService;
 import jp.co.sony.ppog.utils.Pagination;
+import jp.co.sony.ppog.utils.ResultDto;
 import jp.co.sony.ppog.utils.SecondBeanUtils;
 import jp.co.sony.ppog.utils.SnowflakeUtils;
 import jp.co.sony.ppog.utils.StringUtils;
@@ -34,6 +35,13 @@ public class CityServiceImpl implements ICityService {
 	 * 都市マッパー
 	 */
 	private final CityMapper cityMapper;
+
+	@Override
+	public ResultDto<String> check(final CityDto cityDto) {
+		return this.cityMapper.checkDuplicated(cityDto) > 0
+				? ResultDto.failed(CrowdPlusConstants.MESSAGE_CITY_NAME_DUPLICATED)
+				: ResultDto.successWithoutData();
+	}
 
 	@Override
 	public Pagination<CityDto> getCitiesByKeyword(final Integer pageNum, final String keyword) {

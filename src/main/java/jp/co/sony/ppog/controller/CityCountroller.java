@@ -42,6 +42,17 @@ public class CityCountroller {
 	private final IDistrictService iDistrictService;
 
 	/**
+	 * 都市名称重複チェック
+	 *
+	 * @param cityDto 都市情報転送クラス
+	 * @return ResultDto<String>
+	 */
+	@GetMapping("/check")
+	public ResultDto<String> checkDuplicated(@RequestBody final CityDto cityDto) {
+		return this.iCityService.check(cityDto);
+	}
+
+	/**
 	 * 地域情報初期表示
 	 *
 	 * @param cityId 都市ID

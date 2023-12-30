@@ -56,6 +56,8 @@ public final class CrowdPlusConstants {
 
 	public static final String MESSAGE_ROLE_NAME_DUPLICATED = "役割名称がすでに存在します。";
 
+	public static final String MESSAGE_CITY_NAME_DUPLICATED = "都市名称がすでに存在します。";
+
 	public static final String MESSAGE_SPRINGSECURITY_REQUIREDAUTH = "当ユーザの相応的な権限がないのでリクエスト拒否。";
 
 	public static final String MESSAGE_SPRINGSECURITY_LOGINERROR1 = "当ユーザは存在しません。もう一度やり直してください。";
