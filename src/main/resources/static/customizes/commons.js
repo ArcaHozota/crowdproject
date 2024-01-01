@@ -133,3 +133,52 @@ function showValidationMsg(element, status, msg) {
 		$(element).next("span").addClass("invalid-feedback").text(msg);
 	}
 }
+function pgcrowdAjaxPost(postUrl, postData, showModal) {
+	let header = $('meta[name=_csrf_header]').attr('content');
+	let token = $('meta[name=_csrf_token]').attr('content');
+	$.ajax({
+		url: postUrl,
+		type: 'POST',
+		dataType: 'json',
+		data: postData,
+		headers: {
+			[header]: token
+		},
+		contentType: 'application/json;charset=UTF-8',
+		success: function() {
+			showModal.modal('hide');
+			layer.msg('追加処理成功');
+			toSelectedPg(totalRecords, keyword);
+		},
+		error: function(result) {
+			layer.msg(result.responseJSON.message);
+		}
+	});
+}
+function pgcrowdAjaxPut(putUrl, putData, editColumn, showModal) {
+	let header = $('meta[name=_csrf_header]').attr('content');
+	let token = $('meta[name=_csrf_token]').attr('content');
+	$.ajax({
+		url: putUrl,
+		type: 'PUT',
+		dataType: 'json',
+		data: putData,
+		headers: {
+			[header]: token
+		},
+		contentType: 'application/json;charset=UTF-8',
+		success: function(result) {
+			if (result.status === 'SUCCESS') {
+				showModal.modal('hide');
+				layer.msg('更新済み');
+				toSelectedPg(pageNum, keyword);
+			} else {
+				showValidationMsg(editColumn, "error", result.message);
+				$(this).attr("ajax-va", "error");
+			}
+		},
+		error: function(result) {
+			layer.msg(result.responseJSON.message);
+		}
+	});
+}

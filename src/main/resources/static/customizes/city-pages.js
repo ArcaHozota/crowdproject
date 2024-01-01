@@ -106,30 +106,12 @@ $("#cityInfoSaveBtn").on('click', function() {
 			showValidationMsg("#populationInput", "error", "人口数量を空になってはいけません。");
 		}
 	} else {
-		let header = $('meta[name=_csrf_header]').attr('content');
-		let token = $('meta[name=_csrf_token]').attr('content');
-		$.ajax({
-			url: '/pgcrowd/city/infosave',
-			type: 'POST',
-			dataType: 'json',
-			data: JSON.stringify({
-				'name': inputName,
-				'districtId': inputDistrict,
-				'population': inputPopulation
-			}),
-			headers: {
-				[header]: token
-			},
-			contentType: 'application/json;charset=UTF-8',
-			success: function() {
-				$("#cityAddModal").modal('hide');
-				layer.msg('追加処理成功');
-				toSelectedPg(totalRecords, keyword);
-			},
-			error: function(result) {
-				layer.msg(result.responseJSON.message);
-			}
+		let postData = JSON.stringify({
+			'name': inputName,
+			'districtId': inputDistrict,
+			'population': inputPopulation
 		});
+		pgcrowdAjaxPost('/pgcrowd/city/infosave', postData, $("#cityAddModal"));
 	}
 });
 function checkName(cityName, district, button) {

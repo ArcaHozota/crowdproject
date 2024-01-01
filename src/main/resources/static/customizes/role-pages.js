@@ -84,28 +84,10 @@ $("#roleInfoSaveBtn").on('click', function() {
 	} else if (inputName === "") {
 		showValidationMsg("#nameInput", "error", "役割名称を空になってはいけません。");
 	} else {
-		let header = $('meta[name=_csrf_header]').attr('content');
-		let token = $('meta[name=_csrf_token]').attr('content');
-		$.ajax({
-			url: '/pgcrowd/role/infosave',
-			type: 'POST',
-			dataType: 'json',
-			data: JSON.stringify({
-				'name': inputName
-			}),
-			headers: {
-				[header]: token
-			},
-			contentType: 'application/json;charset=UTF-8',
-			success: function() {
-				$("#roleAddModal").modal('hide');
-				layer.msg('追加処理成功');
-				toSelectedPg(totalRecords, keyword);
-			},
-			error: function(result) {
-				layer.msg(result.responseJSON.message);
-			}
+		let postData = JSON.stringify({
+			'name': inputName
 		});
+		pgcrowdAjaxPost('pgcrowd/role/infosave', postData, $("#roleAddModal"));
 	}
 });
 $("#tableBody").on('click', '.edit-btn', function() {
@@ -135,34 +117,11 @@ $("#roleInfoChangeBtn").on('click', function() {
 	if ($(this).attr("ajax-va") === "error") {
 		return false;
 	} else {
-		let header = $('meta[name=_csrf_header]').attr('content');
-		let token = $('meta[name=_csrf_token]').attr('content');
-		$.ajax({
-			url: '/pgcrowd/role/infoupd',
-			type: 'PUT',
-			dataType: 'json',
-			data: JSON.stringify({
-				'id': $(this).attr("editId"),
-				'name': editName
-			}),
-			headers: {
-				[header]: token
-			},
-			contentType: 'application/json;charset=UTF-8',
-			success: function(result) {
-				if (result.status === 'SUCCESS') {
-					$("#roleEditModal").modal('hide');
-					layer.msg('更新済み');
-					toSelectedPg(pageNum, keyword);
-				} else {
-					showValidationMsg("#nameEdit", "error", result.message);
-					$(this).attr("ajax-va", "error");
-				}
-			},
-			error: function(result) {
-				layer.msg(result.responseJSON.message);
-			}
+		let putData = JSON.stringify({
+			'id': $(this).attr("editId"),
+			'name': editName
 		});
+		pgcrowdAjaxPut('/pgcrowd/role/infoupd', putData, "#nameEdit", $("#roleEditModal"));
 	}
 });
 $("#tableBody").on('click', '.delete-btn', function() {
