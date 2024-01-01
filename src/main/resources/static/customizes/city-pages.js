@@ -71,7 +71,7 @@ function getDistricts(element, districtId) {
 	});
 }
 $("#nameInput").on('change', function() {
-	checkName();
+	checkName("#nameInput", "#districtInput", $("#cityInfoSaveBtn"));
 });
 $("#populationInput").on('change', function() {
 	let populationVal = this.value;
@@ -88,7 +88,7 @@ $("#populationInput").on('change', function() {
 	}
 });
 $("#districtInput").on('change', function() {
-	checkName();
+	checkName("#nameInput", "#districtInput", $("#cityInfoSaveBtn"));
 });
 $("#cityInfoSaveBtn").on('click', function() {
 	let inputName = $("#nameInput").val().trim();
@@ -132,12 +132,12 @@ $("#cityInfoSaveBtn").on('click', function() {
 		});
 	}
 });
-function checkName() {
-	let nameVal = $("#nameInput").val().trim();
-	let districtVal = $("#districtInput").val();
+function checkName(cityName, district, button) {
+	let nameVal = $(cityName).val().trim();
+	let districtVal = $(district).val();
 	if (nameVal === "") {
-		showValidationMsg("#nameInput", "error", "名称を空になってはいけません。");
-		$("#cityInfoSaveBtn").attr("ajax-va", "error");
+		showValidationMsg(cityName, "error", "名称を空になってはいけません。");
+		button.attr("ajax-va", "error");
 	} else {
 		$.ajax({
 			url: '/pgcrowd/city/check',
@@ -149,11 +149,11 @@ function checkName() {
 			dataType: 'json',
 			success: function(result) {
 				if (result.status === 'SUCCESS') {
-					showValidationMsg("#nameInput", "success", "√");
-					$("#saveInfoBtn").attr("ajax-va", "success");
+					showValidationMsg(cityName, "success", "√");
+					button.attr("ajax-va", "success");
 				} else {
-					showValidationMsg("#nameInput", "error", result.message);
-					$("#saveInfoBtn").attr("ajax-va", "error");
+					showValidationMsg(cityName, "error", result.message);
+					button.attr("ajax-va", "error");
 				}
 			}
 		});
