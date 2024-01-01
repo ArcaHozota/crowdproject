@@ -113,10 +113,60 @@ $("#tableBody").on('click', '.edit-btn', function() {
 	});
 	addModal.show();
 });
+$("#nameEdit").on('change', function() {
+	checkCityName("#nameEdit", "#districtEdit", $("#cityInfoChangeBtn"));
+});
+$("#populationEdit").on('change', function() {
+	let populationVal = this.value;
+	let regularPopulation = /^\d{3,12}$/;
+	if (populationVal === "") {
+		showValidationMsg("#populationEdit", "error", "人口数量を空になってはいけません。");
+		$("#cityInfoChangeBtn").attr("ajax-va", "error");
+	} else if (!regularPopulation.test(populationVal)) {
+		showValidationMsg("#populationEdit", "error", "入力した人口数量が3桁から12桁までの数字にしなければなりません。");
+		$("#cityInfoChangeBtn").attr("ajax-va", "error");
+	} else {
+		showValidationMsg("#populationEdit", "success", "");
+		$("#cityInfoChangeBtn").attr("ajax-va", "success");
+	}
+});
+$("#districtEdit").on('change', function() {
+	checkCityName("#nameEdit", "#districtEdit", $("#cityInfoChangeBtn"));
+});
+$("#cityInfoChangeBtn").on('click', function() {
+	let editName = $("#nameEdit").val().trim();
+	let editPopulation = $("#populationEdit").val().trim();
+	let editDistrict = $("#districtEdit").val();
+	if ($(this).attr("ajax-va") === "error") {
+		return false;
+	} else if (editName === "" || editPopulation === "") {
+		if (editName === "" && editPopulation === "") {
+			showValidationMsg("#nameEdit", "error", "名称を空になってはいけません。");
+			showValidationMsg("#populationEdit", "error", "人口数量を空になってはいけません。");
+		} else if (editName === "") {
+			showValidationMsg("#nameEdit", "error", "名称を空になってはいけません。");
+		} else {
+			showValidationMsg("#populationEdit", "error", "人口数量を空になってはいけません。");
+		}
+	} else {
+		let putData = JSON.stringify({
+			'id': this.attr("editId"),
+			'name': editName,
+			'districtId': editDistrict,
+			'population': editPopulation
+		});
+		pgcrowdAjaxModify('/pgcrowd/city/infoupd', 'PUT', putData, putSuccessFunction);
+	}
+});
 function postSuccessFunction() {
 	$("#cityAddModal").modal('hide');
 	layer.msg('追加処理成功');
 	toSelectedPg(totalRecords, keyword);
+}
+function putSuccessFunction() {
+	$("#cityEditModal").modal('hide');
+	layer.msg('更新済み');
+	toSelectedPg(pageNum, keyword);
 }
 function checkCityName(cityName, district, button) {
 	let nameVal = $(cityName).val().trim();

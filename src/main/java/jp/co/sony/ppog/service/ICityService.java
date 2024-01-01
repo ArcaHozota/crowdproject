@@ -36,4 +36,11 @@ public interface ICityService {
 	 * @param cityDto 都市情報転送クラス
 	 */
 	void save(CityDto cityDto);
+
+	/**
+	 * 都市情報更新
+	 *
+	 * @param cityDto 都市情報転送クラス
+	 */
+	void update(CityDto cityDto);
 }

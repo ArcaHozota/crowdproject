@@ -95,4 +95,17 @@ public class CityCountroller {
 		this.iCityService.save(cityDto);
 		return ResultDto.successWithoutData();
 	}
+
+	/**
+	 * 情報更新
+	 *
+	 * @param cityDto 都市情報DTO
+	 * @return ResultDto<String>
+	 */
+	@PostMapping("/infoupd")
+	@PreAuthorize("hasAuthority('city%edition')")
+	public ResultDto<String> updateInfo(@RequestBody final CityDto cityDto) {
+		this.iCityService.update(cityDto);
+		return ResultDto.successWithoutData();
+	}
 }
