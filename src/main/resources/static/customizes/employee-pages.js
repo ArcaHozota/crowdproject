@@ -164,30 +164,14 @@ $("#saveInfoBtn").on('click', function() {
 			showValidationMsg("#emailInput", "error", "メールアドレスを空になってはいけません。");
 		}
 	} else {
-		let header = $('meta[name=_csrf_header]').attr('content');
-		let token = $('meta[name=_csrf_token]').attr('content');
-		$.ajax({
-			url: '/pgcrowd/employee/infosave',
-			type: 'POST',
-			dataType: 'json',
-			data: JSON.stringify({
-				'loginAccount': inputLoginAccount,
-				'username': inputUsername,
-				'password': inputPassword,
-				'email': inputEmail,
-				'roleId': inputRole
-			}),
-			headers: {
-				[header]: token
-			},
-			contentType: 'application/json;charset=UTF-8',
-			success: function() {
-				window.location.replace('/pgcrowd/employee/to/pages?pageNum=' + totalRecords);
-			},
-			error: function(result) {
-				layer.msg(result.responseJSON.message);
-			}
+		let postData = JSON.stringify({
+			'loginAccount': inputLoginAccount,
+			'username': inputUsername,
+			'password': inputPassword,
+			'email': inputEmail,
+			'roleId': inputRole
 		});
+		pgcrowdAjaxModify('/pgcrowd/employee/infosave', 'POST', postData, postSuccessFunction);
 	}
 });
 $("#addInfoBtn").on('click', function(e) {
@@ -198,24 +182,8 @@ $("#addInfoBtn").on('click', function(e) {
 $("#tableBody").on('click', '.delete-btn', function() {
 	let userName = $(this).parents("tr").find("td:eq(0)").text().trim();
 	let userId = $(this).attr("deleteId");
-	let header = $('meta[name=_csrf_header]').attr('content');
-	let token = $('meta[name=_csrf_token]').attr('content');
 	if (confirm("この" + userName + "という社員の情報を削除するとよろしいでしょうか。")) {
-		$.ajax({
-			url: '/pgcrowd/employee/delete/' + userId,
-			type: 'DELETE',
-			dataType: 'json',
-			headers: {
-				[header]: token
-			},
-			success: function() {
-				layer.msg('削除済み');
-				toSelectedPg(pageNum, keyword);
-			},
-			error: function(result) {
-				layer.msg(result.responseJSON.message);
-			}
-		});
+		pgcrowdAjaxModify('/pgcrowd/employee/delete/' + userId, 'DELETE', null, deleteSuccessFunction);
 	}
 });
 $("#tableBody").on('click', '.edit-btn', function() {
@@ -274,33 +242,27 @@ $("#editInfoBtn").on('click', function() {
 		if (editPassword === "**************************************") {
 			editPassword = null;
 		}
-		let header = $('meta[name=_csrf_header]').attr('content');
-		let token = $('meta[name=_csrf_token]').attr('content');
-		$.ajax({
-			url: '/pgcrowd/employee/infoupd',
-			type: 'PUT',
-			dataType: 'json',
-			data: JSON.stringify({
-				'id': editId,
-				'loginAccount': editLoginAccount,
-				'username': editUsername,
-				'password': editPassword,
-				'email': editEmail,
-				'roleId': editRole
-			}),
-			headers: {
-				[header]: token
-			},
-			contentType: 'application/json;charset=UTF-8',
-			success: function() {
-				window.location.replace('/pgcrowd/employee/to/pages?pageNum=' + pageNum);
-			},
-			error: function(result) {
-				layer.msg(result.responseJSON.message);
-			}
+		let putData = JSON.stringify({
+			'id': editId,
+			'loginAccount': editLoginAccount,
+			'username': editUsername,
+			'password': editPassword,
+			'email': editEmail,
+			'roleId': editRole
 		});
+		pgcrowdAjaxModify('/pgcrowd/employee/infoupd', 'PUT', putData, putSuccessFunction);
 	}
 });
+function postSuccessFunction() {
+	window.location.replace('/pgcrowd/employee/to/pages?pageNum=' + totalRecords);
+}
+function putSuccessFunction() {
+	window.location.replace('/pgcrowd/employee/to/pages?pageNum=' + pageNum);
+}
+function deleteSuccessFunction() {
+	layer.msg('削除済み');
+	toSelectedPg(pageNum, keyword);
+}
 $("#resetBtn").on('click', function() {
 	formReset($("#inputForm"));
 });
