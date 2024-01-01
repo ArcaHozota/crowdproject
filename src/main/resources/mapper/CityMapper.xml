@@ -29,6 +29,21 @@
 	</insert>
 	<update id="updateById"
 		parameterType="jp.co.sony.ppog.entity.City">
+		UPDATE PPOG_CITIES PC 
+		<set>
+			<if test="name != null">
+				PC.NAME = #{name,jdbcType=NVARCHAR},
+			</if>
+			<if test="districtId != null">
+				PC.DISTRICT_ID = #{districtId,jdbcType=NUMERIC},
+			</if>
+			<if test="population != null">
+				PC.POPULATION = #{population,jdbcType=NUMERIC},
+			</if>
+		</set>
+		WHERE
+		    PC.DEL_FLG = 'approved' 
+		    AND PC.ID = #{id,jdbcType=NUMERIC}
 	</update>
 	<select id="paginationByKeyword" resultMap="BasicResultMap">
 		SELECT
