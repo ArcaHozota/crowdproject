@@ -150,7 +150,7 @@ $("#cityInfoChangeBtn").on('click', function() {
 		}
 	} else {
 		let putData = JSON.stringify({
-			'id': this.attr("editId"),
+			'id': $(this).attr("editId"),
 			'name': editName,
 			'districtId': editDistrict,
 			'population': editPopulation
