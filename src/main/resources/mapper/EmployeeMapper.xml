@@ -44,16 +44,16 @@
 				PE.LOGIN_ACCT = #{loginAccount,jdbcType=NVARCHAR},
 			</if>
 			<if test="password != null">
-				PE.PASSWORD = #{password,jdbcType=NCHAR},
+				PE.PASSWORD = #{password,jdbcType=NVARCHAR},
 			</if>
 			<if test="username != null">
 				PE.USERNAME = #{username,jdbcType=NVARCHAR},
 			</if>
 			<if test="email != null">
-				PE.EMAIL = #{email,jdbcType=NUMERIC},
+				PE.EMAIL = #{email,jdbcType=NVARCHAR},
 			</if>
 			<if test="createdTime != null">
-				PE.CREATED_TIME = #{createdTime,jdbcType=NVARCHAR},
+				PE.CREATED_TIME = #{createdTime,jdbcType=TIMESTAMP},
 			</if>
 		</set>
 		WHERE
