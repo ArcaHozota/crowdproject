@@ -55,21 +55,6 @@ $("#addCityBtn").on('click', function() {
 	});
 	addModal.show();
 });
-function getDistricts(element, districtId) {
-	$(element).empty();
-	$.ajax({
-		url: '/pgcrowd/city/districtlist',
-		data: 'districtId=' + districtId,
-		type: 'GET',
-		dataType: 'json',
-		success: function(result) {
-			$.each(result.data, (index, item) => {
-				let optionElement = $("<option></option>").attr('value', item.id).text(item.name);
-				optionElement.appendTo(element);
-			});
-		}
-	});
-}
 $("#nameInput").on('change', function() {
 	checkCityName("#nameInput", "#districtInput", $("#cityInfoSaveBtn"));
 });
@@ -114,6 +99,20 @@ $("#cityInfoSaveBtn").on('click', function() {
 		pgcrowdAjaxModify('/pgcrowd/city/infosave', 'POST', postData, postSuccessFunction);
 	}
 });
+$("#tableBody").on('click', '.edit-btn', function() {
+	formReset("#cityEditModal form");
+	let editId = $(this).attr("editId");
+	$("#cityInfoChangeBtn").attr("editId", editId);
+	let nameVal = $(this).parent().parent().find("td:eq(0)").text();
+	let populationVal = $(this).parent().parent().find("td:eq(2)").text();
+	$("#nameEdit").val(nameVal);
+	$("#populationEdit").val(populationVal);
+	getDistricts("#districtEdit", editId);
+	let addModal = new bootstrap.Modal($("#cityEditModal"), {
+		backdrop: 'static'
+	});
+	addModal.show();
+});
 function postSuccessFunction() {
 	$("#cityAddModal").modal('hide');
 	layer.msg('追加処理成功');
@@ -145,4 +144,19 @@ function checkCityName(cityName, district, button) {
 			}
 		});
 	}
+}
+function getDistricts(element, districtId) {
+	$(element).empty();
+	$.ajax({
+		url: '/pgcrowd/city/districtlist',
+		data: 'districtId=' + districtId,
+		type: 'GET',
+		dataType: 'json',
+		success: function(result) {
+			$.each(result.data, (index, item) => {
+				let optionElement = $("<option></option>").attr('value', item.id).text(item.name);
+				optionElement.appendTo(element);
+			});
+		}
+	});
 }
