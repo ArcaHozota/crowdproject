@@ -87,7 +87,7 @@ $("#roleInfoSaveBtn").on('click', function() {
 		let postData = JSON.stringify({
 			'name': inputName
 		});
-		pgcrowdAjaxPost('pgcrowd/role/infosave', postData, $("#roleAddModal"));
+		pgcrowdAjaxModify('pgcrowd/role/infosave', 'POST', postData, postSuccessFunction);
 	}
 });
 $("#tableBody").on('click', '.edit-btn', function() {
@@ -121,34 +121,14 @@ $("#roleInfoChangeBtn").on('click', function() {
 			'id': $(this).attr("editId"),
 			'name': editName
 		});
-		pgcrowdAjaxPut('/pgcrowd/role/infoupd', putData, "#nameEdit", $("#roleEditModal"));
+		pgcrowdAjaxModify('/pgcrowd/role/infoupd', 'PUT', putData, putSuccessFunction);
 	}
 });
 $("#tableBody").on('click', '.delete-btn', function() {
 	let roleName = $(this).parents("tr").find("td:eq(0)").text().trim();
 	let roleId = $(this).attr("deleteId");
 	if (confirm("この" + roleName + "という役割情報を削除する、よろしいでしょうか。")) {
-		let header = $('meta[name=_csrf_header]').attr('content');
-		let token = $('meta[name=_csrf_token]').attr('content');
-		$.ajax({
-			url: '/pgcrowd/role/delete/' + roleId,
-			type: 'DELETE',
-			dataType: 'json',
-			headers: {
-				[header]: token
-			},
-			success: function(result) {
-				if (result.status === 'SUCCESS') {
-					layer.msg('削除済み');
-					toSelectedPg(pageNum, keyword);
-				} else {
-					layer.msg(result.message);
-				}
-			},
-			error: function(result) {
-				layer.msg(result.responseJSON.message);
-			}
-		});
+		pgcrowdAjaxModify('/pgcrowd/role/delete/' + roleId, 'DELETE', null, deleteSuccessFunction);
 	}
 });
 $("#tableBody").on('click', '.fuyo-btn', function() {
@@ -219,29 +199,39 @@ $("#authChangeBtn").on('click', function() {
 		let authId = checkedNode.id;
 		authIdArray.push(authId);
 	}
-	let header = $('meta[name=_csrf_header]').attr('content');
-	let token = $('meta[name=_csrf_token]').attr('content');
-	$.ajax({
-		url: '/pgcrowd/role/do/assignment',
-		data: JSON.stringify({
-			'authIdArray': authIdArray,
-			'roleId': [fuyoId]
-		}),
-		type: 'PUT',
-		dataType: 'json',
-		contentType: 'application/json;charset=UTF-8',
-		headers: {
-			[header]: token
-		},
-		success: function() {
-			$("#authEditModal").modal('hide');
-			layer.msg('権限付与成功！');
-		},
-		error: function(result) {
-			layer.msg(result.responseJSON.message);
-		}
+	let putData = JSON.stringify({
+		'authIdArray': authIdArray,
+		'roleId': [fuyoId]
 	});
+	pgcrowdAjaxModify('/pgcrowd/role/do/assignment', 'PUT', putData, authPutSuccessFunction);
 });
+function putSuccessFunction(result) {
+	if (result.status === 'SUCCESS') {
+		$("#roleEditModal").modal('hide');
+		layer.msg('更新済み');
+		toSelectedPg(pageNum, keyword);
+	} else {
+		showValidationMsg("#nameEdit", "error", result.message);
+		$(this).attr("ajax-va", "error");
+	}
+}
+function postSuccessFunction() {
+	$("#roleAddModal").modal('hide');
+	layer.msg('追加処理成功');
+	toSelectedPg(totalRecords, keyword);
+}
+function deleteSuccessFunction(result) {
+	if (result.status === 'SUCCESS') {
+		layer.msg('削除済み');
+		toSelectedPg(pageNum, keyword);
+	} else {
+		layer.msg(result.message);
+	}
+}
+function authPutSuccessFunction() {
+	$("#authEditModal").modal('hide');
+	layer.msg('権限付与成功！');
+}
 function zTreeOnNodeCreated(event, treeId, treeNode) { // 设置节点创建时的回调函数
 	let iconObj = $("#" + treeNode.tId + "_ico"); // 获取图标元素
 	iconObj.removeClass("button ico_docu ico_open ico_close");

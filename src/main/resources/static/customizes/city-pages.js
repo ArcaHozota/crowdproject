@@ -71,7 +71,7 @@ function getDistricts(element, districtId) {
 	});
 }
 $("#nameInput").on('change', function() {
-	checkName("#nameInput", "#districtInput", $("#cityInfoSaveBtn"));
+	checkCityName("#nameInput", "#districtInput", $("#cityInfoSaveBtn"));
 });
 $("#populationInput").on('change', function() {
 	let populationVal = this.value;
@@ -88,7 +88,7 @@ $("#populationInput").on('change', function() {
 	}
 });
 $("#districtInput").on('change', function() {
-	checkName("#nameInput", "#districtInput", $("#cityInfoSaveBtn"));
+	checkCityName("#nameInput", "#districtInput", $("#cityInfoSaveBtn"));
 });
 $("#cityInfoSaveBtn").on('click', function() {
 	let inputName = $("#nameInput").val().trim();
@@ -111,10 +111,15 @@ $("#cityInfoSaveBtn").on('click', function() {
 			'districtId': inputDistrict,
 			'population': inputPopulation
 		});
-		pgcrowdAjaxPost('/pgcrowd/city/infosave', postData, $("#cityAddModal"));
+		pgcrowdAjaxModify('/pgcrowd/city/infosave', 'POST', postData, postSuccessFunction);
 	}
 });
-function checkName(cityName, district, button) {
+function postSuccessFunction() {
+	$("#cityAddModal").modal('hide');
+	layer.msg('追加処理成功');
+	toSelectedPg(totalRecords, keyword);
+}
+function checkCityName(cityName, district, button) {
 	let nameVal = $(cityName).val().trim();
 	let districtVal = $(district).val();
 	if (nameVal === "") {
