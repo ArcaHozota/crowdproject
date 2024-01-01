@@ -86,4 +86,11 @@ public class CityServiceImpl implements ICityService {
 		city.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
 		this.cityMapper.insertById(city);
 	}
+
+	@Override
+	public void update(final CityDto cityDto) {
+		final City city = new City();
+		SecondBeanUtils.copyNullableProperties(cityDto, city);
+		this.cityMapper.updateById(city);
+	}
 }

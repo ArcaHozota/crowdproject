@@ -49,4 +49,11 @@ public interface CityMapper {
 	 */
 	List<City> paginationByKeyword(@Param("keyword") String keyword, @Param("offset") Integer offset,
 			@Param("pageSize") Integer pageSize);
+
+	/**
+	 * IDによって情報を更新する
+	 *
+	 * @param city 都市エンティティ
+	 */
+	void updateById(City city);
 }
