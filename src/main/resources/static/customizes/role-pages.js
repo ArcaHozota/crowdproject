@@ -93,7 +93,7 @@ $("#roleInfoSaveBtn").on('click', function() {
 $("#tableBody").on('click', '.edit-btn', function() {
 	formReset("#roleEditModal form");
 	let editId = $(this).attr("editId");
-	$("#roleInfoChangeBtn").attr("editId", editId);
+	$("#roleInfoChangeBtn").val(editId);
 	$("#idEdit").text(editId);
 	let nameVal = $(this).parent().parent().find("td:eq(0)").text();
 	$("#nameEdit").val(nameVal);
@@ -118,7 +118,7 @@ $("#roleInfoChangeBtn").on('click', function() {
 		return false;
 	} else {
 		let putData = JSON.stringify({
-			'id': $(this).attr("editId"),
+			'id': this.value,
 			'name': editName
 		});
 		pgcrowdAjaxModify('/pgcrowd/role/infoupd', 'PUT', putData, putSuccessFunction);

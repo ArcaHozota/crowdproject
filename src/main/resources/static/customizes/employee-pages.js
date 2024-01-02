@@ -80,7 +80,7 @@ $("#usernameInput").change(function() {
 });
 $("#passwordInput").change(function() {
 	let inputPassword = this.value;
-	let regularPassword = /^[a-zA-Z-\d]{8,23}$/;
+	let regularPassword = /^[a-zA-Z\d]{8,23}$/;
 	if (inputPassword === "") {
 		showValidationMsg("#passwordInput", "error", "パスワードを空になってはいけません。");
 		$("#saveInfoBtn").attr("ajax-va", "error");
@@ -94,7 +94,7 @@ $("#passwordInput").change(function() {
 });
 $("#emailInput").change(function() {
 	let inputEmail = this.value;
-	let regularEmail = /^^[a-zA-Z-\d._%+-]+@[a-zA-Z-\d.-]+\.[a-zA-Z]{2,}$/;
+	let regularEmail = /^^[a-zA-Z\d._%+-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
 	if (inputEmail === "") {
 		showValidationMsg("#emailInput", "error", "メールアドレスを空になってはいけません。");
 		$("#saveInfoBtn").attr("ajax-va", "error");
@@ -157,7 +157,7 @@ $("#usernameEdit").change(function() {
 });
 $("#passwordEdit").change(function() {
 	let editPassword = this.value;
-	let regularPassword = /^[a-zA-Z-\d]{8,23}$/;
+	let regularPassword = /^[a-zA-Z\d]{8,23}$/;
 	if (editPassword === "") {
 		showValidationMsg("#passwordEdit", "error", "パスワードを空になってはいけません。");
 		$("#editInfoBtn").attr("ajax-va", "error");
@@ -171,7 +171,7 @@ $("#passwordEdit").change(function() {
 });
 $("#emailEdit").change(function() {
 	let editEmail = this.value;
-	let regularEmail = /^^[a-zA-Z-\d._%+-]+@[a-zA-Z-\d.-]+\.[a-zA-Z]{2,}$/;
+	let regularEmail = /^^[a-zA-Z\d._%+-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
 	if (editEmail === "") {
 		showValidationMsg("#emailEdit", "error", "メールアドレスを空になってはいけません。");
 		$("#editInfoBtn").attr("ajax-va", "error");

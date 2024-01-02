@@ -96,7 +96,7 @@ $("#cityInfoSaveBtn").on('click', function() {
 $("#tableBody").on('click', '.edit-btn', function() {
 	formReset("#cityEditModal form");
 	let editId = $(this).attr("editId");
-	$("#cityInfoChangeBtn").attr("editId", editId);
+	$("#cityInfoChangeBtn").val(editId);
 	let nameVal = $(this).parent().parent().find("td:eq(0)").text();
 	let populationVal = $(this).parent().parent().find("td:eq(2)").text();
 	$("#nameEdit").val(nameVal);
@@ -138,7 +138,7 @@ $("#cityInfoChangeBtn").on('click', function() {
 		pgcrowdNullInputboxDiscern(listArray);
 	} else {
 		let putData = JSON.stringify({
-			'id': $(this).attr("editId"),
+			'id': this.value,
 			'name': editName,
 			'districtId': editDistrict,
 			'population': editPopulation
