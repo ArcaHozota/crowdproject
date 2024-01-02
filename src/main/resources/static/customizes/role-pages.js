@@ -226,10 +226,22 @@ function zTreeOnNodeCreated(event, treeId, treeNode) { // 设置节点创建时�
 	if ($.isNumeric(iconObj.attr("id").substring(10, 11))) {
 		iconObjectId = Number(iconObj.attr("id").substring(9, 11));
 	}
-	let idArrays = [1, 5, 9, 12];
-	if (idArrays.includes(iconObjectId)) {
-		iconObj.find("i").addClass("bi-" + iconObjectId + "-square-fill");
-	} else {
-		iconObj.find("i").addClass("bi-" + iconObjectId + "-circle-fill");
+	let pIdArrays = [1, 5, 9, 12];
+	let deleteIdArrays = [2, 6, 10, 13];
+	let retrieveIdArrays = [3, 7, 11, 14];
+	let editionIdArrays = [4, 8, 15];
+	switch (iconObjectId) {
+		case pIdArrays.includes(iconObjectId):
+			iconObj.find("i").addClass("bi bi-amazon");
+			break;
+		case deleteIdArrays.includes(iconObjectId):
+			iconObj.find("i").addClass("bi bi-android2");
+			break;
+		case retrieveIdArrays.includes(iconObjectId):
+			iconObj.find("i").addClass("bi bi-apple");
+			break;
+		case editionIdArrays.includes(iconObjectId):
+			iconObj.find("i").addClass("bi bi-amd");
+			break;
 	}
 }
