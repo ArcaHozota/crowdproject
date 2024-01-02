@@ -192,6 +192,9 @@ $("#editInfoBtn").on('click', function() {
 	let editRole = $("#roleEdit option:selected").val();
 	if ($(this).attr("ajax-va") === "error") {
 		return false;
+	} else if (editUsername === "" || editPassword === "" || editEmail === "") {
+		let listArray = ["#usernameEdit", "#passwordEdit", "#emailEdit"];
+		pgcrowdNullInputboxDiscern(listArray);
 	} else {
 		if (editPassword === "**************************************") {
 			editPassword = null;

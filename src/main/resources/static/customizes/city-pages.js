@@ -82,14 +82,8 @@ $("#cityInfoSaveBtn").on('click', function() {
 	if ($(this).attr("ajax-va") === "error") {
 		return false;
 	} else if (inputName === "" || inputPopulation === "") {
-		if (inputName === "" && inputPopulation === "") {
-			showValidationMsg("#nameInput", "error", "名称を空になってはいけません。");
-			showValidationMsg("#populationInput", "error", "人口数量を空になってはいけません。");
-		} else if (inputName === "") {
-			showValidationMsg("#nameInput", "error", "名称を空になってはいけません。");
-		} else {
-			showValidationMsg("#populationInput", "error", "人口数量を空になってはいけません。");
-		}
+		let listArray = ["#nameInput", "#populationInput"];
+		pgcrowdNullInputboxDiscern(listArray);
 	} else {
 		let postData = JSON.stringify({
 			'name': inputName,
@@ -140,14 +134,8 @@ $("#cityInfoChangeBtn").on('click', function() {
 	if ($(this).attr("ajax-va") === "error") {
 		return false;
 	} else if (editName === "" || editPopulation === "") {
-		if (editName === "" && editPopulation === "") {
-			showValidationMsg("#nameEdit", "error", "名称を空になってはいけません。");
-			showValidationMsg("#populationEdit", "error", "人口数量を空になってはいけません。");
-		} else if (editName === "") {
-			showValidationMsg("#nameEdit", "error", "名称を空になってはいけません。");
-		} else {
-			showValidationMsg("#populationEdit", "error", "人口数量を空になってはいけません。");
-		}
+		let listArray = ["#nameEdit", "#populationEdit"];
+		pgcrowdNullInputboxDiscern(listArray);
 	} else {
 		let putData = JSON.stringify({
 			'id': $(this).attr("editId"),
