@@ -55,9 +55,12 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 	@Override
 	public EmployeeDto getEmployeeById(final Long id) {
-		final Employee employee = this.employeeMapper.selectById(id);
+		final Employee employee = new Employee();
+		employee.setId(id);
+		employee.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
+		final Employee selectById = this.employeeMapper.selectById(employee);
 		final EmployeeDto employeeDto = new EmployeeDto();
-		SecondBeanUtils.copyNullableProperties(employee, employeeDto);
+		SecondBeanUtils.copyNullableProperties(selectById, employeeDto);
 		return employeeDto;
 	}
 
@@ -66,8 +69,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		final Integer pageSize = CrowdPlusConstants.DEFAULT_PAGE_SIZE;
 		final Integer offset = (pageNum - 1) * pageSize;
 		final String searchStr = StringUtils.getDetailKeyword(keyword);
-		final Long records = this.employeeMapper.countByKeyword(searchStr);
-		final List<EmployeeDto> pages = this.employeeMapper.paginationByKeyword(searchStr, offset, pageSize).stream()
+		final Long records = this.employeeMapper.countByKeyword(searchStr, CrowdPlusConstants.LOGIC_DELETE_INITIAL);
+		final List<EmployeeDto> pages = this.employeeMapper
+				.paginationByKeyword(searchStr, CrowdPlusConstants.LOGIC_DELETE_INITIAL, offset, pageSize).stream()
 				.map(item -> {
 					final EmployeeDto employeeDto = new EmployeeDto();
 					SecondBeanUtils.copyNullableProperties(item, employeeDto);
@@ -78,7 +82,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 	@Override
 	public void removeById(final Long userId) {
-		this.employeeMapper.removeById(userId);
+		final Employee employee = new Employee();
+		employee.setId(userId);
+		employee.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_FLG);
+		this.employeeMapper.removeById(employee);
 	}
 
 	@Override
@@ -105,6 +112,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	public void update(final EmployeeDto employeeDto) {
 		final Employee employee = new Employee();
 		SecondBeanUtils.copyNullableProperties(employeeDto, employee);
+		employee.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
 		if (StringUtils.isNotEmpty(employeeDto.getPassword())) {
 			final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(BCryptVersion.$2Y, 7);
 			final String encoded = encoder.encode(employeeDto.getPassword());

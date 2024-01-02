@@ -29,10 +29,11 @@
 		    , #{delFlg,jdbcType=NVARCHAR}
 		)
 	</insert>
-	<update id="removeById" parameterType="java.lang.Long">
+	<update id="removeById" 
+		parameterType="jp.co.sony.ppog.entity.Employee">
 		UPDATE PPOG_EMPLOYEE PE 
 		SET
-		    PE.DEL_FLG = 'rejected' 
+		    PE.DEL_FLG = #{delFlg,jdbcType=NVARCHAR}
 		WHERE
 		    PE.ID = #{id,jdbcType=NUMERIC}
 	</update>
@@ -57,10 +58,11 @@
 			</if>
 		</set>
 		WHERE
-		    PE.DEL_FLG = 'approved' 
+		    PE.DEL_FLG = #{delFlg,jdbcType=NVARCHAR}
 		    AND PE.ID = #{id,jdbcType=NUMERIC}
 	</update>
-	<select id="selectById" parameterType="java.lang.Long" 
+	<select id="selectById" 
+		parameterType="jp.co.sony.ppog.entity.Employee" 
 		resultMap="BasicResultMap">
 		SELECT
 		    PE.ID
@@ -72,11 +74,10 @@
 		FROM
 		    PPOG_EMPLOYEE PE 
 		WHERE
-		    PE.DEL_FLG = 'approved' 
+		    PE.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
 		    AND PE.ID = #{id,jdbcType=NUMERIC} 
 	</select>
-	<select id="selectByLoginAcct" parameterType="java.lang.String" 
-		resultMap="BasicResultMap">
+	<select id="selectByLoginAcct" resultMap="BasicResultMap">
 		SELECT
 		    PE.ID
 		    , PE.LOGIN_ACCT
@@ -87,7 +88,7 @@
 		FROM
 		    PPOG_EMPLOYEE PE 
 		WHERE
-		    PE.DEL_FLG = 'approved' 
+		    PE.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
 		    AND PE.LOGIN_ACCT = #{loginAccout,jdbcType=NVARCHAR} 
 	</select>
 	<select id="paginationByKeyword" resultMap="BasicResultMap">
@@ -101,7 +102,7 @@
 		FROM
 		    PPOG_EMPLOYEE PE 
 		WHERE
-		    PE.DEL_FLG = 'approved' 
+		    PE.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
 		    AND ( 
 		        PE.USERNAME LIKE #{keyword,jdbcType=NVARCHAR} 
 		        OR PE.LOGIN_ACCT LIKE #{keyword,jdbcType=NVARCHAR} 
@@ -117,7 +118,7 @@
 		FROM
 		    PPOG_EMPLOYEE PE 
 		WHERE
-		    PE.DEL_FLG = 'approved' 
+		    PE.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
 		    AND ( 
 		        PE.USERNAME LIKE #{keyword,jdbcType=NVARCHAR} 
 		        OR PE.LOGIN_ACCT LIKE #{keyword,jdbcType=NVARCHAR} 

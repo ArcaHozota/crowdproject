@@ -60,7 +60,8 @@ public class CrowdPlusUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-		final Employee employee = this.employeeMapper.selectByLoginAcct(username);
+		final Employee employee = this.employeeMapper.selectByLoginAcct(username,
+				CrowdPlusConstants.LOGIC_DELETE_INITIAL);
 		if (employee == null) {
 			throw new DisabledException(CrowdPlusConstants.MESSAGE_SPRINGSECURITY_LOGINERROR1);
 		}

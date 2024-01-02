@@ -27,9 +27,10 @@ public interface EmployeeMapper {
 	 * キーワードによって社員情報の数を取得する
 	 *
 	 * @param keyword 検索キーワード
+	 * @param delFlg  論理削除フラグ
 	 * @return Integer
 	 */
-	Long countByKeyword(String keyword);
+	Long countByKeyword(@Param("keyword") String keyword, @Param("delFlg") String delFlg);
 
 	/**
 	 * IDによって情報を挿入する
@@ -42,19 +43,20 @@ public interface EmployeeMapper {
 	 * キーワードによって社員情報を検索する
 	 *
 	 * @param keyword  検索キーワード
+	 * @param delFlg   論理削除フラグ
 	 * @param offset   オフセット
 	 * @param pageSize ページサイズ
 	 * @return List<Employee>
 	 */
-	List<Employee> paginationByKeyword(@Param("keyword") String keyword, @Param("offset") Integer offset,
-			@Param("pageSize") Integer pageSize);
+	List<Employee> paginationByKeyword(@Param("keyword") String keyword, @Param("delFlg") String delFlg,
+			@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
 
 	/**
 	 * IDによって論理削除を行う
 	 *
-	 * @param id 社員ID
+	 * @param employee 社員エンティティ
 	 */
-	void removeById(@Param("id") Long id);
+	void removeById(Employee employee);
 
 	/**
 	 * ID採番値を取得する
@@ -66,10 +68,10 @@ public interface EmployeeMapper {
 	/**
 	 * IDによって情報を検索する
 	 *
-	 * @param id 社員ID
+	 * @param employee 社員エンティティ
 	 * @return Employee
 	 */
-	Employee selectById(@Param("id") Long id);
+	Employee selectById(Employee employee);
 
 	/**
 	 * アカウントによって社員情報を検索する
@@ -77,7 +79,7 @@ public interface EmployeeMapper {
 	 * @param loginAccout アカウント
 	 * @return Employee
 	 */
-	Employee selectByLoginAcct(@Param("loginAccout") String loginAccout);
+	Employee selectByLoginAcct(@Param("loginAccout") String loginAccout, @Param("delFlg") String delFlg);
 
 	/**
 	 * IDによって情報を更新する
