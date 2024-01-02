@@ -33,10 +33,10 @@
 		</foreach>
 	</insert>
 	<update id="removeById"
-		parameterType="java.lang.Long">
+		parameterType="jp.co.sony.ppog.entity.Role">
 		UPDATE PPOG_ROLE PR 
 		SET
-		    PR.DEL_FLG = 'rejected' 
+		    PR.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
 		WHERE
 		    PR.ID = #{id,jdbcType=NUMERIC}
 	</update>
@@ -46,17 +46,19 @@
 		SET
 		    PR.NAME = #{name,jdbcType=NUMERIC} 
 		WHERE
-		    PR.DEL_FLG = 'approved' 
+		    PR.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
 		    AND PR.ID = #{id,jdbcType=NUMERIC}
 	</update>
-	<delete id="batchDeleteByRoleId">
+	<delete id="batchDeleteByRoleId" 
+		parameterType="java.lang.Long">
 		DELETE 
 		FROM
 		    PPOG_ROLE_AUTH PPRA 
 		WHERE
 		    PPRA.ROLE_ID = #{roleId,jdbcType=NUMERIC}
 	</delete>
-	<select id="selectAll" resultMap="BasicResultMap">
+	<select id="selectAll" parameterType="java.lang.String"
+		resultMap="BasicResultMap">
 		SELECT
 		    PR.ID
 		    , PR.NAME
@@ -64,11 +66,11 @@
 		FROM
 		    PPOG_ROLE PR 
 		WHERE
-		    PR.DEL_FLG = 'approved' 
+		    PR.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
 		ORDER BY
 			PR.ID
 	</select>
-	<select id="selectById" parameterType="java.lang.Long" 
+	<select id="selectById" parameterType="jp.co.sony.ppog.entity.Role"
 		resultMap="BasicResultMap">
 		SELECT
 		    PR.ID
@@ -76,7 +78,7 @@
 		FROM
 		    PPOG_ROLE PR 
 		WHERE
-		    PR.DEL_FLG = 'approved' 
+		    PR.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
 		    AND PR.ID = #{id,jdbcType=NUMERIC}
 	</select>
 	<select id="paginationByKeyword" resultMap="BasicResultMap">
@@ -86,7 +88,7 @@
 		FROM
 		    PPOG_ROLE PR 
 		WHERE
-		    PR.DEL_FLG = 'approved' 
+		    PR.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
 		    AND ( 
 		        PR.ID LIKE #{keyword,jdbcType=NUMERIC} 
 		        OR PR.NAME LIKE #{keyword,jdbcType=NVARCHAR}
@@ -94,7 +96,7 @@
 		ORDER BY
 		    PR.ID OFFSET #{offset,jdbcType=INTEGER} ROWS FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
 	</select>
-	<select id="selectByIdWithAuth" parameterType="java.lang.Long" 
+	<select id="selectByIdWithAuth" parameterType="jp.co.sony.ppog.entity.Role"
 		resultMap="BasicResultMap">
 		SELECT
 		    PR.ID
@@ -106,17 +108,16 @@
 		    LEFT JOIN PPOG_ROLE_AUTH PPRA 
 		        ON PPRA.ROLE_ID = PR.ID 
 		WHERE
-		    PR.DEL_FLG = 'approved' 
+		    PR.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
 		    AND PR.ID = #{id,jdbcType=NUMERIC}
 	</select>
-	<select id="countByKeyword" parameterType="java.lang.String" 
-		resultType="java.lang.Long">
+	<select id="countByKeyword" resultType="java.lang.Long">
 		SELECT
 		    COUNT(1) 
 		FROM
 		    PPOG_ROLE PR 
 		WHERE
-		    PR.DEL_FLG = 'approved' 
+		    PR.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
 		    AND ( 
 		        PR.ID LIKE #{keyword,jdbcType=NUMERIC} 
 		        OR PR.NAME LIKE #{keyword,jdbcType=NVARCHAR}

@@ -69,7 +69,10 @@ public class CrowdPlusUserDetailsService implements UserDetailsService {
 		if (employeeRole == null) {
 			throw new InsufficientAuthenticationException(CrowdPlusConstants.MESSAGE_SPRINGSECURITY_LOGINERROR2);
 		}
-		final Role role = this.roleMapper.selectByIdWithAuth(employeeRole.getRoleId());
+		final Role entity = new Role();
+		entity.setId(employeeRole.getRoleId());
+		entity.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
+		final Role role = this.roleMapper.selectByIdWithAuth(entity);
 		if (role.getRoleAuths().isEmpty()) {
 			throw new AuthenticationCredentialsNotFoundException(CrowdPlusConstants.MESSAGE_SPRINGSECURITY_LOGINERROR3);
 		}

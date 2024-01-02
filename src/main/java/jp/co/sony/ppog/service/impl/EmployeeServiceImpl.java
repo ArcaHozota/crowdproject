@@ -55,12 +55,12 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 	@Override
 	public EmployeeDto getEmployeeById(final Long id) {
-		final Employee employee = new Employee();
-		employee.setId(id);
-		employee.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
-		final Employee selectById = this.employeeMapper.selectById(employee);
+		final Employee entity = new Employee();
+		entity.setId(id);
+		entity.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
+		final Employee employee = this.employeeMapper.selectById(entity);
 		final EmployeeDto employeeDto = new EmployeeDto();
-		SecondBeanUtils.copyNullableProperties(selectById, employeeDto);
+		SecondBeanUtils.copyNullableProperties(employee, employeeDto);
 		return employeeDto;
 	}
 

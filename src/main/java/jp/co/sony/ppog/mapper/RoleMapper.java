@@ -68,32 +68,33 @@ public interface RoleMapper {
 	/**
 	 * IDによって論理削除を行う
 	 *
-	 * @param id 役割ID
+	 * @param role 役割エンティティ
 	 */
-	void removeById(@Param("id") Long id);
+	void removeById(Role role);
 
 	/**
 	 * 全件検索を行う
 	 *
+	 * @param delFlg 論理削除フラグ
 	 * @return List<Role>
 	 */
-	List<Role> selectAll();
+	List<Role> selectAll(@Param("delFlg") String delFlg);
 
 	/**
 	 * IDによって情報を検索する
 	 *
-	 * @param id 役割ID
+	 * @param role 役割エンティティ
 	 * @return Role
 	 */
-	Role selectById(@Param("id") Long id);
+	Role selectById(Role role);
 
 	/**
 	 * IDによって情報を検索する(権限情報含め)
 	 *
-	 * @param id 役割ID
+	 * @param role 役割エンティティ
 	 * @return Role
 	 */
-	Role selectByIdWithAuth(@Param("id") Long id);
+	Role selectByIdWithAuth(Role role);
 
 	/**
 	 * IDによって情報を更新する
