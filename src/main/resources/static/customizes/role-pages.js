@@ -232,16 +232,16 @@ function zTreeOnNodeCreated(event, treeId, treeNode) { // 设置节点创建时�
 	let editionIdArrays = [4, 8, 15];
 	switch (iconObjectId) {
 		case pIdArrays.includes(iconObjectId):
-			iconObj.find("i").addClass("bi bi-amazon");
+			iconObj.find("i").addClass("bi bi-archive-fill");
 			break;
 		case deleteIdArrays.includes(iconObjectId):
-			iconObj.find("i").addClass("bi bi-android2");
+			iconObj.find("i").addClass("bi bi-trash2-fill");
 			break;
 		case retrieveIdArrays.includes(iconObjectId):
-			iconObj.find("i").addClass("bi bi-apple");
+			iconObj.find("i").addClass("bi bi-search");
 			break;
 		case editionIdArrays.includes(iconObjectId):
-			iconObj.find("i").addClass("bi bi-amd");
+			iconObj.find("i").addClass("bi bi-plus-circle-fill");
 			break;
 	}
 }
