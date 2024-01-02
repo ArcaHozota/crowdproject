@@ -151,3 +151,10 @@ function pgcrowdAjaxModify(url, type, data, successFunction) {
 		}
 	});
 }
+function pgcrowdNullInputboxDiscern(listArray) {
+	for (const element of listArray) {
+		if ($(element).val().trim() === "") {
+			showValidationMsg(element, "error", "上記の入力ボックスを空になってはいけません。");
+		}
+	}
+}
