@@ -227,8 +227,8 @@ function zTreeOnNodeCreated(event, treeId, treeNode) { // 设置节点创建时�
 		iconObjectId = Number(iconObj.attr("id").substring(9, 11));
 	}
 	let pIdArrays = [1, 5, 9, 12];
-	let deleteIdArrays = [2, 6, 10, 13];
-	let retrieveIdArrays = [3, 7, 11, 14];
+	let deleteIdArrays = [2, 6, 13];
+	let retrieveIdArrays = [3, 7, 10, 14];
 	if (pIdArrays.includes(iconObjectId)) {
 		iconObj.find("i").addClass("bi bi-amd");
 	} else if (deleteIdArrays.includes(iconObjectId)) {
