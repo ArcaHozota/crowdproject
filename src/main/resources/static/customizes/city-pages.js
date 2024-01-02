@@ -61,10 +61,7 @@ $("#nameInput").on('change', function() {
 $("#populationInput").on('change', function() {
 	let populationVal = this.value;
 	let regularPopulation = /^\d{3,12}$/;
-	if (populationVal === "") {
-		showValidationMsg("#populationInput", "error", "人口数量を空になってはいけません。");
-		$("#cityInfoSaveBtn").attr("ajax-va", "error");
-	} else if (!regularPopulation.test(populationVal)) {
+	if (!regularPopulation.test(populationVal)) {
 		showValidationMsg("#populationInput", "error", "入力した人口数量が3桁から12桁までの数字にしなければなりません。");
 		$("#cityInfoSaveBtn").attr("ajax-va", "error");
 	} else {
@@ -113,10 +110,7 @@ $("#nameEdit").on('change', function() {
 $("#populationEdit").on('change', function() {
 	let populationVal = this.value;
 	let regularPopulation = /^\d{3,12}$/;
-	if (populationVal === "") {
-		showValidationMsg("#populationEdit", "error", "人口数量を空になってはいけません。");
-		$("#cityInfoChangeBtn").attr("ajax-va", "error");
-	} else if (!regularPopulation.test(populationVal)) {
+	if (!regularPopulation.test(populationVal)) {
 		showValidationMsg("#populationEdit", "error", "入力した人口数量が3桁から12桁までの数字にしなければなりません。");
 		$("#cityInfoChangeBtn").attr("ajax-va", "error");
 	} else {
