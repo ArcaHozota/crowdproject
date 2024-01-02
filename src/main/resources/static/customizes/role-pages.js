@@ -224,8 +224,8 @@ function zTreeOnNodeCreated(event, treeId, treeNode) { // 设置节点创建时�
 	iconObj.append("<i class='bi'></i>"); // 添加bootstrap图标的基础类名
 	let iconObjectId = iconObj.attr("id").substring(9, 10);
 	if (iconObjectId === "1" || iconObjectId === "5" || iconObjectId === "9" || iconObjectId === "12") {
-		iconObj.find("i").addClass("bi-" + iconObjectId + "-square");
+		iconObj.find("i").addClass("bi-" + iconObjectId + "-square-fill");
 	} else {
-		iconObj.find("i").addClass("bi-" + iconObjectId + "-circle");
+		iconObj.find("i").addClass("bi-" + iconObjectId + "-circle-fill");
 	}
 }
