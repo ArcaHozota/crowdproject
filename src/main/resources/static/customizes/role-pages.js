@@ -229,10 +229,13 @@ function zTreeOnNodeCreated(event, treeId, treeNode) { // 设置节点创建时�
 	let pIdArrays = [1, 5, 9, 12];
 	let deleteIdArrays = [2, 6, 10, 13];
 	let retrieveIdArrays = [3, 7, 11, 14];
-	let editionIdArrays = [4, 8, 15];
 	if (pIdArrays.includes(iconObjectId)) {
 		iconObj.find("i").addClass("bi bi-amazon");
-	} else {
+	} else if (deleteIdArrays.includes(iconObjectId)) {
+		iconObj.find("i").addClass("bi bi-android2");
+	} else if (retrieveIdArrays.includes(iconObjectId)) {
 		iconObj.find("i").addClass("bi bi-apple");
+	} else {
+		iconObj.find("i").addClass("bi bi-amd");
 	}
 }
