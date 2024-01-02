@@ -48,8 +48,8 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 	@Override
 	public ResultDto<String> check(final String loginAccount) {
-		final Integer checkInteger = this.employeeMapper.checkDuplicated(loginAccount);
-		return checkInteger > 0 ? ResultDto.failed(CrowdPlusConstants.MESSAGE_STRING_DUPLICATED)
+		return this.employeeMapper.checkDuplicated(loginAccount) > 0
+				? ResultDto.failed(CrowdPlusConstants.MESSAGE_STRING_DUPLICATED)
 				: ResultDto.successWithoutData();
 	}
 
@@ -82,10 +82,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 	@Override
 	public void removeById(final Long userId) {
-		final Employee employee = new Employee();
-		employee.setId(userId);
-		employee.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_FLG);
-		this.employeeMapper.removeById(employee);
+		final Employee entity = new Employee();
+		entity.setId(userId);
+		entity.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_FLG);
+		this.employeeMapper.removeById(entity);
 	}
 
 	@Override

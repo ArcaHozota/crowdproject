@@ -85,7 +85,10 @@ public class RoleServiceImpl implements IRoleService {
 
 	@Override
 	public List<Long> getAuthIdListByRoleId(final Long roleId) {
-		final Role role = this.roleMapper.selectByIdWithAuth(roleId);
+		final Role entity = new Role();
+		entity.setId(roleId);
+		entity.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
+		final Role role = this.roleMapper.selectByIdWithAuth(entity);
 		return role.getRoleAuths().stream().map(RoleAuth::getAuthId).collect(Collectors.toList());
 	}
 
@@ -100,11 +103,12 @@ public class RoleServiceImpl implements IRoleService {
 		final RoleDto secondRole = new RoleDto();
 		secondRole.setId(0L);
 		secondRole.setName(CrowdPlusConstants.DEFAULT_ROLE_NAME);
-		final List<RoleDto> roleDtos = this.roleMapper.selectAll().stream().map(item -> {
-			final RoleDto roleDto = new RoleDto();
-			SecondBeanUtils.copyNullableProperties(item, roleDto);
-			return roleDto;
-		}).collect(Collectors.toList());
+		final List<RoleDto> roleDtos = this.roleMapper.selectAll(CrowdPlusConstants.LOGIC_DELETE_INITIAL).stream()
+				.map(item -> {
+					final RoleDto roleDto = new RoleDto();
+					SecondBeanUtils.copyNullableProperties(item, roleDto);
+					return roleDto;
+				}).collect(Collectors.toList());
 		secondRoles.add(secondRole);
 		secondRoles.addAll(roleDtos);
 		if (id == null) {
@@ -121,11 +125,6 @@ public class RoleServiceImpl implements IRoleService {
 		secondRoles.addAll(selectedRole);
 		secondRoles.addAll(roleDtos);
 		return secondRoles.stream().distinct().collect(Collectors.toList());
-	}
-
-	@Override
-	public Role getRoleById(final Long roleId) {
-		return this.roleMapper.selectById(roleId);
 	}
 
 	@Override
@@ -164,7 +163,10 @@ public class RoleServiceImpl implements IRoleService {
 		if (!list.isEmpty()) {
 			return ResultDto.failed(CrowdPlusConstants.MESSAGE_STRING_FORBIDDEN);
 		}
-		this.roleMapper.removeById(roleId);
+		final Role entity = new Role();
+		entity.setId(roleId);
+		entity.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
+		this.roleMapper.removeById(entity);
 		return ResultDto.successWithoutData();
 	}
 
@@ -181,6 +183,7 @@ public class RoleServiceImpl implements IRoleService {
 	public ResultDto<String> update(final RoleDto roleDto) {
 		final Role role = new Role();
 		SecondBeanUtils.copyNullableProperties(roleDto, role);
+		role.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
 		try {
 			this.roleMapper.updateById(role);
 		} catch (final DataIntegrityViolationException e) {

@@ -70,17 +70,6 @@
 		ORDER BY
 			PR.ID
 	</select>
-	<select id="selectById" parameterType="jp.co.sony.ppog.entity.Role"
-		resultMap="BasicResultMap">
-		SELECT
-		    PR.ID
-		    , PR.NAME
-		FROM
-		    PPOG_ROLE PR 
-		WHERE
-		    PR.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
-		    AND PR.ID = #{id,jdbcType=NUMERIC}
-	</select>
 	<select id="paginationByKeyword" resultMap="BasicResultMap">
 		SELECT
 		    PR.ID

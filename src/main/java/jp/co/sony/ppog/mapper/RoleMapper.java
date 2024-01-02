@@ -81,14 +81,6 @@ public interface RoleMapper {
 	List<Role> selectAll(@Param("delFlg") String delFlg);
 
 	/**
-	 * IDによって情報を検索する
-	 *
-	 * @param role 役割エンティティ
-	 * @return Role
-	 */
-	Role selectById(Role role);
-
-	/**
 	 * IDによって情報を検索する(権限情報含め)
 	 *
 	 * @param role 役割エンティティ
