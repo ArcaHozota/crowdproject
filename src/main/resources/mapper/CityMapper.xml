@@ -42,7 +42,7 @@
 			</if>
 		</set>
 		WHERE
-		    PC.DEL_FLG = 'approved' 
+		    PC.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
 		    AND PC.ID = #{id,jdbcType=NUMERIC}
 	</update>
 	<select id="paginationByKeyword" resultMap="BasicResultMap">
@@ -57,16 +57,15 @@
 		    INNER JOIN PPOG_DISTRICTS PD 
 		        ON PD.ID = PC.DISTRICT_ID 
 		WHERE
-		    PC.DEL_FLG = 'approved' 
+		    PC.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
 		    AND ( 
-		        PC.ID LIKE #{keyword,jdbcType=NUMERIC} 
+		        PC.ID LIKE #{keyword,jdbcType=NVARCHAR} 
 		        OR PC.NAME LIKE #{keyword,jdbcType=NVARCHAR}
 		    ) 
 		ORDER BY
 		    PC.ID OFFSET #{offset,jdbcType=INTEGER} ROWS FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
 	</select>
-	<select id="countByKeyword" parameterType="java.lang.String"
-		resultType="java.lang.Long">
+	<select id="countByKeyword" resultType="java.lang.Long">
 		SELECT
 		    COUNT(1) 
 		FROM
@@ -74,9 +73,9 @@
 		    INNER JOIN PPOG_DISTRICTS PD 
 		        ON PD.ID = PC.DISTRICT_ID 
 		WHERE
-		    PC.DEL_FLG = 'approved' 
+		    PC.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
 		    AND ( 
-		        PC.ID LIKE #{keyword,jdbcType=NUMERIC} 
+		        PC.ID LIKE #{keyword,jdbcType=NVARCHAR} 
 		        OR PC.NAME LIKE #{keyword,jdbcType=NVARCHAR}
 		    )
 	</select>

@@ -28,9 +28,10 @@ public interface CityMapper {
 	 * キーワードによって都市情報の数を取得する
 	 *
 	 * @param keyword 検索キーワード
+	 * @param delFlg  論理削除フラグ
 	 * @return Integer
 	 */
-	Long countByKeyword(String searchStr);
+	Long countByKeyword(@Param("keyword") String keyword, @Param("delFlg") String delFlg);
 
 	/**
 	 * IDによって情報を挿入する
@@ -43,12 +44,13 @@ public interface CityMapper {
 	 * キーワードによって都市情報を検索する
 	 *
 	 * @param keyword  キーワード
+	 * @param delFlg   論理削除フラグ
 	 * @param offset   オフセット
 	 * @param pageSize ページサイズ
 	 * @return List<Role>
 	 */
-	List<City> paginationByKeyword(@Param("keyword") String keyword, @Param("offset") Integer offset,
-			@Param("pageSize") Integer pageSize);
+	List<City> paginationByKeyword(@Param("keyword") String keyword, @Param("delFlg") String delFlg,
+			@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
 
 	/**
 	 * IDによって情報を更新する
