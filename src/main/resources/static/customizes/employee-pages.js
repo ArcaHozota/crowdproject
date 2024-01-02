@@ -46,45 +46,26 @@ function buildTableBody(result) {
 	});
 }
 $("#loginAccountInput").change(function() {
-	let inputLoginAccount = this.value;
-	if (inputLoginAccount === "") {
-		showValidationMsg("#loginAccountInput", "error", "ログインアカウントを空になってはいけません。");
-		$("#saveInfoBtn").attr("ajax-va", "error");
-	} else {
-		$.ajax({
-			url: '/pgcrowd/employee/check',
-			data: 'loginAcct=' + inputLoginAccount,
-			type: 'GET',
-			dataType: 'json',
-			success: function(result) {
-				if (result.status === 'SUCCESS') {
-					showValidationMsg("#loginAccountInput", "success", "√");
-					$("#saveInfoBtn").attr("ajax-va", "success");
-				} else {
-					showValidationMsg("#loginAccountInput", "error", result.message);
-					$("#saveInfoBtn").attr("ajax-va", "error");
-				}
+	$.ajax({
+		url: '/pgcrowd/employee/check',
+		data: 'loginAcct=' + this.value,
+		type: 'GET',
+		dataType: 'json',
+		success: function(result) {
+			if (result.status === 'SUCCESS') {
+				showValidationMsg("#loginAccountInput", "success", "√");
+				$("#saveInfoBtn").attr("ajax-va", "success");
+			} else {
+				showValidationMsg("#loginAccountInput", "error", result.message);
+				$("#saveInfoBtn").attr("ajax-va", "error");
 			}
-		});
-	}
-});
-$("#usernameInput").change(function() {
-	let inputUsername = this.value;
-	if (inputUsername === "") {
-		showValidationMsg("#usernameInput", "error", "ユーザ名称を空になってはいけません。");
-		$("#saveInfoBtn").attr("ajax-va", "error");
-	} else {
-		showValidationMsg("#usernameInput", "success", "√");
-		$("#saveInfoBtn").attr("ajax-va", "success");
-	}
+		}
+	});
 });
 $("#passwordInput").change(function() {
 	let inputPassword = this.value;
 	let regularPassword = /^[a-zA-Z\d]{8,23}$/;
-	if (inputPassword === "") {
-		showValidationMsg("#passwordInput", "error", "パスワードを空になってはいけません。");
-		$("#saveInfoBtn").attr("ajax-va", "error");
-	} else if (!regularPassword.test(inputPassword)) {
+	if (!regularPassword.test(inputPassword)) {
 		showValidationMsg("#passwordInput", "error", "入力したパスワードが8桁から23桁までの英数字にしなければなりません。");
 		$("#saveInfoBtn").attr("ajax-va", "error");
 	} else {
@@ -95,10 +76,7 @@ $("#passwordInput").change(function() {
 $("#emailInput").change(function() {
 	let inputEmail = this.value;
 	let regularEmail = /^^[a-zA-Z\d._%+-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
-	if (inputEmail === "") {
-		showValidationMsg("#emailInput", "error", "メールアドレスを空になってはいけません。");
-		$("#saveInfoBtn").attr("ajax-va", "error");
-	} else if (!regularEmail.test(inputEmail)) {
+	if (!regularEmail.test(inputEmail)) {
 		showValidationMsg("#emailInput", "error", "入力したメールアドレスが正しくありません。");
 		$("#saveInfoBtn").attr("ajax-va", "error");
 	} else {
@@ -145,23 +123,10 @@ $("#tableBody").on('click', '.edit-btn', function() {
 	let url = '/pgcrowd/employee/to/edition?editId=' + editId;
 	checkPermissionAndTransfer(url);
 });
-$("#usernameEdit").change(function() {
-	let editUsername = this.value;
-	if (editUsername === "") {
-		showValidationMsg("#usernameEdit", "error", "ユーザ名称を空になってはいけません。");
-		$("#editInfoBtn").attr("ajax-va", "error");
-	} else {
-		showValidationMsg("#usernameEdit", "success", "√");
-		$("#editInfoBtn").attr("ajax-va", "success");
-	}
-});
 $("#passwordEdit").change(function() {
 	let editPassword = this.value;
 	let regularPassword = /^[a-zA-Z\d]{8,23}$/;
-	if (editPassword === "") {
-		showValidationMsg("#passwordEdit", "error", "パスワードを空になってはいけません。");
-		$("#editInfoBtn").attr("ajax-va", "error");
-	} else if (!regularPassword.test(editPassword)) {
+	if (!regularPassword.test(editPassword)) {
 		showValidationMsg("#passwordEdit", "error", "入力したパスワードが8桁から23桁までの英数字にしなければなりません。");
 		$("#editInfoBtn").attr("ajax-va", "error");
 	} else {
@@ -172,10 +137,7 @@ $("#passwordEdit").change(function() {
 $("#emailEdit").change(function() {
 	let editEmail = this.value;
 	let regularEmail = /^^[a-zA-Z\d._%+-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
-	if (editEmail === "") {
-		showValidationMsg("#emailEdit", "error", "メールアドレスを空になってはいけません。");
-		$("#editInfoBtn").attr("ajax-va", "error");
-	} else if (!regularEmail.test(editEmail)) {
+	if (!regularEmail.test(editEmail)) {
 		showValidationMsg("#emailEdit", "error", "入力したメールアドレスが正しくありません。");
 		$("#editInfoBtn").attr("ajax-va", "error");
 	} else {
