@@ -223,7 +223,7 @@ function zTreeOnNodeCreated(event, treeId, treeNode) { // 设置节点创建时�
 	iconObj.removeClass("button ico_docu ico_open ico_close");
 	iconObj.append("<i class='bi'></i>"); // 添加bootstrap图标的基础类名
 	let iconObjectId = Number(iconObj.attr("id").substring(9, 10));
-	if (iconObjectId >= 10) {
+	if ($.isNumeric(iconObj.attr("id").substring(10, 11))) {
 		iconObjectId = Number(iconObj.attr("id").substring(9, 11));
 	}
 	let idArrays = [1, 5, 9, 12];
