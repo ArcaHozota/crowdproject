@@ -20,7 +20,7 @@ public interface RoleMapper {
 	/**
 	 * IDによってバッチ削除を行う
 	 *
-	 * @param collect
+	 * @param roleId 役割ID
 	 */
 	void batchDeleteByRoleId(@Param("roleId") Long roleId);
 
@@ -43,6 +43,7 @@ public interface RoleMapper {
 	 * キーワードによって役割情報の数を取得する
 	 *
 	 * @param keyword 検索キーワード
+	 * @param delFlg  論理削除フラグ
 	 * @return Integer
 	 */
 	Long countByKeyword(@Param("keyword") String keyword, @Param("delFlg") String delFlg);
@@ -58,6 +59,7 @@ public interface RoleMapper {
 	 * キーワードによって役割情報を検索する
 	 *
 	 * @param keyword  キーワード
+	 * @param delFlg   論理削除フラグ
 	 * @param offset   オフセット
 	 * @param pageSize ページサイズ
 	 * @return List<Role>

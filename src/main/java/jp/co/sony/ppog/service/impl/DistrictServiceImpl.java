@@ -38,12 +38,13 @@ public class DistrictServiceImpl implements IDistrictService {
 	@Override
 	public List<DistrictDto> getDistrictList(final String id) {
 		final List<DistrictDto> list = new ArrayList<>();
-		final List<DistrictDto> districtDtos = this.districtMapper.selectAll().stream().map(item -> {
-			final DistrictDto districtDto = new DistrictDto();
-			SecondBeanUtils.copyNullableProperties(item, districtDto);
-			districtDto.setShutoName(item.getCity().getName());
-			return districtDto;
-		}).collect(Collectors.toList());
+		final List<DistrictDto> districtDtos = this.districtMapper.selectAll(CrowdPlusConstants.LOGIC_DELETE_INITIAL)
+				.stream().map(item -> {
+					final DistrictDto districtDto = new DistrictDto();
+					SecondBeanUtils.copyNullableProperties(item, districtDto);
+					districtDto.setShutoName(item.getCity().getName());
+					return districtDto;
+				}).collect(Collectors.toList());
 		if (StringUtils.isEmpty(id) || StringUtils.isEqual("null", id)) {
 			final DistrictDto districtDto = new DistrictDto();
 			districtDto.setId(0L);
@@ -64,8 +65,9 @@ public class DistrictServiceImpl implements IDistrictService {
 		final Integer pageSize = CrowdPlusConstants.DEFAULT_PAGE_SIZE;
 		final Integer offset = (pageNum - 1) * pageSize;
 		final String searchStr = StringUtils.getDetailKeyword(keyword);
-		final Long records = this.districtMapper.countByKeyword(searchStr);
-		final List<DistrictDto> pages = this.districtMapper.paginationByKeyword(searchStr, offset, pageSize).stream()
+		final Long records = this.districtMapper.countByKeyword(searchStr, CrowdPlusConstants.LOGIC_DELETE_INITIAL);
+		final List<DistrictDto> pages = this.districtMapper
+				.paginationByKeyword(searchStr, CrowdPlusConstants.LOGIC_DELETE_INITIAL, offset, pageSize).stream()
 				.map(item -> {
 					final DistrictDto districtDto = new DistrictDto();
 					SecondBeanUtils.copyNullableProperties(item, districtDto);

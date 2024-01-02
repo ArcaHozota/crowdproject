@@ -12,7 +12,8 @@
 	<update id="updateById"
 		parameterType="jp.co.sony.ppog.entity.District">
 	</update>
-	<select id="selectAll" resultMap="BasicResultMap">
+	<select id="selectAll" parameterType="java.lang.String"
+		resultMap="BasicResultMap">
 		SELECT
 		    PD.ID
 		    , PD.NAME
@@ -21,7 +22,7 @@
 		FROM
 		    PPOG_DISTRICTS PD 
 		WHERE
-		    PD.DEL_FLG = 'approved' 
+		    PD.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
 		ORDER BY
 		    PD.ID
 	</select>
@@ -37,7 +38,7 @@
 		    LEFT JOIN PPOG_CITIES PC 
 		        ON PC.ID = PD.SHUTO_ID 
 		WHERE
-		    PD.DEL_FLG = 'approved' 
+		    PD.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
 		    AND ( 
 		        PD.NAME LIKE #{keyword,jdbcType=NVARCHAR} 
 		        OR PC.NAME LIKE #{keyword,jdbcType=NVARCHAR} 
@@ -46,8 +47,7 @@
 		ORDER BY
 		    PD.ID OFFSET #{offset,jdbcType=INTEGER} ROWS FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
 	</select>
-	<select id="countByKeyword" parameterType="java.lang.String"
-		resultType="java.lang.Long">
+	<select id="countByKeyword" resultType="java.lang.Long">
 		SELECT
 		    COUNT(1) 
 		FROM
@@ -55,7 +55,7 @@
 		    LEFT JOIN PPOG_CITIES PC 
 		        ON PC.ID = PD.SHUTO_ID 
 		WHERE
-		    PD.DEL_FLG = 'approved'
+		    PD.DEL_FLG = #{delFlg,jdbcType=NVARCHAR}
 		    AND ( 
 		        PD.NAME LIKE #{keyword,jdbcType=NVARCHAR} 
 		        OR PC.NAME LIKE #{keyword,jdbcType=NVARCHAR} 
