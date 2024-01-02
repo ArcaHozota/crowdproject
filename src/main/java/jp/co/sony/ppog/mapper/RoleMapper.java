@@ -45,7 +45,7 @@ public interface RoleMapper {
 	 * @param keyword 検索キーワード
 	 * @return Integer
 	 */
-	Long countByKeyword(String keyword);
+	Long countByKeyword(@Param("keyword") String keyword, @Param("delFlg") String delFlg);
 
 	/**
 	 * IDによって情報を挿入する
@@ -62,8 +62,8 @@ public interface RoleMapper {
 	 * @param pageSize ページサイズ
 	 * @return List<Role>
 	 */
-	List<Role> paginationByKeyword(@Param("keyword") String keyword, @Param("offset") Integer offset,
-			@Param("pageSize") Integer pageSize);
+	List<Role> paginationByKeyword(@Param("keyword") String keyword, @Param("delFlg") String delFlg,
+			@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
 
 	/**
 	 * IDによって論理削除を行う
