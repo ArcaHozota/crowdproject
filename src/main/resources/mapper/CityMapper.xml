@@ -59,8 +59,9 @@
 		WHERE
 		    PC.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
 		    AND ( 
-		        PC.ID LIKE #{keyword,jdbcType=NVARCHAR} 
-		        OR PC.NAME LIKE #{keyword,jdbcType=NVARCHAR}
+		        PC.ID LIKE #{keyword,jdbcType=NUMERIC} 
+		        OR PC.NAME LIKE #{keyword,jdbcType=NVARCHAR} 
+		        OR PD.NAME LIKE #{keyword,jdbcType=NVARCHAR}
 		    ) 
 		ORDER BY
 		    PC.ID OFFSET #{offset,jdbcType=INTEGER} ROWS FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
@@ -75,8 +76,9 @@
 		WHERE
 		    PC.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
 		    AND ( 
-		        PC.ID LIKE #{keyword,jdbcType=NVARCHAR} 
-		        OR PC.NAME LIKE #{keyword,jdbcType=NVARCHAR}
+		        PC.ID LIKE #{keyword,jdbcType=NUMERIC} 
+		        OR PC.NAME LIKE #{keyword,jdbcType=NVARCHAR} 
+		        OR PD.NAME LIKE #{keyword,jdbcType=NVARCHAR}
 		    )
 	</select>
 	<select id="checkDuplicated"
