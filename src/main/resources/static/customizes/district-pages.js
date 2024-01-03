@@ -37,13 +37,10 @@ function buildTableBody(result) {
 		let shutoTd = $("<td scope='row' class='text-center' style='width:70px;vertical-align:bottom;'></td>").append(item.shutoName);
 		let chihoTd = $("<td scope='row' class='text-center' style='width:70px;vertical-align:bottom;'></td>").append(item.chiho);
 		let populationTd = $("<td scope='row' class='text-center' style='width:70px;vertical-align:bottom;'></td>").append(item.population);
-		let editBtn = $("<button></button>").addClass("btn btn-primary btn-sm edit-btn")
-			.append($("<i class='bi bi-pencil-fill'></i>")).append("編集");
+		let editBtn = $("<button style='width:110px;'></button>").addClass("btn btn-success btn-sm edit-btn")
+			.append($("<i class='bi bi-pencil-square'></i>")).append("編集");
 		editBtn.attr("editId", item.id);
-		let deleteBtn = $("<button></button>").addClass("btn btn-danger btn-sm delete-btn")
-			.append($("<i class='bi bi-trash-fill'></i>")).append("削除");
-		deleteBtn.attr("deleteId", item.id);
-		let btnTd = $("<td class='text-center' style='width:120px;vertical-align:bottom;'></td>").append(editBtn).append(" ").append(deleteBtn);
+		let btnTd = $("<td class='text-center' style='width:120px;vertical-align:bottom;'></td>").append(editBtn);
 		$("<tr></tr>").append(idTd).append(nameTd).append(shutoTd).append(chihoTd).append(populationTd).append(btnTd).appendTo("#tableBody");
 	});
 }
