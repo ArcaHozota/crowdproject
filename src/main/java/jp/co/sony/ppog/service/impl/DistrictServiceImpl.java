@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.sony.ppog.commons.CrowdPlusConstants;
 import jp.co.sony.ppog.dto.DistrictDto;
+import jp.co.sony.ppog.mapper.CityMapper;
 import jp.co.sony.ppog.mapper.DistrictMapper;
 import jp.co.sony.ppog.service.IDistrictService;
 import jp.co.sony.ppog.utils.Pagination;
@@ -31,6 +32,11 @@ import oracle.jdbc.driver.OracleSQLException;
 public class DistrictServiceImpl implements IDistrictService {
 
 	/**
+	 * 都市マッパー
+	 */
+	private final CityMapper cityMapper;
+
+	/**
 	 * 地域マッパー
 	 */
 	private final DistrictMapper districtMapper;
@@ -41,8 +47,11 @@ public class DistrictServiceImpl implements IDistrictService {
 		final List<DistrictDto> districtDtos = this.districtMapper.selectAll(CrowdPlusConstants.LOGIC_DELETE_INITIAL)
 				.stream().map(item -> {
 					final DistrictDto districtDto = new DistrictDto();
+					final Long population = this.cityMapper.countPopulationById(item.getId(),
+							CrowdPlusConstants.LOGIC_DELETE_INITIAL);
 					SecondBeanUtils.copyNullableProperties(item, districtDto);
 					districtDto.setShutoName(item.getCity().getName());
+					districtDto.setPopulation(population);
 					return districtDto;
 				}).collect(Collectors.toList());
 		if (StringUtils.isEmpty(id) || StringUtils.isEqual("null", id)) {

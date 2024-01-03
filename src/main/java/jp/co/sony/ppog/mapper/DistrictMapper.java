@@ -21,7 +21,7 @@ public interface DistrictMapper {
 	 *
 	 * @param keyword 検索キーワード
 	 * @param delFlg  論理削除フラグ
-	 * @return Integer
+	 * @return Long
 	 */
 	Long countByKeyword(@Param("keyword") String keyword, @Param("delFlg") String delFlg);
 
