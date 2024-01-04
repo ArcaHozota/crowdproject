@@ -84,7 +84,7 @@ $("#cityInfoSaveBtn").on('click', function() {
 		let postData = JSON.stringify({
 			'name': inputName,
 			'districtId': inputDistrict,
-			'population': inputPopulation
+			'population': Number(inputPopulation.replace(/,/g, ''))
 		});
 		pgcrowdAjaxModify('/pgcrowd/city/infosave', 'POST', postData, postSuccessFunction);
 	}
@@ -132,7 +132,7 @@ $("#cityInfoChangeBtn").on('click', function() {
 			'id': this.value,
 			'name': editName,
 			'districtId': editDistrict,
-			'population': editPopulation
+			'population': Number(editPopulation.replace(/,/g,''))
 		});
 		pgcrowdAjaxModify('/pgcrowd/city/infoupd', 'PUT', putData, putSuccessFunction);
 	}
