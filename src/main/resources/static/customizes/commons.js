@@ -58,6 +58,16 @@ function checkPermissionAndTransfer(stringUrl) {
 		layer.msg(ajaxResult.responseJSON.message);
 	}
 }
+function checkPermission(stringUrl) {
+	let ajaxResult = $.ajax({
+		url: stringUrl,
+		type: 'GET',
+		async: false
+	});
+	if (ajaxResult.status !== 200) {
+		layer.msg(ajaxResult.responseJSON.message);
+	}
+}
 function buildPageInfos(result) {
 	let pageInfos = $("#pageInfos");
 	pageInfos.empty();

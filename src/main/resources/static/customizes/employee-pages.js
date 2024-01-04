@@ -84,6 +84,9 @@ $("#emailInput").change(function() {
 		$("#saveInfoBtn").attr("ajax-va", "success");
 	}
 });
+$("#roleInput").change(function() {
+	checkPermission('/pgcrowd/employee/delete/0L');
+});
 $("#saveInfoBtn").on('click', function() {
 	let inputLoginAccount = $("#loginAccountInput").val().trim();
 	let inputUsername = $("#usernameInput").val().trim();
@@ -144,6 +147,9 @@ $("#emailEdit").change(function() {
 		showValidationMsg("#emailEdit", "success", "√");
 		$("#editInfoBtn").attr("ajax-va", "success");
 	}
+});
+$("#roleEdit").change(function() {
+	checkPermission('/pgcrowd/employee/delete/0L');
 });
 $("#editInfoBtn").on('click', function() {
 	let editId = $("#editId").text();
