@@ -85,7 +85,18 @@ $("#emailInput").change(function() {
 	}
 });
 $("#roleInput").change(function() {
-	checkPermission('/pgcrowd/role/delete/0L', 'DELETE');
+	let ajaxResult = $.ajax({
+		url: '/pgcrowd/role/delete/0L',
+		type: 'DELETE',
+		async: false
+	});
+	if (ajaxResult.status !== 200) {
+		showValidationMsg(this, "error", ajaxResult.responseJSON.message);
+		$("#saveInfoBtn").attr("ajax-va", "error");
+	} else {
+		showValidationMsg(this, "success", "√");
+		$("#saveInfoBtn").attr("ajax-va", "success");
+	}
 });
 $("#saveInfoBtn").on('click', function() {
 	let inputLoginAccount = $("#loginAccountInput").val().trim();
@@ -149,7 +160,18 @@ $("#emailEdit").change(function() {
 	}
 });
 $("#roleEdit").change(function() {
-	checkPermission('/pgcrowd/role/delete/0L', 'DELETE');
+	let ajaxResult = $.ajax({
+		url: '/pgcrowd/role/delete/0L',
+		type: 'DELETE',
+		async: false
+	});
+	if (ajaxResult.status !== 200) {
+		showValidationMsg(this, "error", ajaxResult.responseJSON.message);
+		$("#editInfoBtn").attr("ajax-va", "error");
+	} else {
+		showValidationMsg(this, "success", "√");
+		$("#editInfoBtn").attr("ajax-va", "success");
+	}
 });
 $("#editInfoBtn").on('click', function() {
 	let editId = $("#editId").text();
