@@ -124,12 +124,6 @@
 		        OR PE.EMAIL LIKE #{keyword,jdbcType=NVARCHAR}
 		    )
 	</select>
-	<select id="saiban" resultType="java.lang.Long">
-		SELECT
-			COUNT(PE.ID) + 1
-		FROM
-			PPOG_EMPLOYEE PE
-	</select>
 	<select id="checkDuplicated"
 		parameterType="java.lang.String" resultType="java.lang.Integer">
 		SELECT

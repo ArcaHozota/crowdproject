@@ -59,13 +59,6 @@ public interface EmployeeMapper {
 	void removeById(Employee employee);
 
 	/**
-	 * ID採番値を取得する
-	 *
-	 * @return Long
-	 */
-	Long saiban();
-
-	/**
 	 * IDによって情報を検索する
 	 *
 	 * @param employee 社員エンティティ

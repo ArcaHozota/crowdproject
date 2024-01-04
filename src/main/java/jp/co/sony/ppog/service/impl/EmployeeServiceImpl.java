@@ -20,6 +20,7 @@ import jp.co.sony.ppog.service.IEmployeeService;
 import jp.co.sony.ppog.utils.Pagination;
 import jp.co.sony.ppog.utils.ResultDto;
 import jp.co.sony.ppog.utils.SecondBeanUtils;
+import jp.co.sony.ppog.utils.SnowflakeUtils;
 import jp.co.sony.ppog.utils.StringUtils;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -91,16 +92,15 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	@Override
 	public void save(final EmployeeDto employeeDto) {
 		final Employee employee = new Employee();
-		final Long saibanId = this.employeeMapper.saiban();
 		final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(BCryptVersion.$2Y, 7);
 		final String password = encoder.encode(employeeDto.getPassword());
 		SecondBeanUtils.copyNullableProperties(employeeDto, employee);
-		employee.setId(saibanId);
+		employee.setId(SnowflakeUtils.snowflakeId());
 		employee.setPassword(password);
 		employee.setCreatedTime(LocalDateTime.now());
 		employee.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
 		this.employeeMapper.insertById(employee);
-		if ((employeeDto.getRoleId() != null) && !Objects.equals(Long.valueOf(0L), employeeDto.getRoleId())) {
+		if (employeeDto.getRoleId() != null && !Objects.equals(Long.valueOf(0L), employeeDto.getRoleId())) {
 			final EmployeeRole employeeEx = new EmployeeRole();
 			employeeEx.setEmployeeId(saibanId);
 			employeeEx.setRoleId(employeeDto.getRoleId());
@@ -118,7 +118,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 			final String encoded = encoder.encode(employeeDto.getPassword());
 			employee.setPassword(encoded);
 		}
-		if ((employeeDto.getRoleId() != null) && !Objects.equals(Long.valueOf(0L), employeeDto.getRoleId())) {
+		if (employeeDto.getRoleId() != null && !Objects.equals(Long.valueOf(0L), employeeDto.getRoleId())) {
 			final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(employeeDto.getId());
 			if (!Objects.equals(employeeRole.getRoleId(), employeeDto.getRoleId())) {
 				employeeRole.setRoleId(employeeDto.getRoleId());
