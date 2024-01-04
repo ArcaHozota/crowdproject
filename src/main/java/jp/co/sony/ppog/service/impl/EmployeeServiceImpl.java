@@ -102,7 +102,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		this.employeeMapper.insertById(employee);
 		if (employeeDto.getRoleId() != null && !Objects.equals(Long.valueOf(0L), employeeDto.getRoleId())) {
 			final EmployeeRole employeeEx = new EmployeeRole();
-			employeeEx.setEmployeeId(saibanId);
+			employeeEx.setEmployeeId(employee.getId());
 			employeeEx.setRoleId(employeeDto.getRoleId());
 			this.employeeRoleMapper.insertById(employeeEx);
 		}
