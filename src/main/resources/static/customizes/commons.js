@@ -155,14 +155,20 @@ function pgcrowdAjaxModify(url, type, data, successFunction) {
 function pgcrowdNullInputboxDiscern(listArray) {
 	for (const element of listArray) {
 		if ($(element).val().trim() === "") {
-			showValidationMsg(element, "error", "上記の入力ボックスを空になってはいけません。");
+			return true;
 		}
 	}
+	return false;
 }
 function commonUpdateMethod(inputArrays, inputForm, updateUrl, updateMethod, updateData, successFunction) {
-	pgcrowdNullInputboxDiscern(inputArrays);
 	if (inputForm.find('*').hasClass('is-invalid')) {
 		layer.msg('入力情報不正。');
+	} else if (pgcrowdNullInputboxDiscern(inputArrays)) {
+		for (const element of inputArrays) {
+			if ($(element).val().trim() === "") {
+				showValidationMsg(element, "error", "上記の入力ボックスを空になってはいけません。");
+			}
+		}
 	} else {
 		pgcrowdAjaxModify(updateUrl, updateMethod, updateData, successFunction);
 	}
