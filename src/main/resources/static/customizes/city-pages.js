@@ -60,7 +60,7 @@ $("#nameInput").on('change', function() {
 	checkCityName(this, "#districtInput");
 });
 $("#populationInput").on('change', function() {
-	let populationVal = this.value;
+	let populationVal = Number(this.value.replace(/,/g, ''));
 	let regularPopulation = /^\d{3,12}$/;
 	if (!regularPopulation.test(populationVal)) {
 		showValidationMsg(this, "error", "入力した人口数量が3桁から12桁までの数字にしなければなりません。");
@@ -107,7 +107,7 @@ $("#nameEdit").on('change', function() {
 	checkCityName(this, "#districtEdit");
 });
 $("#populationEdit").on('change', function() {
-	let populationVal = this.value;
+	let populationVal = Number(this.value.replace(/,/g, ''));
 	let regularPopulation = /^\d{3,12}$/;
 	if (!regularPopulation.test(populationVal)) {
 		showValidationMsg(this, "error", "入力した人口数量が3桁から12桁までの数字にしなければなりません。");
