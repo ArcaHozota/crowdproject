@@ -11,6 +11,21 @@
 	</resultMap>
 	<update id="updateById"
 		parameterType="jp.co.sony.ppog.entity.District">
+		UPDATE PPOG_DISTRICTS PD 
+		<set>
+			<if test="name != null">
+				PD.NAME = #{name,jdbcType=NVARCHAR},
+			</if>
+			<if test="shutoId != null">
+				PD.SHUTO_ID = #{shutoId,jdbcType=NUMERIC},
+			</if>
+			<if test="chiho != null">
+				PD.CHIHO = #{chiho,jdbcType=NUMERIC},
+			</if>
+		</set>
+		WHERE
+		    PD.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
+		    AND PD.ID = #{id,jdbcType=NUMERIC}
 	</update>
 	<select id="selectAll" parameterType="java.lang.String"
 		resultMap="BasicResultMap">

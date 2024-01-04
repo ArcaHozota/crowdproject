@@ -91,6 +91,7 @@ public class DistrictServiceImpl implements IDistrictService {
 	public void update(final DistrictDto districtDto) {
 		final District district = new District();
 		SecondBeanUtils.copyNullableProperties(districtDto, district);
+		district.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
 		this.districtMapper.updateById(district);
 	}
 }
