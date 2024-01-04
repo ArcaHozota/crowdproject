@@ -72,7 +72,7 @@ $("#nameInput").on('change', function() {
 $("#roleInfoSaveBtn").on('click', function() {
 	let inputName = $("#nameInput").val().trim();
 	if ($("#roleAddModal form").find('*').hasClass('is-invalid')) {
-		return false;
+		layer.msg('入力情報不正。');
 	} else if (inputName === "") {
 		showValidationMsg("#nameInput", "error", "役割名称を空になってはいけません。");
 	} else {
@@ -97,7 +97,7 @@ $("#tableBody").on('click', '.edit-btn', function() {
 $("#roleInfoChangeBtn").on('click', function() {
 	let editName = $("#nameEdit").val().trim();
 	if ($("#roleEditModal form").find('*').hasClass('is-invalid')) {
-		return false;
+		layer.msg('入力情報不正。');
 	} else if (inputName === "") {
 		showValidationMsg("#nameEdit", "error", "役割名称を空になってはいけません。");
 	} else {

@@ -75,7 +75,7 @@ $("#cityInfoSaveBtn").on('click', function() {
 	let inputPopulation = $("#populationInput").val().trim();
 	let inputDistrict = $("#districtInput").val();
 	if ($("#cityAddModal form").find('*').hasClass('is-invalid')) {
-		return false;
+		layer.msg('入力情報不正。');
 	} else if (inputName === "" || inputPopulation === "") {
 		let listArray = ["#nameInput", "#populationInput"];
 		pgcrowdNullInputboxDiscern(listArray);
@@ -122,7 +122,7 @@ $("#cityInfoChangeBtn").on('click', function() {
 	let editPopulation = $("#populationEdit").val().trim();
 	let editDistrict = $("#districtEdit").val();
 	if ($("#cityEditModal form").find('*').hasClass('is-invalid')) {
-		return false;
+		layer.msg('入力情報不正。');
 	} else if (editName === "" || editPopulation === "") {
 		let listArray = ["#nameEdit", "#populationEdit"];
 		pgcrowdNullInputboxDiscern(listArray);
