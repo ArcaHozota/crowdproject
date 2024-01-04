@@ -58,10 +58,10 @@ function checkPermissionAndTransfer(stringUrl) {
 		layer.msg(ajaxResult.responseJSON.message);
 	}
 }
-function checkPermission(stringUrl) {
+function checkPermission(stringUrl, type) {
 	let ajaxResult = $.ajax({
 		url: stringUrl,
-		type: 'GET',
+		type: type,
 		async: false
 	});
 	if (ajaxResult.status !== 200) {

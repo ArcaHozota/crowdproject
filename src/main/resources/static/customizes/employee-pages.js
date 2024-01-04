@@ -85,7 +85,7 @@ $("#emailInput").change(function() {
 	}
 });
 $("#roleInput").change(function() {
-	checkPermission('/pgcrowd/employee/delete/0L');
+	checkPermission('/pgcrowd/role/delete/0L', 'DELETE');
 });
 $("#saveInfoBtn").on('click', function() {
 	let inputLoginAccount = $("#loginAccountInput").val().trim();
@@ -149,7 +149,7 @@ $("#emailEdit").change(function() {
 	}
 });
 $("#roleEdit").change(function() {
-	checkPermission('/pgcrowd/employee/delete/0L');
+	checkPermission('/pgcrowd/role/delete/0L', 'DELETE');
 });
 $("#editInfoBtn").on('click', function() {
 	let editId = $("#editId").text();
