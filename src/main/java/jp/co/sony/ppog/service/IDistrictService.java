@@ -29,4 +29,11 @@ public interface IDistrictService {
 	 * @return Pagination<Role>
 	 */
 	Pagination<DistrictDto> getDistrictsByKeyword(Integer pageNum, String keyword);
+
+	/**
+	 * 地域情報更新
+	 *
+	 * @param districtDto 地域情報転送クラス
+	 */
+	void update(DistrictDto districtDto);
 }

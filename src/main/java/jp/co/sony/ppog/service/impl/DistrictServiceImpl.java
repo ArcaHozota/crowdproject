@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.sony.ppog.commons.CrowdPlusConstants;
 import jp.co.sony.ppog.dto.DistrictDto;
+import jp.co.sony.ppog.entity.District;
 import jp.co.sony.ppog.mapper.CityMapper;
 import jp.co.sony.ppog.mapper.DistrictMapper;
 import jp.co.sony.ppog.service.IDistrictService;
@@ -84,5 +85,12 @@ public class DistrictServiceImpl implements IDistrictService {
 					return districtDto;
 				}).collect(Collectors.toList());
 		return Pagination.of(pages, records, pageNum, pageSize);
+	}
+
+	@Override
+	public void update(final DistrictDto districtDto) {
+		final District district = new District();
+		SecondBeanUtils.copyNullableProperties(districtDto, district);
+		this.districtMapper.updateById(district);
 	}
 }

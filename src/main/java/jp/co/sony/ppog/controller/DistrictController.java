@@ -2,6 +2,8 @@ package jp.co.sony.ppog.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,5 +46,18 @@ public class DistrictController {
 			@RequestParam(name = "keyword", defaultValue = StringUtils.EMPTY_STRING) final String keyword) {
 		final Pagination<DistrictDto> districts = this.iDistrictService.getDistrictsByKeyword(pageNum, keyword);
 		return ResultDto.successWithData(districts);
+	}
+
+	/**
+	 * 情報更新
+	 *
+	 * @param districtDto 地域情報転送クラス
+	 * @return ResultDto<String>
+	 */
+	@PutMapping("/infoupd")
+	@PreAuthorize("hasAuthority('district%edition')")
+	public ResultDto<String> updateInfo(@RequestBody final DistrictDto districtDto) {
+		this.iDistrictService.update(districtDto);
+		return ResultDto.successWithoutData();
 	}
 }
