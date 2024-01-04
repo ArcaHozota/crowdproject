@@ -32,11 +32,12 @@ function buildTableBody(result) {
 	$("#tableBody").empty();
 	let index = result.data.records;
 	$.each(index, (index, item) => {
+		let patternedPop = Number(item.population).toLocaleString('en-US');
 		let idTd = $("<th scope='row' class='text-center' style='width:150px;vertical-align:bottom;'></th>").append(item.id);
 		let nameTd = $("<td scope='row' class='text-center' style='width:70px;vertical-align:bottom;'></td>").append(item.name);
 		let shutoTd = $("<td scope='row' class='text-center' style='width:70px;vertical-align:bottom;'></td>").append(item.shutoName);
 		let chihoTd = $("<td scope='row' class='text-center' style='width:70px;vertical-align:bottom;'></td>").append(item.chiho);
-		let populationTd = $("<td scope='row' class='text-center' style='width:70px;vertical-align:bottom;'></td>").append(item.population);
+		let populationTd = $("<td scope='row' class='text-center' style='width:70px;vertical-align:bottom;'></td>").append(patternedPop);
 		let editBtn = $("<button style='width:100px;'></button>").addClass("btn btn-success btn-sm edit-btn")
 			.append($("<i class='bi bi-pencil-square'></i>")).append("編集");
 		editBtn.attr("editId", item.id);
