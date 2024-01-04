@@ -45,3 +45,42 @@ function buildTableBody(result) {
 		$("<tr></tr>").append(idTd).append(nameTd).append(shutoTd).append(chihoTd).append(populationTd).append(btnTd).appendTo("#tableBody");
 	});
 }
+$("#tableBody").on('click', '.edit-btn', function() {
+	formReset("#districtEditModal form");
+	let editId = $(this).attr("editId");
+	$("#districtInfoChangeBtn").val(editId);
+	let nameVal = $(this).parent().parent().find("td:eq(0)").text();
+	let shutoVal = $(this).parent().parent().find("td:eq(1)").text();
+	let chihoVal = $(this).parent().parent().find("td:eq(2)").text();
+	let populationVal = $(this).parent().parent().find("td:eq(3)").text();
+	$("#nameEdit").val(nameVal);
+	$("#chihoEdit").val(chihoVal);
+	$("#shutoEdit").val(shutoVal);
+	$("#populationEdit").val(populationVal);
+	let addModal = new bootstrap.Modal($("#districtEditModal"), {
+		backdrop: 'static'
+	});
+	addModal.show();
+});
+$("#districtInfoChangeBtn").on('click', function() {
+	let editName = $("#nameEdit").val().trim();
+	let editDistrict = $("#chihoEdit").val().trim();
+	if ($("#districtEditModal form").find('*').hasClass('is-invalid')) {
+		layer.msg('入力情報不正。');
+	} else if (editName === "" || editDistrict === "") {
+		let listArray = ["#nameEdit", "#chihoEdit"];
+		pgcrowdNullInputboxDiscern(listArray);
+	} else {
+		let putData = JSON.stringify({
+			'id': this.value,
+			'name': editName,
+			'chiho': editDistrict
+		});
+		pgcrowdAjaxModify('/pgcrowd/district/infoupd', 'PUT', putData, putSuccessFunction);
+	}
+});
+function putSuccessFunction() {
+	$("#districtEditModal").modal('hide');
+	layer.msg('更新済み');
+	toSelectedPg(pageNum, keyword);
+}

@@ -49,6 +49,49 @@
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="districtEditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">地域情報変更</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal">
+						<div class="form-group row">
+							<label for="nameEdit" class="col-sm-3 col-form-label text-end">地域名称</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="nameEdit" placeholder="地域の名称">
+								<span class="form-text" style="font-size: 12px;"></span>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="chihoEdit" class="col-sm-3 col-form-label text-end">地方</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="chihoEdit" placeholder="地方">
+								<span class="form-text" style="font-size: 12px;"></span>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="shutoEdit" class="col-sm-3 col-form-label text-end">州都</label>
+							<div class="col-sm-9">
+								<p type="text" class="form-control" id="shutoEdit" />
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="populationEdit" class="col-sm-3 col-form-label text-end">人口数量</label>
+							<div class="col-sm-9">
+								<p type="text" class="form-control" id="populationEdit" />
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">閉じる</button>
+					<button type="button" class="btn btn-info" id="districtInfoChangeBtn">更新</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script type="text/javascript" th:src="@{/static/customizes/district-pages.js}"></script>
 </body>
 
