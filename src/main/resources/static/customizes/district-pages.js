@@ -70,10 +70,5 @@ $("#districtInfoChangeBtn").on('click', function() {
 		'name': $("#nameEdit").val().trim(),
 		'chiho': $("#chihoEdit").val().trim()
 	});
-	commonUpdateMethod(inputArrays, inputForm, '/pgcrowd/district/infoupd', 'PUT', putData, putSuccessFunction);
+	commonUpdateMethod(inputArrays, inputForm, '/pgcrowd/district/infoupd', 'PUT', putData, normalPutSuccessFunction("#districtEditModal"));
 });
-function putSuccessFunction() {
-	$("#districtEditModal").modal('hide');
-	layer.msg('更新済み');
-	toSelectedPg(pageNum, keyword);
-}

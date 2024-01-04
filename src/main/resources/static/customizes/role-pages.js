@@ -75,7 +75,7 @@ $("#roleInfoSaveBtn").on('click', function() {
 	let postData = JSON.stringify({
 		'name': $("#nameInput").val().trim()
 	});
-	commonUpdateMethod(inputArrays, inputForm, 'pgcrowd/role/infosave', 'POST', postData, postSuccessFunction);
+	commonUpdateMethod(inputArrays, inputForm, 'pgcrowd/role/infosave', 'POST', postData, normalPostSuccessFunction("#roleAddModal"));
 });
 $("#tableBody").on('click', '.edit-btn', function() {
 	formReset("#roleEditModal form");
@@ -102,7 +102,7 @@ $("#tableBody").on('click', '.delete-btn', function() {
 	let roleName = $(this).parents("tr").find("td:eq(0)").text().trim();
 	let roleId = $(this).attr("deleteId");
 	if (confirm("この" + roleName + "という役割情報を削除する、よろしいでしょうか。")) {
-		pgcrowdAjaxModify('/pgcrowd/role/delete/' + roleId, 'DELETE', null, deleteSuccessFunction);
+		pgcrowdAjaxModify('/pgcrowd/role/delete/' + roleId, 'DELETE', null, normalDeleteSuccessFunction);
 	}
 });
 $("#tableBody").on('click', '.fuyo-btn', function() {
@@ -186,19 +186,6 @@ function putSuccessFunction(result) {
 		toSelectedPg(pageNum, keyword);
 	} else {
 		showValidationMsg("#nameEdit", "error", result.message);
-	}
-}
-function postSuccessFunction() {
-	$("#roleAddModal").modal('hide');
-	layer.msg('追加処理成功');
-	toSelectedPg(totalRecords, keyword);
-}
-function deleteSuccessFunction(result) {
-	if (result.status === 'SUCCESS') {
-		layer.msg('削除済み');
-		toSelectedPg(pageNum, keyword);
-	} else {
-		layer.msg(result.message);
 	}
 }
 function authPutSuccessFunction() {

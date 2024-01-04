@@ -79,7 +79,7 @@ $("#cityInfoSaveBtn").on('click', function() {
 		'districtId': $("#districtInput").val(),
 		'population': Number($("#populationInput").val().trim().replace(/,/g, ''))
 	});
-	commonUpdateMethod(inputArrays, inputForm, '/pgcrowd/city/infosave', 'POST', postData, postSuccessFunction);
+	commonUpdateMethod(inputArrays, inputForm, '/pgcrowd/city/infosave', 'POST', postData, normalPostSuccessFunction("#cityAddModal"));
 });
 $("#tableBody").on('click', '.edit-btn', function() {
 	formReset("#cityEditModal form");
@@ -119,18 +119,8 @@ $("#cityInfoChangeBtn").on('click', function() {
 		'districtId': $("#districtEdit").val(),
 		'population': Number($("#populationEdit").val().trim().replace(/,/g, ''))
 	});
-	commonUpdateMethod(inputArrays, inputForm, '/pgcrowd/city/infoupd', 'PUT', putData, putSuccessFunction);
+	commonUpdateMethod(inputArrays, inputForm, '/pgcrowd/city/infoupd', 'PUT', putData, normalPutSuccessFunction("#cityEditModal"));
 });
-function postSuccessFunction() {
-	$("#cityAddModal").modal('hide');
-	layer.msg('追加処理成功');
-	toSelectedPg(totalRecords, keyword);
-}
-function putSuccessFunction() {
-	$("#cityEditModal").modal('hide');
-	layer.msg('更新済み');
-	toSelectedPg(pageNum, keyword);
-}
 function checkCityName(cityName, district) {
 	let nameVal = $(cityName).val().trim();
 	let districtVal = $(district).val();
