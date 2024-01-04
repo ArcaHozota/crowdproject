@@ -91,26 +91,16 @@ $("#roleInput").change(function() {
 	}
 });
 $("#saveInfoBtn").on('click', function() {
-	let inputLoginAccount = $("#loginAccountInput").val().trim();
-	let inputUsername = $("#usernameInput").val().trim();
-	let inputPassword = $("#passwordInput").val().trim();
-	let inputEmail = $("#emailInput").val().trim();
-	let inputRole = $("#roleInput").val();
-	if ($("#inputForm").find('*').hasClass('is-invalid')) {
-		layer.msg('入力情報不正。');
-	} else if (inputLoginAccount === "" || inputUsername === "" || inputPassword === "" || inputEmail === "") {
-		let listArray = ["#loginAccountInput", "#usernameInput", "#passwordInput", "#emailInput"];
-		pgcrowdNullInputboxDiscern(listArray);
-	} else {
-		let postData = JSON.stringify({
-			'loginAccount': inputLoginAccount,
-			'username': inputUsername,
-			'password': inputPassword,
-			'email': inputEmail,
-			'roleId': inputRole
-		});
-		pgcrowdAjaxModify('/pgcrowd/employee/infosave', 'POST', postData, postSuccessFunction);
-	}
+	let inputArrays = ["#loginAccountInput", "#usernameInput", "#passwordInput", "#emailInput"];
+	let inputForm = $("#inputForm");
+	let postData = JSON.stringify({
+		'loginAccount': $("#loginAccountInput").val().trim(),
+		'username': $("#usernameInput").val().trim(),
+		'password': $("#passwordInput").val().trim(),
+		'email': $("#emailInput").val().trim(),
+		'roleId': $("#roleInput").val()
+	});
+	commonUpdateMethod(inputArrays, inputForm, '/pgcrowd/employee/infosave', 'POST', postData, postSuccessFunction);
 });
 $("#addInfoBtn").on('click', function(e) {
 	e.preventDefault();
@@ -160,31 +150,17 @@ $("#roleEdit").change(function() {
 	}
 });
 $("#editInfoBtn").on('click', function() {
-	let editId = $("#editId").text();
-	let editLoginAccount = $("#loginAccountEdit").text();
-	let editUsername = $("#usernameEdit").val().trim();
-	let editPassword = $("#passwordEdit").val().trim();
-	let editEmail = $("#emailEdit").val().trim();
-	let editRole = $("#roleEdit option:selected").val();
-	if ($("#editForm").find('*').hasClass('is-invalid')) {
-		layer.msg('入力情報不正。');
-	} else if (editUsername === "" || editPassword === "" || editEmail === "") {
-		let listArray = ["#usernameEdit", "#passwordEdit", "#emailEdit"];
-		pgcrowdNullInputboxDiscern(listArray);
-	} else {
-		if (editPassword === "**************************************") {
-			editPassword = null;
-		}
-		let putData = JSON.stringify({
-			'id': editId,
-			'loginAccount': editLoginAccount,
-			'username': editUsername,
-			'password': editPassword,
-			'email': editEmail,
-			'roleId': editRole
-		});
-		pgcrowdAjaxModify('/pgcrowd/employee/infoupd', 'PUT', putData, putSuccessFunction);
-	}
+	let inputArrays = ["#usernameEdit", "#passwordEdit", "#emailEdit"];
+	let inputForm = $("#editForm");
+	let putData = JSON.stringify({
+		'id': $("#editId").text(),
+		'loginAccount': $("#loginAccountEdit").text(),
+		'username': $("#usernameEdit").val().trim(),
+		'password': $("#passwordEdit").val().trim(),
+		'email': $("#emailEdit").val().trim(),
+		'roleId': $("#roleEdit").val()
+	});
+	commonUpdateMethod(inputArrays, inputForm, '/pgcrowd/employee/infoupd', 'PUT', putData, putSuccessFunction);
 });
 function postSuccessFunction() {
 	window.location.replace('/pgcrowd/employee/to/pages?pageNum=' + totalRecords);

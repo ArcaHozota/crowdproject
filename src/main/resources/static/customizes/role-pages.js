@@ -70,17 +70,12 @@ $("#nameInput").on('change', function() {
 	});
 });
 $("#roleInfoSaveBtn").on('click', function() {
-	let inputName = $("#nameInput").val().trim();
-	if ($("#roleAddModal form").find('*').hasClass('is-invalid')) {
-		layer.msg('入力情報不正。');
-	} else if (inputName === "") {
-		showValidationMsg("#nameInput", "error", "役割名称を空になってはいけません。");
-	} else {
-		let postData = JSON.stringify({
-			'name': inputName
-		});
-		pgcrowdAjaxModify('pgcrowd/role/infosave', 'POST', postData, postSuccessFunction);
-	}
+	let inputArrays = ["#nameInput"];
+	let inputForm = $("#roleAddModal form");
+	let postData = JSON.stringify({
+		'name': $("#nameInput").val().trim()
+	});
+	commonUpdateMethod(inputArrays, inputForm, 'pgcrowd/role/infosave', 'POST', postData, postSuccessFunction);
 });
 $("#tableBody").on('click', '.edit-btn', function() {
 	formReset("#roleEditModal form");
@@ -95,18 +90,13 @@ $("#tableBody").on('click', '.edit-btn', function() {
 	editModal.show();
 });
 $("#roleInfoChangeBtn").on('click', function() {
-	let editName = $("#nameEdit").val().trim();
-	if ($("#roleEditModal form").find('*').hasClass('is-invalid')) {
-		layer.msg('入力情報不正。');
-	} else if (inputName === "") {
-		showValidationMsg("#nameEdit", "error", "役割名称を空になってはいけません。");
-	} else {
-		let putData = JSON.stringify({
-			'id': this.value,
-			'name': editName
-		});
-		pgcrowdAjaxModify('/pgcrowd/role/infoupd', 'PUT', putData, putSuccessFunction);
-	}
+	let inputArrays = ["#nameEdit"];
+	let inputForm = $("#roleEditModal form");
+	let putData = JSON.stringify({
+		'id': this.value,
+		'name': $("#nameEdit").val().trim()
+	});
+	commonUpdateMethod(inputArrays, inputForm, '/pgcrowd/role/infoupd', 'PUT', putData, putSuccessFunction);
 });
 $("#tableBody").on('click', '.delete-btn', function() {
 	let roleName = $(this).parents("tr").find("td:eq(0)").text().trim();

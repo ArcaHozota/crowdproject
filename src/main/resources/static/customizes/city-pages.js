@@ -72,22 +72,14 @@ $("#districtInput").on('change', function() {
 	checkCityName("#nameInput", this);
 });
 $("#cityInfoSaveBtn").on('click', function() {
-	let inputName = $("#nameInput").val().trim();
-	let inputPopulation = $("#populationInput").val().trim();
-	let inputDistrict = $("#districtInput").val();
-	if ($("#cityAddModal form").find('*').hasClass('is-invalid')) {
-		layer.msg('入力情報不正。');
-	} else if (inputName === "" || inputPopulation === "") {
-		let listArray = ["#nameInput", "#populationInput"];
-		pgcrowdNullInputboxDiscern(listArray);
-	} else {
-		let postData = JSON.stringify({
-			'name': inputName,
-			'districtId': inputDistrict,
-			'population': Number(inputPopulation.replace(/,/g, ''))
-		});
-		pgcrowdAjaxModify('/pgcrowd/city/infosave', 'POST', postData, postSuccessFunction);
-	}
+	let inputArrays = ["#nameInput", "#populationInput"];
+	let inputForm = $("#cityAddModal form");
+	let postData = JSON.stringify({
+		'name': $("#nameInput").val().trim(),
+		'districtId': $("#districtInput").val(),
+		'population': Number($("#populationInput").val().trim().replace(/,/g, ''))
+	});
+	commonUpdateMethod(inputArrays, inputForm, '/pgcrowd/city/infosave', 'POST', postData, postSuccessFunction);
 });
 $("#tableBody").on('click', '.edit-btn', function() {
 	formReset("#cityEditModal form");
@@ -119,23 +111,15 @@ $("#districtEdit").on('change', function() {
 	checkCityName("#nameEdit", this);
 });
 $("#cityInfoChangeBtn").on('click', function() {
-	let editName = $("#nameEdit").val().trim();
-	let editPopulation = $("#populationEdit").val().trim();
-	let editDistrict = $("#districtEdit").val();
-	if ($("#cityEditModal form").find('*').hasClass('is-invalid')) {
-		layer.msg('入力情報不正。');
-	} else if (editName === "" || editPopulation === "") {
-		let listArray = ["#nameEdit", "#populationEdit"];
-		pgcrowdNullInputboxDiscern(listArray);
-	} else {
-		let putData = JSON.stringify({
-			'id': this.value,
-			'name': editName,
-			'districtId': editDistrict,
-			'population': Number(editPopulation.replace(/,/g, ''))
-		});
-		pgcrowdAjaxModify('/pgcrowd/city/infoupd', 'PUT', putData, putSuccessFunction);
-	}
+	let inputArrays = ["#nameEdit", "#populationEdit"];
+	let inputForm = $("#cityEditModal form");
+	let putData = JSON.stringify({
+		'id': this.value,
+		'name': $("#nameEdit").val().trim(),
+		'districtId': $("#districtEdit").val(),
+		'population': Number($("#populationEdit").val().trim().replace(/,/g, ''))
+	});
+	commonUpdateMethod(inputArrays, inputForm, '/pgcrowd/city/infoupd', 'PUT', putData, putSuccessFunction);
 });
 function postSuccessFunction() {
 	$("#cityAddModal").modal('hide');

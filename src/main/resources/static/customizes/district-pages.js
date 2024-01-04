@@ -63,21 +63,14 @@ $("#tableBody").on('click', '.edit-btn', function() {
 	addModal.show();
 });
 $("#districtInfoChangeBtn").on('click', function() {
-	let editName = $("#nameEdit").val().trim();
-	let editDistrict = $("#chihoEdit").val().trim();
-	if ($("#districtEditModal form").find('*').hasClass('is-invalid')) {
-		layer.msg('入力情報不正。');
-	} else if (editName === "" || editDistrict === "") {
-		let listArray = ["#nameEdit", "#chihoEdit"];
-		pgcrowdNullInputboxDiscern(listArray);
-	} else {
-		let putData = JSON.stringify({
-			'id': this.value,
-			'name': editName,
-			'chiho': editDistrict
-		});
-		pgcrowdAjaxModify('/pgcrowd/district/infoupd', 'PUT', putData, putSuccessFunction);
-	}
+	let inputArrays = ["#nameEdit", "#chihoEdit"];
+	let inputForm = $("#districtEditModal form");
+	let putData = JSON.stringify({
+		'id': this.value,
+		'name': $("#nameEdit").val().trim(),
+		'chiho': $("#chihoEdit").val().trim()
+	});
+	commonUpdateMethod(inputArrays, inputForm, '/pgcrowd/district/infoupd', 'PUT', putData, putSuccessFunction);
 });
 function putSuccessFunction() {
 	$("#districtEditModal").modal('hide');

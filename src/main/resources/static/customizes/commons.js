@@ -159,3 +159,11 @@ function pgcrowdNullInputboxDiscern(listArray) {
 		}
 	}
 }
+function commonUpdateMethod(inputArrays, inputForm, updateUrl, updateMethod, updateData, successFunction) {
+	pgcrowdNullInputboxDiscern(inputArrays);
+	if (inputForm.find('*').hasClass('is-invalid')) {
+		layer.msg('入力情報不正。');
+	} else {
+		pgcrowdAjaxModify(updateUrl, updateMethod, updateData, successFunction);
+	}
+}
