@@ -56,21 +56,21 @@ $("#addCityBtn").on('click', function() {
 	addModal.show();
 });
 $("#nameInput").on('change', function() {
-	checkCityName("#nameInput", "#districtInput", $("#cityInfoSaveBtn"));
+	checkCityName(this, "#districtInput", $("#cityInfoSaveBtn"));
 });
 $("#populationInput").on('change', function() {
 	let populationVal = this.value;
 	let regularPopulation = /^\d{3,12}$/;
 	if (!regularPopulation.test(populationVal)) {
-		showValidationMsg("#populationInput", "error", "入力した人口数量が3桁から12桁までの数字にしなければなりません。");
+		showValidationMsg(this, "error", "入力した人口数量が3桁から12桁までの数字にしなければなりません。");
 		$("#cityInfoSaveBtn").attr("ajax-va", "error");
 	} else {
-		showValidationMsg("#populationInput", "success", "");
+		showValidationMsg(this, "success", "");
 		$("#cityInfoSaveBtn").attr("ajax-va", "success");
 	}
 });
 $("#districtInput").on('change', function() {
-	checkCityName("#nameInput", "#districtInput", $("#cityInfoSaveBtn"));
+	checkCityName("#nameInput", this, $("#cityInfoSaveBtn"));
 });
 $("#cityInfoSaveBtn").on('click', function() {
 	let inputName = $("#nameInput").val().trim();
@@ -105,21 +105,21 @@ $("#tableBody").on('click', '.edit-btn', function() {
 	addModal.show();
 });
 $("#nameEdit").on('change', function() {
-	checkCityName("#nameEdit", "#districtEdit", $("#cityInfoChangeBtn"));
+	checkCityName(this, "#districtEdit", $("#cityInfoChangeBtn"));
 });
 $("#populationEdit").on('change', function() {
 	let populationVal = this.value;
 	let regularPopulation = /^\d{3,12}$/;
 	if (!regularPopulation.test(populationVal)) {
-		showValidationMsg("#populationEdit", "error", "入力した人口数量が3桁から12桁までの数字にしなければなりません。");
+		showValidationMsg(this, "error", "入力した人口数量が3桁から12桁までの数字にしなければなりません。");
 		$("#cityInfoChangeBtn").attr("ajax-va", "error");
 	} else {
-		showValidationMsg("#populationEdit", "success", "");
+		showValidationMsg(this, "success", "");
 		$("#cityInfoChangeBtn").attr("ajax-va", "success");
 	}
 });
 $("#districtEdit").on('change', function() {
-	checkCityName("#nameEdit", "#districtEdit", $("#cityInfoChangeBtn"));
+	checkCityName("#nameEdit", this, $("#cityInfoChangeBtn"));
 });
 $("#cityInfoChangeBtn").on('click', function() {
 	let editName = $("#nameEdit").val().trim();

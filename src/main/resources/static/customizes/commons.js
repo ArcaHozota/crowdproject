@@ -118,6 +118,7 @@ function buildPageNavi(result) {
 function formReset(element) {
 	$(element)[0].reset();
 	$(element).find(".form-control").removeClass("is-valid is-invalid");
+	$(element).find(".form-select").removeClass("is-valid is-invalid");
 	$(element).find(".form-text").removeClass("valid-feedback invalid-feedback");
 	$(element).find(".form-text").text("");
 }

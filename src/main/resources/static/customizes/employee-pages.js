@@ -53,10 +53,10 @@ $("#loginAccountInput").change(function() {
 		dataType: 'json',
 		success: function(result) {
 			if (result.status === 'SUCCESS') {
-				showValidationMsg("#loginAccountInput", "success", "√");
+				showValidationMsg(this, "success", "√");
 				$("#saveInfoBtn").attr("ajax-va", "success");
 			} else {
-				showValidationMsg("#loginAccountInput", "error", result.message);
+				showValidationMsg(this, "error", result.message);
 				$("#saveInfoBtn").attr("ajax-va", "error");
 			}
 		}
@@ -66,10 +66,10 @@ $("#passwordInput").change(function() {
 	let inputPassword = this.value;
 	let regularPassword = /^[a-zA-Z\d]{8,23}$/;
 	if (!regularPassword.test(inputPassword)) {
-		showValidationMsg("#passwordInput", "error", "入力したパスワードが8桁から23桁までの英数字にしなければなりません。");
+		showValidationMsg(this, "error", "入力したパスワードが8桁から23桁までの英数字にしなければなりません。");
 		$("#saveInfoBtn").attr("ajax-va", "error");
 	} else {
-		showValidationMsg("#passwordInput", "success", "√");
+		showValidationMsg(this, "success", "√");
 		$("#saveInfoBtn").attr("ajax-va", "success");
 	}
 });
@@ -77,10 +77,10 @@ $("#emailInput").change(function() {
 	let inputEmail = this.value;
 	let regularEmail = /^^[a-zA-Z\d._%+-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
 	if (!regularEmail.test(inputEmail)) {
-		showValidationMsg("#emailInput", "error", "入力したメールアドレスが正しくありません。");
+		showValidationMsg(this, "error", "入力したメールアドレスが正しくありません。");
 		$("#saveInfoBtn").attr("ajax-va", "error");
 	} else {
-		showValidationMsg("#emailInput", "success", "√");
+		showValidationMsg(this, "success", "√");
 		$("#saveInfoBtn").attr("ajax-va", "success");
 	}
 });
@@ -141,10 +141,10 @@ $("#passwordEdit").change(function() {
 	let editPassword = this.value;
 	let regularPassword = /^[a-zA-Z\d]{8,23}$/;
 	if (!regularPassword.test(editPassword)) {
-		showValidationMsg("#passwordEdit", "error", "入力したパスワードが8桁から23桁までの英数字にしなければなりません。");
+		showValidationMsg(this, "error", "入力したパスワードが8桁から23桁までの英数字にしなければなりません。");
 		$("#editInfoBtn").attr("ajax-va", "error");
 	} else {
-		showValidationMsg("#passwordEdit", "success", "√");
+		showValidationMsg(this, "success", "√");
 		$("#editInfoBtn").attr("ajax-va", "success");
 	}
 });
@@ -152,10 +152,10 @@ $("#emailEdit").change(function() {
 	let editEmail = this.value;
 	let regularEmail = /^^[a-zA-Z\d._%+-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
 	if (!regularEmail.test(editEmail)) {
-		showValidationMsg("#emailEdit", "error", "入力したメールアドレスが正しくありません。");
+		showValidationMsg(this, "error", "入力したメールアドレスが正しくありません。");
 		$("#editInfoBtn").attr("ajax-va", "error");
 	} else {
-		showValidationMsg("#emailEdit", "success", "√");
+		showValidationMsg(this, "success", "√");
 		$("#editInfoBtn").attr("ajax-va", "success");
 	}
 });

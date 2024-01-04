@@ -62,10 +62,10 @@ $("#nameInput").on('change', function() {
 		dataType: 'json',
 		success: function(result) {
 			if (result.status === 'SUCCESS') {
-				showValidationMsg("#nameInput", "success", "");
+				showValidationMsg(this, "success", "");
 				$("#roleInfoSaveBtn").attr("ajax-va", "success");
 			} else {
-				showValidationMsg("#nameInput", "error", result.message);
+				showValidationMsg(this, "error", result.message);
 				$("#roleInfoSaveBtn").attr("ajax-va", "error");
 			}
 		}
