@@ -55,8 +55,8 @@ $("#tableBody").on('click', '.edit-btn', function() {
 	let populationVal = $(this).parent().parent().find("td:eq(3)").text();
 	$("#nameEdit").val(nameVal);
 	$("#chihoEdit").val(chihoVal);
-	$("#shutoEdit").val(shutoVal);
-	$("#populationEdit").val(populationVal);
+	$("#shutoEdit").text(shutoVal);
+	$("#populationEdit").text(populationVal);
 	let addModal = new bootstrap.Modal($("#districtEditModal"), {
 		backdrop: 'static'
 	});
