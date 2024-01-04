@@ -56,7 +56,7 @@ $("#addCityBtn").on('click', function() {
 	addModal.show();
 });
 $("#nameInput").on('change', function() {
-	checkCityName(this, "#districtInput", $("#cityInfoSaveBtn"));
+	checkCityName(this, "#districtInput");
 });
 $("#populationInput").on('change', function() {
 	let populationVal = this.value;
@@ -68,7 +68,7 @@ $("#populationInput").on('change', function() {
 	}
 });
 $("#districtInput").on('change', function() {
-	checkCityName("#nameInput", this, $("#cityInfoSaveBtn"));
+	checkCityName("#nameInput", this);
 });
 $("#cityInfoSaveBtn").on('click', function() {
 	let inputName = $("#nameInput").val().trim();
@@ -103,7 +103,7 @@ $("#tableBody").on('click', '.edit-btn', function() {
 	addModal.show();
 });
 $("#nameEdit").on('change', function() {
-	checkCityName(this, "#districtEdit", $("#cityInfoChangeBtn"));
+	checkCityName(this, "#districtEdit");
 });
 $("#populationEdit").on('change', function() {
 	let populationVal = this.value;
@@ -115,7 +115,7 @@ $("#populationEdit").on('change', function() {
 	}
 });
 $("#districtEdit").on('change', function() {
-	checkCityName("#nameEdit", this, $("#cityInfoChangeBtn"));
+	checkCityName("#nameEdit", this);
 });
 $("#cityInfoChangeBtn").on('click', function() {
 	let editName = $("#nameEdit").val().trim();
@@ -146,7 +146,7 @@ function putSuccessFunction() {
 	layer.msg('更新済み');
 	toSelectedPg(pageNum, keyword);
 }
-function checkCityName(cityName, district, button) {
+function checkCityName(cityName, district) {
 	let nameVal = $(cityName).val().trim();
 	let districtVal = $(district).val();
 	if (nameVal === "") {
