@@ -74,7 +74,7 @@ $("#cityInfoSaveBtn").on('click', function() {
 	let inputName = $("#nameInput").val().trim();
 	let inputPopulation = $("#populationInput").val().trim();
 	let inputDistrict = $("#districtInput").val();
-	if ($(this).attr("ajax-va") === "error") {
+	if ($("#cityAddModal form").children().hasClass('is-invalid')) {
 		return false;
 	} else if (inputName === "" || inputPopulation === "") {
 		let listArray = ["#nameInput", "#populationInput"];
@@ -121,7 +121,7 @@ $("#cityInfoChangeBtn").on('click', function() {
 	let editName = $("#nameEdit").val().trim();
 	let editPopulation = $("#populationEdit").val().trim();
 	let editDistrict = $("#districtEdit").val();
-	if ($(this).attr("ajax-va") === "error") {
+	if ($("#cityEditModal form").children().hasClass('is-invalid')) {
 		return false;
 	} else if (editName === "" || editPopulation === "") {
 		let listArray = ["#nameEdit", "#populationEdit"];

@@ -71,7 +71,7 @@ $("#nameInput").on('change', function() {
 });
 $("#roleInfoSaveBtn").on('click', function() {
 	let inputName = $("#nameInput").val().trim();
-	if ($(this).attr("ajax-va") === "error") {
+	if ($("#roleAddModal form").children().hasClass('is-invalid')) {
 		return false;
 	} else if (inputName === "") {
 		showValidationMsg("#nameInput", "error", "役割名称を空になってはいけません。");
@@ -96,7 +96,7 @@ $("#tableBody").on('click', '.edit-btn', function() {
 });
 $("#roleInfoChangeBtn").on('click', function() {
 	let editName = $("#nameEdit").val().trim();
-	if ($(this).attr("ajax-va") === "error") {
+	if ($("#roleEditModal form").children().hasClass('is-invalid')) {
 		return false;
 	} else if (inputName === "") {
 		showValidationMsg("#nameEdit", "error", "役割名称を空になってはいけません。");

@@ -96,7 +96,7 @@ $("#saveInfoBtn").on('click', function() {
 	let inputPassword = $("#passwordInput").val().trim();
 	let inputEmail = $("#emailInput").val().trim();
 	let inputRole = $("#roleInput").val();
-	if ($(this).attr("ajax-va") === "error") {
+	if ($("#inputForm").children().hasClass('is-invalid')) {
 		return false;
 	} else if (inputLoginAccount === "" || inputUsername === "" || inputPassword === "" || inputEmail === "") {
 		let listArray = ["#loginAccountInput", "#usernameInput", "#passwordInput", "#emailInput"];
@@ -166,7 +166,7 @@ $("#editInfoBtn").on('click', function() {
 	let editPassword = $("#passwordEdit").val().trim();
 	let editEmail = $("#emailEdit").val().trim();
 	let editRole = $("#roleEdit option:selected").val();
-	if ($(this).attr("ajax-va") === "error") {
+	if ($("#editForm").children().hasClass('is-invalid')) {
 		return false;
 	} else if (editUsername === "" || editPassword === "" || editEmail === "") {
 		let listArray = ["#usernameEdit", "#passwordEdit", "#emailEdit"];
