@@ -63,10 +63,8 @@ $("#nameInput").on('change', function() {
 		success: function(result) {
 			if (result.status === 'SUCCESS') {
 				showValidationMsg(this, "success", "");
-				$("#roleInfoSaveBtn").attr("ajax-va", "success");
 			} else {
 				showValidationMsg(this, "error", result.message);
-				$("#roleInfoSaveBtn").attr("ajax-va", "error");
 			}
 		}
 	});
@@ -198,7 +196,6 @@ function putSuccessFunction(result) {
 		toSelectedPg(pageNum, keyword);
 	} else {
 		showValidationMsg("#nameEdit", "error", result.message);
-		$(this).attr("ajax-va", "error");
 	}
 }
 function postSuccessFunction() {

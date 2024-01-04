@@ -54,10 +54,8 @@ $("#loginAccountInput").change(function() {
 		success: function(result) {
 			if (result.status === 'SUCCESS') {
 				showValidationMsg(this, "success", "√");
-				$("#saveInfoBtn").attr("ajax-va", "success");
 			} else {
 				showValidationMsg(this, "error", result.message);
-				$("#saveInfoBtn").attr("ajax-va", "error");
 			}
 		}
 	});
@@ -67,10 +65,8 @@ $("#passwordInput").change(function() {
 	let regularPassword = /^[a-zA-Z\d]{8,23}$/;
 	if (!regularPassword.test(inputPassword)) {
 		showValidationMsg(this, "error", "入力したパスワードが8桁から23桁までの英数字にしなければなりません。");
-		$("#saveInfoBtn").attr("ajax-va", "error");
 	} else {
 		showValidationMsg(this, "success", "√");
-		$("#saveInfoBtn").attr("ajax-va", "success");
 	}
 });
 $("#emailInput").change(function() {
@@ -78,10 +74,8 @@ $("#emailInput").change(function() {
 	let regularEmail = /^^[a-zA-Z\d._%+-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
 	if (!regularEmail.test(inputEmail)) {
 		showValidationMsg(this, "error", "入力したメールアドレスが正しくありません。");
-		$("#saveInfoBtn").attr("ajax-va", "error");
 	} else {
 		showValidationMsg(this, "success", "√");
-		$("#saveInfoBtn").attr("ajax-va", "success");
 	}
 });
 $("#roleInput").change(function() {
@@ -92,10 +86,8 @@ $("#roleInput").change(function() {
 	});
 	if (ajaxResult.status !== 200) {
 		showValidationMsg(this, "error", ajaxResult.responseJSON.message);
-		$("#saveInfoBtn").attr("ajax-va", "error");
 	} else {
 		showValidationMsg(this, "success", "√");
-		$("#saveInfoBtn").attr("ajax-va", "success");
 	}
 });
 $("#saveInfoBtn").on('click', function() {
@@ -142,10 +134,8 @@ $("#passwordEdit").change(function() {
 	let regularPassword = /^[a-zA-Z\d]{8,23}$/;
 	if (!regularPassword.test(editPassword)) {
 		showValidationMsg(this, "error", "入力したパスワードが8桁から23桁までの英数字にしなければなりません。");
-		$("#editInfoBtn").attr("ajax-va", "error");
 	} else {
 		showValidationMsg(this, "success", "√");
-		$("#editInfoBtn").attr("ajax-va", "success");
 	}
 });
 $("#emailEdit").change(function() {
@@ -153,10 +143,8 @@ $("#emailEdit").change(function() {
 	let regularEmail = /^^[a-zA-Z\d._%+-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
 	if (!regularEmail.test(editEmail)) {
 		showValidationMsg(this, "error", "入力したメールアドレスが正しくありません。");
-		$("#editInfoBtn").attr("ajax-va", "error");
 	} else {
 		showValidationMsg(this, "success", "√");
-		$("#editInfoBtn").attr("ajax-va", "success");
 	}
 });
 $("#roleEdit").change(function() {
@@ -167,10 +155,8 @@ $("#roleEdit").change(function() {
 	});
 	if (ajaxResult.status !== 200) {
 		showValidationMsg(this, "error", ajaxResult.responseJSON.message);
-		$("#editInfoBtn").attr("ajax-va", "error");
 	} else {
 		showValidationMsg(this, "success", "√");
-		$("#editInfoBtn").attr("ajax-va", "success");
 	}
 });
 $("#editInfoBtn").on('click', function() {

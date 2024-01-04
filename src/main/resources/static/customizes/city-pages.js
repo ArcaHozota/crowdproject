@@ -63,10 +63,8 @@ $("#populationInput").on('change', function() {
 	let regularPopulation = /^\d{3,12}$/;
 	if (!regularPopulation.test(populationVal)) {
 		showValidationMsg(this, "error", "入力した人口数量が3桁から12桁までの数字にしなければなりません。");
-		$("#cityInfoSaveBtn").attr("ajax-va", "error");
 	} else {
 		showValidationMsg(this, "success", "");
-		$("#cityInfoSaveBtn").attr("ajax-va", "success");
 	}
 });
 $("#districtInput").on('change', function() {
@@ -112,10 +110,8 @@ $("#populationEdit").on('change', function() {
 	let regularPopulation = /^\d{3,12}$/;
 	if (!regularPopulation.test(populationVal)) {
 		showValidationMsg(this, "error", "入力した人口数量が3桁から12桁までの数字にしなければなりません。");
-		$("#cityInfoChangeBtn").attr("ajax-va", "error");
 	} else {
 		showValidationMsg(this, "success", "");
-		$("#cityInfoChangeBtn").attr("ajax-va", "success");
 	}
 });
 $("#districtEdit").on('change', function() {
@@ -155,7 +151,6 @@ function checkCityName(cityName, district, button) {
 	let districtVal = $(district).val();
 	if (nameVal === "") {
 		showValidationMsg(cityName, "error", "名称を空になってはいけません。");
-		button.attr("ajax-va", "error");
 	} else {
 		$.ajax({
 			url: '/pgcrowd/city/check',
@@ -168,10 +163,8 @@ function checkCityName(cityName, district, button) {
 			success: function(result) {
 				if (result.status === 'SUCCESS') {
 					showValidationMsg(cityName, "success", "√");
-					button.attr("ajax-va", "success");
 				} else {
 					showValidationMsg(cityName, "error", result.message);
-					button.attr("ajax-va", "error");
 				}
 			}
 		});
