@@ -177,8 +177,12 @@ $("#editInfoBtn").on('click', function() {
 function postSuccessFunction() {
 	window.location.replace('/pgcrowd/employee/to/pages?pageNum=' + totalRecords);
 }
-function putSuccessFunction() {
-	window.location.replace('/pgcrowd/employee/to/pages?pageNum=' + pageNum);
+function putSuccessFunction(result) {
+	if (result.status === 'SUCCESS') {
+		window.location.replace('/pgcrowd/employee/to/pages?pageNum=' + pageNum);
+	} else {
+		layer.msg(result.message);
+	}
 }
 $("#resetBtn").on('click', function() {
 	formReset($("#inputForm"));
