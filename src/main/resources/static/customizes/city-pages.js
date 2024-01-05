@@ -76,13 +76,15 @@ $("#cityInfoSaveBtn").on('click', function() {
 	let listArray = pgcrowdInputContextGet(inputArrays);
 	if (listArray.includes("")) {
 		pgcrowdNullInputboxDiscern(inputArrays);
+	} else if ($("#cityAddModal form").find('*').hasClass('is-invalid')) {
+		layer.msg('入力情報不正。');
 	} else {
 		let postData = JSON.stringify({
 			'name': $("#nameInput").val().trim(),
 			'districtId': $("#districtInput").val(),
 			'population': Number($("#populationInput").val().trim().replace(/,/g, ''))
 		});
-		pgcrowdUpdateMethod($("#cityAddModal form"), '/pgcrowd/city/infosave', 'POST', postData, normalPostSuccessFunction("#cityAddModal"));
+		pgcrowdAjaxModify('/pgcrowd/city/infosave', 'POST', postData, normalPostSuccessFunction("#cityAddModal"));
 	}
 });
 $("#tableBody").on('click', '.edit-btn', function() {
@@ -119,6 +121,8 @@ $("#cityInfoChangeBtn").on('click', function() {
 	let listArray = pgcrowdInputContextGet(inputArrays);
 	if (listArray.includes("")) {
 		pgcrowdNullInputboxDiscern(inputArrays);
+	} else if ($("#cityEditModal form").find('*').hasClass('is-invalid')) {
+		layer.msg('入力情報不正。');
 	} else {
 		let putData = JSON.stringify({
 			'id': this.value,
@@ -126,7 +130,7 @@ $("#cityInfoChangeBtn").on('click', function() {
 			'districtId': $("#districtEdit").val(),
 			'population': Number($("#populationEdit").val().trim().replace(/,/g, ''))
 		});
-		pgcrowdUpdateMethod($("#cityEditModal form"), '/pgcrowd/city/infoupd', 'PUT', putData, normalPutSuccessFunction("#cityEditModal"));
+		pgcrowdAjaxModify('/pgcrowd/city/infoupd', 'PUT', putData, normalPutSuccessFunction("#cityEditModal"));
 	}
 });
 function checkCityName(cityName, district) {

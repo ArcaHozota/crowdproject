@@ -67,12 +67,14 @@ $("#districtInfoChangeBtn").on('click', function() {
 	let listArray = pgcrowdInputContextGet(inputArrays);
 	if (listArray.includes("")) {
 		pgcrowdNullInputboxDiscern(inputArrays);
+	} else if ($("#districtEditModal form").find('*').hasClass('is-invalid')) {
+		layer.msg('入力情報不正。');
 	} else {
 		let putData = JSON.stringify({
 			'id': this.value,
 			'name': $("#nameEdit").val().trim(),
 			'chiho': $("#chihoEdit").val().trim()
 		});
-		pgcrowdUpdateMethod($("#districtEditModal form"), '/pgcrowd/district/infoupd', 'PUT', putData, normalPutSuccessFunction("#districtEditModal"));
+		pgcrowdAjaxModify('/pgcrowd/district/infoupd', 'PUT', putData, normalPutSuccessFunction("#districtEditModal"));
 	}
 });

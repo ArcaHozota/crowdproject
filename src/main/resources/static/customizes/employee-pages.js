@@ -95,6 +95,8 @@ $("#saveInfoBtn").on('click', function() {
 	let listArray = pgcrowdInputContextGet(inputArrays);
 	if (listArray.includes("")) {
 		pgcrowdNullInputboxDiscern(inputArrays);
+	} else if ($("#inputForm").find('*').hasClass('is-invalid')) {
+		layer.msg('入力情報不正。');
 	} else {
 		let postData = JSON.stringify({
 			'loginAccount': $("#loginAccountInput").val().trim(),
@@ -103,7 +105,7 @@ $("#saveInfoBtn").on('click', function() {
 			'email': $("#emailInput").val().trim(),
 			'roleId': $("#roleInput").val()
 		});
-		pgcrowdUpdateMethod($("#inputForm"), '/pgcrowd/employee/infosave', 'POST', postData, postSuccessFunction);
+		pgcrowdAjaxModify('/pgcrowd/employee/infosave', 'POST', postData, postSuccessFunction);
 	}
 });
 $("#addInfoBtn").on('click', function(e) {
@@ -115,7 +117,7 @@ $("#tableBody").on('click', '.delete-btn', function() {
 	let userName = $(this).parents("tr").find("td:eq(0)").text().trim();
 	let userId = $(this).attr("deleteId");
 	if (confirm("この" + userName + "という社員の情報を削除するとよろしいでしょうか。")) {
-		pgcrowdAjaxModify('/pgcrowd/employee/delete/' + userId, 'DELETE', null, deleteSuccessFunction);
+		pgcrowdAjaxModify('/pgcrowd/employee/delete/' + userId, 'DELETE', null, normalDeleteSuccessFunction);
 	}
 });
 $("#tableBody").on('click', '.edit-btn', function() {
@@ -158,6 +160,8 @@ $("#editInfoBtn").on('click', function() {
 	let listArray = pgcrowdInputContextGet(inputArrays);
 	if (listArray.includes("")) {
 		pgcrowdNullInputboxDiscern(inputArrays);
+	} else if ($("#editForm").find('*').hasClass('is-invalid')) {
+		layer.msg('入力情報不正。');
 	} else {
 		let putData = JSON.stringify({
 			'id': $("#editId").text(),
@@ -167,7 +171,7 @@ $("#editInfoBtn").on('click', function() {
 			'email': $("#emailEdit").val().trim(),
 			'roleId': $("#roleEdit").val()
 		});
-		pgcrowdUpdateMethod($("#editForm"), '/pgcrowd/employee/infoupd', 'PUT', putData, putSuccessFunction);
+		pgcrowdInputContextGet('/pgcrowd/employee/infoupd', 'PUT', putData, putSuccessFunction);
 	}
 });
 function postSuccessFunction() {
@@ -175,10 +179,6 @@ function postSuccessFunction() {
 }
 function putSuccessFunction() {
 	window.location.replace('/pgcrowd/employee/to/pages?pageNum=' + pageNum);
-}
-function deleteSuccessFunction() {
-	layer.msg('削除済み');
-	toSelectedPg(pageNum, keyword);
 }
 $("#resetBtn").on('click', function() {
 	formReset($("#inputForm"));

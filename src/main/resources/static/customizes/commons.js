@@ -167,13 +167,6 @@ function pgcrowdInputContextGet(inputArrays) {
 	}
 	return listArray;
 }
-function pgcrowdUpdateMethod(inputForm, updateUrl, updateMethod, updateData, successFunction) {
-	if (inputForm.find('*').hasClass('is-invalid')) {
-		layer.msg('入力情報不正。');
-	} else {
-		pgcrowdAjaxModify(updateUrl, updateMethod, updateData, successFunction);
-	}
-}
 function normalPostSuccessFunction(element) {
 	$(element).modal('hide');
 	layer.msg('追加処理成功');

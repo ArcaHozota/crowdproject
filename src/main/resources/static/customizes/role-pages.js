@@ -74,11 +74,13 @@ $("#roleInfoSaveBtn").on('click', function() {
 	let listArray = pgcrowdInputContextGet(inputArrays);
 	if (listArray.includes("")) {
 		pgcrowdNullInputboxDiscern(inputArrays);
+	} else if ($("#roleAddModal form").find('*').hasClass('is-invalid')) {
+		layer.msg('入力情報不正。');
 	} else {
 		let postData = JSON.stringify({
 			'name': $("#nameInput").val().trim()
 		});
-		pgcrowdUpdateMethod($("#roleAddModal form"), 'pgcrowd/role/infosave', 'POST', postData, normalPostSuccessFunction("#roleAddModal"));
+		pgcrowdAjaxModify('pgcrowd/role/infosave', 'POST', postData, normalPostSuccessFunction("#roleAddModal"));
 	}
 });
 $("#tableBody").on('click', '.edit-btn', function() {
@@ -98,12 +100,14 @@ $("#roleInfoChangeBtn").on('click', function() {
 	let listArray = pgcrowdInputContextGet(inputArrays);
 	if (listArray.includes("")) {
 		pgcrowdNullInputboxDiscern(inputArrays);
+	} else if ($("#roleEditModal form").find('*').hasClass('is-invalid')) {
+		layer.msg('入力情報不正。');
 	} else {
 		let putData = JSON.stringify({
 			'id': this.value,
 			'name': $("#nameEdit").val().trim()
 		});
-		pgcrowdUpdateMethod($("#roleEditModal form"), '/pgcrowd/role/infoupd', 'PUT', putData, putSuccessFunction);
+		pgcrowdAjaxModify('/pgcrowd/role/infoupd', 'PUT', putData, putSuccessFunction);
 	}
 });
 $("#tableBody").on('click', '.delete-btn', function() {
