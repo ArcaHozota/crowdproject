@@ -30,67 +30,43 @@
 	<select id="selectById" parameterType="jp.co.sony.ppog.entity.District"
 		resultMap="BasicResultMap">
 		SELECT
-		    PD.ID
-		    , PD.NAME
-		    , PD.CHIHO
-		    , PD.SHUTO_ID
-		    , PD.DEL_FLG 
+		    PDV.*  
 		FROM
-		    PPOG_DISTRICTS PD 
+		    PPOG_DISTRICTS_VIEW PDV 
 		WHERE
-		    PD.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
-		    AND PD.ID = #{id,jdbcType=NUMERIC}
+		    PDV.ID = #{id,jdbcType=NUMERIC}
 	</select>
 	<select id="selectAll" parameterType="java.lang.String"
 		resultMap="BasicResultMap">
 		SELECT
-		    PD.ID
-		    , PD.NAME
-		    , PD.CHIHO
-		    , PD.SHUTO_ID
-		    , PD.DEL_FLG 
+		    PDV.*  
 		FROM
-		    PPOG_DISTRICTS PD 
-		WHERE
-		    PD.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
-		ORDER BY
-		    PD.ID
+		    PPOG_DISTRICTS_VIEW PDV
 	</select>
 	<select id="paginationByKeyword" resultMap="BasicResultMap">
 		SELECT
-		    PD.ID
-		    , PD.NAME
-		    , PD.CHIHO
-		    , PD.SHUTO_ID
-		    , PD.DEL_FLG
-		    , PC.NAME AS CITY_NAME 
+		    PDV.*
+		    , PCV.NAME AS CITY_NAME 
 		FROM
-		    PPOG_DISTRICTS PD 
-		    LEFT JOIN PPOG_CITIES PC 
-		        ON PC.ID = PD.SHUTO_ID 
+		    PPOG_DISTRICTS_VIEW PDV 
+		    LEFT JOIN PPOG_CITIES_VIEW PCV 
+		        ON PCV.ID = PDV.SHUTO_ID 
 		WHERE
-		    PD.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
-		    AND ( 
-		        PD.NAME LIKE #{keyword,jdbcType=NVARCHAR} 
-		        OR PC.NAME LIKE #{keyword,jdbcType=NVARCHAR} 
-		        OR PD.CHIHO LIKE #{keyword,jdbcType=NVARCHAR}
-		    ) 
-		ORDER BY
-		    PD.ID OFFSET #{offset,jdbcType=INTEGER} ROWS FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
+		    PDV.NAME LIKE #{keyword,jdbcType=NVARCHAR} 
+		    OR PCV.NAME LIKE #{keyword,jdbcType=NVARCHAR} 
+		    OR PDV.CHIHO LIKE #{keyword,jdbcType=NVARCHAR} 
+		    OFFSET #{offset,jdbcType=INTEGER} ROWS FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
 	</select>
 	<select id="countByKeyword" resultType="java.lang.Long">
 		SELECT
 		    COUNT(1) 
 		FROM
-		    PPOG_DISTRICTS PD 
-		    LEFT JOIN PPOG_CITIES PC 
-		        ON PC.ID = PD.SHUTO_ID 
+		    PPOG_DISTRICTS_VIEW PDV 
+		    LEFT JOIN PPOG_CITIES_VIEW PCV 
+		        ON PCV.ID = PDV.SHUTO_ID 
 		WHERE
-		    PD.DEL_FLG = #{delFlg,jdbcType=NVARCHAR}
-		    AND ( 
-		        PD.NAME LIKE #{keyword,jdbcType=NVARCHAR} 
-		        OR PC.NAME LIKE #{keyword,jdbcType=NVARCHAR} 
-		        OR PD.CHIHO LIKE #{keyword,jdbcType=NVARCHAR}
-		    )
+		    PDV.NAME LIKE #{keyword,jdbcType=NVARCHAR} 
+		    OR PCV.NAME LIKE #{keyword,jdbcType=NVARCHAR} 
+		    OR PDV.CHIHO LIKE #{keyword,jdbcType=NVARCHAR}
 	</select>
 </mapper>

@@ -8,30 +8,20 @@
 	<select id="selectByIds" parameterType="java.util.List"
 		resultMap="BasicResultMap">
 		SELECT
-		    PA.ID
-		    , PA.NAME
-		    , PA.TITLE
-		    , PA.CATEGORY_ID 
+		    PAV.* 
 		FROM
-		    PPOG_AUTHORITY PA 
+		    PPOG_AUTHORITY_VIEW PAV 
 		WHERE
-			PA.ID IN
+			PAV.ID IN
 			<foreach collection="ids" item="id" index="index"
 				open="(" close=")" separator=",">
 				#{id,jdbcType=NUMERIC}
 			</foreach>
-		ORDER BY
-		    PA.ID
 	</select>
 	<select id="selectAll" resultMap="BasicResultMap">
 		SELECT
-		    PA.ID
-		    , PA.NAME
-		    , PA.TITLE
-		    , PA.CATEGORY_ID 
+		    PAV.* 
 		FROM
-		    PPOG_AUTHORITY PA 
-		ORDER BY
-		    PA.ID
+		    PPOG_AUTHORITY_VIEW PAV 
 	</select>
 </mapper>

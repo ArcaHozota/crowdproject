@@ -65,75 +65,48 @@
 		parameterType="jp.co.sony.ppog.entity.Employee" 
 		resultMap="BasicResultMap">
 		SELECT
-		    PE.ID
-		    , PE.LOGIN_ACCT
-		    , PE.PASSWORD
-		    , PE.USERNAME
-		    , PE.EMAIL
-		    , PE.CREATED_TIME
-		    , PE.DEL_FLG 
+		    PEV.*  
 		FROM
-		    PPOG_EMPLOYEE PE 
+		    PPOG_EMPLOYEE_VIEW PEV 
 		WHERE
-		    PE.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
-		    AND PE.ID = #{id,jdbcType=NUMERIC} 
+		    PEV.ID = #{id,jdbcType=NUMERIC}
 	</select>
 	<select id="selectByLoginAcct" resultMap="BasicResultMap">
 		SELECT
-		    PE.ID
-		    , PE.LOGIN_ACCT
-		    , PE.PASSWORD
-		    , PE.USERNAME
-		    , PE.EMAIL
-		    , PE.CREATED_TIME
-		    , PE.DEL_FLG 
+		    PEV.*  
 		FROM
-		    PPOG_EMPLOYEE PE 
+		    PPOG_EMPLOYEE_VIEW PEV 
 		WHERE
-		    PE.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
-		    AND PE.LOGIN_ACCT = #{loginAccout,jdbcType=NVARCHAR} 
+		    PEV.LOGIN_ACCT = #{loginAccout,jdbcType=NVARCHAR} 
 	</select>
 	<select id="paginationByKeyword" resultMap="BasicResultMap">
 		SELECT
-		    PE.ID
-		    , PE.LOGIN_ACCT
-		    , PE.PASSWORD
-		    , PE.USERNAME
-		    , PE.EMAIL
-		    , PE.CREATED_TIME
-		    , PE.DEL_FLG 
+		    PEV.*  
 		FROM
-		    PPOG_EMPLOYEE PE 
+		    PPOG_EMPLOYEE_VIEW PEV 
 		WHERE
-		    PE.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
-		    AND ( 
-		        PE.USERNAME LIKE #{keyword,jdbcType=NVARCHAR} 
-		        OR PE.LOGIN_ACCT LIKE #{keyword,jdbcType=NVARCHAR} 
-		        OR PE.EMAIL LIKE #{keyword,jdbcType=NVARCHAR}
-		    ) 
-		ORDER BY
-		    PE.ID OFFSET #{offset,jdbcType=INTEGER} ROWS FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
+			PEV.USERNAME LIKE #{keyword,jdbcType=NVARCHAR} 
+		    OR PEV.LOGIN_ACCT LIKE #{keyword,jdbcType=NVARCHAR} 
+		    OR PEV.EMAIL LIKE #{keyword,jdbcType=NVARCHAR} 
+		    OFFSET #{offset,jdbcType=INTEGER} ROWS FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
 	</select>
 	<select id="countByKeyword" resultType="java.lang.Long">
 		SELECT
 		    COUNT(1) 
 		FROM
-		    PPOG_EMPLOYEE PE 
+		    PPOG_EMPLOYEE_VIEW PEV 
 		WHERE
-		    PE.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
-		    AND ( 
-		        PE.USERNAME LIKE #{keyword,jdbcType=NVARCHAR} 
-		        OR PE.LOGIN_ACCT LIKE #{keyword,jdbcType=NVARCHAR} 
-		        OR PE.EMAIL LIKE #{keyword,jdbcType=NVARCHAR}
-		    )
+			PEV.USERNAME LIKE #{keyword,jdbcType=NVARCHAR} 
+		    OR PEV.LOGIN_ACCT LIKE #{keyword,jdbcType=NVARCHAR} 
+		    OR PEV.EMAIL LIKE #{keyword,jdbcType=NVARCHAR}
 	</select>
 	<select id="checkDuplicated"
 		parameterType="java.lang.String" resultType="java.lang.Integer">
 		SELECT
 			COUNT(1)
 		FROM
-			PPOG_EMPLOYEE PE
+			PPOG_EMPLOYEE_VIEW PEV 
 		WHERE
-			PE.LOGIN_ACCT = #{loginAccount,jdbcType=NVARCHAR}
+			PEV.LOGIN_ACCT = #{loginAccount,jdbcType=NVARCHAR}
 	</select>
 </mapper>

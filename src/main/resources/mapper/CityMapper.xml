@@ -48,73 +48,55 @@
 	<select id="selectById" parameterType="jp.co.sony.ppog.entity.City"
 		resultMap="BasicResultMap">
 		SELECT
-		    PC.ID
-		    , PC.NAME
-		    , PC.DISTRICT_ID
-		    , PC.POPULATION
-		    , PC.DEL_FLG 
+		    PCV.* 
 		FROM
-		    PPOG_CITIES PC 
+		    PPOG_CITIES_VIEW PCV 
 		WHERE
-		    PC.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
-		    AND PC.ID LIKE #{id,jdbcType=NUMERIC}
+		    PCV.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
+		    AND PCV.ID LIKE #{id,jdbcType=NUMERIC}
 	</select>
 	<select id="paginationByKeyword" resultMap="BasicResultMap">
 		SELECT
-		    PC.ID
-		    , PC.NAME
-		    , PC.DISTRICT_ID
-		    , PC.POPULATION
-		    , PC.DEL_FLG
-		    , PD.NAME AS DISTRICT_NAME 
+		    PCV.*
+		    , PDV.NAME AS DISTRICT_NAME 
 		FROM
-		    PPOG_CITIES PC 
-		    INNER JOIN PPOG_DISTRICTS PD 
-		        ON PD.ID = PC.DISTRICT_ID 
+		    PPOG_CITIES_VIEW PCV 
+		    INNER JOIN PPOG_DISTRICTS_VIEW PDV 
+		        ON PDV.ID = PCV.DISTRICT_ID 
 		WHERE
-		    PC.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
-		    AND ( 
-		        PC.ID LIKE #{keyword,jdbcType=NUMERIC} 
-		        OR PC.NAME LIKE #{keyword,jdbcType=NVARCHAR} 
-		        OR PD.NAME LIKE #{keyword,jdbcType=NVARCHAR}
-		    ) 
-		ORDER BY
-		    PC.ID OFFSET #{offset,jdbcType=INTEGER} ROWS FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
+		    PCV.ID LIKE #{keyword,jdbcType=NUMERIC} 
+		    OR PCV.NAME LIKE #{keyword,jdbcType=NVARCHAR} 
+		    OR PDV.NAME LIKE #{keyword,jdbcType=NVARCHAR} 
+		    OFFSET #{offset,jdbcType=INTEGER} ROWS FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
 	</select>
 	<select id="countByKeyword" resultType="java.lang.Long">
 		SELECT
 		    COUNT(1) 
 		FROM
-		    PPOG_CITIES PC 
-		    INNER JOIN PPOG_DISTRICTS PD 
-		        ON PD.ID = PC.DISTRICT_ID 
+		    PPOG_CITIES_VIEW PCV 
+		    INNER JOIN PPOG_DISTRICTS_VIEW PDV 
+		        ON PDV.ID = PCV.DISTRICT_ID 
 		WHERE
-		    PC.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
-		    AND ( 
-		        PC.ID LIKE #{keyword,jdbcType=NUMERIC} 
-		        OR PC.NAME LIKE #{keyword,jdbcType=NVARCHAR} 
-		        OR PD.NAME LIKE #{keyword,jdbcType=NVARCHAR}
-		    )
+		    PCV.ID LIKE #{keyword,jdbcType=NUMERIC} 
+		    OR PCV.NAME LIKE #{keyword,jdbcType=NVARCHAR} 
+		    OR PDV.NAME LIKE #{keyword,jdbcType=NVARCHAR}
 	</select>
 	<select id="countPopulationById" resultType="java.lang.Long">
 		SELECT
-		    SUM(PC.POPULATION) 
+		    SUM(PCV.POPULATION) 
 		FROM
-		    PPOG_CITIES PC 
+		    PPOG_CITIES_VIEW PCV 
 		WHERE
-		    PC.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
-		    AND PC.DISTRICT_ID = #{districtId,jdbcType=NUMERIC} 
-		GROUP BY 
-			PC.DISTRICT_ID
+		    PCV.DISTRICT_ID = #{districtId,jdbcType=NUMERIC}
 	</select>
 	<select id="checkDuplicated"
 		parameterType="jp.co.sony.ppog.entity.City" resultType="java.lang.Integer">
 		SELECT
 		    COUNT(1) 
 		FROM
-		    PPOG_CITIES PC 
+		    PPOG_CITIES_VIEW PCV 
 		WHERE
-		    PC.NAME = #{name,jdbcType=NVARCHAR} 
-		    AND PC.DISTRICT_ID = #{districtId,jdbcType=NUMERIC}
+		    PCV.NAME = #{name,jdbcType=NVARCHAR} 
+		    AND PCV.DISTRICT_ID = #{districtId,jdbcType=NUMERIC}
 	</select>
 </mapper>

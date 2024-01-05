@@ -25,20 +25,18 @@
 	<select id="selectById" parameterType="java.lang.Long"
 		resultMap="BasicResultMap">
 		SELECT
-		    PPER.EMPLOYEE_ID
-		    , PPER.ROLE_ID 
+		    PERV.* 
 		FROM
-		    PPOG_EMPLOYEE_ROLE PPER 
+		    PPOG_EMPLOYEE_ROLE_VIEW PERV 
 		WHERE
-		    PPER.EMPLOYEE_ID = #{id,jdbcType=NUMERIC}
+		    PERV.EMPLOYEE_ID = #{id,jdbcType=NUMERIC}
 	</select>
 	<select id="selectByRoleId" parameterType="java.lang.Long"
 		resultMap="BasicResultMap">
 		SELECT
-		    PPER.EMPLOYEE_ID
-		    , PPER.ROLE_ID 
+		    PERV.* 
 		FROM
-		    PPOG_EMPLOYEE_ROLE PPER 
+		    PPOG_EMPLOYEE_ROLE_VIEW PERV 
 		WHERE
 		    PPER.ROLE_ID = #{roleId,jdbcType=NUMERIC}
 	</select>

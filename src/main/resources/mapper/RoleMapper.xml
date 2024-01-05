@@ -60,67 +60,48 @@
 	<select id="selectAll" parameterType="java.lang.String"
 		resultMap="BasicResultMap">
 		SELECT
-		    PR.ID
-		    , PR.NAME
-		    , PR.DEL_FLG
+		    PRV.* 
 		FROM
-		    PPOG_ROLE PR 
-		WHERE
-		    PR.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
-		ORDER BY
-			PR.ID
-	</select>
-	<select id="paginationByKeyword" resultMap="BasicResultMap">
-		SELECT
-		    PR.ID
-		    , PR.NAME
-		    , PR.DEL_FLG 
-		FROM
-		    PPOG_ROLE PR 
-		WHERE
-		    PR.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
-		    AND ( 
-		        PR.ID LIKE #{keyword,jdbcType=NUMERIC} 
-		        OR PR.NAME LIKE #{keyword,jdbcType=NVARCHAR}
-		    ) 
-		ORDER BY
-		    PR.ID OFFSET #{offset,jdbcType=INTEGER} ROWS FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
+		    PPOG_ROLE_VIEW PRV
 	</select>
 	<select id="selectByIdWithAuth" parameterType="jp.co.sony.ppog.entity.Role"
 		resultMap="BasicResultMap">
 		SELECT
-		    PR.ID
-		    , PR.NAME
-		    , PR.DEL_FLG
-		    , PPRA.AUTH_ID 
-		    , PPRA.ROLE_ID 
+		    PRV.*
+		    , PRAV.* 
 		FROM
-		    PPOG_ROLE PR 
-		    LEFT JOIN PPOG_ROLE_AUTH PPRA 
-		        ON PPRA.ROLE_ID = PR.ID 
+		    PPOG_ROLE_VIEW PRV 
+		    LEFT JOIN PPOG_ROLE_AUTH_VIEW PRAV 
+		        ON PRAV.ROLE_ID = PRV.ID 
 		WHERE
-		    PR.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
-		    AND PR.ID = #{id,jdbcType=NUMERIC}
+		    PRV.ID = #{id,jdbcType=NUMERIC}
+	</select>
+	<select id="paginationByKeyword" resultMap="BasicResultMap">
+		SELECT
+		    PRV.* 
+		FROM
+		    PPOG_ROLE_VIEW PRV 
+		WHERE
+		    PRV.ID LIKE #{keyword,jdbcType=NUMERIC} 
+		    OR PRV.NAME LIKE #{keyword,jdbcType=NVARCHAR}
+		    OFFSET #{offset,jdbcType=INTEGER} ROWS FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
 	</select>
 	<select id="countByKeyword" resultType="java.lang.Long">
 		SELECT
 		    COUNT(1) 
 		FROM
-		    PPOG_ROLE PR 
+		    PPOG_ROLE_VIEW PRV 
 		WHERE
-		    PR.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
-		    AND ( 
-		        PR.ID LIKE #{keyword,jdbcType=NUMERIC} 
-		        OR PR.NAME LIKE #{keyword,jdbcType=NVARCHAR}
-		    )
+		    PRV.ID LIKE #{keyword,jdbcType=NUMERIC} 
+		    OR PRV.NAME LIKE #{keyword,jdbcType=NVARCHAR}
 	</select>
 	<select id="checkDuplicated"
 		parameterType="java.lang.String" resultType="java.lang.Integer">
 		SELECT
 			COUNT(1)
 		FROM
-			PPOG_ROLE PR
+		    PPOG_ROLE_VIEW PRV 
 		WHERE
-			PR.NAME = #{name,jdbcType=NVARCHAR}
+			PRV.NAME = #{name,jdbcType=NVARCHAR}
 	</select>
 </mapper>
