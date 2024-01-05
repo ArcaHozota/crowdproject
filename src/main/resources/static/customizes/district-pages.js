@@ -75,6 +75,15 @@ $("#districtInfoChangeBtn").on('click', function() {
 			'name': $("#nameEdit").val().trim(),
 			'chiho': $("#chihoEdit").val().trim()
 		});
-		pgcrowdAjaxModify('/pgcrowd/district/infoupd', 'PUT', putData, normalPutSuccessFunction("#districtEditModal"));
+		pgcrowdAjaxModify('/pgcrowd/district/infoupd', 'PUT', putData, putSuccessFunction);
 	}
 });
+function putSuccessFunction(result) {
+	if (result.status === 'SUCCESS') {
+		$("#districtEditModal").modal('hide');
+		layer.msg('更新済み');
+		toSelectedPg(pageNum, keyword);
+	} else {
+		layer.msg(result.message);
+	}
+}

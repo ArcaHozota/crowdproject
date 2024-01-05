@@ -172,11 +172,6 @@ function normalPostSuccessFunction(element) {
 	layer.msg('追加処理成功');
 	toSelectedPg(totalRecords, keyword);
 }
-function normalPutSuccessFunction(element) {
-	$(element).modal('hide');
-	layer.msg('更新済み');
-	toSelectedPg(pageNum, keyword);
-}
 function normalDeleteSuccessFunction(result) {
 	if (result.status === 'SUCCESS') {
 		layer.msg('削除済み');

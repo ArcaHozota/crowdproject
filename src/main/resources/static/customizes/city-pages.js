@@ -84,7 +84,7 @@ $("#cityInfoSaveBtn").on('click', function() {
 			'districtId': $("#districtInput").val(),
 			'population': Number($("#populationInput").val().trim().replace(/,/g, ''))
 		});
-		pgcrowdAjaxModify('/pgcrowd/city/infosave', 'POST', postData, normalPostSuccessFunction("#cityAddModal"));
+		pgcrowdAjaxModify('/pgcrowd/city/infosave', 'POST', postData, normalPostSuccessFunction(null, "#cityAddModal"));
 	}
 });
 $("#tableBody").on('click', '.edit-btn', function() {
@@ -130,7 +130,7 @@ $("#cityInfoChangeBtn").on('click', function() {
 			'districtId': $("#districtEdit").val(),
 			'population': Number($("#populationEdit").val().trim().replace(/,/g, ''))
 		});
-		pgcrowdAjaxModify('/pgcrowd/city/infoupd', 'PUT', putData, normalPutSuccessFunction("#cityEditModal"));
+		pgcrowdAjaxModify('/pgcrowd/city/infoupd', 'PUT', putData, putSuccessFunction);
 	}
 });
 function checkCityName(cityName, district) {
@@ -171,4 +171,13 @@ function getDistricts(element, districtId) {
 			});
 		}
 	});
+}
+function putSuccessFunction(result) {
+	if (result.status === 'SUCCESS') {
+		$("#cityEditModal").modal('hide');
+		layer.msg('更新済み');
+		toSelectedPg(pageNum, keyword);
+	} else {
+		layer.msg(result.message);
+	}
 }
