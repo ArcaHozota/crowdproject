@@ -167,7 +167,7 @@ function pgcrowdInputContextGet(inputArrays) {
 	}
 	return listArray;
 }
-function commonUpdateMethod(inputForm, updateUrl, updateMethod, updateData, successFunction) {
+function pgcrowdUpdateMethod(inputForm, updateUrl, updateMethod, updateData, successFunction) {
 	if (inputForm.find('*').hasClass('is-invalid')) {
 		layer.msg('入力情報不正。');
 	} else {

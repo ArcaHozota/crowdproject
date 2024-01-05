@@ -92,15 +92,19 @@ $("#roleInput").change(function() {
 });
 $("#saveInfoBtn").on('click', function() {
 	let inputArrays = ["#loginAccountInput", "#usernameInput", "#passwordInput", "#emailInput"];
-	let inputForm = $("#inputForm");
-	let postData = JSON.stringify({
-		'loginAccount': $("#loginAccountInput").val().trim(),
-		'username': $("#usernameInput").val().trim(),
-		'password': $("#passwordInput").val().trim(),
-		'email': $("#emailInput").val().trim(),
-		'roleId': $("#roleInput").val()
-	});
-	commonUpdateMethod(inputArrays, inputForm, '/pgcrowd/employee/infosave', 'POST', postData, postSuccessFunction);
+	let listArray = pgcrowdInputContextGet(inputArrays);
+	if (listArray.includes("")) {
+		pgcrowdNullInputboxDiscern(inputArrays);
+	} else {
+		let postData = JSON.stringify({
+			'loginAccount': $("#loginAccountInput").val().trim(),
+			'username': $("#usernameInput").val().trim(),
+			'password': $("#passwordInput").val().trim(),
+			'email': $("#emailInput").val().trim(),
+			'roleId': $("#roleInput").val()
+		});
+		pgcrowdUpdateMethod($("#inputForm"), '/pgcrowd/employee/infosave', 'POST', postData, postSuccessFunction);
+	}
 });
 $("#addInfoBtn").on('click', function(e) {
 	e.preventDefault();
@@ -151,16 +155,20 @@ $("#roleEdit").change(function() {
 });
 $("#editInfoBtn").on('click', function() {
 	let inputArrays = ["#usernameEdit", "#passwordEdit", "#emailEdit"];
-	let inputForm = $("#editForm");
-	let putData = JSON.stringify({
-		'id': $("#editId").text(),
-		'loginAccount': $("#loginAccountEdit").text(),
-		'username': $("#usernameEdit").val().trim(),
-		'password': $("#passwordEdit").val().trim(),
-		'email': $("#emailEdit").val().trim(),
-		'roleId': $("#roleEdit").val()
-	});
-	commonUpdateMethod(inputArrays, inputForm, '/pgcrowd/employee/infoupd', 'PUT', putData, putSuccessFunction);
+	let listArray = pgcrowdInputContextGet(inputArrays);
+	if (listArray.includes("")) {
+		pgcrowdNullInputboxDiscern(inputArrays);
+	} else {
+		let putData = JSON.stringify({
+			'id': $("#editId").text(),
+			'loginAccount': $("#loginAccountEdit").text(),
+			'username': $("#usernameEdit").val().trim(),
+			'password': $("#passwordEdit").val().trim(),
+			'email': $("#emailEdit").val().trim(),
+			'roleId': $("#roleEdit").val()
+		});
+		pgcrowdUpdateMethod($("#editForm"), '/pgcrowd/employee/infoupd', 'PUT', putData, putSuccessFunction);
+	}
 });
 function postSuccessFunction() {
 	window.location.replace('/pgcrowd/employee/to/pages?pageNum=' + totalRecords);

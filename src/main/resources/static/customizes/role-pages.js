@@ -71,11 +71,15 @@ $("#nameInput").on('change', function() {
 });
 $("#roleInfoSaveBtn").on('click', function() {
 	let inputArrays = ["#nameInput"];
-	let inputForm = $("#roleAddModal form");
-	let postData = JSON.stringify({
-		'name': $("#nameInput").val().trim()
-	});
-	commonUpdateMethod(inputArrays, inputForm, 'pgcrowd/role/infosave', 'POST', postData, normalPostSuccessFunction("#roleAddModal"));
+	let listArray = pgcrowdInputContextGet(inputArrays);
+	if (listArray.includes("")) {
+		pgcrowdNullInputboxDiscern(inputArrays);
+	} else {
+		let postData = JSON.stringify({
+			'name': $("#nameInput").val().trim()
+		});
+		pgcrowdUpdateMethod($("#roleAddModal form"), 'pgcrowd/role/infosave', 'POST', postData, normalPostSuccessFunction("#roleAddModal"));
+	}
 });
 $("#tableBody").on('click', '.edit-btn', function() {
 	formReset("#roleEditModal form");
@@ -91,12 +95,16 @@ $("#tableBody").on('click', '.edit-btn', function() {
 });
 $("#roleInfoChangeBtn").on('click', function() {
 	let inputArrays = ["#nameEdit"];
-	let inputForm = $("#roleEditModal form");
-	let putData = JSON.stringify({
-		'id': this.value,
-		'name': $("#nameEdit").val().trim()
-	});
-	commonUpdateMethod(inputArrays, inputForm, '/pgcrowd/role/infoupd', 'PUT', putData, putSuccessFunction);
+	let listArray = pgcrowdInputContextGet(inputArrays);
+	if (listArray.includes("")) {
+		pgcrowdNullInputboxDiscern(inputArrays);
+	} else {
+		let putData = JSON.stringify({
+			'id': this.value,
+			'name': $("#nameEdit").val().trim()
+		});
+		pgcrowdUpdateMethod($("#roleEditModal form"), '/pgcrowd/role/infoupd', 'PUT', putData, putSuccessFunction);
+	}
 });
 $("#tableBody").on('click', '.delete-btn', function() {
 	let roleName = $(this).parents("tr").find("td:eq(0)").text().trim();

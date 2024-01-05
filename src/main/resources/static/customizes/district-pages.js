@@ -64,11 +64,15 @@ $("#tableBody").on('click', '.edit-btn', function() {
 });
 $("#districtInfoChangeBtn").on('click', function() {
 	let inputArrays = ["#nameEdit", "#chihoEdit"];
-	let inputForm = $("#districtEditModal form");
-	let putData = JSON.stringify({
-		'id': this.value,
-		'name': $("#nameEdit").val().trim(),
-		'chiho': $("#chihoEdit").val().trim()
-	});
-	commonUpdateMethod(inputArrays, inputForm, '/pgcrowd/district/infoupd', 'PUT', putData, normalPutSuccessFunction("#districtEditModal"));
+	let listArray = pgcrowdInputContextGet(inputArrays);
+	if (listArray.includes("")) {
+		pgcrowdNullInputboxDiscern(inputArrays);
+	} else {
+		let putData = JSON.stringify({
+			'id': this.value,
+			'name': $("#nameEdit").val().trim(),
+			'chiho': $("#chihoEdit").val().trim()
+		});
+		pgcrowdUpdateMethod($("#districtEditModal form"), '/pgcrowd/district/infoupd', 'PUT', putData, normalPutSuccessFunction("#districtEditModal"));
+	}
 });

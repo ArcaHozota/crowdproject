@@ -82,7 +82,7 @@ $("#cityInfoSaveBtn").on('click', function() {
 			'districtId': $("#districtInput").val(),
 			'population': Number($("#populationInput").val().trim().replace(/,/g, ''))
 		});
-		commonUpdateMethod($("#cityAddModal form"), '/pgcrowd/city/infosave', 'POST', postData, normalPostSuccessFunction("#cityAddModal"));
+		pgcrowdUpdateMethod($("#cityAddModal form"), '/pgcrowd/city/infosave', 'POST', postData, normalPostSuccessFunction("#cityAddModal"));
 	}
 });
 $("#tableBody").on('click', '.edit-btn', function() {
@@ -126,7 +126,7 @@ $("#cityInfoChangeBtn").on('click', function() {
 			'districtId': $("#districtEdit").val(),
 			'population': Number($("#populationEdit").val().trim().replace(/,/g, ''))
 		});
-		commonUpdateMethod($("#cityEditModal form"), '/pgcrowd/city/infoupd', 'PUT', putData, normalPutSuccessFunction("#cityEditModal"));
+		pgcrowdUpdateMethod($("#cityEditModal form"), '/pgcrowd/city/infoupd', 'PUT', putData, normalPutSuccessFunction("#cityEditModal"));
 	}
 });
 function checkCityName(cityName, district) {
