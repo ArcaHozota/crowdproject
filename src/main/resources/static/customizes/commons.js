@@ -154,7 +154,7 @@ function pgcrowdAjaxModify(url, type, data, successFunction) {
 }
 function pgcrowdNullInputboxDiscern(inputArrays) {
 	for (const element of inputArrays) {
-		if ($(element).val().trim() === "") {
+		if (element === "") {
 			showValidationMsg(element, "error", "上記の入力ボックスを空になってはいけません。");
 		}
 	}

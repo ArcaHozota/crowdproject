@@ -72,9 +72,10 @@ $("#districtInput").on('change', function() {
 	checkCityName("#nameInput", this);
 });
 $("#cityInfoSaveBtn").on('click', function() {
-	let listArray = pgcrowdInputContextGet(["#nameInput", "#populationInput"]);
+	let inputArrays = ["#nameInput", "#populationInput"];
+	let listArray = pgcrowdInputContextGet(inputArrays);
 	if (listArray.includes("")) {
-		pgcrowdNullInputboxDiscern(inputArrays);
+		pgcrowdNullInputboxDiscern(listArray);
 	} else {
 		let postData = JSON.stringify({
 			'name': $("#nameInput").val().trim(),
@@ -115,14 +116,18 @@ $("#districtEdit").on('change', function() {
 });
 $("#cityInfoChangeBtn").on('click', function() {
 	let inputArrays = ["#nameEdit", "#populationEdit"];
-	let inputForm = $("#cityEditModal form");
-	let putData = JSON.stringify({
-		'id': this.value,
-		'name': $("#nameEdit").val().trim(),
-		'districtId': $("#districtEdit").val(),
-		'population': Number($("#populationEdit").val().trim().replace(/,/g, ''))
-	});
-	commonUpdateMethod(inputArrays, inputForm, '/pgcrowd/city/infoupd', 'PUT', putData, normalPutSuccessFunction("#cityEditModal"));
+	let listArray = pgcrowdInputContextGet(inputArrays);
+	if (listArray.includes("")) {
+		pgcrowdNullInputboxDiscern(listArray);
+	} else {
+		let putData = JSON.stringify({
+			'id': this.value,
+			'name': $("#nameEdit").val().trim(),
+			'districtId': $("#districtEdit").val(),
+			'population': Number($("#populationEdit").val().trim().replace(/,/g, ''))
+		});
+		commonUpdateMethod($("#cityEditModal form"), '/pgcrowd/city/infoupd', 'PUT', putData, normalPutSuccessFunction("#cityEditModal"));
+	}
 });
 function checkCityName(cityName, district) {
 	let nameVal = $(cityName).val().trim();
