@@ -93,13 +93,13 @@ public class CityServiceImpl implements ICityService {
 		final City entity = new City();
 		entity.setId(cityDto.getId());
 		entity.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
-		final City city1 = this.cityMapper.selectById(entity);
-		final City city2 = city1;
-		SecondBeanUtils.copyNullableProperties(cityDto, city1);
-		if (city1.equals(city2)) {
+		final City city = this.cityMapper.selectById(entity);
+		SecondBeanUtils.copyNullableProperties(city, entity);
+		SecondBeanUtils.copyNullableProperties(cityDto, city);
+		if (city.equals(entity)) {
 			return ResultDto.failed(CrowdPlusConstants.MESSAGE_STRING_NOCHANGE);
 		}
-		this.cityMapper.updateById(city1);
+		this.cityMapper.updateById(city);
 		return ResultDto.successWithoutData();
 	}
 }

@@ -185,14 +185,14 @@ public class RoleServiceImpl implements IRoleService {
 		final Role entity = new Role();
 		entity.setId(roleDto.getId());
 		entity.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
-		final Role role1 = this.roleMapper.selectByIdWithAuth(entity);
-		final Role role2 = role1;
-		SecondBeanUtils.copyNullableProperties(roleDto, role1);
-		if (role1.equals(role2)) {
+		final Role role = this.roleMapper.selectByIdWithAuth(entity);
+		SecondBeanUtils.copyNullableProperties(role, entity);
+		SecondBeanUtils.copyNullableProperties(roleDto, role);
+		if (role.equals(entity)) {
 			return ResultDto.failed(CrowdPlusConstants.MESSAGE_STRING_NOCHANGE);
 		}
 		try {
-			this.roleMapper.updateById(role1);
+			this.roleMapper.updateById(role);
 		} catch (final DataIntegrityViolationException e) {
 			return ResultDto.failed(CrowdPlusConstants.MESSAGE_ROLE_NAME_DUPLICATED);
 		}

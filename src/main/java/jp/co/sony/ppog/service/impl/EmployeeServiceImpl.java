@@ -114,21 +114,21 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		final Employee entity = new Employee();
 		entity.setId(employeeDto.getId());
 		entity.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
-		final Employee employee1 = this.employeeMapper.selectById(entity);
-		final Employee employee2 = employee1;
-		SecondBeanUtils.copyNullableProperties(employeeDto, employee1);
+		final Employee employee = this.employeeMapper.selectById(entity);
+		SecondBeanUtils.copyNullableProperties(employee, entity);
+		SecondBeanUtils.copyNullableProperties(employeeDto, employee);
 		final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(employeeDto.getId());
-		if (employee1.equals(employee2) && Objects.equals(employeeDto.getRoleId(), employeeRole.getRoleId())) {
+		if (employee.equals(entity) && Objects.equals(employeeDto.getRoleId(), employeeRole.getRoleId())) {
 			return ResultDto.failed(CrowdPlusConstants.MESSAGE_STRING_NOCHANGE);
 		}
 		if (StringUtils.isNotEmpty(employeeDto.getPassword())) {
 			final CrowdPlusPasswordEncoder encoder = new CrowdPlusPasswordEncoder();
 			final String encoded = encoder.encode(employeeDto.getPassword());
-			employee1.setPassword(encoded);
+			employee.setPassword(encoded);
 		}
 		employeeRole.setRoleId(employeeDto.getRoleId());
 		this.employeeRoleMapper.updateById(employeeRole);
-		this.employeeMapper.updateById(employee1);
+		this.employeeMapper.updateById(employee);
 		return ResultDto.successWithoutData();
 	}
 }

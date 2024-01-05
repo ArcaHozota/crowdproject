@@ -93,13 +93,13 @@ public class DistrictServiceImpl implements IDistrictService {
 		final District entity = new District();
 		entity.setId(districtDto.getId());
 		entity.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
-		final District district1 = this.districtMapper.selectById(entity);
-		final District district2 = district1;
-		SecondBeanUtils.copyNullableProperties(districtDto, district1);
-		if (district1.equals(district2)) {
+		final District district = this.districtMapper.selectById(entity);
+		SecondBeanUtils.copyNullableProperties(district, entity);
+		SecondBeanUtils.copyNullableProperties(districtDto, district);
+		if (district.equals(entity)) {
 			return ResultDto.failed(CrowdPlusConstants.MESSAGE_STRING_NOCHANGE);
 		}
-		this.districtMapper.updateById(district1);
+		this.districtMapper.updateById(district);
 		return ResultDto.successWithoutData();
 	}
 }
