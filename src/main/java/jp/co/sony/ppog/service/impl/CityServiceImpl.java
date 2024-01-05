@@ -1,6 +1,7 @@
 package jp.co.sony.ppog.service.impl;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -96,7 +97,7 @@ public class CityServiceImpl implements ICityService {
 		final City city1 = this.cityMapper.selectById(entity);
 		final City city2 = city1;
 		SecondBeanUtils.copyNullableProperties(cityDto, city1);
-		if (city1.equals(city2)) {
+		if (Objects.equals(city1, city2)) {
 			return ResultDto.failed(CrowdPlusConstants.MESSAGE_STRING_NOCHANGE);
 		}
 		this.cityMapper.updateById(city1);

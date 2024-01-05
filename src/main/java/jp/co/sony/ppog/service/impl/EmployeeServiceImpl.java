@@ -118,7 +118,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		final Employee employee2 = employee1;
 		SecondBeanUtils.copyNullableProperties(employeeDto, employee1);
 		final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(employeeDto.getId());
-		if (employee1.equals(employee2) && Objects.equals(employeeDto.getRoleId(), employeeRole.getRoleId())) {
+		if (Objects.equals(employee1, employee2) && Objects.equals(employeeDto.getRoleId(), employeeRole.getRoleId())) {
 			return ResultDto.failed(CrowdPlusConstants.MESSAGE_STRING_NOCHANGE);
 		}
 		if (StringUtils.isNotEmpty(employeeDto.getPassword())) {

@@ -96,7 +96,7 @@ public class DistrictServiceImpl implements IDistrictService {
 		final District district1 = this.districtMapper.selectById(entity);
 		final District district2 = district1;
 		SecondBeanUtils.copyNullableProperties(districtDto, district1);
-		if (district1.equals(district2)) {
+		if (Objects.equals(district1, district2)) {
 			return ResultDto.failed(CrowdPlusConstants.MESSAGE_STRING_NOCHANGE);
 		}
 		this.districtMapper.updateById(district1);
