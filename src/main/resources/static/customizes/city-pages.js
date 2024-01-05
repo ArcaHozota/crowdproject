@@ -72,14 +72,17 @@ $("#districtInput").on('change', function() {
 	checkCityName("#nameInput", this);
 });
 $("#cityInfoSaveBtn").on('click', function() {
-	let inputArrays = ["#nameInput", "#populationInput"];
-	let inputForm = $("#cityAddModal form");
-	let postData = JSON.stringify({
-		'name': $("#nameInput").val().trim(),
-		'districtId': $("#districtInput").val(),
-		'population': Number($("#populationInput").val().trim().replace(/,/g, ''))
-	});
-	commonUpdateMethod(inputArrays, inputForm, '/pgcrowd/city/infosave', 'POST', postData, normalPostSuccessFunction("#cityAddModal"));
+	let listArray = pgcrowdInputContextGet(["#nameInput", "#populationInput"]);
+	if (listArray.includes("")) {
+		pgcrowdNullInputboxDiscern(inputArrays);
+	} else {
+		let postData = JSON.stringify({
+			'name': $("#nameInput").val().trim(),
+			'districtId': $("#districtInput").val(),
+			'population': Number($("#populationInput").val().trim().replace(/,/g, ''))
+		});
+		commonUpdateMethod($("#cityAddModal form"), '/pgcrowd/city/infosave', 'POST', postData, normalPostSuccessFunction("#cityAddModal"));
+	}
 });
 $("#tableBody").on('click', '.edit-btn', function() {
 	formReset("#cityEditModal form");

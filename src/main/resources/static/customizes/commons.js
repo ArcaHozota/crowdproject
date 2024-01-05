@@ -159,15 +159,16 @@ function pgcrowdNullInputboxDiscern(inputArrays) {
 		}
 	}
 }
-function commonUpdateMethod(inputArrays, inputForm, updateUrl, updateMethod, updateData, successFunction) {
+function pgcrowdInputContextGet(inputArrays) {
 	let listArray = [];
 	for (const element of inputArrays) {
 		let inputContext = $(element).val().trim();
 		listArray.push(inputContext);
 	}
-	if (listArray.includes("")) {
-		pgcrowdNullInputboxDiscern(inputArrays);
-	} else if (inputForm.find('*').hasClass('is-invalid')) {
+	return listArray;
+}
+function commonUpdateMethod(inputForm, updateUrl, updateMethod, updateData, successFunction) {
+	if (inputForm.find('*').hasClass('is-invalid')) {
 		layer.msg('入力情報不正。');
 	} else {
 		pgcrowdAjaxModify(updateUrl, updateMethod, updateData, successFunction);
