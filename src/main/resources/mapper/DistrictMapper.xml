@@ -33,7 +33,8 @@
 		    PD.ID
 		    , PD.NAME
 		    , PD.CHIHO
-		    , PD.SHUTO_ID 
+		    , PD.SHUTO_ID
+		    , PD.DEL_FLG 
 		FROM
 		    PPOG_DISTRICTS PD 
 		WHERE
@@ -46,7 +47,8 @@
 		    PD.ID
 		    , PD.NAME
 		    , PD.CHIHO
-		    , PD.SHUTO_ID 
+		    , PD.SHUTO_ID
+		    , PD.DEL_FLG 
 		FROM
 		    PPOG_DISTRICTS PD 
 		WHERE
@@ -58,9 +60,10 @@
 		SELECT
 		    PD.ID
 		    , PD.NAME
-		    , PC.NAME AS CITY_NAME
 		    , PD.CHIHO
-		    , PD.SHUTO_ID 
+		    , PD.SHUTO_ID
+		    , PD.DEL_FLG
+		    , PC.NAME AS CITY_NAME 
 		FROM
 		    PPOG_DISTRICTS PD 
 		    LEFT JOIN PPOG_CITIES PC 

@@ -51,7 +51,8 @@
 		    PC.ID
 		    , PC.NAME
 		    , PC.DISTRICT_ID
-		    , PC.POPULATION 
+		    , PC.POPULATION
+		    , PC.DEL_FLG 
 		FROM
 		    PPOG_CITIES PC 
 		WHERE
@@ -63,8 +64,9 @@
 		    PC.ID
 		    , PC.NAME
 		    , PC.DISTRICT_ID
-		    , PC.POPULATION 
-		    , PD.NAME AS DISTRICT_NAME
+		    , PC.POPULATION
+		    , PC.DEL_FLG
+		    , PD.NAME AS DISTRICT_NAME 
 		FROM
 		    PPOG_CITIES PC 
 		    INNER JOIN PPOG_DISTRICTS PD 

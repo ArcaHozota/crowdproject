@@ -73,7 +73,8 @@
 	<select id="paginationByKeyword" resultMap="BasicResultMap">
 		SELECT
 		    PR.ID
-		    , PR.NAME 
+		    , PR.NAME
+		    , PR.DEL_FLG 
 		FROM
 		    PPOG_ROLE PR 
 		WHERE
@@ -90,6 +91,7 @@
 		SELECT
 		    PR.ID
 		    , PR.NAME
+		    , PR.DEL_FLG
 		    , PPRA.AUTH_ID 
 		    , PPRA.ROLE_ID 
 		FROM

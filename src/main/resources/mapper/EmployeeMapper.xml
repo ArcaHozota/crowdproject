@@ -70,7 +70,8 @@
 		    , PE.PASSWORD
 		    , PE.USERNAME
 		    , PE.EMAIL
-		    , PE.CREATED_TIME 
+		    , PE.CREATED_TIME
+		    , PE.DEL_FLG 
 		FROM
 		    PPOG_EMPLOYEE PE 
 		WHERE
@@ -84,7 +85,8 @@
 		    , PE.PASSWORD
 		    , PE.USERNAME
 		    , PE.EMAIL
-		    , PE.CREATED_TIME 
+		    , PE.CREATED_TIME
+		    , PE.DEL_FLG 
 		FROM
 		    PPOG_EMPLOYEE PE 
 		WHERE
@@ -98,7 +100,8 @@
 		    , PE.PASSWORD
 		    , PE.USERNAME
 		    , PE.EMAIL
-		    , PE.CREATED_TIME 
+		    , PE.CREATED_TIME
+		    , PE.DEL_FLG 
 		FROM
 		    PPOG_EMPLOYEE PE 
 		WHERE
