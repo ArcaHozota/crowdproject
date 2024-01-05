@@ -152,23 +152,23 @@ function pgcrowdAjaxModify(url, type, data, successFunction) {
 		}
 	});
 }
-function pgcrowdNullInputboxDiscern(listArray) {
-	for (const element of listArray) {
+function pgcrowdNullInputboxDiscern(inputArrays) {
+	for (const element of inputArrays) {
 		if ($(element).val().trim() === "") {
-			return true;
+			showValidationMsg(element, "error", "上記の入力ボックスを空になってはいけません。");
 		}
 	}
-	return false;
 }
 function commonUpdateMethod(inputArrays, inputForm, updateUrl, updateMethod, updateData, successFunction) {
-	if (inputForm.find('*').hasClass('is-invalid')) {
+	let listArray = [];
+	for (const element of inputArrays) {
+		let inputContext = $(element).val().trim();
+		listArray.push(inputContext);
+	}
+	if (listArray.includes("")) {
+		pgcrowdNullInputboxDiscern(inputArrays);
+	} else if (inputForm.find('*').hasClass('is-invalid')) {
 		layer.msg('入力情報不正。');
-	} else if (pgcrowdNullInputboxDiscern(inputArrays)) {
-		for (const element of inputArrays) {
-			if ($(element).val().trim() === "") {
-				showValidationMsg(element, "error", "上記の入力ボックスを空になってはいけません。");
-			}
-		}
 	} else {
 		pgcrowdAjaxModify(updateUrl, updateMethod, updateData, successFunction);
 	}
