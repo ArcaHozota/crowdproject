@@ -45,6 +45,19 @@
 		    PC.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
 		    AND PC.ID = #{id,jdbcType=NUMERIC}
 	</update>
+	<select id="selectById" parameterType="jp.co.sony.ppog.entity.City"
+		resultMap="BasicResultMap">
+		SELECT
+		    PC.ID
+		    , PC.NAME
+		    , PC.DISTRICT_ID
+		    , PC.POPULATION 
+		FROM
+		    PPOG_CITIES PC 
+		WHERE
+		    PC.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
+		    AND PC.ID LIKE #{id,jdbcType=NUMERIC}
+	</select>
 	<select id="paginationByKeyword" resultMap="BasicResultMap">
 		SELECT
 		    PC.ID

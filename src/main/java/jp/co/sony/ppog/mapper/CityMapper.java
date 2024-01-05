@@ -61,6 +61,14 @@ public interface CityMapper {
 			@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
 
 	/**
+	 * IDによって情報を検索する
+	 *
+	 * @param city 都市エンティティ
+	 * @return City
+	 */
+	City selectById(City city);
+
+	/**
 	 * IDによって情報を更新する
 	 *
 	 * @param city 都市エンティティ

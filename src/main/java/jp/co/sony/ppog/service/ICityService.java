@@ -42,5 +42,5 @@ public interface ICityService {
 	 *
 	 * @param cityDto 都市情報転送クラス
 	 */
-	void update(CityDto cityDto);
+	ResultDto<String> update(CityDto cityDto);
 }

@@ -89,10 +89,17 @@ public class CityServiceImpl implements ICityService {
 	}
 
 	@Override
-	public void update(final CityDto cityDto) {
-		final City city = new City();
-		SecondBeanUtils.copyNullableProperties(cityDto, city);
-		city.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
-		this.cityMapper.updateById(city);
+	public ResultDto<String> update(final CityDto cityDto) {
+		final City entity = new City();
+		entity.setId(cityDto.getId());
+		entity.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
+		final City city1 = this.cityMapper.selectById(entity);
+		final City city2 = city1;
+		SecondBeanUtils.copyNullableProperties(cityDto, city1);
+		if (city1.equals(city2)) {
+			return ResultDto.failed(CrowdPlusConstants.MESSAGE_STRING_NOCHANGE);
+		}
+		this.cityMapper.updateById(city1);
+		return ResultDto.successWithoutData();
 	}
 }

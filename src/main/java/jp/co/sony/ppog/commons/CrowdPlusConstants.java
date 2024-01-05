@@ -42,6 +42,8 @@ public final class CrowdPlusConstants {
 
 	public static final String MESSAGE_STRING_NOTLOGIN = "ログインしてください";
 
+	public static final String MESSAGE_STRING_NOCHANGE = "変更なし";
+
 	public static final String MESSAGE_STRING_PROHIBITED = "ユーザは存在しません、もう一度やり直してください";
 
 	public static final String MESSAGE_STRING_NOTEXISTS = "役割は存在しません、もう一度やり直してください";

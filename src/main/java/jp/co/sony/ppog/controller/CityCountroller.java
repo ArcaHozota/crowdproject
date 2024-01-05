@@ -106,7 +106,6 @@ public class CityCountroller {
 	@PutMapping("/infoupd")
 	@PreAuthorize("hasAuthority('city%edition')")
 	public ResultDto<String> updateInfo(@RequestBody final CityDto cityDto) {
-		this.iCityService.update(cityDto);
-		return ResultDto.successWithoutData();
+		return this.iCityService.update(cityDto);
 	}
 }
