@@ -46,6 +46,14 @@ public interface DistrictMapper {
 	List<District> selectAll(@Param("delFlg") String delFlg);
 
 	/**
+	 * IDによって情報を検索する
+	 *
+	 * @param district 地域エンティティ
+	 * @return District
+	 */
+	District selectById(District district);
+
+	/**
 	 * IDによって情報を更新する
 	 *
 	 * @param district 地域エンティティ

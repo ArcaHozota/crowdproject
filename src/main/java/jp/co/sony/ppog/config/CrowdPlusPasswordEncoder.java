@@ -4,7 +4,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.BCryptVersion;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 /**
@@ -13,10 +12,10 @@ import lombok.NoArgsConstructor;
  * @author ArkamaHozota
  * @since 1.90
  */
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public final class CrowdPlusPasswordEncoder implements PasswordEncoder {
 
-	private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(BCryptVersion.$2A, 7);
+	private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(BCryptVersion.$2Y, 7);
 
 	@Override
 	public String encode(final CharSequence rawPassword) {

@@ -57,7 +57,6 @@ public class DistrictController {
 	@PutMapping("/infoupd")
 	@PreAuthorize("hasAuthority('district%edition')")
 	public ResultDto<String> updateInfo(@RequestBody final DistrictDto districtDto) {
-		this.iDistrictService.update(districtDto);
-		return ResultDto.successWithoutData();
+		return this.iDistrictService.update(districtDto);
 	}
 }

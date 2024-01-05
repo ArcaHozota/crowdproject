@@ -4,6 +4,7 @@ import java.util.List;
 
 import jp.co.sony.ppog.dto.DistrictDto;
 import jp.co.sony.ppog.utils.Pagination;
+import jp.co.sony.ppog.utils.ResultDto;
 
 /**
  * 地域サービスインターフェス
@@ -35,5 +36,5 @@ public interface IDistrictService {
 	 *
 	 * @param districtDto 地域情報転送クラス
 	 */
-	void update(DistrictDto districtDto);
+	ResultDto<String> update(DistrictDto districtDto);
 }

@@ -15,6 +15,7 @@ import jp.co.sony.ppog.mapper.CityMapper;
 import jp.co.sony.ppog.mapper.DistrictMapper;
 import jp.co.sony.ppog.service.IDistrictService;
 import jp.co.sony.ppog.utils.Pagination;
+import jp.co.sony.ppog.utils.ResultDto;
 import jp.co.sony.ppog.utils.SecondBeanUtils;
 import jp.co.sony.ppog.utils.StringUtils;
 import lombok.AccessLevel;
@@ -88,10 +89,17 @@ public class DistrictServiceImpl implements IDistrictService {
 	}
 
 	@Override
-	public void update(final DistrictDto districtDto) {
-		final District district = new District();
-		SecondBeanUtils.copyNullableProperties(districtDto, district);
-		district.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
-		this.districtMapper.updateById(district);
+	public ResultDto<String> update(final DistrictDto districtDto) {
+		final District entity = new District();
+		entity.setId(districtDto.getId());
+		entity.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
+		final District district1 = this.districtMapper.selectById(entity);
+		final District district2 = district1;
+		SecondBeanUtils.copyNullableProperties(districtDto, district1);
+		if (district1.equals(district2)) {
+			return ResultDto.failed(CrowdPlusConstants.MESSAGE_STRING_NOCHANGE);
+		}
+		this.districtMapper.updateById(district1);
+		return ResultDto.successWithoutData();
 	}
 }

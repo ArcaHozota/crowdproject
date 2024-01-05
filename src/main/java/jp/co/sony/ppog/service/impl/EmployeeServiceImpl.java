@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.sony.ppog.commons.CrowdPlusConstants;
+import jp.co.sony.ppog.config.CrowdPlusPasswordEncoder;
 import jp.co.sony.ppog.dto.EmployeeDto;
 import jp.co.sony.ppog.entity.Employee;
 import jp.co.sony.ppog.entity.EmployeeRole;
@@ -100,7 +101,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		employee.setCreatedTime(LocalDateTime.now());
 		employee.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
 		this.employeeMapper.insertById(employee);
-		if (employeeDto.getRoleId() != null && !Objects.equals(Long.valueOf(0L), employeeDto.getRoleId())) {
+		if ((employeeDto.getRoleId() != null) && !Objects.equals(Long.valueOf(0L), employeeDto.getRoleId())) {
 			final EmployeeRole employeeEx = new EmployeeRole();
 			employeeEx.setEmployeeId(employee.getId());
 			employeeEx.setRoleId(employeeDto.getRoleId());
@@ -109,22 +110,25 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	}
 
 	@Override
-	public void update(final EmployeeDto employeeDto) {
-		final Employee employee = new Employee();
-		SecondBeanUtils.copyNullableProperties(employeeDto, employee);
-		employee.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
+	public ResultDto<String> update(final EmployeeDto employeeDto) {
+		final Employee entity = new Employee();
+		entity.setId(employeeDto.getId());
+		entity.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
+		final Employee employee1 = this.employeeMapper.selectById(entity);
+		final Employee employee2 = employee1;
+		SecondBeanUtils.copyNullableProperties(employeeDto, employee1);
+		final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(employeeDto.getId());
+		if (employee1.equals(employee2) && Objects.equals(employeeDto.getRoleId(), employeeRole.getRoleId())) {
+			return ResultDto.failed(CrowdPlusConstants.MESSAGE_STRING_NOCHANGE);
+		}
 		if (StringUtils.isNotEmpty(employeeDto.getPassword())) {
-			final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(BCryptVersion.$2Y, 7);
+			final CrowdPlusPasswordEncoder encoder = new CrowdPlusPasswordEncoder();
 			final String encoded = encoder.encode(employeeDto.getPassword());
-			employee.setPassword(encoded);
+			employee1.setPassword(encoded);
 		}
-		if (employeeDto.getRoleId() != null && !Objects.equals(Long.valueOf(0L), employeeDto.getRoleId())) {
-			final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(employeeDto.getId());
-			if (!Objects.equals(employeeRole.getRoleId(), employeeDto.getRoleId())) {
-				employeeRole.setRoleId(employeeDto.getRoleId());
-				this.employeeRoleMapper.updateById(employeeRole);
-			}
-		}
-		this.employeeMapper.updateById(employee);
+		employeeRole.setRoleId(employeeDto.getRoleId());
+		this.employeeRoleMapper.updateById(employeeRole);
+		this.employeeMapper.updateById(employee1);
+		return ResultDto.successWithoutData();
 	}
 }

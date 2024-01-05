@@ -27,6 +27,19 @@
 		    PD.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
 		    AND PD.ID = #{id,jdbcType=NUMERIC}
 	</update>
+	<select id="selectById" parameterType="jp.co.sony.ppog.entity.District"
+		resultMap="BasicResultMap">
+		SELECT
+		    PD.ID
+		    , PD.NAME
+		    , PD.CHIHO
+		    , PD.SHUTO_ID 
+		FROM
+		    PPOG_DISTRICTS PD 
+		WHERE
+		    PD.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
+		    AND PD.ID = #{id,jdbcType=NUMERIC}
+	</select>
 	<select id="selectAll" parameterType="java.lang.String"
 		resultMap="BasicResultMap">
 		SELECT

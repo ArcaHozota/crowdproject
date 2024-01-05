@@ -159,7 +159,6 @@ public class EmployeeController {
 	@ResponseBody
 	@PreAuthorize("hasAuthority('employee%edition')")
 	public ResultDto<String> updateInfo(@RequestBody final EmployeeDto employeeDto) {
-		this.iEmployeeService.update(employeeDto);
-		return ResultDto.successWithoutData();
+		return this.iEmployeeService.update(employeeDto);
 	}
 }

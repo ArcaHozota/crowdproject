@@ -55,5 +55,5 @@ public interface IEmployeeService {
 	 *
 	 * @param employeeDto 社員情報転送クラス
 	 */
-	void update(EmployeeDto employeeDto);
+	ResultDto<String> update(EmployeeDto employeeDto);
 }

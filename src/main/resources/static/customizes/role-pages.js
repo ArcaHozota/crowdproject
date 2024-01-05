@@ -197,7 +197,7 @@ function putSuccessFunction(result) {
 		layer.msg('更新済み');
 		toSelectedPg(pageNum, keyword);
 	} else {
-		showValidationMsg("#nameEdit", "error", result.message);
+		layer.msg(result.message);
 	}
 }
 function authPutSuccessFunction() {
