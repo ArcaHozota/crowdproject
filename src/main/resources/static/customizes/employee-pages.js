@@ -163,11 +163,15 @@ $("#editInfoBtn").on('click', function() {
 	} else if ($("#editForm").find('*').hasClass('is-invalid')) {
 		layer.msg('入力情報不正。');
 	} else {
+		let rawPassword = $("#passwordEdit").val().trim();
+		if (rawPassword === "**************************************") {
+			rawPassword = null;
+		}
 		let putData = JSON.stringify({
 			'id': $("#editId").text(),
 			'loginAccount': $("#loginAccountEdit").text(),
 			'username': $("#usernameEdit").val().trim(),
-			'password': $("#passwordEdit").val().trim(),
+			'password': rawPassword,
 			'email': $("#emailEdit").val().trim(),
 			'roleId': $("#roleEdit").val()
 		});
