@@ -171,7 +171,7 @@ $("#editInfoBtn").on('click', function() {
 			'email': $("#emailEdit").val().trim(),
 			'roleId': $("#roleEdit").val()
 		});
-		pgcrowdInputContextGet('/pgcrowd/employee/infoupd', 'PUT', putData, putSuccessFunction);
+		pgcrowdAjaxModify('/pgcrowd/employee/infoupd', 'PUT', putData, putSuccessFunction);
 	}
 });
 function postSuccessFunction() {
