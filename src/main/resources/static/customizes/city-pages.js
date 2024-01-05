@@ -75,7 +75,7 @@ $("#cityInfoSaveBtn").on('click', function() {
 	let inputArrays = ["#nameInput", "#populationInput"];
 	let listArray = pgcrowdInputContextGet(inputArrays);
 	if (listArray.includes("")) {
-		pgcrowdNullInputboxDiscern(listArray);
+		pgcrowdNullInputboxDiscern(inputArrays);
 	} else {
 		let postData = JSON.stringify({
 			'name': $("#nameInput").val().trim(),
@@ -118,7 +118,7 @@ $("#cityInfoChangeBtn").on('click', function() {
 	let inputArrays = ["#nameEdit", "#populationEdit"];
 	let listArray = pgcrowdInputContextGet(inputArrays);
 	if (listArray.includes("")) {
-		pgcrowdNullInputboxDiscern(listArray);
+		pgcrowdNullInputboxDiscern(inputArrays);
 	} else {
 		let putData = JSON.stringify({
 			'id': this.value,
