@@ -188,7 +188,7 @@ public class RoleServiceImpl implements IRoleService {
 		final Role role1 = this.roleMapper.selectByIdWithAuth(entity);
 		final Role role2 = role1;
 		SecondBeanUtils.copyNullableProperties(roleDto, role1);
-		if (Objects.equals(role1, role2)) {
+		if (role1.equals(role2)) {
 			return ResultDto.failed(CrowdPlusConstants.MESSAGE_STRING_NOCHANGE);
 		}
 		try {
