@@ -49,7 +49,6 @@ public class DistrictServiceImpl implements IDistrictService {
 		final List<DistrictDto> districtDtos = this.districtMapper.selectAll().stream().map(item -> {
 			final DistrictDto districtDto = new DistrictDto();
 			SecondBeanUtils.copyNullableProperties(item, districtDto);
-			districtDto.setShutoName(item.getCity().getName());
 			return districtDto;
 		}).collect(Collectors.toList());
 		if (StringUtils.isEmpty(id) || StringUtils.isEqual("null", id)) {
