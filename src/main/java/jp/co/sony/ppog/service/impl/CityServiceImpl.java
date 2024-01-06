@@ -91,7 +91,6 @@ public class CityServiceImpl implements ICityService {
 	public ResultDto<String> update(final CityDto cityDto) {
 		final City entity = new City();
 		entity.setId(cityDto.getId());
-		entity.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
 		final City city = this.cityMapper.selectById(entity);
 		SecondBeanUtils.copyNullableProperties(city, entity);
 		SecondBeanUtils.copyNullableProperties(cityDto, city);

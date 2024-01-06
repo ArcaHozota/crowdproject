@@ -182,7 +182,6 @@ public class RoleServiceImpl implements IRoleService {
 	public ResultDto<String> update(final RoleDto roleDto) {
 		final Role entity = new Role();
 		entity.setId(roleDto.getId());
-		entity.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
 		final Role role = this.roleMapper.selectByIdWithAuth(entity);
 		SecondBeanUtils.copyNullableProperties(role, entity);
 		SecondBeanUtils.copyNullableProperties(roleDto, role);

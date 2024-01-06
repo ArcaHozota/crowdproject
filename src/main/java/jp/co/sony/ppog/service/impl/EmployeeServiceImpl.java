@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.BCryptVersion;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -92,7 +90,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	@Override
 	public void save(final EmployeeDto employeeDto) {
 		final Employee employee = new Employee();
-		final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(BCryptVersion.$2Y, 7);
+		final CrowdPlusPasswordEncoder encoder = new CrowdPlusPasswordEncoder();
 		final String password = encoder.encode(employeeDto.getPassword());
 		SecondBeanUtils.copyNullableProperties(employeeDto, employee);
 		employee.setId(SnowflakeUtils.snowflakeId());
@@ -112,7 +110,6 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	public ResultDto<String> update(final EmployeeDto employeeDto) {
 		final Employee entity = new Employee();
 		entity.setId(employeeDto.getId());
-		entity.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
 		final Employee employee = this.employeeMapper.selectById(entity);
 		SecondBeanUtils.copyNullableProperties(employee, entity);
 		SecondBeanUtils.copyNullableProperties(employeeDto, employee);
