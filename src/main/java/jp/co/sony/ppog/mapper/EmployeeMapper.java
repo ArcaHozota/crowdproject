@@ -27,10 +27,9 @@ public interface EmployeeMapper {
 	 * キーワードによって社員情報の数を取得する
 	 *
 	 * @param keyword 検索キーワード
-	 * @param delFlg  論理削除フラグ
 	 * @return Integer
 	 */
-	Long countByKeyword(@Param("keyword") String keyword, @Param("delFlg") String delFlg);
+	Long countByKeyword(@Param("keyword") String keyword);
 
 	/**
 	 * IDによって情報を挿入する
@@ -43,13 +42,12 @@ public interface EmployeeMapper {
 	 * キーワードによって社員情報を検索する
 	 *
 	 * @param keyword  検索キーワード
-	 * @param delFlg   論理削除フラグ
 	 * @param offset   オフセット
 	 * @param pageSize ページサイズ
 	 * @return List<Employee>
 	 */
-	List<Employee> paginationByKeyword(@Param("keyword") String keyword, @Param("delFlg") String delFlg,
-			@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
+	List<Employee> paginationByKeyword(@Param("keyword") String keyword, @Param("offset") Integer offset,
+			@Param("pageSize") Integer pageSize);
 
 	/**
 	 * IDによって論理削除を行う
@@ -72,7 +70,7 @@ public interface EmployeeMapper {
 	 * @param loginAccout アカウント
 	 * @return Employee
 	 */
-	Employee selectByLoginAcct(@Param("loginAccout") String loginAccout, @Param("delFlg") String delFlg);
+	Employee selectByLoginAcct(@Param("loginAccout") String loginAccout);
 
 	/**
 	 * IDによって情報を更新する

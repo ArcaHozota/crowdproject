@@ -43,10 +43,9 @@ public interface RoleMapper {
 	 * キーワードによって役割情報の数を取得する
 	 *
 	 * @param keyword 検索キーワード
-	 * @param delFlg  論理削除フラグ
 	 * @return Integer
 	 */
-	Long countByKeyword(@Param("keyword") String keyword, @Param("delFlg") String delFlg);
+	Long countByKeyword(@Param("keyword") String keyword);
 
 	/**
 	 * IDによって情報を挿入する
@@ -64,8 +63,8 @@ public interface RoleMapper {
 	 * @param pageSize ページサイズ
 	 * @return List<Role>
 	 */
-	List<Role> paginationByKeyword(@Param("keyword") String keyword, @Param("delFlg") String delFlg,
-			@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
+	List<Role> paginationByKeyword(@Param("keyword") String keyword, @Param("offset") Integer offset,
+			@Param("pageSize") Integer pageSize);
 
 	/**
 	 * IDによって論理削除を行う
@@ -77,10 +76,9 @@ public interface RoleMapper {
 	/**
 	 * 全件検索を行う
 	 *
-	 * @param delFlg 論理削除フラグ
 	 * @return List<Role>
 	 */
-	List<Role> selectAll(@Param("delFlg") String delFlg);
+	List<Role> selectAll();
 
 	/**
 	 * IDによって情報を検索する(権限情報含め)

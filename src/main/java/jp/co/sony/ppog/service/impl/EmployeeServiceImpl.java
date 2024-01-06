@@ -71,9 +71,8 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		final Integer pageSize = CrowdPlusConstants.DEFAULT_PAGE_SIZE;
 		final Integer offset = (pageNum - 1) * pageSize;
 		final String searchStr = StringUtils.getDetailKeyword(keyword);
-		final Long records = this.employeeMapper.countByKeyword(searchStr, CrowdPlusConstants.LOGIC_DELETE_INITIAL);
-		final List<EmployeeDto> pages = this.employeeMapper
-				.paginationByKeyword(searchStr, CrowdPlusConstants.LOGIC_DELETE_INITIAL, offset, pageSize).stream()
+		final Long records = this.employeeMapper.countByKeyword(searchStr);
+		final List<EmployeeDto> pages = this.employeeMapper.paginationByKeyword(searchStr, offset, pageSize).stream()
 				.map(item -> {
 					final EmployeeDto employeeDto = new EmployeeDto();
 					SecondBeanUtils.copyNullableProperties(item, employeeDto);

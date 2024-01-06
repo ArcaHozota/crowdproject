@@ -103,12 +103,11 @@ public class RoleServiceImpl implements IRoleService {
 		final RoleDto secondRole = new RoleDto();
 		secondRole.setId(0L);
 		secondRole.setName(CrowdPlusConstants.DEFAULT_ROLE_NAME);
-		final List<RoleDto> roleDtos = this.roleMapper.selectAll(CrowdPlusConstants.LOGIC_DELETE_INITIAL).stream()
-				.map(item -> {
-					final RoleDto roleDto = new RoleDto();
-					SecondBeanUtils.copyNullableProperties(item, roleDto);
-					return roleDto;
-				}).collect(Collectors.toList());
+		final List<RoleDto> roleDtos = this.roleMapper.selectAll().stream().map(item -> {
+			final RoleDto roleDto = new RoleDto();
+			SecondBeanUtils.copyNullableProperties(item, roleDto);
+			return roleDto;
+		}).collect(Collectors.toList());
 		secondRoles.add(secondRole);
 		secondRoles.addAll(roleDtos);
 		if (id == null) {
@@ -137,19 +136,18 @@ public class RoleServiceImpl implements IRoleService {
 		} else {
 			searchStr = StringUtils.getDetailKeyword(keyword);
 		}
-		final Long records = this.roleMapper.countByKeyword(searchStr, CrowdPlusConstants.LOGIC_DELETE_INITIAL);
+		final Long records = this.roleMapper.countByKeyword(searchStr);
 		final Integer pageMax = (int) ((records / pageSize) + ((records % pageSize) != 0 ? 1 : 0));
 		if (pageNum > pageMax) {
-			final List<RoleDto> pages = this.roleMapper.paginationByKeyword(searchStr,
-					CrowdPlusConstants.LOGIC_DELETE_INITIAL, (pageMax - 1) * pageSize, pageSize).stream().map(item -> {
+			final List<RoleDto> pages = this.roleMapper
+					.paginationByKeyword(searchStr, (pageMax - 1) * pageSize, pageSize).stream().map(item -> {
 						final RoleDto roleDto = new RoleDto();
 						SecondBeanUtils.copyNullableProperties(item, roleDto);
 						return roleDto;
 					}).collect(Collectors.toList());
 			return Pagination.of(pages, records, pageMax, pageSize);
 		}
-		final List<RoleDto> pages = this.roleMapper
-				.paginationByKeyword(searchStr, CrowdPlusConstants.LOGIC_DELETE_INITIAL, offset, pageSize).stream()
+		final List<RoleDto> pages = this.roleMapper.paginationByKeyword(searchStr, offset, pageSize).stream()
 				.map(item -> {
 					final RoleDto roleDto = new RoleDto();
 					SecondBeanUtils.copyNullableProperties(item, roleDto);
