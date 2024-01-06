@@ -20,22 +20,20 @@ public interface DistrictMapper {
 	 * キーワードによって地域情報の数を取得する
 	 *
 	 * @param keyword 検索キーワード
-	 * @param delFlg  論理削除フラグ
 	 * @return Long
 	 */
-	Long countByKeyword(@Param("keyword") String keyword, @Param("delFlg") String delFlg);
+	Long countByKeyword(@Param("keyword") String keyword);
 
 	/**
 	 * キーワードによって地域情報を検索する
 	 *
 	 * @param keyword  キーワード
-	 * @param delFlg   論理削除フラグ
 	 * @param offset   オフセット
 	 * @param pageSize ページサイズ
 	 * @return List<Role>
 	 */
-	List<District> paginationByKeyword(@Param("keyword") String keyword, @Param("delFlg") String delFlg,
-			@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
+	List<District> paginationByKeyword(@Param("keyword") String keyword, @Param("offset") Integer offset,
+			@Param("pageSize") Integer pageSize);
 
 	/**
 	 * 全件検索を行う
@@ -43,7 +41,7 @@ public interface DistrictMapper {
 	 * @param delFlg 論理削除フラグ
 	 * @return List<District>
 	 */
-	List<District> selectAll(@Param("delFlg") String delFlg);
+	List<District> selectAll();
 
 	/**
 	 * IDによって情報を検索する

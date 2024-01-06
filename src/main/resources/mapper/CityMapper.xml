@@ -52,8 +52,7 @@
 		FROM
 		    PPOG_CITIES_VIEW PCV 
 		WHERE
-		    PCV.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
-		    AND PCV.ID LIKE #{id,jdbcType=NUMERIC}
+		    PCV.ID LIKE #{id,jdbcType=NUMERIC}
 	</select>
 	<select id="paginationByKeyword" resultMap="BasicResultMap">
 		SELECT

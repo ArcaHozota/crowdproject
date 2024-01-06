@@ -28,10 +28,9 @@ public interface CityMapper {
 	 * キーワードによって都市情報の数を取得する
 	 *
 	 * @param keyword 検索キーワード
-	 * @param delFlg  論理削除フラグ
 	 * @return Integer
 	 */
-	Long countByKeyword(@Param("keyword") String keyword, @Param("delFlg") String delFlg);
+	Long countByKeyword(@Param("keyword") String keyword);
 
 	/**
 	 * IDによって県域の人口数量を取得する
@@ -39,7 +38,7 @@ public interface CityMapper {
 	 * @param districtId 地域ID
 	 * @return Long
 	 */
-	Long countPopulationById(@Param("districtId") Long districtId, @Param("delFlg") String delFlg);
+	Long countPopulationById(@Param("districtId") Long districtId);
 
 	/**
 	 * IDによって情報を挿入する
@@ -52,13 +51,12 @@ public interface CityMapper {
 	 * キーワードによって都市情報を検索する
 	 *
 	 * @param keyword  キーワード
-	 * @param delFlg   論理削除フラグ
 	 * @param offset   オフセット
 	 * @param pageSize ページサイズ
 	 * @return List<Role>
 	 */
-	List<City> paginationByKeyword(@Param("keyword") String keyword, @Param("delFlg") String delFlg,
-			@Param("offset") Integer offset, @Param("pageSize") Integer pageSize);
+	List<City> paginationByKeyword(@Param("keyword") String keyword, @Param("offset") Integer offset,
+			@Param("pageSize") Integer pageSize);
 
 	/**
 	 * IDによって情報を検索する

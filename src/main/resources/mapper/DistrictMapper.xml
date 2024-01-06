@@ -36,8 +36,7 @@
 		WHERE
 		    PDV.ID = #{id,jdbcType=NUMERIC}
 	</select>
-	<select id="selectAll" parameterType="java.lang.String"
-		resultMap="BasicResultMap">
+	<select id="selectAll" resultMap="BasicResultMap">
 		SELECT
 		    PDV.*  
 		FROM
