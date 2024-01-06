@@ -61,9 +61,7 @@
 		    PE.DEL_FLG = #{delFlg,jdbcType=NVARCHAR}
 		    AND PE.ID = #{id,jdbcType=NUMERIC}
 	</update>
-	<select id="selectById" 
-		parameterType="jp.co.sony.ppog.entity.Employee" 
-		resultMap="BasicResultMap">
+	<select id="selectById" resultMap="BasicResultMap">
 		SELECT
 		    PEV.*  
 		FROM

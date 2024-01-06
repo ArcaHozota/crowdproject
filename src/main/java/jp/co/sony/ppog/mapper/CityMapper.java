@@ -67,6 +67,14 @@ public interface CityMapper {
 	City selectById(City city);
 
 	/**
+	 * IDによって情報を検索する
+	 *
+	 * @param id 都市ID
+	 * @return City
+	 */
+	City selectById(@Param("id") Long id);
+
+	/**
 	 * IDによって情報を更新する
 	 *
 	 * @param city 都市エンティティ

@@ -22,8 +22,7 @@
 		WHERE
 		    PPER.EMPLOYEE_ID = #{employeeId,jdbcType=NUMERIC}
 	</update>
-	<select id="selectById" parameterType="java.lang.Long"
-		resultMap="BasicResultMap">
+	<select id="selectById" resultMap="BasicResultMap">
 		SELECT
 		    PERV.* 
 		FROM

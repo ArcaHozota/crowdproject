@@ -57,15 +57,13 @@
 		WHERE
 		    PPRA.ROLE_ID = #{roleId,jdbcType=NUMERIC}
 	</delete>
-	<select id="selectAll" parameterType="java.lang.String"
-		resultMap="BasicResultMap">
+	<select id="selectAll" resultMap="BasicResultMap">
 		SELECT
 		    PRV.* 
 		FROM
 		    PPOG_ROLE_VIEW PRV
 	</select>
-	<select id="selectByIdWithAuth" parameterType="jp.co.sony.ppog.entity.Role"
-		resultMap="BasicResultMap">
+	<select id="selectByIdWithAuth" resultMap="BasicResultMap">
 		SELECT
 		    PRV.*
 		    , PRAV.* 
