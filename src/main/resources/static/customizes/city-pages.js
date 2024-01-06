@@ -46,7 +46,7 @@ function buildTableBody(result) {
 			.append($("<i class='bi bi-trash-fill'></i>")).append("削除");
 		deleteBtn.attr("deleteId", item.id);
 		let btnTd = $("<td class='text-center' style='width:100px;vertical-align:middle;'></td>").append(editBtn).append(" ").append(deleteBtn);
-		$("<tr></tr>").append(idTd).append(nameTd).append(districtTd).append(populationTd).append(stationTd).append(btnTd).appendTo("#tableBody");
+		$("<tr></tr>").append(idTd).append(nameTd).append(pronounciationTd).append(districtTd).append(populationTd).append(stationTd).append(btnTd).appendTo("#tableBody");
 	});
 }
 $("#addCityBtn").on('click', function() {
