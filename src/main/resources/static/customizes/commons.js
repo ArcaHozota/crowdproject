@@ -164,6 +164,7 @@ function pgcrowdInputContextGet(inputArrays) {
 	for (const element of inputArrays) {
 		let inputContext = $(element).val().trim();
 		listArray.push(inputContext);
+		showValidationMsg(element, "success", "");
 	}
 	return listArray;
 }
