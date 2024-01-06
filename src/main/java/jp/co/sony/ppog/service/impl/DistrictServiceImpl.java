@@ -59,8 +59,9 @@ public class DistrictServiceImpl implements IDistrictService {
 			list.addAll(districtDtos);
 			return list;
 		}
-		final List<DistrictDto> collect = districtDtos.stream()
-				.filter(a -> Objects.equals(Long.parseLong(id), a.getId())).collect(Collectors.toList());
+		final Long districtId = this.cityMapper.selectById(Long.parseLong(id)).getDistrictId();
+		final List<DistrictDto> collect = districtDtos.stream().filter(a -> Objects.equals(districtId, a.getId()))
+				.collect(Collectors.toList());
 		list.addAll(collect);
 		list.addAll(districtDtos);
 		return list.stream().distinct().collect(Collectors.toList());
