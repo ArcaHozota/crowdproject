@@ -35,7 +35,7 @@ function buildTableBody(result) {
 		let patternedPop = Number(item.population).toLocaleString('en-US');
 		let idTd = $("<th scope='row' class='text-center' style='width:150px;vertical-align:middle;'></th>").append(item.id);
 		let nameTd = $("<td scope='row' class='text-center' style='width:70px;vertical-align:middle;'></td>").append(item.name);
-		let pronounciationTd = $("<td scope='row' class='text-center' style='width:70px;vertical-align:middle;'></td>").append(item.pronounciation);
+		let pronounciationTd = $("<td scope='row' class='text-center' style='width:100px;vertical-align:middle;'></td>").append(item.pronounciation);
 		let districtTd = $("<td scope='row' class='text-center' style='width:70px;vertical-align:middle;'></td>").append(item.districtName);
 		let populationTd = $("<td scope='row' class='text-center' style='width:50px;vertical-align:middle;'></td>").append(patternedPop);
 		let stationTd = $("<td scope='row' class='text-center' style='width:50px;vertical-align:middle;'></td>").append(item.stationNo);
