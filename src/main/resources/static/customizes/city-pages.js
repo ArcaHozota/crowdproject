@@ -73,7 +73,7 @@ $("#districtInput").on('change', function() {
 	checkCityName("#nameInput", this);
 });
 $("#cityInfoSaveBtn").on('click', function() {
-	let inputArrays = ["#nameInput", "#populationInput"];
+	let inputArrays = ["#nameInput", "poInput", "#populationInput"];
 	let listArray = pgcrowdInputContextGet(inputArrays);
 	if (listArray.includes("")) {
 		pgcrowdNullInputboxDiscern(inputArrays);
@@ -82,6 +82,7 @@ $("#cityInfoSaveBtn").on('click', function() {
 	} else {
 		let postData = JSON.stringify({
 			'name': $("#nameInput").val().trim(),
+			'pronounciation': $("#poInput").val().trim(),
 			'districtId': $("#districtInput").val(),
 			'population': Number($("#populationInput").val().trim().replace(/,/g, ''))
 		});
@@ -118,7 +119,7 @@ $("#districtEdit").on('change', function() {
 	checkCityName("#nameEdit", this);
 });
 $("#cityInfoChangeBtn").on('click', function() {
-	let inputArrays = ["#nameEdit", "#populationEdit"];
+	let inputArrays = ["#nameEdit", "poEdit", "#populationEdit"];
 	let listArray = pgcrowdInputContextGet(inputArrays);
 	if (listArray.includes("")) {
 		pgcrowdNullInputboxDiscern(inputArrays);
@@ -128,6 +129,7 @@ $("#cityInfoChangeBtn").on('click', function() {
 		let putData = JSON.stringify({
 			'id': this.value,
 			'name': $("#nameEdit").val().trim(),
+			'pronounciation': $("#poEdit").val().trim(),
 			'districtId': $("#districtEdit").val(),
 			'population': Number($("#populationEdit").val().trim().replace(/,/g, ''))
 		});
