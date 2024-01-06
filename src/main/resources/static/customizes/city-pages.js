@@ -73,7 +73,7 @@ $("#districtInput").on('change', function() {
 	checkCityName("#nameInput", this);
 });
 $("#cityInfoSaveBtn").on('click', function() {
-	let inputArrays = ["#nameInput", "poInput", "#populationInput"];
+	let inputArrays = ["#nameInput", "#poInput", "#populationInput"];
 	let listArray = pgcrowdInputContextGet(inputArrays);
 	if (listArray.includes("")) {
 		pgcrowdNullInputboxDiscern(inputArrays);
@@ -121,7 +121,7 @@ $("#districtEdit").on('change', function() {
 	checkCityName("#nameEdit", this);
 });
 $("#cityInfoChangeBtn").on('click', function() {
-	let inputArrays = ["#nameEdit", "poEdit", "#populationEdit"];
+	let inputArrays = ["#nameEdit", "#poEdit", "#populationEdit"];
 	let listArray = pgcrowdInputContextGet(inputArrays);
 	if (listArray.includes("")) {
 		pgcrowdNullInputboxDiscern(inputArrays);
