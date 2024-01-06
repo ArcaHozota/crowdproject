@@ -63,7 +63,7 @@
 	</update>
 	<select id="selectById" resultMap="BasicResultMap">
 		SELECT
-		    PEV.*  
+		    PEV.* 
 		FROM
 		    PPOG_EMPLOYEE_VIEW PEV 
 		WHERE
@@ -71,19 +71,19 @@
 	</select>
 	<select id="selectByLoginAcct" resultMap="BasicResultMap">
 		SELECT
-		    PEV.*  
+		    PEV.* 
 		FROM
 		    PPOG_EMPLOYEE_VIEW PEV 
 		WHERE
-		    PEV.LOGIN_ACCT = #{loginAccout,jdbcType=NVARCHAR} 
+		    PEV.LOGIN_ACCT = #{loginAccout,jdbcType=NVARCHAR}
 	</select>
 	<select id="paginationByKeyword" resultMap="BasicResultMap">
 		SELECT
-		    PEV.*  
+		    PEV.* 
 		FROM
 		    PPOG_EMPLOYEE_VIEW PEV 
 		WHERE
-			PEV.USERNAME LIKE #{keyword,jdbcType=NVARCHAR} 
+		    PEV.USERNAME LIKE #{keyword,jdbcType=NVARCHAR} 
 		    OR PEV.LOGIN_ACCT LIKE #{keyword,jdbcType=NVARCHAR} 
 		    OR PEV.EMAIL LIKE #{keyword,jdbcType=NVARCHAR} 
 		    OFFSET #{offset,jdbcType=INTEGER} ROWS FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
@@ -94,17 +94,17 @@
 		FROM
 		    PPOG_EMPLOYEE_VIEW PEV 
 		WHERE
-			PEV.USERNAME LIKE #{keyword,jdbcType=NVARCHAR} 
+		    PEV.USERNAME LIKE #{keyword,jdbcType=NVARCHAR} 
 		    OR PEV.LOGIN_ACCT LIKE #{keyword,jdbcType=NVARCHAR} 
 		    OR PEV.EMAIL LIKE #{keyword,jdbcType=NVARCHAR}
 	</select>
 	<select id="checkDuplicated"
 		parameterType="java.lang.String" resultType="java.lang.Integer">
 		SELECT
-			COUNT(1)
+		    COUNT(1) 
 		FROM
-			PPOG_EMPLOYEE_VIEW PEV 
+		    PPOG_EMPLOYEE_VIEW PEV 
 		WHERE
-			PEV.LOGIN_ACCT = #{loginAccount,jdbcType=NVARCHAR}
+		    PEV.LOGIN_ACCT = #{loginAccount,jdbcType=NVARCHAR}
 	</select>
 </mapper>

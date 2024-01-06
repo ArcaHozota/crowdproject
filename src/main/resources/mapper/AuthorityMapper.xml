@@ -22,6 +22,6 @@
 		SELECT
 		    PAV.* 
 		FROM
-		    PPOG_AUTHORITY_VIEW PAV 
+		    PPOG_AUTHORITY_VIEW PAV
 	</select>
 </mapper>

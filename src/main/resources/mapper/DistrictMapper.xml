@@ -29,7 +29,7 @@
 	</update>
 	<select id="selectById" resultMap="BasicResultMap">
 		SELECT
-		    PDV.*  
+		    PDV.* 
 		FROM
 		    PPOG_DISTRICTS_VIEW PDV 
 		WHERE
@@ -37,7 +37,7 @@
 	</select>
 	<select id="selectAll" resultMap="BasicResultMap">
 		SELECT
-		    PDV.*  
+		    PDV.* 
 		FROM
 		    PPOG_DISTRICTS_VIEW PDV
 	</select>
