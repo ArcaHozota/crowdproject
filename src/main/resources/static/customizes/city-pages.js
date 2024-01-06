@@ -35,9 +35,10 @@ function buildTableBody(result) {
 		let patternedPop = Number(item.population).toLocaleString('en-US');
 		let idTd = $("<th scope='row' class='text-center' style='width:150px;vertical-align:middle;'></th>").append(item.id);
 		let nameTd = $("<td scope='row' class='text-center' style='width:70px;vertical-align:middle;'></td>").append(item.name);
+		let pronounciationTd = $("<td scope='row' class='text-center' style='width:70px;vertical-align:middle;'></td>").append(item.pronounciation);
 		let districtTd = $("<td scope='row' class='text-center' style='width:70px;vertical-align:middle;'></td>").append(item.districtName);
-		let populationTd = $("<td scope='row' class='text-center' style='width:70px;vertical-align:middle;'></td>").append(patternedPop);
-		let stationTd = $("<td scope='row' class='text-center' style='width:70px;vertical-align:middle;'></td>").append(item.stationNo);
+		let populationTd = $("<td scope='row' class='text-center' style='width:50px;vertical-align:middle;'></td>").append(patternedPop);
+		let stationTd = $("<td scope='row' class='text-center' style='width:50px;vertical-align:middle;'></td>").append(item.stationNo);
 		let editBtn = $("<button></button>").addClass("btn btn-primary btn-sm edit-btn")
 			.append($("<i class='bi bi-pencil-fill'></i>")).append("編集");
 		editBtn.attr("editId", item.id);
