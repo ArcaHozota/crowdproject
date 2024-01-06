@@ -15,6 +15,7 @@
 		INTO PPOG_CITIES PC( 
 		    PC.ID
 		    , PC.NAME
+		    , PC.PRONOUNCIATION
 		    , PC.DISTRICT_ID
 		    , PC.POPULATION
 		    , PC.DEL_FLG
@@ -22,6 +23,7 @@
 		VALUES ( 
 		    #{id,jdbcType=NUMERIC}
 		    , #{name,jdbcType=NVARCHAR}
+		    , #{pronounciation,jdbcType=NVARCHAR}
 		    , #{districtId,jdbcType=NUMERIC}
 		    , #{population,jdbcType=NUMERIC}
 		    , #{delFlg,jdbcType=NVARCHAR}
@@ -33,6 +35,9 @@
 		<set>
 			<if test="name != null">
 				PC.NAME = #{name,jdbcType=NVARCHAR},
+			</if>
+			<if test="pronounciation != null">
+				PC.PRONOUNCIATION = #{pronounciation,jdbcType=NVARCHAR},
 			</if>
 			<if test="districtId != null">
 				PC.DISTRICT_ID = #{districtId,jdbcType=NUMERIC},
