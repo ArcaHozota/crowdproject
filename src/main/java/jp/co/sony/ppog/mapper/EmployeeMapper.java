@@ -65,6 +65,14 @@ public interface EmployeeMapper {
 	Employee selectById(Employee employee);
 
 	/**
+	 * IDによって情報を検索する
+	 *
+	 * @param id 社員ID
+	 * @return Employee
+	 */
+	Employee selectById(@Param("id") Long id);
+
+	/**
 	 * アカウントによって社員情報を検索する
 	 *
 	 * @param loginAccout アカウント

@@ -26,6 +26,14 @@ public interface EmployeeRoleMapper {
 	/**
 	 * IDによって情報を検索する
 	 *
+	 * @param employeeRole 社員役割連携エンティティ
+	 * @return EmployeeRole
+	 */
+	EmployeeRole selectById(EmployeeRole employeeRole);
+
+	/**
+	 * IDによって情報を検索する
+	 *
 	 * @param id 社員役割連携ID
 	 * @return EmployeeRole
 	 */

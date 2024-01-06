@@ -52,6 +52,14 @@ public interface DistrictMapper {
 	District selectById(District district);
 
 	/**
+	 * IDによって情報を検索する
+	 *
+	 * @param id 地域ID
+	 * @return District
+	 */
+	District selectById(@Param("id") Long id);
+
+	/**
 	 * IDによって情報を更新する
 	 *
 	 * @param district 地域エンティティ

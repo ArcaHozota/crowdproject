@@ -83,6 +83,14 @@ public interface RoleMapper {
 	/**
 	 * IDによって情報を検索する(権限情報含め)
 	 *
+	 * @param id 役割ID
+	 * @return Role
+	 */
+	Role selectByIdWithAuth(@Param("id") Long id);
+
+	/**
+	 * IDによって情報を検索する(権限情報含め)
+	 *
 	 * @param role 役割エンティティ
 	 * @return Role
 	 */
