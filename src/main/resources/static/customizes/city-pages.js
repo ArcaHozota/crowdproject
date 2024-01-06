@@ -84,7 +84,7 @@ $("#cityInfoSaveBtn").on('click', function() {
 			'districtId': $("#districtInput").val(),
 			'population': Number($("#populationInput").val().trim().replace(/,/g, ''))
 		});
-		pgcrowdAjaxModify('/pgcrowd/city/infosave', 'POST', postData, normalPostSuccessFunction(null, "#cityAddModal"));
+		pgcrowdAjaxModify('/pgcrowd/city/infosave', 'POST', postData, normalPostSuccessFunction("#cityAddModal"));
 	}
 });
 $("#tableBody").on('click', '.edit-btn', function() {
