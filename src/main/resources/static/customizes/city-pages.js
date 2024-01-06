@@ -94,8 +94,10 @@ $("#tableBody").on('click', '.edit-btn', function() {
 	let editId = $(this).attr("editId");
 	$("#cityInfoChangeBtn").val(editId);
 	let nameVal = $(this).parent().parent().find("td:eq(0)").text();
-	let populationVal = $(this).parent().parent().find("td:eq(2)").text();
+	let poVal = $(this).parent().parent().find("td:eq(1)").text();
+	let populationVal = $(this).parent().parent().find("td:eq(3)").text();
 	$("#nameEdit").val(nameVal);
+	$("#poEdit").val(poVal);
 	$("#populationEdit").val(populationVal);
 	getDistricts("#districtEdit", editId);
 	let addModal = new bootstrap.Modal($("#cityEditModal"), {
