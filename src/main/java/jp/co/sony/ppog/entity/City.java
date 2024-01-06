@@ -26,6 +26,11 @@ public final class City implements Serializable {
 	private String name;
 
 	/**
+	 * 読み方
+	 */
+	private String pronouciation;
+
+	/**
 	 * 都道府県ID
 	 */
 	private Long districtId;
