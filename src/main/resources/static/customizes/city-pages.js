@@ -38,7 +38,7 @@ function buildTableBody(result) {
 		let pronunciationTd = $("<td scope='row' class='text-center' style='width:100px;vertical-align:middle;'></td>").append(item.pronunciation);
 		let districtTd = $("<td scope='row' class='text-center' style='width:70px;vertical-align:middle;'></td>").append(item.districtName);
 		let populationTd = $("<td scope='row' class='text-center' style='width:50px;vertical-align:middle;'></td>").append(patternedPop);
-		let flagImg = $("<img>").attr('src', '../image/flags/' + item.cityFlag + '.png').attr('alt','');
+		let flagImg = $("<img>").attr('src', '../static/image/flags/' + item.cityFlag + '.png').attr('alt','');
 		let flagTd = $("<td scope='row' class='text-center' style='width:50px;vertical-align:middle;'></td>").append(flagImg);
 		let editBtn = $("<button></button>").addClass("btn btn-primary btn-sm edit-btn")
 			.append($("<i class='bi bi-pencil-fill'></i>")).append("編集");
