@@ -33,7 +33,7 @@ public final class CityDto implements Serializable {
 	/**
 	 * 読み方
 	 */
-	private String pronounciation;
+	private String pronunciation;
 
 	/**
 	 * 都道府県名称

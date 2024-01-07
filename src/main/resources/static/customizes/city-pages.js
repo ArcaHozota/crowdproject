@@ -35,7 +35,7 @@ function buildTableBody(result) {
 		let patternedPop = Number(item.population).toLocaleString('en-US');
 		let idTd = $("<th scope='row' class='text-center' style='width:150px;vertical-align:middle;'></th>").append(item.id);
 		let nameTd = $("<td scope='row' class='text-center' style='width:70px;vertical-align:middle;'></td>").append(item.name);
-		let pronounciationTd = $("<td scope='row' class='text-center' style='width:100px;vertical-align:middle;'></td>").append(item.pronounciation);
+		let pronunciationTd = $("<td scope='row' class='text-center' style='width:100px;vertical-align:middle;'></td>").append(item.pronunciation);
 		let districtTd = $("<td scope='row' class='text-center' style='width:70px;vertical-align:middle;'></td>").append(item.districtName);
 		let populationTd = $("<td scope='row' class='text-center' style='width:50px;vertical-align:middle;'></td>").append(patternedPop);
 		let flagTd = $("<td scope='row' class='text-center' style='width:50px;vertical-align:middle;'></td>").append(item.cityFlag);
@@ -46,7 +46,7 @@ function buildTableBody(result) {
 			.append($("<i class='bi bi-trash-fill'></i>")).append("削除");
 		deleteBtn.attr("deleteId", item.id);
 		let btnTd = $("<td class='text-center' style='width:100px;vertical-align:middle;'></td>").append(editBtn).append(" ").append(deleteBtn);
-		$("<tr></tr>").append(idTd).append(nameTd).append(pronounciationTd).append(districtTd).append(populationTd).append(flagTd).append(btnTd).appendTo("#tableBody");
+		$("<tr></tr>").append(idTd).append(nameTd).append(pronunciationTd).append(districtTd).append(populationTd).append(flagTd).append(btnTd).appendTo("#tableBody");
 	});
 }
 $("#addCityBtn").on('click', function() {
@@ -82,7 +82,7 @@ $("#cityInfoSaveBtn").on('click', function() {
 	} else {
 		let postData = JSON.stringify({
 			'name': $("#nameInput").val().trim(),
-			'pronounciation': $("#poInput").val().trim(),
+			'pronunciation': $("#poInput").val().trim(),
 			'districtId': $("#districtInput").val(),
 			'population': Number($("#populationInput").val().trim().replace(/,/g, ''))
 		});
@@ -131,7 +131,7 @@ $("#cityInfoChangeBtn").on('click', function() {
 		let putData = JSON.stringify({
 			'id': this.value,
 			'name': $("#nameEdit").val().trim(),
-			'pronounciation': $("#poEdit").val().trim(),
+			'pronunciation': $("#poEdit").val().trim(),
 			'districtId': $("#districtEdit").val(),
 			'population': Number($("#populationEdit").val().trim().replace(/,/g, ''))
 		});
