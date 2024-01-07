@@ -2,7 +2,7 @@ server:
   port: 8687
 spring:
   application:
-    name: crowdplus
+    name: crowdproject
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
     url: jdbc:oracle:thin:@//52.199.163.241:1521/FREEPDB1
