@@ -4,10 +4,6 @@
 	<resultMap id="BasicResultMap"
 		type="jp.co.sony.ppog.entity.District" autoMapping="true">
 		<id property="id" jdbcType="NUMERIC" column="ID" />
-		<association property="city" javaType="jp.co.sony.ppog.entity.City">
-			<id property="id" jdbcType="NUMERIC" column="ID" />
-			<result property="name" jdbcType="NVARCHAR" column="CITY_NAME" />
-		</association>
 	</resultMap>
 	<update id="updateById"
 		parameterType="jp.co.sony.ppog.entity.District">
@@ -44,7 +40,7 @@
 	<select id="paginationByKeyword" resultMap="BasicResultMap">
 		SELECT
 		    PDV.*
-		    , PCV.NAME AS CITY_NAME 
+		    , PCV.NAME AS SHUTO_NAME 
 		FROM
 		    PPOG_DISTRICTS_VIEW PDV 
 		    LEFT JOIN PPOG_CITIES_VIEW PCV 

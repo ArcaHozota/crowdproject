@@ -31,6 +31,11 @@ public final class District implements Serializable {
 	private String shutoId;
 
 	/**
+	 * 州都名称
+	 */
+	private String shutoName;
+
+	/**
 	 * 地方
 	 */
 	private String chiho;
@@ -39,9 +44,4 @@ public final class District implements Serializable {
 	 * 論理削除フラグ
 	 */
 	private String delFlg;
-
-	/**
-	 * 地域都市連携エンティティ都市ID
-	 */
-	private City city;
 }

@@ -78,7 +78,6 @@ public class DistrictServiceImpl implements IDistrictService {
 					final DistrictDto districtDto = new DistrictDto();
 					final Long population = this.cityMapper.countPopulationById(item.getId());
 					SecondBeanUtils.copyNullableProperties(item, districtDto);
-					districtDto.setShutoName(item.getCity().getName());
 					districtDto.setPopulation(population);
 					return districtDto;
 				}).collect(Collectors.toList());
