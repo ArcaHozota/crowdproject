@@ -41,6 +41,11 @@ public final class City implements Serializable {
 	private Long population;
 
 	/**
+	 * 市町村旗
+	 */
+	private String cityFlag;
+
+	/**
 	 * 論理削除フラグ
 	 */
 	private String delFlg;

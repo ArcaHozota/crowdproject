@@ -38,7 +38,7 @@ function buildTableBody(result) {
 		let pronounciationTd = $("<td scope='row' class='text-center' style='width:100px;vertical-align:middle;'></td>").append(item.pronounciation);
 		let districtTd = $("<td scope='row' class='text-center' style='width:70px;vertical-align:middle;'></td>").append(item.districtName);
 		let populationTd = $("<td scope='row' class='text-center' style='width:50px;vertical-align:middle;'></td>").append(patternedPop);
-		let stationTd = $("<td scope='row' class='text-center' style='width:50px;vertical-align:middle;'></td>").append(item.stationNo);
+		let flagTd = $("<td scope='row' class='text-center' style='width:50px;vertical-align:middle;'></td>").append(item.cityFlag);
 		let editBtn = $("<button></button>").addClass("btn btn-primary btn-sm edit-btn")
 			.append($("<i class='bi bi-pencil-fill'></i>")).append("編集");
 		editBtn.attr("editId", item.id);
@@ -46,7 +46,7 @@ function buildTableBody(result) {
 			.append($("<i class='bi bi-trash-fill'></i>")).append("削除");
 		deleteBtn.attr("deleteId", item.id);
 		let btnTd = $("<td class='text-center' style='width:100px;vertical-align:middle;'></td>").append(editBtn).append(" ").append(deleteBtn);
-		$("<tr></tr>").append(idTd).append(nameTd).append(pronounciationTd).append(districtTd).append(populationTd).append(stationTd).append(btnTd).appendTo("#tableBody");
+		$("<tr></tr>").append(idTd).append(nameTd).append(pronounciationTd).append(districtTd).append(populationTd).append(flagTd).append(btnTd).appendTo("#tableBody");
 	});
 }
 $("#addCityBtn").on('click', function() {

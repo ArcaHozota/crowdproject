@@ -46,7 +46,7 @@ public final class CityDto implements Serializable {
 	private Long population;
 
 	/**
-	 * 駅数量
+	 * 市町村旗
 	 */
-	private Long stationNo;
+	private String cityFlag;
 }
