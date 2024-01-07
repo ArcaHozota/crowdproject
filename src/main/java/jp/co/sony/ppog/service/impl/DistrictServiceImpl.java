@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import jp.co.sony.ppog.commons.CrowdPlusConstants;
+import jp.co.sony.ppog.commons.CrowdProjectConstants;
 import jp.co.sony.ppog.dto.DistrictDto;
 import jp.co.sony.ppog.entity.District;
 import jp.co.sony.ppog.mapper.CityMapper;
@@ -54,7 +54,7 @@ public class DistrictServiceImpl implements IDistrictService {
 		if (StringUtils.isEmpty(id) || StringUtils.isEqual("null", id)) {
 			final DistrictDto districtDto = new DistrictDto();
 			districtDto.setId(0L);
-			districtDto.setName(CrowdPlusConstants.DEFAULT_ROLE_NAME);
+			districtDto.setName(CrowdProjectConstants.DEFAULT_ROLE_NAME);
 			list.add(districtDto);
 			list.addAll(districtDtos);
 			return list;
@@ -69,7 +69,7 @@ public class DistrictServiceImpl implements IDistrictService {
 
 	@Override
 	public Pagination<DistrictDto> getDistrictsByKeyword(final Integer pageNum, final String keyword) {
-		final Integer pageSize = CrowdPlusConstants.DEFAULT_PAGE_SIZE;
+		final Integer pageSize = CrowdProjectConstants.DEFAULT_PAGE_SIZE;
 		final Integer offset = (pageNum - 1) * pageSize;
 		final String searchStr = StringUtils.getDetailKeyword(keyword);
 		final Long records = this.districtMapper.countByKeyword(searchStr);
@@ -93,7 +93,7 @@ public class DistrictServiceImpl implements IDistrictService {
 		SecondBeanUtils.copyNullableProperties(district, entity);
 		SecondBeanUtils.copyNullableProperties(districtDto, district);
 		if (district.equals(entity)) {
-			return ResultDto.failed(CrowdPlusConstants.MESSAGE_STRING_NOCHANGE);
+			return ResultDto.failed(CrowdProjectConstants.MESSAGE_STRING_NOCHANGE);
 		}
 		this.districtMapper.updateById(district);
 		return ResultDto.successWithoutData();

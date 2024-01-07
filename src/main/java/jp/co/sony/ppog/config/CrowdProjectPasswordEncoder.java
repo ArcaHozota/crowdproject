@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
  * @since 1.90
  */
 @NoArgsConstructor
-public final class CrowdPlusPasswordEncoder implements PasswordEncoder {
+public final class CrowdProjectPasswordEncoder implements PasswordEncoder {
 
 	private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(BCryptVersion.$2Y, 7);
 

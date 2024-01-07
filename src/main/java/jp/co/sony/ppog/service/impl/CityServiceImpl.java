@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import jp.co.sony.ppog.commons.CrowdPlusConstants;
+import jp.co.sony.ppog.commons.CrowdProjectConstants;
 import jp.co.sony.ppog.dto.CityDto;
 import jp.co.sony.ppog.entity.City;
 import jp.co.sony.ppog.mapper.CityMapper;
@@ -42,13 +42,13 @@ public class CityServiceImpl implements ICityService {
 		city.setName(name);
 		city.setDistrictId(districtId);
 		return this.cityMapper.checkDuplicated(city) > 0
-				? ResultDto.failed(CrowdPlusConstants.MESSAGE_CITY_NAME_DUPLICATED)
+				? ResultDto.failed(CrowdProjectConstants.MESSAGE_CITY_NAME_DUPLICATED)
 				: ResultDto.successWithoutData();
 	}
 
 	@Override
 	public Pagination<CityDto> getCitiesByKeyword(final Integer pageNum, final String keyword) {
-		final Integer pageSize = CrowdPlusConstants.DEFAULT_PAGE_SIZE;
+		final Integer pageSize = CrowdProjectConstants.DEFAULT_PAGE_SIZE;
 		final Integer offset = (pageNum - 1) * pageSize;
 		String searchStr;
 		if (StringUtils.isDigital(keyword)) {
@@ -83,7 +83,7 @@ public class CityServiceImpl implements ICityService {
 		final City city = new City();
 		SecondBeanUtils.copyNullableProperties(cityDto, city);
 		city.setId(SnowflakeUtils.snowflakeId());
-		city.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
+		city.setDelFlg(CrowdProjectConstants.LOGIC_DELETE_INITIAL);
 		this.cityMapper.insertById(city);
 	}
 
@@ -95,7 +95,7 @@ public class CityServiceImpl implements ICityService {
 		SecondBeanUtils.copyNullableProperties(city, entity);
 		SecondBeanUtils.copyNullableProperties(cityDto, city);
 		if (city.equals(entity)) {
-			return ResultDto.failed(CrowdPlusConstants.MESSAGE_STRING_NOCHANGE);
+			return ResultDto.failed(CrowdProjectConstants.MESSAGE_STRING_NOCHANGE);
 		}
 		this.cityMapper.updateById(city);
 		return ResultDto.successWithoutData();

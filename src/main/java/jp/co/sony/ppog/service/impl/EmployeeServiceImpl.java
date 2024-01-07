@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import jp.co.sony.ppog.commons.CrowdPlusConstants;
-import jp.co.sony.ppog.config.CrowdPlusPasswordEncoder;
+import jp.co.sony.ppog.commons.CrowdProjectConstants;
+import jp.co.sony.ppog.config.CrowdProjectPasswordEncoder;
 import jp.co.sony.ppog.dto.EmployeeDto;
 import jp.co.sony.ppog.entity.Employee;
 import jp.co.sony.ppog.entity.EmployeeRole;
@@ -49,7 +49,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	@Override
 	public ResultDto<String> check(final String loginAccount) {
 		return this.employeeMapper.checkDuplicated(loginAccount) > 0
-				? ResultDto.failed(CrowdPlusConstants.MESSAGE_STRING_DUPLICATED)
+				? ResultDto.failed(CrowdProjectConstants.MESSAGE_STRING_DUPLICATED)
 				: ResultDto.successWithoutData();
 	}
 
@@ -57,7 +57,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	public EmployeeDto getEmployeeById(final Long id) {
 		final Employee entity = new Employee();
 		entity.setId(id);
-		entity.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
+		entity.setDelFlg(CrowdProjectConstants.LOGIC_DELETE_INITIAL);
 		final Employee employee = this.employeeMapper.selectById(entity);
 		final EmployeeDto employeeDto = new EmployeeDto();
 		SecondBeanUtils.copyNullableProperties(employee, employeeDto);
@@ -66,7 +66,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 	@Override
 	public Pagination<EmployeeDto> getEmployeesByKeyword(final Integer pageNum, final String keyword) {
-		final Integer pageSize = CrowdPlusConstants.DEFAULT_PAGE_SIZE;
+		final Integer pageSize = CrowdProjectConstants.DEFAULT_PAGE_SIZE;
 		final Integer offset = (pageNum - 1) * pageSize;
 		final String searchStr = StringUtils.getDetailKeyword(keyword);
 		final Long records = this.employeeMapper.countByKeyword(searchStr);
@@ -83,20 +83,20 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	public void removeById(final Long userId) {
 		final Employee entity = new Employee();
 		entity.setId(userId);
-		entity.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_FLG);
+		entity.setDelFlg(CrowdProjectConstants.LOGIC_DELETE_FLG);
 		this.employeeMapper.removeById(entity);
 	}
 
 	@Override
 	public void save(final EmployeeDto employeeDto) {
 		final Employee employee = new Employee();
-		final CrowdPlusPasswordEncoder encoder = new CrowdPlusPasswordEncoder();
+		final CrowdProjectPasswordEncoder encoder = new CrowdProjectPasswordEncoder();
 		final String password = encoder.encode(employeeDto.getPassword());
 		SecondBeanUtils.copyNullableProperties(employeeDto, employee);
 		employee.setId(SnowflakeUtils.snowflakeId());
 		employee.setPassword(password);
 		employee.setCreatedTime(LocalDateTime.now());
-		employee.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
+		employee.setDelFlg(CrowdProjectConstants.LOGIC_DELETE_INITIAL);
 		this.employeeMapper.insertById(employee);
 		if ((employeeDto.getRoleId() != null) && !Objects.equals(Long.valueOf(0L), employeeDto.getRoleId())) {
 			final EmployeeRole employeeEx = new EmployeeRole();
@@ -114,13 +114,13 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		SecondBeanUtils.copyNullableProperties(employee, entity);
 		SecondBeanUtils.copyNullableProperties(employeeDto, employee);
 		if (StringUtils.isNotEmpty(employeeDto.getPassword())) {
-			final CrowdPlusPasswordEncoder encoder = new CrowdPlusPasswordEncoder();
+			final CrowdProjectPasswordEncoder encoder = new CrowdProjectPasswordEncoder();
 			final String encoded = encoder.encode(employeeDto.getPassword());
 			employee.setPassword(encoded);
 		}
 		final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(employeeDto.getId());
 		if (employee.equals(entity) && Objects.equals(employeeDto.getRoleId(), employeeRole.getRoleId())) {
-			return ResultDto.failed(CrowdPlusConstants.MESSAGE_STRING_NOCHANGE);
+			return ResultDto.failed(CrowdProjectConstants.MESSAGE_STRING_NOCHANGE);
 		}
 		employeeRole.setRoleId(employeeDto.getRoleId());
 		this.employeeRoleMapper.updateById(employeeRole);

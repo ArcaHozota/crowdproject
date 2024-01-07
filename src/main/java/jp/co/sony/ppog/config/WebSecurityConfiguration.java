@@ -16,10 +16,10 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import jp.co.sony.ppog.commons.CrowdPlusConstants;
-import jp.co.sony.ppog.exception.CrowdPlusException;
-import jp.co.sony.ppog.listener.CrowdPlusUserDetailsService;
-import jp.co.sony.ppog.utils.CrowdPlusUtils;
+import jp.co.sony.ppog.commons.CrowdProjectConstants;
+import jp.co.sony.ppog.exception.CrowdProjectException;
+import jp.co.sony.ppog.listener.CrowdProjectUserDetailsService;
+import jp.co.sony.ppog.utils.CrowdProjectUtils;
 import lombok.extern.log4j.Log4j2;
 
 /**
@@ -32,13 +32,13 @@ import lombok.extern.log4j.Log4j2;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-public class WebSecurityConfig {
+public class WebSecurityConfiguration {
 
 	/**
 	 * ログインサービス
 	 */
 	@Resource
-	private CrowdPlusUserDetailsService crowdPlusUserDetailsService;
+	private CrowdProjectUserDetailsService crowdPlusUserDetailsService;
 
 	@Bean
 	protected AuthenticationManager authenticationManager(final AuthenticationManagerBuilder auth) {
@@ -47,9 +47,9 @@ public class WebSecurityConfig {
 
 	@Bean
 	protected DaoAuthenticationProvider daoAuthenticationProvider() {
-		final CrowdPlusDaoAuthenticationProvider provider = new CrowdPlusDaoAuthenticationProvider();
+		final CrowdProjectDaoAuthenticationProvider provider = new CrowdProjectDaoAuthenticationProvider();
 		provider.setUserDetailsService(this.crowdPlusUserDetailsService);
-		provider.setPasswordEncoder(new CrowdPlusPasswordEncoder());
+		provider.setPasswordEncoder(new CrowdProjectPasswordEncoder());
 		return provider;
 	}
 
@@ -66,11 +66,11 @@ public class WebSecurityConfig {
 				.exceptionHandling().authenticationEntryPoint((request, response, authenticationException) -> {
 					final ResponseLoginDto responseResult = new ResponseLoginDto(HttpStatus.UNAUTHORIZED.value(),
 							authenticationException.getMessage());
-					CrowdPlusUtils.renderString(response, responseResult);
+					CrowdProjectUtils.renderString(response, responseResult);
 				}).accessDeniedHandler((request, response, accessDeniedException) -> {
 					final ResponseLoginDto responseResult = new ResponseLoginDto(HttpStatus.FORBIDDEN.value(),
-							CrowdPlusConstants.MESSAGE_SPRINGSECURITY_REQUIREDAUTH);
-					CrowdPlusUtils.renderString(response, responseResult);
+							CrowdProjectConstants.MESSAGE_SPRINGSECURITY_REQUIREDAUTH);
+					CrowdProjectUtils.renderString(response, responseResult);
 				}).and().formLogin(formLogin -> {
 					formLogin.loginPage("/pgcrowd/employee/login").loginProcessingUrl("/pgcrowd/employee/do/login")
 							.defaultSuccessUrl("/pgcrowd/to/mainmenu").permitAll().usernameParameter("loginAcct")
@@ -79,10 +79,10 @@ public class WebSecurityConfig {
 						formLogin.and().logout(logout -> logout.logoutUrl("/pgcrowd/employee/logout")
 								.logoutSuccessUrl("/pgcrowd/employee/login"));
 					} catch (final Exception e) {
-						throw new CrowdPlusException(CrowdPlusConstants.MESSAGE_STRING_FATALERROR);
+						throw new CrowdProjectException(CrowdProjectConstants.MESSAGE_STRING_FATALERROR);
 					}
 				}).httpBasic(Customizer.withDefaults());
-		log.info(CrowdPlusConstants.MESSAGE_SPRING_SECURITY);
+		log.info(CrowdProjectConstants.MESSAGE_SPRING_SECURITY);
 		return http.build();
 	}
 }

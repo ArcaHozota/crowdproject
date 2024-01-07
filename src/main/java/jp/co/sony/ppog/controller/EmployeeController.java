@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import jp.co.sony.ppog.commons.CrowdPlusConstants;
+import jp.co.sony.ppog.commons.CrowdProjectConstants;
 import jp.co.sony.ppog.dto.EmployeeDto;
 import jp.co.sony.ppog.dto.RoleDto;
 import jp.co.sony.ppog.service.IEmployeeService;
@@ -128,7 +128,7 @@ public class EmployeeController {
 	public ModelAndView toAddition() {
 		final List<RoleDto> employeeRolesById = this.iRoleService.getEmployeeRolesById(null);
 		final ModelAndView modelAndView = new ModelAndView("admin-addinfo");
-		modelAndView.addObject(CrowdPlusConstants.ATTRNAME_EMPLOYEEROLES, employeeRolesById);
+		modelAndView.addObject(CrowdProjectConstants.ATTRNAME_EMPLOYEEROLES, employeeRolesById);
 		return modelAndView;
 	}
 
@@ -144,8 +144,8 @@ public class EmployeeController {
 		final EmployeeDto employee = this.iEmployeeService.getEmployeeById(id);
 		final List<RoleDto> employeeRolesById = this.iRoleService.getEmployeeRolesById(id);
 		final ModelAndView modelAndView = new ModelAndView("admin-editinfo");
-		modelAndView.addObject(CrowdPlusConstants.ATTRNAME_EDITED_INFO, employee);
-		modelAndView.addObject(CrowdPlusConstants.ATTRNAME_EMPLOYEEROLES, employeeRolesById);
+		modelAndView.addObject(CrowdProjectConstants.ATTRNAME_EDITED_INFO, employee);
+		modelAndView.addObject(CrowdProjectConstants.ATTRNAME_EMPLOYEEROLES, employeeRolesById);
 		return modelAndView;
 	}
 

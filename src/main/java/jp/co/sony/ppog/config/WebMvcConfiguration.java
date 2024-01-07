@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
-import jp.co.sony.ppog.commons.CrowdPlusConstants;
+import jp.co.sony.ppog.commons.CrowdProjectConstants;
 import lombok.extern.log4j.Log4j2;
 
 /**
@@ -29,7 +29,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 	 */
 	@Override
 	protected void addResourceHandlers(final ResourceHandlerRegistry registry) {
-		log.info(CrowdPlusConstants.MESSAGE_SPRING_MAPPER);
+		log.info(CrowdProjectConstants.MESSAGE_SPRING_MAPPER);
 		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
 	}
 
@@ -57,7 +57,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 	 */
 	@Override
 	protected void extendMessageConverters(final List<HttpMessageConverter<?>> converters) {
-		log.info(CrowdPlusConstants.MESSAGE_SPRING_MVCCONVERTOR);
+		log.info(CrowdProjectConstants.MESSAGE_SPRING_MVCCONVERTOR);
 		// メッセージコンバータオブジェクトを作成する。
 		final MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
 		// オブジェクトコンバータを設定し、Jacksonを使用してJavaオブジェクトをJSONに変換する。

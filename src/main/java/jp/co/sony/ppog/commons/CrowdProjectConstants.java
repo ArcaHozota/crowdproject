@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
  * @since 1.00beta
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class CrowdPlusConstants {
+public final class CrowdProjectConstants {
 
 	public static final Integer DEFAULT_PAGE_SIZE = 5;
 

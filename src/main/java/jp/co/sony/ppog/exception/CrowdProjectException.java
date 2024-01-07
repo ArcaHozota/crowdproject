@@ -8,7 +8,7 @@ import jp.co.sony.ppog.utils.StringUtils;
  * @author ArkamaHozota
  * @since 1.00beta
  */
-public class CrowdPlusException extends RuntimeException {
+public class CrowdProjectException extends RuntimeException {
 
 	private static final long serialVersionUID = 8469408957890840211L;
 
@@ -17,12 +17,12 @@ public class CrowdPlusException extends RuntimeException {
 	 */
 	private final String message;
 
-	public CrowdPlusException() {
+	public CrowdProjectException() {
 		super();
 		this.message = StringUtils.EMPTY_STRING;
 	}
 
-	public CrowdPlusException(final String message) {
+	public CrowdProjectException(final String message) {
 		super(message);
 		this.message = message;
 	}

@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
  * @since 1.00beta
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class CrowdPlusUtils {
+public final class CrowdProjectUtils {
 
 	/**
 	 * 現在のリクエストがAJAXリクエストであるかどうかを判断する

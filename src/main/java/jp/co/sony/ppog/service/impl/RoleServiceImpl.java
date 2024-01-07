@@ -11,7 +11,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import jp.co.sony.ppog.commons.CrowdPlusConstants;
+import jp.co.sony.ppog.commons.CrowdProjectConstants;
 import jp.co.sony.ppog.dto.RoleDto;
 import jp.co.sony.ppog.entity.Authority;
 import jp.co.sony.ppog.entity.EmployeeRole;
@@ -59,7 +59,7 @@ public class RoleServiceImpl implements IRoleService {
 	@Override
 	public ResultDto<String> check(final String name) {
 		return this.roleMapper.checkDuplicated(name) > 0
-				? ResultDto.failed(CrowdPlusConstants.MESSAGE_ROLE_NAME_DUPLICATED)
+				? ResultDto.failed(CrowdProjectConstants.MESSAGE_ROLE_NAME_DUPLICATED)
 				: ResultDto.successWithoutData();
 	}
 
@@ -78,7 +78,7 @@ public class RoleServiceImpl implements IRoleService {
 		try {
 			this.roleMapper.batchInsertByIds(list);
 		} catch (final Exception e) {
-			return ResultDto.failed(CrowdPlusConstants.MESSAGE_STRING_FORBIDDEN2);
+			return ResultDto.failed(CrowdProjectConstants.MESSAGE_STRING_FORBIDDEN2);
 		}
 		return ResultDto.successWithoutData();
 	}
@@ -87,7 +87,7 @@ public class RoleServiceImpl implements IRoleService {
 	public List<Long> getAuthIdListByRoleId(final Long roleId) {
 		final Role entity = new Role();
 		entity.setId(roleId);
-		entity.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
+		entity.setDelFlg(CrowdProjectConstants.LOGIC_DELETE_INITIAL);
 		final Role role = this.roleMapper.selectByIdWithAuth(entity);
 		return role.getRoleAuths().stream().map(RoleAuth::getAuthId).collect(Collectors.toList());
 	}
@@ -102,7 +102,7 @@ public class RoleServiceImpl implements IRoleService {
 		final List<RoleDto> secondRoles = new ArrayList<>();
 		final RoleDto secondRole = new RoleDto();
 		secondRole.setId(0L);
-		secondRole.setName(CrowdPlusConstants.DEFAULT_ROLE_NAME);
+		secondRole.setName(CrowdProjectConstants.DEFAULT_ROLE_NAME);
 		final List<RoleDto> roleDtos = this.roleMapper.selectAll().stream().map(item -> {
 			final RoleDto roleDto = new RoleDto();
 			SecondBeanUtils.copyNullableProperties(item, roleDto);
@@ -128,7 +128,7 @@ public class RoleServiceImpl implements IRoleService {
 
 	@Override
 	public Pagination<RoleDto> getRolesByKeyword(final Integer pageNum, final String keyword) {
-		final Integer pageSize = CrowdPlusConstants.DEFAULT_PAGE_SIZE;
+		final Integer pageSize = CrowdProjectConstants.DEFAULT_PAGE_SIZE;
 		final Integer offset = (pageNum - 1) * pageSize;
 		String searchStr;
 		if (StringUtils.isDigital(keyword)) {
@@ -160,11 +160,11 @@ public class RoleServiceImpl implements IRoleService {
 	public ResultDto<String> removeById(final Long roleId) {
 		final List<EmployeeRole> list = this.employeeRoleMapper.selectByRoleId(roleId);
 		if (!list.isEmpty()) {
-			return ResultDto.failed(CrowdPlusConstants.MESSAGE_STRING_FORBIDDEN);
+			return ResultDto.failed(CrowdProjectConstants.MESSAGE_STRING_FORBIDDEN);
 		}
 		final Role entity = new Role();
 		entity.setId(roleId);
-		entity.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
+		entity.setDelFlg(CrowdProjectConstants.LOGIC_DELETE_INITIAL);
 		this.roleMapper.removeById(entity);
 		return ResultDto.successWithoutData();
 	}
@@ -174,7 +174,7 @@ public class RoleServiceImpl implements IRoleService {
 		final Role role = new Role();
 		SecondBeanUtils.copyNullableProperties(roleDto, role);
 		role.setId(SnowflakeUtils.snowflakeId());
-		role.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
+		role.setDelFlg(CrowdProjectConstants.LOGIC_DELETE_INITIAL);
 		this.roleMapper.insertById(role);
 	}
 
@@ -186,12 +186,12 @@ public class RoleServiceImpl implements IRoleService {
 		SecondBeanUtils.copyNullableProperties(role, entity);
 		SecondBeanUtils.copyNullableProperties(roleDto, role);
 		if (role.equals(entity)) {
-			return ResultDto.failed(CrowdPlusConstants.MESSAGE_STRING_NOCHANGE);
+			return ResultDto.failed(CrowdProjectConstants.MESSAGE_STRING_NOCHANGE);
 		}
 		try {
 			this.roleMapper.updateById(role);
 		} catch (final DataIntegrityViolationException e) {
-			return ResultDto.failed(CrowdPlusConstants.MESSAGE_ROLE_NAME_DUPLICATED);
+			return ResultDto.failed(CrowdProjectConstants.MESSAGE_ROLE_NAME_DUPLICATED);
 		}
 		return ResultDto.successWithoutData();
 	}

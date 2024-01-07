@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import jp.co.sony.ppog.commons.CrowdPlusConstants;
+import jp.co.sony.ppog.commons.CrowdProjectConstants;
 import jp.co.sony.ppog.entity.Employee;
 import jp.co.sony.ppog.entity.EmployeeRole;
 import jp.co.sony.ppog.entity.Role;
@@ -36,7 +36,7 @@ import oracle.jdbc.driver.OracleSQLException;
 @Component
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 @Transactional(rollbackFor = OracleSQLException.class)
-public class CrowdPlusUserDetailsService implements UserDetailsService {
+public class CrowdProjectUserDetailsService implements UserDetailsService {
 
 	/**
 	 * 権限マッパー
@@ -62,18 +62,18 @@ public class CrowdPlusUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
 		final Employee employee = this.employeeMapper.selectByLoginAcct(username);
 		if (employee == null) {
-			throw new DisabledException(CrowdPlusConstants.MESSAGE_SPRINGSECURITY_LOGINERROR1);
+			throw new DisabledException(CrowdProjectConstants.MESSAGE_SPRINGSECURITY_LOGINERROR1);
 		}
 		final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(employee.getId());
 		if (employeeRole == null) {
-			throw new InsufficientAuthenticationException(CrowdPlusConstants.MESSAGE_SPRINGSECURITY_LOGINERROR2);
+			throw new InsufficientAuthenticationException(CrowdProjectConstants.MESSAGE_SPRINGSECURITY_LOGINERROR2);
 		}
 		final Role entity = new Role();
 		entity.setId(employeeRole.getRoleId());
-		entity.setDelFlg(CrowdPlusConstants.LOGIC_DELETE_INITIAL);
+		entity.setDelFlg(CrowdProjectConstants.LOGIC_DELETE_INITIAL);
 		final Role role = this.roleMapper.selectByIdWithAuth(entity);
 		if (role.getRoleAuths().isEmpty()) {
-			throw new AuthenticationCredentialsNotFoundException(CrowdPlusConstants.MESSAGE_SPRINGSECURITY_LOGINERROR3);
+			throw new AuthenticationCredentialsNotFoundException(CrowdProjectConstants.MESSAGE_SPRINGSECURITY_LOGINERROR3);
 		}
 		final List<Long> authIds = role.getRoleAuths().stream().map(RoleAuth::getAuthId).collect(Collectors.toList());
 		final List<GrantedAuthority> authorities = this.authorityMapper.selectByIds(authIds).stream()
