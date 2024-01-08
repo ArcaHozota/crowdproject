@@ -39,6 +39,7 @@ $(function() {
 					id: "toCategory",
 					text: "分類管理",
 					icon: "bi bi-list",
+					expanded: true,
 					nodes: [
 						{
 							id: "toDistrict",
