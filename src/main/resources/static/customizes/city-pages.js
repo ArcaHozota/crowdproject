@@ -35,7 +35,7 @@ function buildTableBody(result) {
 		let patternedPop = Number(item.population).toLocaleString('en-US');
 		let idTd = $("<th scope='row' class='text-center table-warning' style='width:150px;vertical-align:middle;'></th>").append(item.id);
 		let nameTd = $("<td scope='row' class='text-center table-warning' style='width:70px;vertical-align:middle;'></td>").append(item.name);
-		let pronunciationTd = $("<td scope='row' class='text-center' style='width:100px;vertical-align:middle;'></td>").append(item.pronunciation);
+		let pronunciationTd = $("<td scope='row' class='text-center table-warning' style='width:100px;vertical-align:middle;'></td>").append(item.pronunciation);
 		let districtTd = $("<td scope='row' class='text-center table-warning' style='width:70px;vertical-align:middle;'></td>").append(item.districtName);
 		let populationTd = $("<td scope='row' class='text-center table-warning' style='width:50px;vertical-align:middle;'></td>").append(patternedPop);
 		let flagImg = $("<img>").attr('src', '../static/image/flags/' + item.cityFlag + '.svg').attr('alt', '').height(27).width(40);
