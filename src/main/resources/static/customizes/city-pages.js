@@ -1,6 +1,6 @@
 let pageNum, totalRecords, totalPages, keyword;
 $(document).ready(function() {
-	$("#toCity").css('color', 'darkred');
+	$("#toCity").css('color', 'darkgreen');
 	toSelectedPg(1, keyword);
 });
 $("#searchBtn2").on('click', function() {

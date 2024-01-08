@@ -1,6 +1,6 @@
 let pageNum, totalRecords, totalPages, keyword;
 $(document).ready(function() {
-	$("#toAdmin").css('color', 'darkred');
+	$("#toAdmin").css('color', 'darkgreen');
 	toSelectedPg(1, keyword);
 });
 $("#searchBtn2").on('click', function() {

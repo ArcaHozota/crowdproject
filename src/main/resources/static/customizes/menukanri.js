@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$("#toMenu").css('color', 'darkred');
+	$("#toMenu").css('color', 'darkgreen');
 	let treeData = [
 		{
 			text: "社員管理",
