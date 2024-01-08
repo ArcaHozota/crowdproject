@@ -33,15 +33,15 @@ function buildTableBody(result) {
 	let index = result.data.records;
 	$.each(index, (index, item) => {
 		let patternedPop = Number(item.population).toLocaleString('en-US');
-		let idTd = $("<th scope='row' class='text-center' style='width:150px;vertical-align:middle;'></th>").append(item.id);
-		let nameTd = $("<td scope='row' class='text-center' style='width:70px;vertical-align:middle;'></td>").append(item.name);
-		let shutoTd = $("<td scope='row' class='text-center' style='width:70px;vertical-align:middle;'></td>").append(item.shutoName);
-		let chihoTd = $("<td scope='row' class='text-center' style='width:70px;vertical-align:middle;'></td>").append(item.chiho);
-		let populationTd = $("<td scope='row' class='text-center' style='width:70px;vertical-align:middle;'></td>").append(patternedPop);
+		let idTd = $("<th scope='row' class='text-center table-success' style='width:150px;vertical-align:middle;'></th>").append(item.id);
+		let nameTd = $("<td scope='row' class='text-center table-success' style='width:70px;vertical-align:middle;'></td>").append(item.name);
+		let shutoTd = $("<td scope='row' class='text-center table-success' style='width:70px;vertical-align:middle;'></td>").append(item.shutoName);
+		let chihoTd = $("<td scope='row' class='text-center table-success' style='width:70px;vertical-align:middle;'></td>").append(item.chiho);
+		let populationTd = $("<td scope='row' class='text-center table-success' style='width:70px;vertical-align:middle;'></td>").append(patternedPop);
 		let editBtn = $("<button style='width:100px;'></button>").addClass("btn btn-success btn-sm edit-btn")
 			.append($("<i class='bi bi-pencil-square'></i>")).append("編集");
 		editBtn.attr("editId", item.id);
-		let btnTd = $("<td class='text-center' style='width:100px;vertical-align:middle;'></td>").append(editBtn);
+		let btnTd = $("<td class='text-center table-success' style='width:100px;vertical-align:middle;'></td>").append(editBtn);
 		$("<tr></tr>").append(idTd).append(nameTd).append(shutoTd).append(chihoTd).append(populationTd).append(btnTd).appendTo("#tableBody");
 	});
 }
