@@ -51,8 +51,8 @@
 						</button>
 					</div>
 					<ul class="navbar-nav mb-2 mb-lg-0 d-flex" id="dropdown-info">
-						<li class="nav-item dropdown"> <a id="userinfo"
-								class="nav-link dropdown-toggle btn btn-success me-2" href="#" role="button"
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle btn btn-success me-2" href="#" role="button"
 								data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 13.34px;">
 								<i class="bi bi-person-fill"
 									th:text="${#authentication.getPrincipal().getOriginalAdmin().getUsername()}"></i></a>
@@ -71,8 +71,10 @@
 							</ul>
 						</li>
 					</ul>
-					<div class="d-flex"> <button id="button-help" type="button" class="btn btn-danger me-2"> <i
-								class="bi bi-info-circle"></i></button>
+					<div class="d-flex">
+						<button id="button-help" type="button" class="btn btn-danger me-2">
+							<i class="bi bi-info-circle"></i>
+						</button>
 					</div>
 				</div>
 			</div>
