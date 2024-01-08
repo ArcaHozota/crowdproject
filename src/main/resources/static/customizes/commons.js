@@ -45,6 +45,16 @@ $(function() {
 		let url = '/pgcrowd/category/initial';
 		checkPermissionAndTransfer(url);
 	});
+	$("#toDistrict").on('click', function(e) {
+		e.preventDefault();
+		let url = '/pgcrowd/category/to/districtPages';
+		checkPermissionAndTransfer(url);
+	});
+	$("#toCity").on('click', function(e) {
+		e.preventDefault();
+		let url = '/pgcrowd/category/to/cityPages';
+		checkPermissionAndTransfer(url);
+	});
 });
 function checkPermissionAndTransfer(stringUrl) {
 	let ajaxResult = $.ajax({
