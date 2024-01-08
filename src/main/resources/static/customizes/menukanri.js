@@ -1,6 +1,4 @@
 $(document).ready(function() {
-	$("#adminKanri").removeClass('collapsed');
-	$("ul", $("#adminKanri")).show('fast');
 	$("#toMenu").css('color', 'darkred');
 	let treeData = [
 		{

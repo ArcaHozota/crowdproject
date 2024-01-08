@@ -1,7 +1,5 @@
 let pageNum, totalRecords, totalPages, keyword;
 $(document).ready(function() {
-	$("#adminKanri").removeClass('collapsed');
-	$("ul", $("#adminKanri")).show('fast');
 	$("#toAdmin").css('color', 'darkred');
 	toSelectedPg(1, keyword);
 });

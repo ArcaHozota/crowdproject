@@ -1,8 +1,6 @@
 let pageNum, totalRecords, totalPages, keyword;
 $(document).ready(function() {
-	$("#businessKanri").removeClass('collapsed');
-	$("ul", $("#businessKanri")).show('fast');
-	$("#toCategory").css('color', 'darkred');
+	$("#toCity").css('color', 'darkred');
 	toSelectedPg(1, keyword);
 });
 $("#searchBtn2").on('click', function() {

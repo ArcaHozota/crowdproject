@@ -8,6 +8,7 @@ $(function() {
 		{
 			text: "権限管理",
 			icon: "bi bi-bank2",
+			expanded: true,
 			nodes: [
 				{
 					id: "toAdmin",
@@ -29,6 +30,7 @@ $(function() {
 		{
 			text: "ビジネス管理",
 			icon: "bi bi-boombox-fill",
+			expanded: true,
 			nodes: [
 				{
 					id: "toCertification",
@@ -65,7 +67,7 @@ $(function() {
 		data: treeData,
 		expandIcon: 'fa fa-angle-down fa-fw',
 		collapseIcon: 'fa fa-angle-right fa-fw',
-		indent: 2,
+		indent: 1.25,
 		parentsMarginLeft: '1.25rem',
 		openNodeLinkOnNewTab: true
 	});
