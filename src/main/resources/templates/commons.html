@@ -57,15 +57,24 @@
 								<i class="bi bi-person-fill"
 									th:text="${#authentication.getPrincipal().getOriginalAdmin().getUsername()}"></i></a>
 							<ul class="dropdown-menu dropdown-menu-end" role="menu">
-								<li><a class="dropdown-item" href="#"><i class="bi bi-gear-wide-connected"></i> 個人設定</a>
+								<li>
+									<a class="dropdown-item" href="#">
+										<i class="bi bi-gear-wide-connected"></i> 個人設定
+									</a>
 								</li>
-								<li><a class="dropdown-item" href="#"><i class="bi bi-chat-dots"></i> メッセージ</a></li>
+								<li>
+									<a class="dropdown-item" href="#">
+										<i class="bi bi-chat-dots"></i> メッセージ
+									</a>
+								</li>
 								<li>
 									<hr class="dropdown-divider">
 								</li>
-								<li><a id="logoutLink" class="dropdown-item" href="#"><i
-											class="bi bi-box-arrow-right"></i>
-										ログアウト</a></li>
+								<li>
+									<a id="logoutLink" class="dropdown-item" href="#">
+										<i class="bi bi-box-arrow-right"></i> ログアウト
+									</a>
+								</li>
 								<form id="logoutForm" method="post" th:action="@{/pgcrowd/employee/logout}"
 									style="display:none;"></form>
 							</ul>
@@ -82,65 +91,7 @@
 	</div>
 	<div th:fragment="sidebar" th:remove="tag">
 		<div class="col-sm-3 col-md-2 sidebar">
-			<div class="tree">
-				<ul style="padding-left: 0px;" class="list-group">
-					<li class="list-group-item list-group-item-action collapsed">
-						<a href="#" id="toMainmenu">
-							<i class="bi bi-speedometer"></i> コントロールパネル
-						</a>
-					</li>
-					<li class="list-group-item list-group-item-action collapsed" id="adminKanri">
-						<span><i class="bi bi-bank2"></i> 権限管理</span>
-						<ul style="margin-top: 10px; display: none;">
-							<li style="height: 30px;">
-								<a href="user.html" id="toAdmin">
-									<i class="bi bi-people-fill"></i> ユーザ管理
-								</a>
-							</li>
-							<li style="height: 30px;">
-								<a href="role.html" id="toRole">
-									<i class="bi bi-list-check"></i> 役割管理
-								</a>
-							</li>
-							<li style="height: 30px;">
-								<a href="permission.html" id="toMenu">
-									<i class="bi bi-menu-down"></i> メニュー管理
-								</a>
-							</li>
-						</ul>
-					</li>
-					<li class="list-group-item list-group-item-action collapsed" id="businessKanri">
-						<span><i class="bi bi-boombox-fill"></i> ビジネス管理</span>
-						<ul style="margin-top: 10px; display: none;">
-							<li style="height: 30px;">
-								<a href="cert.html" id="toCertification">
-									<i class="bi bi-check-circle-fill"></i> 資格維持
-								</a>
-							</li>
-							<li class="list-group-item list-group-item-action" id="toCategory">
-								<span><i class="bi bi-list"></i> 分類管理</span>
-								<ul style="margin-top: 10px; display: none;">
-									<li style="height: 30px;">
-										<a href="user.html" id="toDistrict">
-											<i class="bi bi-globe-americas"></i> 地域管理
-										</a>
-									</li>
-									<li style="height: 30px;">
-										<a href="role.html" id="toCity">
-											<i class="bi bi-building-fill-check"></i> 都市管理
-										</a>
-									</li>
-									<li style="height: 30px;">
-										<a href="permission.html" id="toStation">
-											<i class="bi bi-buildings-fill"></i> 駅管理
-										</a>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-				</ul>
-			</div>
+			<div class="tree" id="mainmenuTree"></div>
 		</div>
 	</div>
 </body>

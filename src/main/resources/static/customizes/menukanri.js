@@ -63,28 +63,28 @@ $(document).ready(function() {
 		parentsMarginLeft: '1.25rem',
 		openNodeLinkOnNewTab: true
 	});
-});
-$("#employeeAddTree").on('click', function() {
-	let url = '/pgcrowd/employee/to/addition';
-	checkPermissionAndTransfer(url);
-});
-$("#employeeQueryTree").on('click', function() {
-	let url = '/pgcrowd/employee/to/pages?pageNum=1';
-	checkPermissionAndTransfer(url);
-});
-$("#roleQueryTree").on('click', function() {
-	let url = '/pgcrowd/role/to/pages?pageNum=1';
-	checkPermissionAndTransfer(url);
-});
-$("#districtQueryTree").on('click', function() {
-	let url = '/pgcrowd/category/to/districtPages';
-	checkPermissionAndTransfer(url);
-});
-$("#cityQueryTree").on('click', function() {
-	let url = '/pgcrowd/category/to/cityPages';
-	checkPermissionAndTransfer(url);
-});
-$("#stationQueryTree").on('click', function() {
-	let url = '/pgcrowd/category/to/stationPages';
-	checkPermissionAndTransfer(url);
+	$("#employeeAddTree").on('click', function() {
+		let url = '/pgcrowd/employee/to/addition';
+		checkPermissionAndTransfer(url);
+	});
+	$("#employeeQueryTree").on('click', function() {
+		let url = '/pgcrowd/employee/to/pages?pageNum=1';
+		checkPermissionAndTransfer(url);
+	});
+	$("#roleQueryTree").on('click', function() {
+		let url = '/pgcrowd/role/to/pages?pageNum=1';
+		checkPermissionAndTransfer(url);
+	});
+	$("#districtQueryTree").on('click', function() {
+		let url = '/pgcrowd/category/to/districtPages';
+		checkPermissionAndTransfer(url);
+	});
+	$("#cityQueryTree").on('click', function() {
+		let url = '/pgcrowd/category/to/cityPages';
+		checkPermissionAndTransfer(url);
+	});
+	$("#stationQueryTree").on('click', function() {
+		let url = '/pgcrowd/category/to/stationPages';
+		checkPermissionAndTransfer(url);
+	});
 });

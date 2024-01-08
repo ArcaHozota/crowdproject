@@ -1,13 +1,72 @@
 $(function() {
-	$(".list-group-item").on('click', function() {
-		if ($(this).find("ul")) {
-			$(this).toggleClass("collapsed");
-			if ($(this).hasClass("collapsed")) {
-				$("ul", this).hide('fast');
-			} else {
-				$("ul", this).show('fast');
-			}
+	let treeData = [
+		{
+			id: "toMainmenu",
+			text: "コントロールパネル",
+			icon: "bi bi-speedometer",
+		},
+		{
+			text: "権限管理",
+			icon: "bi bi-bank2",
+			nodes: [
+				{
+					id: "toAdmin",
+					text: "ユーザ管理",
+					icon: "bi bi-people-fill"
+				},
+				{
+					id: "toRole",
+					text: "役割管理",
+					icon: "bi bi-list-check"
+				},
+				{
+					id: "toMenu",
+					text: "メニュー管理",
+					icon: "bi bi-menu-down"
+				}
+			]
+		},
+		{
+			text: "ビジネス管理",
+			icon: "bi bi-boombox-fill",
+			nodes: [
+				{
+					id: "toCertification",
+					text: "資格維持",
+					icon: "bi bi-check-circle-fill"
+				},
+				{
+					id: "toCategory",
+					text: "分類管理",
+					icon: "bi bi-list",
+					nodes: [
+						{
+							id: "toDistrict",
+							text: "地域一覧",
+							icon: "bi bi-globe-americas"
+						},
+						{
+							id: "toCity",
+							text: "都市一覧",
+							icon: "bi bi-building-fill-check"
+						},
+						{
+							id: "toStation",
+							text: "駅一覧",
+							icon: "bi bi-buildings-fill"
+						}
+					]
+				}
+			]
 		}
+	];
+	$('#mainmenuTree').bstreeview({
+		data: treeData,
+		expandIcon: 'fa fa-angle-down fa-fw',
+		collapseIcon: 'fa fa-angle-right fa-fw',
+		indent: 2,
+		parentsMarginLeft: '1.25rem',
+		openNodeLinkOnNewTab: true
 	});
 	$("#logoutLink").on('click', function(e) {
 		e.preventDefault();

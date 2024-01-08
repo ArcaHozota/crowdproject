@@ -9,14 +9,17 @@ $(document).ready(function() {
 			expanded: true,
 			nodes: [
 				{
+					id: "districtQueryTree",
 					text: "地域一覧",
 					icon: "bi bi-globe-americas"
 				},
 				{
+					id: "cityQueryTree",
 					text: "都市一覧",
 					icon: "bi bi-building-fill-check"
 				},
 				{
+					id: "stationQueryTree",
 					text: "駅一覧",
 					icon: "bi bi-buildings-fill"
 				}
@@ -31,20 +34,16 @@ $(document).ready(function() {
 		parentsMarginLeft: '1.25rem',
 		openNodeLinkOnNewTab: true
 	});
-});
-$("#categroyTreeView").on('click', '.list-group-item', function() {
-	let url;
-	let titleName = $(this).text();
-	switch (titleName) {
-		case "地域一覧":
-			url = '/pgcrowd/category/to/districtPages';
-			break;
-		case "都市一覧":
-			url = '/pgcrowd/category/to/cityPages';
-			break;
-		case "駅一覧":
-			url = '/pgcrowd/category/to/stationPages';
-			break;
-	}
-	checkPermissionAndTransfer(url);
+	$("#districtQueryTree").on('click', function() {
+		let url = '/pgcrowd/category/to/districtPages';
+		checkPermissionAndTransfer(url);
+	});
+	$("#cityQueryTree").on('click', function() {
+		let url = '/pgcrowd/category/to/cityPages';
+		checkPermissionAndTransfer(url);
+	});
+	$("#stationQueryTree").on('click', function() {
+		let url = '/pgcrowd/category/to/stationPages';
+		checkPermissionAndTransfer(url);
+	});
 });
