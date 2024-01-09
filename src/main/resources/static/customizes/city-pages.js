@@ -31,20 +31,20 @@ function buildTableBody(result) {
 	let index = result.data.records;
 	$.each(index, (index, item) => {
 		let patternedPop = Number(item.population).toLocaleString('en-US');
-		let idTd = $("<th scope='row' class='text-center table-warning' style='width:150px;vertical-align:middle;'></th>").append(item.id);
-		let nameTd = $("<td scope='row' class='text-center table-warning' style='width:70px;vertical-align:middle;'></td>").append(item.name);
-		let pronunciationTd = $("<td scope='row' class='text-center table-warning' style='width:100px;vertical-align:middle;'></td>").append(item.pronunciation);
-		let districtTd = $("<td scope='row' class='text-center table-warning' style='width:70px;vertical-align:middle;'></td>").append(item.districtName);
-		let populationTd = $("<td scope='row' class='text-center table-warning' style='width:50px;vertical-align:middle;'></td>").append(patternedPop);
+		let idTd = $("<th scope='row' class='text-center table-danger' style='width:150px;vertical-align:middle;'></th>").append(item.id);
+		let nameTd = $("<td scope='row' class='text-center table-danger' style='width:70px;vertical-align:middle;'></td>").append(item.name);
+		let pronunciationTd = $("<td scope='row' class='text-center table-danger' style='width:100px;vertical-align:middle;'></td>").append(item.pronunciation);
+		let districtTd = $("<td scope='row' class='text-center table-danger' style='width:70px;vertical-align:middle;'></td>").append(item.districtName);
+		let populationTd = $("<td scope='row' class='text-center table-danger' style='width:50px;vertical-align:middle;'></td>").append(patternedPop);
 		let flagImg = $("<img>").attr('src', '../static/image/flags/' + item.cityFlag + '.svg').attr('alt', '').height(27).width(40);
-		let flagTd = $("<td scope='row' class='text-center table-warning' style='width:50px;vertical-align:middle;'></td>").append(flagImg);
+		let flagTd = $("<td scope='row' class='text-center table-danger' style='width:50px;vertical-align:middle;'></td>").append(flagImg);
 		let editBtn = $("<button></button>").addClass("btn btn-primary btn-sm edit-btn")
 			.append($("<i class='bi bi-pencil-fill'></i>")).append("編集");
 		editBtn.attr("editId", item.id);
 		let deleteBtn = $("<button></button>").addClass("btn btn-danger btn-sm delete-btn")
 			.append($("<i class='bi bi-trash-fill'></i>")).append("削除");
 		deleteBtn.attr("deleteId", item.id);
-		let btnTd = $("<td class='text-center table-warning' style='width:100px;vertical-align:middle;'></td>").append(editBtn).append(" ").append(deleteBtn);
+		let btnTd = $("<td class='text-center table-danger' style='width:100px;vertical-align:middle;'></td>").append(editBtn).append(" ").append(deleteBtn);
 		$("<tr></tr>").append(idTd).append(nameTd).append(pronunciationTd).append(districtTd).append(populationTd).append(flagTd).append(btnTd).appendTo("#tableBody");
 	});
 }
