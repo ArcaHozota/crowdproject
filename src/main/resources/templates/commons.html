@@ -54,7 +54,8 @@
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle btn btn-success me-2" href="#" role="button"
 								data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 13.34px;">
-								<i class="bi bi-person-fill"></i></a>
+								<i class="bi bi-person-fill"
+									th:text="${#authentication.getPrincipal().getOriginalAdmin().getUsername()}"></i></a>
 							<ul class="dropdown-menu dropdown-menu-end" role="menu">
 								<li>
 									<a class="dropdown-item" href="#" id="toPersonal">
