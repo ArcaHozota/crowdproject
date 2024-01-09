@@ -83,6 +83,11 @@ $(function() {
 		e.preventDefault();
 		window.location.replace('/pgcrowd/to/mainmenu');
 	});
+	$("#toPersonal").on('click', function(e) {
+		e.preventDefault();
+		let url = '/pgcrowd/employee/to/edition?editId=' + $(this).find("p").text();
+		checkPermissionAndTransfer(url);
+	});
 	$("#toAdmin").on('click', function(e) {
 		e.preventDefault();
 		let url = '/pgcrowd/employee/to/pages?pageNum=1';
@@ -201,7 +206,7 @@ function showValidationMsg(element, status, msg) {
 	if (status === "success") {
 		$(element).addClass("is-valid");
 		$(element).next("span").addClass("valid-feedback");
-	} else if (status === "error") {
+	} else {
 		$(element).addClass("is-invalid");
 		$(element).next("span").addClass("invalid-feedback").text(msg);
 	}
