@@ -73,7 +73,19 @@ $(function() {
 	});
 	$("#logoutLink").on('click', function(e) {
 		e.preventDefault();
-		$("#logoutForm").submit();
+		layer.confirm(
+			'ログアウトしてよろしいでしょうか。',
+			{
+				title: 'TIPS',
+				icon: 0,
+				skin: 'layui-layer-lan',
+				btn: ['いいえ', 'はい']
+			}, function(e) {
+				layer.close(e);
+			}, function() {
+				$("#logoutForm").submit();
+			}
+		);
 	});
 	$("#toMainmenu").on('click', function(e) {
 		e.preventDefault();

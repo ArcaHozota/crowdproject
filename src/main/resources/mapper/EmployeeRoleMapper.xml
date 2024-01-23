@@ -37,6 +37,6 @@
 		FROM
 		    PPOG_EMPLOYEE_ROLE_VIEW PERV 
 		WHERE
-		    PPER.ROLE_ID = #{roleId,jdbcType=NUMERIC}
+		    PERV.ROLE_ID = #{roleId,jdbcType=NUMERIC}
 	</select>
 </mapper>
