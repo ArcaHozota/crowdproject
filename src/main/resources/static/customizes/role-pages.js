@@ -111,9 +111,17 @@ $("#roleInfoChangeBtn").on('click', function() {
 $("#tableBody").on('click', '.delete-btn', function() {
 	let roleName = $(this).parents("tr").find("td:eq(0)").text().trim();
 	let roleId = $(this).attr("deleteId");
-	if (confirm("この" + roleName + "という役割情報を削除する、よろしいでしょうか。")) {
-		pgcrowdAjaxModify('/pgcrowd/role/delete/' + roleId, 'DELETE', null, normalDeleteSuccessFunction);
-	}
+	layer.confirm(
+		'この' + roleName + 'という役割情報を削除する、よろしいでしょうか。',
+		{
+			title: '警告',
+			icon: 0,
+			skin: 'layui-layer-molv',
+			btn: '確定'
+		}, function() {
+			pgcrowdAjaxModify('/pgcrowd/role/delete/' + roleId, 'DELETE', null, normalDeleteSuccessFunction);
+		}
+	);
 });
 $("#tableBody").on('click', '.fuyo-btn', function() {
 	let fuyoId = $(this).attr("fuyoId");
