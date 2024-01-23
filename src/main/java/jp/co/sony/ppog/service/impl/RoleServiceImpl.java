@@ -164,7 +164,7 @@ public class RoleServiceImpl implements IRoleService {
 		}
 		final Role entity = new Role();
 		entity.setId(roleId);
-		entity.setDelFlg(CrowdProjectConstants.LOGIC_DELETE_INITIAL);
+		entity.setDelFlg(CrowdProjectConstants.LOGIC_DELETE_FLG);
 		this.roleMapper.removeById(entity);
 		return ResultDto.successWithoutData();
 	}
