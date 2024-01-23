@@ -71,8 +71,7 @@ $(function() {
 		parentsMarginLeft: '1.25rem',
 		openNodeLinkOnNewTab: true
 	});
-	$("#logoutLink").on('click', function(e) {
-		e.preventDefault();
+	$("#logoutBtn").on('click', function(e) {
 		layer.confirm(
 			'ログアウトしてよろしいでしょうか。',
 			{
@@ -86,6 +85,10 @@ $(function() {
 				$("#logoutForm").submit();
 			}
 		);
+	});
+	$("#logoutLink").on('click', function(e) {
+		e.preventDefault();
+		$("#logoutForm").submit();
 	});
 	$("#toMainmenu").on('click', function(e) {
 		e.preventDefault();
