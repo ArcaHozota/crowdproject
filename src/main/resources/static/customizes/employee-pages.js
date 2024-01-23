@@ -115,7 +115,7 @@ $("#tableBody").on('click', '.delete-btn', function() {
 	let userName = $(this).parents("tr").find("td:eq(0)").text().trim();
 	let userId = $(this).attr("deleteId");
 	layer.confirm(
-		'この' + userName + 'という社員の情報を削除するとよろしいでしょうか。',
+		'この「' + userName + '」という社員の情報を削除するとよろしいでしょうか。',
 		{
 			title: '警告',
 			icon: 0,

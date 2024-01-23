@@ -112,7 +112,7 @@ $("#tableBody").on('click', '.delete-btn', function() {
 	let roleName = $(this).parents("tr").find("td:eq(0)").text().trim();
 	let roleId = $(this).attr("deleteId");
 	layer.confirm(
-		'この' + roleName + 'という役割情報を削除する、よろしいでしょうか。',
+		'この「' + roleName + '」という役割情報を削除する、よろしいでしょうか。',
 		{
 			title: '警告',
 			icon: 0,
