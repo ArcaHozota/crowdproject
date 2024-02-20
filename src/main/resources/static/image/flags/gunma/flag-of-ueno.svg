@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   id="svg2"
+   width="324"
+   height="216"
+   viewBox="0 0 324 216"
+   sodipodi:docname="Flag of Ueno, Gunma.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata8">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs6" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     id="namedview4"
+     showgrid="false"
+     inkscape:zoom="1.3586141"
+     inkscape:cx="356.2436"
+     inkscape:cy="219.13465"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <g
+     id="g1095"
+     transform="translate(360.47883,37.769233)">
+    <path
+       id="path1081"
+       d="m -360.47883,-37.769233 h 324 V 178.23077 h -324 z"
+       inkscape:connector-curvature="0"
+       style="fill:#004baf;fill-opacity:1;stroke-width:0.99999994" />
+    <path
+       id="path1083"
+       d="m -146.14163,20.605514 a 74.167034,72.175713 0 0 0 -4.87924,-4.631922 l -6.63304,15.567365 c 9.90243,10.382405 16.01973,24.599769 16.01973,40.262362 0,28.575621 -20.36436,50.729081 -47.67537,54.597981 V 46.528746 c 10.044,3.59727 17.46271,13.359121 17.46271,24.494 0,8.190946 -4.01776,15.636057 -10.13866,20.43346 l 7.70867,13.930894 a 43.181553,42.022165 0 0 0 6.28253,-5.21267 c 7.86107,-7.899403 12.19005,-18.252929 12.19005,-29.151684 0,-10.898755 -4.32898,-21.252279 -12.19005,-29.151682 -5.93961,-5.968653 -13.31221,-9.93904 -21.31485,-11.578244 V 14.9085 c 10.4222,1.587687 19.91517,6.148576 27.63948,12.81194 l 6.09523,-15.382368 C -165.49132,5.065865 -177.03287,0.54205179 -189.30915,-0.85634774 V -6.8230501 h -17.64641 V 30.476645 c -18.47298,4.211974 -32.30173,20.791741 -32.30173,40.546491 0,19.754752 13.82916,36.334514 32.30173,40.546494 v 14.65877 c -26.92962,-4.33568 -46.87326,-28.583808 -46.87326,-54.4243 0,-25.929085 16.88281,-47.899492 40.0052,-55.055398 V 0.55024622 C -245.89155,8.0410162 -269.871,37.142741 -269.871,71.8041 c 0,19.152539 7.41069,37.10026 20.86647,50.5351 13.58452,13.56363 31.86499,21.42401 51.47416,21.42401 19.59753,0 37.81544,-7.86858 51.2977,-21.44821 13.31059,-13.40712 20.64147,-31.345091 20.64147,-50.5109 -7.9e-4,-19.217326 -7.29879,-37.399611 -20.55043,-51.198586 z m -60.81433,74.619691 c -9.50419,-3.775244 -16.25955,-13.196765 -16.25955,-24.202459 0,-11.005694 6.75536,-20.427214 16.25955,-24.202457 z"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke-width:1" />
+  </g>
+</svg>
