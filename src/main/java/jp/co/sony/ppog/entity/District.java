@@ -41,6 +41,11 @@ public final class District implements Serializable {
 	private String chiho;
 
 	/**
+	 * 都道府県旗
+	 */
+	private String districtFlag;
+
+	/**
 	 * 論理削除フラグ
 	 */
 	private String delFlg;

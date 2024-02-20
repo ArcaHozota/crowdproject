@@ -35,12 +35,14 @@ function buildTableBody(result) {
 		let nameTd = $("<td scope='row' class='text-center table-light' style='width:70px;vertical-align:middle;'></td>").append(item.name);
 		let shutoTd = $("<td scope='row' class='text-center table-light' style='width:70px;vertical-align:middle;'></td>").append(item.shutoName);
 		let chihoTd = $("<td scope='row' class='text-center table-light' style='width:70px;vertical-align:middle;'></td>").append(item.chiho);
-		let populationTd = $("<td scope='row' class='text-center table-light' style='width:70px;vertical-align:middle;'></td>").append(patternedPop);
+		let populationTd = $("<td scope='row' class='text-center table-light' style='width:50px;vertical-align:middle;'></td>").append(patternedPop);
+		let flagImg = $("<img>").attr('src', '../static/image/flags/prefectures/' + item.districtFlag + '.svg').attr('alt', '').height(27).width(40);
+		let flagTd = $("<td scope='row' class='text-center table-light' style='width:50px;vertical-align:middle;'></td>").append(flagImg);
 		let editBtn = $("<button style='width:100px;'></button>").addClass("btn btn-success btn-sm edit-btn")
 			.append($("<i class='bi bi-pencil-square'></i>")).append("編集");
 		editBtn.attr("editId", item.id);
 		let btnTd = $("<td class='text-center table-light' style='width:100px;vertical-align:middle;'></td>").append(editBtn);
-		$("<tr></tr>").append(idTd).append(nameTd).append(shutoTd).append(chihoTd).append(populationTd).append(btnTd).appendTo("#tableBody");
+		$("<tr></tr>").append(idTd).append(nameTd).append(shutoTd).append(chihoTd).append(populationTd).append(flagTd).append(btnTd).appendTo("#tableBody");
 	});
 }
 $("#tableBody").on('click', '.edit-btn', function() {

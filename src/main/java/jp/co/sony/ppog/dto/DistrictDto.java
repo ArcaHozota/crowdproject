@@ -44,4 +44,9 @@ public final class DistrictDto implements Serializable {
 	 * 人口数量
 	 */
 	private Long population;
+
+	/**
+	 * 都道府県旗
+	 */
+	private String districtFlag;
 }

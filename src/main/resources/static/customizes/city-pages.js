@@ -70,6 +70,8 @@ $("#populationInput").on('change', function() {
 });
 $("#districtInput").on('change', function() {
 	checkCityName("#nameInput", this);
+	let districtFlg = $("#districtInput option:selected").attr('flagval').substring(8);
+	$("#cityFlagInput").val(districtFlg + '/flag-of-');
 });
 $("#cityInfoSaveBtn").on('click', function() {
 	let inputArrays = ["#nameInput", "#poInput", "#populationInput", "#cityFlagInput"];
@@ -171,7 +173,8 @@ function getDistricts(element, districtId) {
 		dataType: 'json',
 		success: function(result) {
 			$.each(result.data, (index, item) => {
-				let optionElement = $("<option></option>").attr('value', item.id).text(item.name);
+				let optionElement = $("<option></option>").attr('value', item.id)
+					.attr('flagval', item.districtFlag).text(item.name);
 				optionElement.appendTo(element);
 			});
 		}
