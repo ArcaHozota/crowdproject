@@ -18,12 +18,14 @@
 			</div>
 			<p
 				th:text="${session['SPRING_SECURITY_LAST_EXCEPTION']} eq null ? '' : ${session['SPRING_SECURITY_LAST_EXCEPTION'].message}" />
-			<div class="input-group mb-3"> <span class="input-group-text"><i class="bi bi-people"></i></span>
-				<input type="text" name="loginAcct" class="form-control" id="username" placeholder="アカウント名を入力してください"
+			<div class="input-group mb-3"> 
+				<span class="input-group-text" style="height: 3rem;"><i class="bi bi-people"></i></span>
+				<input type="text" style="height: 3rem;" name="loginAcct" class="form-control" id="username" placeholder="アカウント名を入力してください"
 					autofocus>
 			</div>
-			<div class="input-group mb-3"> <span class="input-group-text"><i class="bi bi-key"></i></span>
-				<input type="password" name="userPswd" class="form-control" id="password" placeholder="パスワードを入力してください"
+			<div class="input-group mb-3"> 
+				<span class="input-group-text" style="height: 3rem;"><i class="bi bi-key"></i></span>
+				<input type="password" style="height: 3rem;" name="userPswd" class="form-control" id="password" placeholder="パスワードを入力してください"
 					autofocus>
 			</div>
 			<button type="submit" style="width: 300px; margin: 0px auto 0px auto;"
