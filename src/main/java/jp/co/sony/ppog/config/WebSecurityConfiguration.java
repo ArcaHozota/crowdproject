@@ -75,7 +75,7 @@ public class WebSecurityConfiguration {
 					CrowdProjectUtils.renderString(response, responseResult);
 				}).accessDeniedHandler((request, response, accessDeniedException) -> {
 					final ResponseLoginDto responseResult = new ResponseLoginDto(HttpStatus.FORBIDDEN.value(),
-							CrowdProjectConstants.MESSAGE_SPRINGSECURITY_REQUIREDAUTH);
+							CrowdProjectConstants.MESSAGE_SPRINGSECURITY_REQUIRED_AUTH);
 					CrowdProjectUtils.renderString(response, responseResult);
 				}).and().formLogin(formLogin -> {
 					formLogin.loginPage("/pgcrowd/employee/login").loginProcessingUrl("/pgcrowd/employee/do/login")
