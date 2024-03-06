@@ -2,7 +2,6 @@ package jp.co.sony.ppog.controller;
 
 import java.util.List;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +34,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequestMapping("/pgcrowd/employee")
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-public class EmployeeController {
+public final class EmployeeController {
 
 	/**
 	 * 社員サービスインターフェス
@@ -67,7 +66,6 @@ public class EmployeeController {
 	 */
 	@DeleteMapping("/delete/{userId}")
 	@ResponseBody
-	@PreAuthorize("hasAuthority('employee%delete')")
 	public ResultDto<String> deleteInfo(@PathVariable("userId") final Long userId) {
 		this.iEmployeeService.removeById(userId);
 		return ResultDto.successWithoutData();
@@ -82,7 +80,6 @@ public class EmployeeController {
 	 */
 	@GetMapping("/pagination")
 	@ResponseBody
-	@PreAuthorize("hasAuthority('employee%retrieve')")
 	public ResultDto<Pagination<EmployeeDto>> pagination(
 			@RequestParam(name = "pageNum", defaultValue = "1") final Integer pageNum,
 			@RequestParam(name = "keyword", defaultValue = StringUtils.EMPTY_STRING) final String keyword) {
@@ -111,7 +108,6 @@ public class EmployeeController {
 	 */
 	@PostMapping("/infosave")
 	@ResponseBody
-	@PreAuthorize("hasAuthority('employee%edition')")
 	public ResultDto<String> saveInfo(@RequestBody final EmployeeDto employeeDto) {
 		this.iEmployeeService.save(employeeDto);
 		return ResultDto.successWithoutData();
@@ -124,7 +120,6 @@ public class EmployeeController {
 	 * @return ModelAndView
 	 */
 	@GetMapping("/to/addition")
-	@PreAuthorize("hasAuthority('employee%edition')")
 	public ModelAndView toAddition() {
 		final List<RoleDto> employeeRolesById = this.iRoleService.getEmployeeRolesById(null);
 		final ModelAndView modelAndView = new ModelAndView("admin-addinfo");
@@ -139,7 +134,6 @@ public class EmployeeController {
 	 * @return ModelAndView
 	 */
 	@GetMapping("/to/edition")
-	@PreAuthorize("hasAuthority('employee%edition')")
 	public ModelAndView toEdition(@RequestParam("editId") final Long id) {
 		final EmployeeDto employee = this.iEmployeeService.getEmployeeById(id);
 		final List<RoleDto> employeeRolesById = this.iRoleService.getEmployeeRolesById(id);
@@ -157,7 +151,6 @@ public class EmployeeController {
 	 */
 	@PutMapping("/infoupd")
 	@ResponseBody
-	@PreAuthorize("hasAuthority('employee%edition')")
 	public ResultDto<String> updateInfo(@RequestBody final EmployeeDto employeeDto) {
 		return this.iEmployeeService.update(employeeDto);
 	}

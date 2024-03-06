@@ -52,7 +52,7 @@ public final class CrowdProjectConstants {
 
 	public static final String MESSAGE_STRING_FORBIDDEN2 = "権限付与にエラーが発生しました。";
 
-	public static final String MESSAGE_STRING_FATALERROR = "システムエラーが発生しました。";
+	public static final String MESSAGE_STRING_FATAL_ERROR = "システムエラーが発生しました。";
 
 	public static final String MESSAGE_STRING_DUPLICATED = "ログインアカウントがすでに存在します。";
 

@@ -14,9 +14,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import jp.co.sony.ppog.commons.CrowdProjectConstants;
+import jp.co.sony.ppog.commons.CrowdProjectURLConstants;
 import jp.co.sony.ppog.exception.CrowdProjectException;
 import jp.co.sony.ppog.listener.CrowdProjectUserDetailsService;
 import jp.co.sony.ppog.utils.CrowdProjectUtils;
@@ -55,13 +55,19 @@ public class WebSecurityConfiguration {
 
 	@Bean
 	protected SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
-		final AntPathRequestMatcher[] pathMatchers = { new AntPathRequestMatcher("/static/**", "GET") };
-		http.authorizeHttpRequests(authorize -> authorize.requestMatchers(pathMatchers).permitAll()
-				.requestMatchers(new AntPathRequestMatcher("/pgcrowd/employee/to/pages", "GET"))
-				.hasAuthority("employee%retrieve")
-				.requestMatchers(new AntPathRequestMatcher("/pgcrowd/role/to/pages", "GET"))
-				.hasAuthority("role%retrieve").anyRequest().authenticated())
-				.csrf(csrf -> csrf.ignoringRequestMatchers(pathMatchers)
+		http.authorizeHttpRequests(
+				authorize -> authorize.requestMatchers(CrowdProjectURLConstants.URL_STATIC_RESOURCE).permitAll()
+						.requestMatchers(CrowdProjectURLConstants.URL_EMPLOYEE_TO_PAGES,
+								CrowdProjectURLConstants.URL_EMPLOYEE_PAGINATION)
+						.hasAuthority("employee%retrieve")
+						.requestMatchers(CrowdProjectURLConstants.URL_EMPLOYEE_INFOSAVE,
+								CrowdProjectURLConstants.URL_EMPLOYEE_INFOUPD,
+								CrowdProjectURLConstants.URL_EMPLOYEE_TO_ADDITION,
+								CrowdProjectURLConstants.URL_EMPLOYEE_TO_EDITION)
+						.hasAuthority("employee%edition").requestMatchers(CrowdProjectURLConstants.URL_EMPLOYEE_DELETE)
+						.hasAuthority("employee%delete").requestMatchers(CrowdProjectURLConstants.URL_ROLE_TO_PAGES)
+						.hasAuthority("role%retrieve").anyRequest().authenticated())
+				.csrf(csrf -> csrf.ignoringRequestMatchers(CrowdProjectURLConstants.URL_STATIC_RESOURCE)
 						.csrfTokenRepository(new CookieCsrfTokenRepository()))
 				.exceptionHandling().authenticationEntryPoint((request, response, authenticationException) -> {
 					final ResponseLoginDto responseResult = new ResponseLoginDto(HttpStatus.UNAUTHORIZED.value(),
@@ -79,7 +85,7 @@ public class WebSecurityConfiguration {
 						formLogin.and().logout(logout -> logout.logoutUrl("/pgcrowd/employee/logout")
 								.logoutSuccessUrl("/pgcrowd/employee/login"));
 					} catch (final Exception e) {
-						throw new CrowdProjectException(CrowdProjectConstants.MESSAGE_STRING_FATALERROR);
+						throw new CrowdProjectException(CrowdProjectConstants.MESSAGE_STRING_FATAL_ERROR);
 					}
 				}).httpBasic(Customizer.withDefaults());
 		log.info(CrowdProjectConstants.MESSAGE_SPRING_SECURITY);
