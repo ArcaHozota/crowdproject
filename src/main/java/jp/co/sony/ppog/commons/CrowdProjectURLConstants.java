@@ -1,8 +1,8 @@
 package jp.co.sony.ppog.commons;
 
-import org.springframework.http.HttpMethod;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -17,29 +17,47 @@ import lombok.NoArgsConstructor;
 public final class CrowdProjectURLConstants {
 
 	public static final RequestMatcher URL_STATIC_RESOURCE = new AntPathRequestMatcher("/static/**",
-			HttpMethod.GET.toString());
+			RequestMethod.GET.toString());
 
 	public static final RequestMatcher URL_EMPLOYEE_TO_PAGES = new AntPathRequestMatcher("/pgcrowd/employee/to/pages",
-			HttpMethod.GET.toString());
+			RequestMethod.GET.toString());
 
 	public static final RequestMatcher URL_EMPLOYEE_PAGINATION = new AntPathRequestMatcher(
-			"/pgcrowd/employee/pagination", HttpMethod.GET.toString());
+			"/pgcrowd/employee/pagination", RequestMethod.GET.toString());
 
 	public static final RequestMatcher URL_EMPLOYEE_INFOSAVE = new AntPathRequestMatcher("/pgcrowd/employee/infosave",
-			HttpMethod.POST.toString());
+			RequestMethod.POST.toString());
 
 	public static final RequestMatcher URL_EMPLOYEE_TO_ADDITION = new AntPathRequestMatcher(
-			"/pgcrowd/employee/to/addition", HttpMethod.GET.toString());
+			"/pgcrowd/employee/to/addition", RequestMethod.GET.toString());
 
 	public static final RequestMatcher URL_EMPLOYEE_TO_EDITION = new AntPathRequestMatcher(
-			"/pgcrowd/employee/to/edition", HttpMethod.GET.toString());
+			"/pgcrowd/employee/to/edition", RequestMethod.GET.toString());
 
 	public static final RequestMatcher URL_EMPLOYEE_INFOUPD = new AntPathRequestMatcher("/pgcrowd/employee/infoupd",
-			HttpMethod.PUT.toString());
+			RequestMethod.PUT.toString());
 
 	public static final RequestMatcher URL_EMPLOYEE_DELETE = new AntPathRequestMatcher("/pgcrowd/employee/delete/**",
-			HttpMethod.DELETE.toString());
+			RequestMethod.DELETE.toString());
 
 	public static final RequestMatcher URL_ROLE_TO_PAGES = new AntPathRequestMatcher("/pgcrowd/role/to/pages",
-			HttpMethod.GET.toString());
+			RequestMethod.GET.toString());
+
+	public static final RequestMatcher URL_ROLE_PAGINATION = new AntPathRequestMatcher("/pgcrowd/role/pagination",
+			RequestMethod.GET.toString());
+
+	public static final RequestMatcher URL_ROLE_GET_ASSIGNED = new AntPathRequestMatcher("/pgcrowd/role/getAssigned",
+			RequestMethod.GET.toString());
+
+	public static final RequestMatcher URL_ROLE_INFOSAVE = new AntPathRequestMatcher("/pgcrowd/role/infosave",
+			RequestMethod.POST.toString());
+
+	public static final RequestMatcher URL_ROLE_INFOUPD = new AntPathRequestMatcher("/pgcrowd/role/infoupd",
+			RequestMethod.PUT.toString());
+
+	public static final RequestMatcher URL_ROLE_DO_ASSIGNMENT = new AntPathRequestMatcher("/pgcrowd/role/do/assignment",
+			RequestMethod.DELETE.toString());
+
+	public static final RequestMatcher URL_ROLE_DELETE = new AntPathRequestMatcher("/pgcrowd/role/delete/**",
+			RequestMethod.DELETE.toString());
 }

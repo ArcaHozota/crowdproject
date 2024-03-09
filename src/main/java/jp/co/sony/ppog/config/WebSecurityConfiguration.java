@@ -55,18 +55,25 @@ public class WebSecurityConfiguration {
 
 	@Bean
 	protected SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(
-				authorize -> authorize.requestMatchers(CrowdProjectURLConstants.URL_STATIC_RESOURCE).permitAll()
-						.requestMatchers(CrowdProjectURLConstants.URL_EMPLOYEE_TO_PAGES,
-								CrowdProjectURLConstants.URL_EMPLOYEE_PAGINATION)
-						.hasAuthority("employee%retrieve")
-						.requestMatchers(CrowdProjectURLConstants.URL_EMPLOYEE_INFOSAVE,
-								CrowdProjectURLConstants.URL_EMPLOYEE_INFOUPD,
-								CrowdProjectURLConstants.URL_EMPLOYEE_TO_ADDITION,
-								CrowdProjectURLConstants.URL_EMPLOYEE_TO_EDITION)
-						.hasAuthority("employee%edition").requestMatchers(CrowdProjectURLConstants.URL_EMPLOYEE_DELETE)
-						.hasAuthority("employee%delete").requestMatchers(CrowdProjectURLConstants.URL_ROLE_TO_PAGES)
-						.hasAuthority("role%retrieve").anyRequest().authenticated())
+		http.authorizeHttpRequests(authorize -> authorize.requestMatchers(CrowdProjectURLConstants.URL_STATIC_RESOURCE)
+				.permitAll()
+				.requestMatchers(CrowdProjectURLConstants.URL_EMPLOYEE_TO_PAGES,
+						CrowdProjectURLConstants.URL_EMPLOYEE_PAGINATION)
+				.hasAuthority("employee%retrieve")
+				.requestMatchers(CrowdProjectURLConstants.URL_EMPLOYEE_INFOSAVE,
+						CrowdProjectURLConstants.URL_EMPLOYEE_INFOUPD,
+						CrowdProjectURLConstants.URL_EMPLOYEE_TO_ADDITION,
+						CrowdProjectURLConstants.URL_EMPLOYEE_TO_EDITION)
+				.hasAuthority("employee%edition").requestMatchers(CrowdProjectURLConstants.URL_EMPLOYEE_DELETE)
+				.hasAuthority("employee%delete")
+				.requestMatchers(CrowdProjectURLConstants.URL_ROLE_TO_PAGES,
+						CrowdProjectURLConstants.URL_ROLE_PAGINATION, CrowdProjectURLConstants.URL_ROLE_GET_ASSIGNED)
+				.hasAuthority("role%retrieve")
+				.requestMatchers(CrowdProjectURLConstants.URL_ROLE_INFOSAVE, CrowdProjectURLConstants.URL_ROLE_INFOUPD)
+				.hasAuthority("role%edition")
+				.requestMatchers(CrowdProjectURLConstants.URL_ROLE_DO_ASSIGNMENT,
+						CrowdProjectURLConstants.URL_ROLE_DELETE)
+				.hasAuthority("role%delete").anyRequest().authenticated())
 				.csrf(csrf -> csrf.ignoringRequestMatchers(CrowdProjectURLConstants.URL_STATIC_RESOURCE)
 						.csrfTokenRepository(new CookieCsrfTokenRepository()))
 				.exceptionHandling().authenticationEntryPoint((request, response, authenticationException) -> {
