@@ -60,4 +60,10 @@ public final class CrowdProjectURLConstants {
 
 	public static final RequestMatcher URL_ROLE_DELETE = new AntPathRequestMatcher("/pgcrowd/role/delete/**",
 			RequestMethod.DELETE.toString());
+
+	public static final RequestMatcher URL_DISTRICT_PAGIANTION = new AntPathRequestMatcher(
+			"/pgcrowd/district/pagination", RequestMethod.GET.toString());
+
+	public static final RequestMatcher URL_DISTRICT_INFOUPD = new AntPathRequestMatcher("/pgcrowd/district/infoupd",
+			RequestMethod.PUT.toString());
 }

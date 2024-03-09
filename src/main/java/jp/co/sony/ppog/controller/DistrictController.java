@@ -1,6 +1,5 @@
 package jp.co.sony.ppog.controller;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/pgcrowd/district")
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-public class DistrictController {
+public final class DistrictController {
 
 	/**
 	 * 地域サービスインターフェス
@@ -40,7 +39,6 @@ public class DistrictController {
 	 * @return ResultDto<Pagination<DistrictDto>>
 	 */
 	@GetMapping("/pagination")
-	@PreAuthorize("hasAuthority('district%retrieve')")
 	public ResultDto<Pagination<DistrictDto>> pagination(
 			@RequestParam(name = "pageNum", defaultValue = "1") final Integer pageNum,
 			@RequestParam(name = "keyword", defaultValue = StringUtils.EMPTY_STRING) final String keyword) {
@@ -55,7 +53,6 @@ public class DistrictController {
 	 * @return ResultDto<String>
 	 */
 	@PutMapping("/infoupd")
-	@PreAuthorize("hasAuthority('district%edition')")
 	public ResultDto<String> updateInfo(@RequestBody final DistrictDto districtDto) {
 		return this.iDistrictService.update(districtDto);
 	}
