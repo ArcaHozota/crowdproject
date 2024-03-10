@@ -76,6 +76,7 @@
 		    PPOG_EMPLOYEE_VIEW PEV 
 		WHERE
 		    PEV.LOGIN_ACCT = #{loginAccout,jdbcType=NVARCHAR}
+		    OR PEV.EMAIL = #{loginAccout,jdbcType=NVARCHAR}
 	</select>
 	<select id="paginationByKeyword" resultMap="BasicResultMap">
 		SELECT
