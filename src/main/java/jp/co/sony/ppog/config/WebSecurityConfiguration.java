@@ -78,15 +78,17 @@ public class WebSecurityConfiguration {
 				.hasAuthority("district%edition").anyRequest().authenticated())
 				.csrf(csrf -> csrf.ignoringRequestMatchers(CrowdProjectURLConstants.URL_STATIC_RESOURCE)
 						.csrfTokenRepository(new CookieCsrfTokenRepository()))
-				.exceptionHandling().authenticationEntryPoint((request, response, authenticationException) -> {
-					final ResponseLoginDto responseResult = new ResponseLoginDto(HttpStatus.UNAUTHORIZED.value(),
-							authenticationException.getMessage());
-					CrowdProjectUtils.renderString(response, responseResult);
-				}).accessDeniedHandler((request, response, accessDeniedException) -> {
-					final ResponseLoginDto responseResult = new ResponseLoginDto(HttpStatus.FORBIDDEN.value(),
-							CrowdProjectConstants.MESSAGE_SPRINGSECURITY_REQUIRED_AUTH);
-					CrowdProjectUtils.renderString(response, responseResult);
-				}).and().formLogin(formLogin -> {
+				.exceptionHandling(
+						handling -> handling.authenticationEntryPoint((request, response, authenticationException) -> {
+							final ResponseLoginDto responseResult = new ResponseLoginDto(
+									HttpStatus.UNAUTHORIZED.value(), authenticationException.getMessage());
+							CrowdProjectUtils.renderString(response, responseResult);
+						}).accessDeniedHandler((request, response, accessDeniedException) -> {
+							final ResponseLoginDto responseResult = new ResponseLoginDto(HttpStatus.FORBIDDEN.value(),
+									CrowdProjectConstants.MESSAGE_SPRINGSECURITY_REQUIRED_AUTH);
+							CrowdProjectUtils.renderString(response, responseResult);
+						}))
+				.formLogin(formLogin -> {
 					formLogin.loginPage("/pgcrowd/employee/login").loginProcessingUrl("/pgcrowd/employee/do/login")
 							.defaultSuccessUrl("/pgcrowd/to/mainmenu").permitAll().usernameParameter("loginAcct")
 							.passwordParameter("userPswd");
