@@ -2,7 +2,6 @@ package jp.co.sony.ppog.controller;
 
 import java.util.List;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -30,7 +29,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/pgcrowd/city")
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-public class CityCountroller {
+public final class CityCountroller {
 
 	/**
 	 * 都市サービスインターフェス
@@ -62,7 +61,6 @@ public class CityCountroller {
 	 * @return ResultDto<String>
 	 */
 	@GetMapping("/districtlist")
-	@PreAuthorize("hasAuthority('city%retrieve')")
 	public ResultDto<List<DistrictDto>> getDistrictList(@RequestParam(value = "districtId") final String districtId) {
 		final List<DistrictDto> districtDtos = this.iDistrictService.getDistrictList(districtId);
 		return ResultDto.successWithData(districtDtos);
@@ -76,7 +74,6 @@ public class CityCountroller {
 	 * @return ResultDto<Pagination<CityDto>>
 	 */
 	@GetMapping("/pagination")
-	@PreAuthorize("hasAuthority('city%retrieve')")
 	public ResultDto<Pagination<CityDto>> pagination(
 			@RequestParam(name = "pageNum", defaultValue = "1") final Integer pageNum,
 			@RequestParam(name = "keyword", defaultValue = StringUtils.EMPTY_STRING) final String keyword) {
@@ -91,7 +88,6 @@ public class CityCountroller {
 	 * @return ResultDto<String>
 	 */
 	@PostMapping("/infosave")
-	@PreAuthorize("hasAuthority('city%edition')")
 	public ResultDto<String> saveInfo(@RequestBody final CityDto cityDto) {
 		this.iCityService.save(cityDto);
 		return ResultDto.successWithoutData();
@@ -104,7 +100,6 @@ public class CityCountroller {
 	 * @return ResultDto<String>
 	 */
 	@PutMapping("/infoupd")
-	@PreAuthorize("hasAuthority('city%edition')")
 	public ResultDto<String> updateInfo(@RequestBody final CityDto cityDto) {
 		return this.iCityService.update(cityDto);
 	}

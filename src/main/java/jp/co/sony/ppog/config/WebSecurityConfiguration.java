@@ -9,7 +9,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -31,7 +30,6 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
 public class WebSecurityConfiguration {
 
 	/**
@@ -75,7 +73,12 @@ public class WebSecurityConfiguration {
 						CrowdProjectURLConstants.URL_ROLE_DELETE)
 				.hasAuthority("role%delete").requestMatchers(CrowdProjectURLConstants.URL_DISTRICT_PAGIANTION)
 				.hasAuthority("district%retrieve").requestMatchers(CrowdProjectURLConstants.URL_DISTRICT_INFOUPD)
-				.hasAuthority("district%edition").anyRequest().authenticated())
+				.hasAuthority("district%edition")
+				.requestMatchers(CrowdProjectURLConstants.URL_CITY_DISTRICT_LIST,
+						CrowdProjectURLConstants.URL_CITY_PAGIANTION)
+				.hasAuthority("city%retrieve")
+				.requestMatchers(CrowdProjectURLConstants.URL_CITY_INFOSAVE, CrowdProjectURLConstants.URL_CITY_INFOUPD)
+				.hasAuthority("city%edition").anyRequest().authenticated())
 				.csrf(csrf -> csrf.ignoringRequestMatchers(CrowdProjectURLConstants.URL_STATIC_RESOURCE)
 						.csrfTokenRepository(new CookieCsrfTokenRepository()))
 				.exceptionHandling(
