@@ -117,7 +117,7 @@ $("#tableBody").on('click', '.delete-btn', function() {
 });
 $("#tableBody").on('click', '.edit-btn', function() {
 	let editId = $(this).attr("editId");
-	let userId = $(this).find("p").text();
+	let userId = $("#toPersonal").find("p").text();
 	let url = '/pgcrowd/employee/to/edition?editId=' + editId + '&userId=' + userId;
 	checkPermissionAndTransfer(url);
 });
