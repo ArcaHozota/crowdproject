@@ -86,9 +86,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		SecondBeanUtils.copyNullableProperties(employee, employeeDto);
 		if (!authList.contains("employee%edition") && !authList.contains("employee%delete")) {
 			employeeDto.setCheckFlg(Boolean.FALSE);
-			return employeeDto;
+		} else {
+			employeeDto.setCheckFlg(Boolean.TRUE);
 		}
-		employeeDto.setCheckFlg(Boolean.TRUE);
+		employeeDto.setRoleId(role.getId());
 		return employeeDto;
 	}
 
