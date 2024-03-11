@@ -55,7 +55,7 @@
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle btn btn-success me-2" href="#" role="button"
 								data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 13.34px;">
-								<i class="bi bi-person-fill"
+								<i class="fa-solid fa-user-circle"
 									th:text="${#authentication.getPrincipal().getOriginalAdmin().getUsername()}"></i></a>
 							<ul class="dropdown-menu dropdown-menu-end" role="menu">
 								<li>
@@ -75,7 +75,7 @@
 								</li>
 								<li>
 									<a id="logoutLink" class="dropdown-item" href="#">
-										<i class="bi bi-box-arrow-right"></i> ログアウト
+										<i class="fa-solid fa-right-from-bracket"></i> ログアウト
 									</a>
 								</li>
 								<form id="logoutForm" method="post" th:action="@{/pgcrowd/employee/logout}"
