@@ -28,7 +28,7 @@ import lombok.RequiredArgsConstructor;
  */
 @RestController
 @RequestMapping("/pgcrowd/city")
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public final class CityCountroller {
 
 	/**

@@ -30,7 +30,7 @@ import lombok.RequiredArgsConstructor;
  */
 @RestController
 @RequestMapping("/pgcrowd/role")
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public final class RoleController {
 
 	/**

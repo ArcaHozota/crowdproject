@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
  */
 @RestController
 @RequestMapping("/pgcrowd/district")
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public final class DistrictController {
 
 	/**

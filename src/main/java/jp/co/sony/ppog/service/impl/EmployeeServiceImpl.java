@@ -49,7 +49,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	/**
 	 * パスワードエンコーダ
 	 */
-	private final CrowdProjectPasswordEncoder passwordEncoder;
+	private final CrowdProjectPasswordEncoder passwordEncoder = new CrowdProjectPasswordEncoder();
 
 	@Override
 	public ResultDto<String> check(final String loginAccount) {
