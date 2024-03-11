@@ -56,10 +56,9 @@ public class WebSecurityConfiguration {
 				.permitAll()
 				.requestMatchers(CrowdProjectURLConstants.URL_EMPLOYEE_TO_PAGES,
 						CrowdProjectURLConstants.URL_EMPLOYEE_PAGINATION,
-						CrowdProjectURLConstants.URL_EMPLOYEE_TO_EDITION)
+						CrowdProjectURLConstants.URL_EMPLOYEE_TO_EDITION, CrowdProjectURLConstants.URL_EMPLOYEE_INFOUPD)
 				.hasAuthority("employee%retrieve")
 				.requestMatchers(CrowdProjectURLConstants.URL_EMPLOYEE_INFOSAVE,
-						CrowdProjectURLConstants.URL_EMPLOYEE_INFOUPD,
 						CrowdProjectURLConstants.URL_EMPLOYEE_TO_ADDITION)
 				.hasAuthority("employee%edition").requestMatchers(CrowdProjectURLConstants.URL_EMPLOYEE_DELETE)
 				.hasAuthority("employee%delete")
