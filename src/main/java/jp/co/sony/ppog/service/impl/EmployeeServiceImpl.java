@@ -76,12 +76,19 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 	@Override
 	public EmployeeDto getEmployeeById(final Long id) {
-		final Employee entity = new Employee();
-		entity.setId(id);
-		entity.setDelFlg(CrowdProjectConstants.LOGIC_DELETE_INITIAL);
-		final Employee employee = this.employeeMapper.selectById(entity);
+		final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(id);
+		final Role role = this.roleMapper.selectByIdWithAuth(employeeRole.getRoleId());
+		final List<Long> authIds = role.getRoleAuths().stream().map(RoleAuth::getAuthId).collect(Collectors.toList());
+		final List<String> authList = this.authorityMapper.selectByIds(authIds).stream().map(Authority::getName)
+				.collect(Collectors.toList());
+		final Employee employee = this.employeeMapper.selectById(id);
 		final EmployeeDto employeeDto = new EmployeeDto();
 		SecondBeanUtils.copyNullableProperties(employee, employeeDto);
+		if (!authList.contains("employee%edition") && !authList.contains("employee%delete")) {
+			employeeDto.setCheckFlg(Boolean.FALSE);
+			return employeeDto;
+		}
+		employeeDto.setCheckFlg(Boolean.TRUE);
 		return employeeDto;
 	}
 

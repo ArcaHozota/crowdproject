@@ -137,6 +137,11 @@ public final class EmployeeController {
 	@GetMapping("/to/edition")
 	public ModelAndView toEdition(@RequestParam("editId") final Long id) {
 		final EmployeeDto employee = this.iEmployeeService.getEmployeeById(id);
+		if (Boolean.FALSE.equals(employee.getCheckFlg())) {
+			final ModelAndView modelAndView = new ModelAndView("admin-editinfo2");
+			modelAndView.addObject(CrowdProjectConstants.ATTRNAME_EDITED_INFO, employee);
+			return modelAndView;
+		}
 		final List<RoleDto> employeeRolesById = this.iRoleService.getEmployeeRolesById(id);
 		final ModelAndView modelAndView = new ModelAndView("admin-editinfo");
 		modelAndView.addObject(CrowdProjectConstants.ATTRNAME_EDITED_INFO, employee);

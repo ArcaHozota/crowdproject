@@ -44,4 +44,9 @@ public final class EmployeeDto implements Serializable {
 	 * 役割ID
 	 */
 	private Long roleId;
+
+	/**
+	 * 権限フラグ
+	 */
+	private Boolean checkFlg;
 }
