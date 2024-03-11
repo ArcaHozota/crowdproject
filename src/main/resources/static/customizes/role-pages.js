@@ -206,7 +206,7 @@ function putSuccessFunction(result) {
 		layer.msg(result.message);
 	}
 }
-function authPutSuccessFunction() {
+function authPutSuccessFunction(result) {
 	if (result.status === 'SUCCESS') {
 		$("#authEditModal").modal('hide');
 		layer.msg('権限付与成功！');
