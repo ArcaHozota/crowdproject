@@ -100,7 +100,8 @@ $(function() {
 	});
 	$("#toPersonal").on('click', function(e) {
 		e.preventDefault();
-		let url = '/pgcrowd/employee/to/edition?editId=' + $(this).find("p").text();
+		let userId = $(this).find("p").text();
+		let url = '/pgcrowd/employee/to/edition?editId=' + userId + '&userId=' + userId;
 		checkPermissionAndTransfer(url);
 	});
 	$("#toAdmin").on('click', function(e) {

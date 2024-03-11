@@ -77,18 +77,6 @@ $("#emailInput").change(function() {
 		showValidationMsg(this, "success", "√");
 	}
 });
-$("#roleInput").change(function() {
-	let ajaxResult = $.ajax({
-		url: '/pgcrowd/role/delete/0L',
-		type: 'DELETE',
-		async: false
-	});
-	if (ajaxResult.status !== 200) {
-		showValidationMsg(this, "error", ajaxResult.responseJSON.message);
-	} else {
-		showValidationMsg(this, "success", "√");
-	}
-});
 $("#saveInfoBtn").on('click', function() {
 	let inputArrays = ["#loginAccountInput", "#usernameInput", "#passwordInput", "#emailInput"];
 	let listArray = pgcrowdInputContextGet(inputArrays);
@@ -129,7 +117,8 @@ $("#tableBody").on('click', '.delete-btn', function() {
 });
 $("#tableBody").on('click', '.edit-btn', function() {
 	let editId = $(this).attr("editId");
-	let url = '/pgcrowd/employee/to/edition?editId=' + editId;
+	let userId = $(this).find("p").text();
+	let url = '/pgcrowd/employee/to/edition?editId=' + editId + '&userId=' + userId;
 	checkPermissionAndTransfer(url);
 });
 $("#passwordEdit").change(function() {
@@ -174,13 +163,17 @@ $("#editInfoBtn").on('click', function() {
 		if (rawPassword === "**************************************") {
 			rawPassword = null;
 		}
+		let roleId = $("#roleEdit").attr('value');
+		if (roleId === null || roleId === undefined) {
+			roleId = $("#roleEdit option:selected").val();
+		}
 		let putData = JSON.stringify({
 			'id': $("#editId").text(),
 			'loginAccount': $("#loginAccountEdit").text(),
 			'username': $("#usernameEdit").val().trim(),
 			'password': rawPassword,
 			'email': $("#emailEdit").val().trim(),
-			'roleId': $("#roleEdit").attr('value')
+			'roleId': roleId
 		});
 		pgcrowdAjaxModify('/pgcrowd/employee/infoupd', 'PUT', putData, putSuccessFunction);
 	}
