@@ -147,8 +147,9 @@ public final class EmployeeController {
 			return modelAndView;
 		}
 		final List<RoleDto> employeeRolesById = this.iRoleService.getEmployeeRolesByEmployeeId(editId);
+		final EmployeeDto employee2 = this.iEmployeeService.getEmployeeById(editId);
 		final ModelAndView modelAndView = new ModelAndView("admin-editinfo");
-		modelAndView.addObject(CrowdProjectConstants.ATTRNAME_EDITED_INFO, employee);
+		modelAndView.addObject(CrowdProjectConstants.ATTRNAME_EDITED_INFO, employee2);
 		modelAndView.addObject(CrowdProjectConstants.ATTRNAME_EMPLOYEEROLES, employeeRolesById);
 		return modelAndView;
 	}
