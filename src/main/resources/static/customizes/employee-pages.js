@@ -35,10 +35,10 @@ function buildTableBody(result) {
 		let usernameTd = $("<td scope='row' class='text-center table-light' style='width:70px;vertical-align:middle;'></td>").append(item.username);
 		let emailTd = $("<td scope='row' class='text-center table-light' style='width:100px;vertical-align:middle;'></td>").append(item.email);
 		let editBtn = $("<button></button>").addClass("btn btn-primary btn-sm edit-btn")
-			.append($("<i class='bi bi-pencil-fill'></i>")).append("編集");
+			.append($("<i class='fa-solid fa-pencil'></i>")).append("編集");
 		editBtn.attr("editId", item.id);
 		let deleteBtn = $("<button></button>").addClass("btn btn-danger btn-sm delete-btn")
-			.append($("<i class='bi bi-trash-fill'></i>")).append("削除");
+			.append($("<i class='fa-solid fa-trash'></i>")).append("削除");
 		deleteBtn.attr("deleteId", item.id);
 		let btnTd = $("<td class='text-center table-light' style='width:100px;vertical-align:middle;'></td>").append(editBtn).append(" ").append(deleteBtn);
 		$("<tr></tr>").append(idTd).append(usernameTd).append(emailTd).append(btnTd).appendTo("#tableBody");
