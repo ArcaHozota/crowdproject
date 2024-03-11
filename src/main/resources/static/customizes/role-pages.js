@@ -207,8 +207,13 @@ function putSuccessFunction(result) {
 	}
 }
 function authPutSuccessFunction() {
-	$("#authEditModal").modal('hide');
-	layer.msg('権限付与成功！');
+	if (result.status === 'SUCCESS') {
+		$("#authEditModal").modal('hide');
+		layer.msg('権限付与成功！');
+		toSelectedPg(pageNum, keyword);
+	} else {
+		layer.msg(result.message);
+	}
 }
 function zTreeOnNodeCreated(event, treeId, treeNode) { // 设置节点创建时的回调函数
 	let iconObj = $("#" + treeNode.tId + "_ico"); // 获取图标元素
