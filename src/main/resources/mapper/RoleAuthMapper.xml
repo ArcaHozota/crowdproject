@@ -26,4 +26,12 @@
 		WHERE
 		    PPRA.ROLE_ID = #{roleId,jdbcType=NUMERIC}
 	</delete>
+	<select id="selectByRoleId" resultMap="BasicResultMap">
+		SELECT
+		    PRAV.* 
+		FROM
+		    PPOG_ROLE_AUTH_VIEW PRAV 
+		WHERE
+		    PRAV.ROLE_ID = #{roleId,jdbcType=NUMERIC}
+	</select>
 </mapper>

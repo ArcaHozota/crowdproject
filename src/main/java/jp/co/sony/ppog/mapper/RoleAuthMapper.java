@@ -17,7 +17,7 @@ import jp.co.sony.ppog.entity.RoleAuth;
 public interface RoleAuthMapper {
 
 	/**
-	 * IDによってバッチ削除を行う
+	 * 役割IDによってバッチ削除を行う
 	 *
 	 * @param roleId 役割ID
 	 */
@@ -29,4 +29,12 @@ public interface RoleAuthMapper {
 	 * @param roleAuths 役割権限連携エンティティList
 	 */
 	void batchInsertByIds(@Param("roleAuths") List<RoleAuth> roleAuths);
+
+	/**
+	 * 役割IDによって検索する
+	 *
+	 * @param roleId
+	 * @return List<RoleAuth>
+	 */
+	List<RoleAuth> selectByRoleId(Long roleId);
 }

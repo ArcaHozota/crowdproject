@@ -19,6 +19,7 @@ import jp.co.sony.ppog.entity.Role;
 import jp.co.sony.ppog.entity.RoleAuth;
 import jp.co.sony.ppog.mapper.AuthorityMapper;
 import jp.co.sony.ppog.mapper.EmployeeRoleMapper;
+import jp.co.sony.ppog.mapper.RoleAuthMapper;
 import jp.co.sony.ppog.mapper.RoleMapper;
 import jp.co.sony.ppog.service.IRoleService;
 import jp.co.sony.ppog.utils.Pagination;
@@ -47,6 +48,11 @@ public class RoleServiceImpl implements IRoleService {
 	private final RoleMapper roleMapper;
 
 	/**
+	 * 役割権限連携マッパー
+	 */
+	private final RoleAuthMapper roleAuthMapper;
+
+	/**
 	 * 権限マッパー
 	 */
 	private final AuthorityMapper authorityMapper;
@@ -67,16 +73,22 @@ public class RoleServiceImpl implements IRoleService {
 	public ResultDto<String> doAssignment(final Map<String, List<Long>> paramMap) {
 		final Long[] idArray = { 1L, 5L, 9L, 12L };
 		final Long roleId = paramMap.get("roleId").get(0);
-		this.roleMapper.batchDeleteByRoleId(roleId);
-		final List<Long> authIds = paramMap.get("authIdArray");
-		final List<RoleAuth> list = authIds.stream().filter(a -> !Arrays.asList(idArray).contains(a)).map(item -> {
-			final RoleAuth roleEx = new RoleAuth();
-			roleEx.setAuthId(item);
-			roleEx.setRoleId(roleId);
-			return roleEx;
+		final List<RoleAuth> list1 = this.roleAuthMapper.selectByRoleId(roleId);
+		final List<Long> list2 = list1.stream().map(RoleAuth::getAuthId).sorted().collect(Collectors.toList());
+		final List<Long> authIds = paramMap.get("authIdArray").stream().filter(a -> !Arrays.asList(idArray).contains(a))
+				.sorted().collect(Collectors.toList());
+		if (list2.equals(authIds)) {
+			return ResultDto.failed(CrowdProjectConstants.MESSAGE_STRING_NOCHANGE);
+		}
+		this.roleAuthMapper.batchDeleteByRoleId(roleId);
+		final List<RoleAuth> list = authIds.stream().map(item -> {
+			final RoleAuth roleAuth = new RoleAuth();
+			roleAuth.setAuthId(item);
+			roleAuth.setRoleId(roleId);
+			return roleAuth;
 		}).collect(Collectors.toList());
 		try {
-			this.roleMapper.batchInsertByIds(list);
+			this.roleAuthMapper.batchInsertByIds(list);
 		} catch (final Exception e) {
 			return ResultDto.failed(CrowdProjectConstants.MESSAGE_STRING_FORBIDDEN2);
 		}
