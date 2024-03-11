@@ -1,6 +1,7 @@
 package jp.co.sony.ppog.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -11,10 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
 import jp.co.sony.ppog.commons.CrowdProjectConstants;
 import jp.co.sony.ppog.config.CrowdProjectPasswordEncoder;
 import jp.co.sony.ppog.dto.EmployeeDto;
+import jp.co.sony.ppog.entity.Authority;
 import jp.co.sony.ppog.entity.Employee;
 import jp.co.sony.ppog.entity.EmployeeRole;
+import jp.co.sony.ppog.entity.Role;
+import jp.co.sony.ppog.entity.RoleAuth;
+import jp.co.sony.ppog.mapper.AuthorityMapper;
 import jp.co.sony.ppog.mapper.EmployeeMapper;
 import jp.co.sony.ppog.mapper.EmployeeRoleMapper;
+import jp.co.sony.ppog.mapper.RoleMapper;
 import jp.co.sony.ppog.service.IEmployeeService;
 import jp.co.sony.ppog.utils.Pagination;
 import jp.co.sony.ppog.utils.ResultDto;
@@ -37,9 +43,19 @@ import oracle.jdbc.driver.OracleSQLException;
 public class EmployeeServiceImpl implements IEmployeeService {
 
 	/**
+	 * 権限マッパー
+	 */
+	private final AuthorityMapper authorityMapper;
+
+	/**
 	 * 社員管理マッパー
 	 */
 	private final EmployeeMapper employeeMapper;
+
+	/**
+	 * 役割マッパー
+	 */
+	private final RoleMapper roleMapper;
 
 	/**
 	 * 社員役割連携マッパー
@@ -70,8 +86,22 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	}
 
 	@Override
-	public Pagination<EmployeeDto> getEmployeesByKeyword(final Integer pageNum, final String keyword) {
+	public Pagination<EmployeeDto> getEmployeesByKeyword(final Integer pageNum, final String keyword,
+			final Long userId) {
 		final Integer pageSize = CrowdProjectConstants.DEFAULT_PAGE_SIZE;
+		final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(userId);
+		final Role role = this.roleMapper.selectByIdWithAuth(employeeRole.getRoleId());
+		final List<Long> authIds = role.getRoleAuths().stream().map(RoleAuth::getAuthId).collect(Collectors.toList());
+		final List<String> authList = this.authorityMapper.selectByIds(authIds).stream().map(Authority::getName)
+				.collect(Collectors.toList());
+		if (!authList.contains("employee%edition") && !authList.contains("employee%delete")) {
+			final Employee employee = this.employeeMapper.selectById(userId);
+			final EmployeeDto employeeDto = new EmployeeDto();
+			SecondBeanUtils.copyNullableProperties(employee, employeeDto);
+			final List<EmployeeDto> dtoList = new ArrayList<>();
+			dtoList.add(employeeDto);
+			return Pagination.of(dtoList, dtoList.size(), pageNum, pageSize);
+		}
 		final Integer offset = (pageNum - 1) * pageSize;
 		final String searchStr = StringUtils.getDetailKeyword(keyword);
 		final Long records = this.employeeMapper.countByKeyword(searchStr);

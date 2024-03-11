@@ -12,7 +12,8 @@ function toSelectedPg(pageNum, keyword) {
 		url: '/pgcrowd/employee/pagination',
 		data: {
 			'pageNum': pageNum,
-			'keyword': keyword
+			'keyword': keyword,
+			'userId': $("#toPersonal").find("p").text()
 		},
 		type: 'GET',
 		dataType: 'json',

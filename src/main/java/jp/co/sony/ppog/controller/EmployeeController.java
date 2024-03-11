@@ -82,8 +82,9 @@ public final class EmployeeController {
 	@ResponseBody
 	public ResultDto<Pagination<EmployeeDto>> pagination(
 			@RequestParam(name = "pageNum", defaultValue = "1") final Integer pageNum,
-			@RequestParam(name = "keyword", defaultValue = StringUtils.EMPTY_STRING) final String keyword) {
-		final Pagination<EmployeeDto> employees = this.iEmployeeService.getEmployeesByKeyword(pageNum, keyword);
+			@RequestParam(name = "keyword", defaultValue = StringUtils.EMPTY_STRING) final String keyword,
+			@RequestParam(name = "userId") final Long userId) {
+		final Pagination<EmployeeDto> employees = this.iEmployeeService.getEmployeesByKeyword(pageNum, keyword, userId);
 		return ResultDto.successWithData(employees);
 	}
 

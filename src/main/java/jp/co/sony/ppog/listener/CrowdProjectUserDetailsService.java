@@ -68,12 +68,10 @@ public class CrowdProjectUserDetailsService implements UserDetailsService {
 		if (employeeRole == null) {
 			throw new InsufficientAuthenticationException(CrowdProjectConstants.MESSAGE_SPRINGSECURITY_LOGINERROR2);
 		}
-		final Role entity = new Role();
-		entity.setId(employeeRole.getRoleId());
-		entity.setDelFlg(CrowdProjectConstants.LOGIC_DELETE_INITIAL);
-		final Role role = this.roleMapper.selectByIdWithAuth(entity);
+		final Role role = this.roleMapper.selectByIdWithAuth(employeeRole.getRoleId());
 		if (role.getRoleAuths().isEmpty()) {
-			throw new AuthenticationCredentialsNotFoundException(CrowdProjectConstants.MESSAGE_SPRINGSECURITY_LOGINERROR3);
+			throw new AuthenticationCredentialsNotFoundException(
+					CrowdProjectConstants.MESSAGE_SPRINGSECURITY_LOGINERROR3);
 		}
 		final List<Long> authIds = role.getRoleAuths().stream().map(RoleAuth::getAuthId).collect(Collectors.toList());
 		final List<GrantedAuthority> authorities = this.authorityMapper.selectByIds(authIds).stream()
