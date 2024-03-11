@@ -90,7 +90,7 @@ public final class RoleController {
 	 */
 	@GetMapping("/getAssigned")
 	public ResultDto<List<Long>> getAssignedAuth(@RequestParam("fuyoId") final Long roleId) {
-		final List<Long> authIds = this.iRoleService.getAuthIdListByRoleId(roleId);
+		final List<Long> authIds = this.iRoleService.getAuthIdsById(roleId);
 		return ResultDto.successWithData(authIds);
 	}
 

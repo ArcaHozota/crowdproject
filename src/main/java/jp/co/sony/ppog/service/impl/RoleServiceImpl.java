@@ -96,11 +96,8 @@ public class RoleServiceImpl implements IRoleService {
 	}
 
 	@Override
-	public List<Long> getAuthIdListByRoleId(final Long roleId) {
-		final Role entity = new Role();
-		entity.setId(roleId);
-		entity.setDelFlg(CrowdProjectConstants.LOGIC_DELETE_INITIAL);
-		final Role role = this.roleMapper.selectByIdWithAuth(entity);
+	public List<Long> getAuthIdsById(final Long id) {
+		final Role role = this.roleMapper.selectByIdWithAuth(id);
 		return role.getRoleAuths().stream().map(RoleAuth::getAuthId).collect(Collectors.toList());
 	}
 
@@ -110,7 +107,7 @@ public class RoleServiceImpl implements IRoleService {
 	}
 
 	@Override
-	public List<RoleDto> getEmployeeRolesById(final Long id) {
+	public List<RoleDto> getEmployeeRolesByEmployeeId(final Long employeeId) {
 		final List<RoleDto> secondRoles = new ArrayList<>();
 		final RoleDto secondRole = new RoleDto();
 		secondRole.setId(0L);
@@ -122,10 +119,10 @@ public class RoleServiceImpl implements IRoleService {
 		}).collect(Collectors.toList());
 		secondRoles.add(secondRole);
 		secondRoles.addAll(roleDtos);
-		if (id == null) {
+		if (employeeId == null) {
 			return secondRoles;
 		}
-		final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(id);
+		final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(employeeId);
 		if (employeeRole == null) {
 			return secondRoles;
 		}
@@ -136,6 +133,11 @@ public class RoleServiceImpl implements IRoleService {
 		secondRoles.addAll(selectedRole);
 		secondRoles.addAll(roleDtos);
 		return secondRoles.stream().distinct().collect(Collectors.toList());
+	}
+
+	@Override
+	public Role getRoleById(final Long id) {
+		return this.roleMapper.selectByIdWithAuth(id);
 	}
 
 	@Override

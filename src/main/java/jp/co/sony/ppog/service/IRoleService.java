@@ -5,6 +5,7 @@ import java.util.Map;
 
 import jp.co.sony.ppog.dto.RoleDto;
 import jp.co.sony.ppog.entity.Authority;
+import jp.co.sony.ppog.entity.Role;
 import jp.co.sony.ppog.utils.Pagination;
 import jp.co.sony.ppog.utils.ResultDto;
 
@@ -35,10 +36,10 @@ public interface IRoleService {
 	/**
 	 * 付与された権限を表示する
 	 *
-	 * @param roleId 役割ID
+	 * @param id 役割ID
 	 * @return List<Long>
 	 */
-	List<Long> getAuthIdListByRoleId(Long roleId);
+	List<Long> getAuthIdsById(Long id);
 
 	/**
 	 * 権限リストを取得する
@@ -50,10 +51,18 @@ public interface IRoleService {
 	/**
 	 * 社員役割連携情報を取得する
 	 *
-	 * @param id 社員ID
+	 * @param employeeId 社員ID
 	 * @return List<String>
 	 */
-	List<RoleDto> getEmployeeRolesById(Long id);
+	List<RoleDto> getEmployeeRolesByEmployeeId(Long employeeId);
+
+	/**
+	 * IDによって情報を取得する
+	 *
+	 * @param id 役割ID
+	 * @return Role
+	 */
+	Role getRoleById(Long id);
 
 	/**
 	 * キーワードによって役割情報を取得する

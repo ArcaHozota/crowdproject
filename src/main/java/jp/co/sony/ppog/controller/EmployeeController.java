@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import jp.co.sony.ppog.commons.CrowdProjectConstants;
 import jp.co.sony.ppog.dto.EmployeeDto;
 import jp.co.sony.ppog.dto.RoleDto;
+import jp.co.sony.ppog.entity.Role;
 import jp.co.sony.ppog.service.IEmployeeService;
 import jp.co.sony.ppog.service.IRoleService;
 import jp.co.sony.ppog.utils.Pagination;
@@ -122,7 +123,7 @@ public final class EmployeeController {
 	 */
 	@GetMapping("/to/addition")
 	public ModelAndView toAddition() {
-		final List<RoleDto> employeeRolesById = this.iRoleService.getEmployeeRolesById(null);
+		final List<RoleDto> employeeRolesById = this.iRoleService.getEmployeeRolesByEmployeeId(null);
 		final ModelAndView modelAndView = new ModelAndView("admin-addinfo");
 		modelAndView.addObject(CrowdProjectConstants.ATTRNAME_EMPLOYEEROLES, employeeRolesById);
 		return modelAndView;
@@ -140,9 +141,11 @@ public final class EmployeeController {
 		if (Boolean.FALSE.equals(employee.getCheckFlg())) {
 			final ModelAndView modelAndView = new ModelAndView("admin-editinfo2");
 			modelAndView.addObject(CrowdProjectConstants.ATTRNAME_EDITED_INFO, employee);
+			final Role role = this.iRoleService.getRoleById(employee.getRoleId());
+			modelAndView.addObject(CrowdProjectConstants.ATTRNAME_EMPLOYEEROLES, role);
 			return modelAndView;
 		}
-		final List<RoleDto> employeeRolesById = this.iRoleService.getEmployeeRolesById(id);
+		final List<RoleDto> employeeRolesById = this.iRoleService.getEmployeeRolesByEmployeeId(id);
 		final ModelAndView modelAndView = new ModelAndView("admin-editinfo");
 		modelAndView.addObject(CrowdProjectConstants.ATTRNAME_EDITED_INFO, employee);
 		modelAndView.addObject(CrowdProjectConstants.ATTRNAME_EMPLOYEEROLES, employeeRolesById);
