@@ -180,7 +180,7 @@ $("#editInfoBtn").on('click', function() {
 			'username': $("#usernameEdit").val().trim(),
 			'password': rawPassword,
 			'email': $("#emailEdit").val().trim(),
-			'roleId': $("#roleEdit").val()
+			'roleId': $("#roleEdit").attr('value')
 		});
 		pgcrowdAjaxModify('/pgcrowd/employee/infoupd', 'PUT', putData, putSuccessFunction);
 	}
