@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -101,7 +100,7 @@ public class WebSecurityConfiguration {
 					} catch (final Exception e) {
 						throw new CrowdProjectException(CrowdProjectConstants.MESSAGE_STRING_FATAL_ERROR);
 					}
-				}).httpBasic(Customizer.withDefaults());
+				}).rememberMe().key("springRocks").tokenValiditySeconds(1320);
 		log.info(CrowdProjectConstants.MESSAGE_SPRING_SECURITY);
 		return http.build();
 	}
