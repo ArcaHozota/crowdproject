@@ -46,6 +46,11 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	 */
 	private final EmployeeRoleMapper employeeRoleMapper;
 
+	/**
+	 * パスワードエンコーダ
+	 */
+	private final CrowdProjectPasswordEncoder passwordEncoder;
+
 	@Override
 	public ResultDto<String> check(final String loginAccount) {
 		return this.employeeMapper.checkDuplicated(loginAccount) > 0
@@ -90,8 +95,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	@Override
 	public void save(final EmployeeDto employeeDto) {
 		final Employee employee = new Employee();
-		final CrowdProjectPasswordEncoder encoder = new CrowdProjectPasswordEncoder();
-		final String password = encoder.encode(employeeDto.getPassword());
+		final String password = this.passwordEncoder.encode(employeeDto.getPassword());
 		SecondBeanUtils.copyNullableProperties(employeeDto, employee);
 		employee.setId(SnowflakeUtils.snowflakeId());
 		employee.setPassword(password);
@@ -114,8 +118,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		SecondBeanUtils.copyNullableProperties(employee, entity);
 		SecondBeanUtils.copyNullableProperties(employeeDto, employee);
 		if (StringUtils.isNotEmpty(employeeDto.getPassword())) {
-			final CrowdProjectPasswordEncoder encoder = new CrowdProjectPasswordEncoder();
-			final String encoded = encoder.encode(employeeDto.getPassword());
+			final String encoded = this.passwordEncoder.encode(employeeDto.getPassword());
 			employee.setPassword(encoded);
 		}
 		final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(employeeDto.getId());
