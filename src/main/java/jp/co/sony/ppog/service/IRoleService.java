@@ -26,6 +26,14 @@ public interface IRoleService {
 	ResultDto<String> check(String name);
 
 	/**
+	 * ユーザ編集権限チェック
+	 *
+	 * @param userId ユーザID
+	 * @return ResultDto<String>
+	 */
+	ResultDto<String> checkEdition(Long userId);
+
+	/**
 	 * 権限を付与する
 	 *
 	 * @param paramMap パラメータ

@@ -47,12 +47,13 @@ function buildTableBody(result) {
 }
 $("#addRoleBtn").on('click', function() {
 	let ajaxResult = $.ajax({
-		url: '/pgcrowd/role/infosave',
-		type: 'POST',
+		url: '/pgcrowd/role/checkEdition',
+		type: 'GET',
 		async: false
 	});
 	if (ajaxResult.status !== 200) {
 		layer.msg(ajaxResult.responseJSON.message);
+		return;
 	}
 	formReset("#roleAddModal form");
 	let addModal = new bootstrap.Modal($("#roleAddModal"), {
@@ -91,12 +92,13 @@ $("#roleInfoSaveBtn").on('click', function() {
 });
 $("#tableBody").on('click', '.edit-btn', function() {
 	let ajaxResult = $.ajax({
-		url: '/pgcrowd/role/infoupd',
-		type: 'PUT',
+		url: '/pgcrowd/role/checkEdition',
+		type: 'GET',
 		async: false
 	});
 	if (ajaxResult.status !== 200) {
 		layer.msg(ajaxResult.responseJSON.message);
+		return;
 	}
 	formReset("#roleEditModal form");
 	let editId = $(this).attr("editId");

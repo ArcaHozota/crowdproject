@@ -70,6 +70,19 @@ public class RoleServiceImpl implements IRoleService {
 	}
 
 	@Override
+	public ResultDto<String> checkEdition(final Long userId) {
+		final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(userId);
+		final Role role = this.roleMapper.selectByIdWithAuth(employeeRole.getRoleId());
+		final List<Long> authIds = role.getRoleAuths().stream().map(RoleAuth::getAuthId).collect(Collectors.toList());
+		final List<String> authList = this.authorityMapper.selectByIds(authIds).stream().map(Authority::getName)
+				.collect(Collectors.toList());
+		if (authList.contains("role%edition")) {
+			return ResultDto.successWithoutData();
+		}
+		return ResultDto.failed(CrowdProjectConstants.MESSAGE_SPRINGSECURITY_REQUIRED_AUTH);
+	}
+
+	@Override
 	public ResultDto<String> doAssignment(final Map<String, List<Long>> paramMap) {
 		final Long[] idArray = { 1L, 5L, 9L, 12L };
 		final Long roleId = paramMap.get("roleId").get(0);

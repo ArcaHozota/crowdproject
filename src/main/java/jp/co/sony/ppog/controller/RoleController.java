@@ -62,6 +62,17 @@ public final class RoleController {
 	}
 
 	/**
+	 * 編集権限チェック
+	 *
+	 * @param userId ユーザID
+	 * @return ResultDto<String>
+	 */
+	@GetMapping("/checkEdition")
+	public ResultDto<String> checkEdition() {
+		return ResultDto.successWithoutData();
+	}
+
+	/**
 	 * 役割情報削除
 	 *
 	 * @param roleId 役割ID

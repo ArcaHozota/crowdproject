@@ -65,7 +65,8 @@ public class WebSecurityConfiguration {
 				.requestMatchers(CrowdProjectURLConstants.URL_ROLE_TO_PAGES,
 						CrowdProjectURLConstants.URL_ROLE_PAGINATION, CrowdProjectURLConstants.URL_ROLE_GET_ASSIGNED)
 				.hasAuthority("role%retrieve")
-				.requestMatchers(CrowdProjectURLConstants.URL_ROLE_INFOSAVE, CrowdProjectURLConstants.URL_ROLE_INFOUPD)
+				.requestMatchers(CrowdProjectURLConstants.URL_ROLE_INFOSAVE, CrowdProjectURLConstants.URL_ROLE_INFOUPD,
+						CrowdProjectURLConstants.URL_ROLE_CHECK_EDITION)
 				.hasAuthority("role%edition")
 				.requestMatchers(CrowdProjectURLConstants.URL_ROLE_DO_ASSIGNMENT,
 						CrowdProjectURLConstants.URL_ROLE_DELETE)
