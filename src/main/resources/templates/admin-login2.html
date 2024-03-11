@@ -15,6 +15,27 @@
 </head>
 
 <body>
+	<style>
+		input[type=password]::-ms-reveal {
+			display: none;
+		}
+
+		input[type=password]::-ms-clear {
+			display: none;
+		}
+
+		input[type=password]::-o-clear {
+			display: none;
+		}
+
+		.input-box .icon #eyeIcons {
+			position: absolute;
+			right: 30px;
+			color: #fff;
+			font-size: 18px;
+			line-height: 50px;
+		}
+	</style>
 	<div class="container">
 		<p th:text="${session['SPRING_SECURITY_LAST_EXCEPTION']} eq null ? '' : ${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
 			id="errorMsg" hidden />
@@ -28,7 +49,8 @@
 				</div>
 				<div class="input-box">
 					<span class="icon"><i class="fa-solid fa-lock"></i></span>
-					<input type="password" name="userPswd" placeholder="Password" required>
+					<span class="icon"><i class="fa-solid fa-eye" id="eyeIcons"></i></span>
+					<input type="password" name="userPswd" id="passwordIpt" placeholder="Password" required>
 				</div>
 				<div class="remember-forget">
 					<label><input type="checkbox" />Remember Me</label>
@@ -43,6 +65,20 @@
 	</div>
 	<script type="text/javascript">
 		$(document).ready(function () {
+			let flag = 0;
+			$("#eyeIcons").on('click', function () {
+				if (flag === 0) {
+					$("#passwordIpt").attr('type', 'text');
+					$(this).removeClass('fa-eye');
+					$(this).addClass('fa-eye-slash');
+					flag = 1;
+				} else {
+					$("#passwordIpt").attr('type', 'password');
+					$(this).removeClass('fa-eye-slash');
+					$(this).addClass('fa-eye');
+					flag = 0;
+				}
+			});
 			let message = $("#errorMsg").text();
 			if (message !== '') {
 				layer.msg(message);
