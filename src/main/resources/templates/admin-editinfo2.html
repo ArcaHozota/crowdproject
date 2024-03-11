@@ -54,7 +54,8 @@
 							</div>
 							<div class="form-group col-md-4">
 								<label for="roleEdit">役割</label>
-								<p id="roleEdit" class="form-control" th:text="${employeeRoles.name}"/>
+								<p id="roleEdit" class="form-control" th:text="${employeeRoles.name}"
+									th:value="${employeeRoles.id}" />
 							</div>
 						</form>
 					</div>
