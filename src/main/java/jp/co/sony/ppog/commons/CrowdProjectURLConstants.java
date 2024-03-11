@@ -56,7 +56,7 @@ public final class CrowdProjectURLConstants {
 			RequestMethod.PUT.toString());
 
 	public static final RequestMatcher URL_ROLE_DO_ASSIGNMENT = new AntPathRequestMatcher("/pgcrowd/role/do/assignment",
-			RequestMethod.DELETE.toString());
+			RequestMethod.PUT.toString());
 
 	public static final RequestMatcher URL_ROLE_DELETE = new AntPathRequestMatcher("/pgcrowd/role/delete/**",
 			RequestMethod.DELETE.toString());
