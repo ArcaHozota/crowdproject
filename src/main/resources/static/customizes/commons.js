@@ -73,9 +73,9 @@ $(function() {
 	});
 	$("#logoutBtn").on('click', function() {
 		swal.fire({
-			title: 'メッセージ',
+			title: '警告',
 			text: 'ログアウトしてよろしいでしょうか。',
-			icon: 'question',
+			icon: 'warning',
 			showDenyButton: true,
 			denyButtonText: 'いいえ',
 			confirmButtonText: 'はい',

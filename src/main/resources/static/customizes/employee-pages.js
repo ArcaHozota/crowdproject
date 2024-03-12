@@ -103,17 +103,20 @@ $("#addInfoBtn").on('click', function(e) {
 $("#tableBody").on('click', '.delete-btn', function() {
 	let userName = $(this).parents("tr").find("td:eq(0)").text().trim();
 	let userId = $(this).attr("deleteId");
-	layer.confirm(
-		'この「' + userName + '」という社員の情報を削除するとよろしいでしょうか。',
-		{
-			title: '警告',
-			icon: 0,
-			skin: 'layui-layer-molv',
-			btn: '確定'
-		}, function() {
+	swal.fire({
+		title: 'メッセージ',
+		text: 'この「' + userName + '」という社員の情報を削除するとよろしいでしょうか。',
+		icon: 'question',
+		showCloseButton: true,
+		confirmButtonText: 'はい',
+		confirmButtonColor: '#7F0020'
+	}).then((result) => {
+		if (result.isConfirmed) {
 			pgcrowdAjaxModify('/pgcrowd/employee/delete/' + userId, 'DELETE', null, normalDeleteSuccessFunction);
+		} else {
+			$(this).close();
 		}
-	);
+	});
 });
 $("#tableBody").on('click', '.edit-btn', function() {
 	let editId = $(this).attr("editId");
