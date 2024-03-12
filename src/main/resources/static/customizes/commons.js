@@ -71,20 +71,17 @@ $(function() {
 		parentsMarginLeft: '1.25rem',
 		openNodeLinkOnNewTab: true
 	});
-	$("#logoutBtn").on('click', function(e) {
-		layer.confirm(
-			'ログアウトしてよろしいでしょうか。',
-			{
-				title: 'TIPS',
-				icon: 0,
-				skin: 'layui-layer-lan',
-				btn: ['いいえ', 'はい']
-			}, function(e) {
-				layer.close(e);
-			}, function() {
-				$("#logoutForm").submit();
-			}
-		);
+	$("#logoutBtn").on('click', function() {
+		swal({
+			title: 'TIPS',
+			text: 'ログアウトしてよろしいでしょうか。',
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#7F0020',
+			cancelButtonText: 'キャンセル',
+			confirmButtonText: 'はい',
+			closeModal: true
+		});
 	});
 	$("#logoutLink").on('click', function(e) {
 		e.preventDefault();
