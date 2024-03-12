@@ -71,7 +71,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	/**
 	 * 日時フォマーター
 	 */
-	private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+	private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	@Override
 	public ResultDto<String> check(final String loginAccount) {
