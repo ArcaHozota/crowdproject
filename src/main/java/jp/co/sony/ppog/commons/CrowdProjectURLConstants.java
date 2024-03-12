@@ -40,6 +40,9 @@ public final class CrowdProjectURLConstants {
 	public static final RequestMatcher URL_EMPLOYEE_DELETE = new AntPathRequestMatcher("/pgcrowd/employee/delete/**",
 			RequestMethod.DELETE.toString());
 
+	public static final RequestMatcher URL_EMPLOYEE_CHECK_DELETE = new AntPathRequestMatcher(
+			"/pgcrowd/employee/checkDelete", RequestMethod.GET.toString());
+
 	public static final RequestMatcher URL_ROLE_TO_PAGES = new AntPathRequestMatcher("/pgcrowd/role/to/pages",
 			RequestMethod.GET.toString());
 
@@ -60,6 +63,9 @@ public final class CrowdProjectURLConstants {
 
 	public static final RequestMatcher URL_ROLE_DELETE = new AntPathRequestMatcher("/pgcrowd/role/delete/**",
 			RequestMethod.DELETE.toString());
+
+	public static final RequestMatcher URL_ROLE_CHECK_DELETE = new AntPathRequestMatcher("/pgcrowd/role/checkDelete",
+			RequestMethod.GET.toString());
 
 	public static final RequestMatcher URL_ROLE_CHECK_EDITION = new AntPathRequestMatcher("/pgcrowd/role/checkEdition",
 			RequestMethod.GET.toString());

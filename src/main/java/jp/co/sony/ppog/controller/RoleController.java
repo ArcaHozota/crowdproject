@@ -50,6 +50,16 @@ public final class RoleController {
 	}
 
 	/**
+	 * 削除権限チェック
+	 *
+	 * @return ResultDto<String>
+	 */
+	@GetMapping("/checkDelete")
+	public ResultDto<String> checkDelete() {
+		return ResultDto.successWithoutData();
+	}
+
+	/**
 	 * 役割名称重複チェック
 	 *
 	 * @param name 役割名称
@@ -64,7 +74,6 @@ public final class RoleController {
 	/**
 	 * 編集権限チェック
 	 *
-	 * @param userId ユーザID
 	 * @return ResultDto<String>
 	 */
 	@GetMapping("/checkEdition")

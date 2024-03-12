@@ -127,19 +127,31 @@ $("#roleInfoChangeBtn").on('click', function() {
 	}
 });
 $("#tableBody").on('click', '.delete-btn', function() {
+	let ajaxResult = $.ajax({
+		url: '/pgcrowd/role/checkDelete',
+		type: 'GET',
+		async: false
+	});
+	if (ajaxResult.status !== 200) {
+		layer.msg(ajaxResult.responseJSON.message);
+		return;
+	}
 	let roleName = $(this).parents("tr").find("td:eq(0)").text().trim();
 	let roleId = $(this).attr("deleteId");
-	layer.confirm(
-		'この「' + roleName + '」という役割情報を削除する、よろしいでしょうか。',
-		{
-			title: '警告',
-			icon: 0,
-			skin: 'layui-layer-molv',
-			btn: '確定'
-		}, function() {
+	swal.fire({
+		title: 'メッセージ',
+		text: 'この「' + roleName + '」という役割情報を削除する、よろしいでしょうか。',
+		icon: 'question',
+		showCloseButton: true,
+		confirmButtonText: 'はい',
+		confirmButtonColor: '#7F0020'
+	}).then((result) => {
+		if (result.isConfirmed) {
 			pgcrowdAjaxModify('/pgcrowd/role/delete/' + roleId, 'DELETE', null, normalDeleteSuccessFunction);
+		} else {
+			$(this).close();
 		}
-	);
+	});
 });
 $("#tableBody").on('click', '.fuyo-btn', function() {
 	let fuyoId = $(this).attr("fuyoId");
@@ -200,6 +212,15 @@ $("#tableBody").on('click', '.fuyo-btn', function() {
 	}
 });
 $("#authChangeBtn").on('click', function() {
+	let ajaxResult = $.ajax({
+		url: '/pgcrowd/role/checkEdition',
+		type: 'GET',
+		async: false
+	});
+	if (ajaxResult.status !== 200) {
+		layer.msg(ajaxResult.responseJSON.message);
+		return;
+	}
 	let fuyoId = $(this).attr("fuyoId");
 	let authIdArray = [];
 	let zTreeObj = $.fn.zTree.getZTreeObj("authTree");

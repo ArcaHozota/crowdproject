@@ -48,6 +48,16 @@ public final class EmployeeController {
 	private final IRoleService iRoleService;
 
 	/**
+	 * 削除権限チェック
+	 *
+	 * @return ResultDto<String>
+	 */
+	@GetMapping("/checkDelete")
+	public ResultDto<String> checkDelete() {
+		return ResultDto.successWithoutData();
+	}
+
+	/**
 	 * ログインアカウントを重複するかどうかを確認する
 	 *
 	 * @param loginAccount ログインアカウント
