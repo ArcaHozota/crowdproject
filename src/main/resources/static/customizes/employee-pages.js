@@ -91,6 +91,7 @@ $("#saveInfoBtn").on('click', function() {
 			'username': $("#usernameInput").val().trim(),
 			'password': $("#passwordInput").val().trim(),
 			'email': $("#emailInput").val().trim(),
+			'dateOfBirth': $("#dateInput").val(),
 			'roleId': $("#roleInput").val()
 		});
 		pgcrowdAjaxModify('/pgcrowd/employee/infosave', 'POST', postData, postSuccessFunction);
