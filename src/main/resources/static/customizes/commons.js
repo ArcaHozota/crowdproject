@@ -80,7 +80,7 @@ $(function() {
 			denyButtonText: 'いいえ',
 			confirmButtonText: 'はい',
 			confirmButtonColor: '#7F0020',
-			denyButtonColor: '#003153'
+			denyButtonColor: '#002FA7'
 		}).then((result) => {
 			if (result.isConfirmed) {
 				$("#logoutForm").submit();
