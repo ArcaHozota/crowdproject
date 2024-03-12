@@ -81,22 +81,26 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	}
 
 	@Override
-	public EmployeeDto getEmployeeById(final Long id) {
+	public Boolean checkEdition(final Long id) {
 		final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(id);
 		final Role role = this.roleMapper.selectByIdWithAuth(employeeRole.getRoleId());
 		final List<Long> authIds = role.getRoleAuths().stream().map(RoleAuth::getAuthId).collect(Collectors.toList());
 		final List<String> authList = this.authorityMapper.selectByIds(authIds).stream().map(Authority::getName)
 				.collect(Collectors.toList());
+		if (!authList.contains("employee%edition") && !authList.contains("employee%delete")) {
+			return Boolean.FALSE;
+		}
+		return Boolean.TRUE;
+	}
+
+	@Override
+	public EmployeeDto getEmployeeById(final Long id) {
+		final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(id);
 		final Employee employee = this.employeeMapper.selectById(id);
 		final EmployeeDto employeeDto = new EmployeeDto();
 		SecondBeanUtils.copyNullableProperties(employee, employeeDto);
-		if (!authList.contains("employee%edition") && !authList.contains("employee%delete")) {
-			employeeDto.setCheckFlg(Boolean.FALSE);
-		} else {
-			employeeDto.setCheckFlg(Boolean.TRUE);
-		}
 		employeeDto.setDateOfBirth(employee.getDateOfBirth().format(DATE_TIME_FORMATTER));
-		employeeDto.setRoleId(role.getId());
+		employeeDto.setRoleId(employeeRole.getRoleId());
 		return employeeDto;
 	}
 
@@ -104,12 +108,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	public Pagination<EmployeeDto> getEmployeesByKeyword(final Integer pageNum, final String keyword,
 			final Long userId) {
 		final Integer pageSize = CrowdProjectConstants.DEFAULT_PAGE_SIZE;
-		final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(userId);
-		final Role role = this.roleMapper.selectByIdWithAuth(employeeRole.getRoleId());
-		final List<Long> authIds = role.getRoleAuths().stream().map(RoleAuth::getAuthId).collect(Collectors.toList());
-		final List<String> authList = this.authorityMapper.selectByIds(authIds).stream().map(Authority::getName)
-				.collect(Collectors.toList());
-		if (!authList.contains("employee%edition") && !authList.contains("employee%delete")) {
+		if (this.checkEdition(userId).equals(Boolean.FALSE)) {
 			final Employee employee = this.employeeMapper.selectById(userId);
 			final EmployeeDto employeeDto = new EmployeeDto();
 			SecondBeanUtils.copyNullableProperties(employee, employeeDto);

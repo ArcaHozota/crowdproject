@@ -149,7 +149,8 @@ public final class EmployeeController {
 	public ModelAndView toEdition(@RequestParam("editId") final Long editId,
 			@RequestParam("userId") final Long userId) {
 		final EmployeeDto employee = this.iEmployeeService.getEmployeeById(userId);
-		if (Boolean.FALSE.equals(employee.getCheckFlg())) {
+		final Boolean checkEdition = this.iEmployeeService.checkEdition(userId);
+		if (Boolean.FALSE.equals(checkEdition)) {
 			final ModelAndView modelAndView = new ModelAndView("admin-editinfo2");
 			modelAndView.addObject(CrowdProjectConstants.ATTRNAME_EDITED_INFO, employee);
 			final Role role = this.iRoleService.getRoleById(employee.getRoleId());
@@ -157,9 +158,8 @@ public final class EmployeeController {
 			return modelAndView;
 		}
 		final List<RoleDto> employeeRolesById = this.iRoleService.getEmployeeRolesByEmployeeId(editId);
-		final EmployeeDto employee2 = this.iEmployeeService.getEmployeeById(editId);
 		final ModelAndView modelAndView = new ModelAndView("admin-editinfo");
-		modelAndView.addObject(CrowdProjectConstants.ATTRNAME_EDITED_INFO, employee2);
+		modelAndView.addObject(CrowdProjectConstants.ATTRNAME_EDITED_INFO, employee);
 		modelAndView.addObject(CrowdProjectConstants.ATTRNAME_EMPLOYEEROLES, employeeRolesById);
 		return modelAndView;
 	}
