@@ -53,6 +53,7 @@ public final class EmployeeController {
 	 * @return ResultDto<String>
 	 */
 	@GetMapping("/checkDelete")
+	@ResponseBody
 	public ResultDto<String> checkDelete() {
 		return ResultDto.successWithoutData();
 	}
@@ -148,7 +149,7 @@ public final class EmployeeController {
 	@GetMapping("/to/edition")
 	public ModelAndView toEdition(@RequestParam("editId") final Long editId,
 			@RequestParam("userId") final Long userId) {
-		final EmployeeDto employee = this.iEmployeeService.getEmployeeById(userId);
+		final EmployeeDto employee = this.iEmployeeService.getEmployeeById(editId);
 		final Boolean checkEdition = this.iEmployeeService.checkEdition(userId);
 		if (Boolean.FALSE.equals(checkEdition)) {
 			final ModelAndView modelAndView = new ModelAndView("admin-editinfo2");
