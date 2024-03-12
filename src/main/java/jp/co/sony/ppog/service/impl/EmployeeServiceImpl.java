@@ -1,6 +1,7 @@
 package jp.co.sony.ppog.service.impl;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -67,6 +68,11 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	 */
 	private final CrowdProjectPasswordEncoder passwordEncoder = new CrowdProjectPasswordEncoder();
 
+	/**
+	 * 日時フォマーター
+	 */
+	private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
 	@Override
 	public ResultDto<String> check(final String loginAccount) {
 		return this.employeeMapper.checkDuplicated(loginAccount) > 0
@@ -89,6 +95,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		} else {
 			employeeDto.setCheckFlg(Boolean.TRUE);
 		}
+		employeeDto.setDateOfBirth(employee.getDateOfBirth().format(this.dateFormatter));
 		employeeDto.setRoleId(role.getId());
 		return employeeDto;
 	}
@@ -106,6 +113,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 			final Employee employee = this.employeeMapper.selectById(userId);
 			final EmployeeDto employeeDto = new EmployeeDto();
 			SecondBeanUtils.copyNullableProperties(employee, employeeDto);
+			employeeDto.setDateOfBirth(employee.getDateOfBirth().format(this.dateFormatter));
 			final List<EmployeeDto> dtoList = new ArrayList<>();
 			dtoList.add(employeeDto);
 			return Pagination.of(dtoList, dtoList.size(), pageNum, pageSize);
@@ -117,6 +125,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 				.map(item -> {
 					final EmployeeDto employeeDto = new EmployeeDto();
 					SecondBeanUtils.copyNullableProperties(item, employeeDto);
+					employeeDto.setDateOfBirth(item.getDateOfBirth().format(this.dateFormatter));
 					return employeeDto;
 				}).collect(Collectors.toList());
 		return Pagination.of(pages, records, pageNum, pageSize);
@@ -138,6 +147,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		employee.setId(SnowflakeUtils.snowflakeId());
 		employee.setPassword(password);
 		employee.setCreatedTime(LocalDateTime.now());
+		employee.setDateOfBirth(LocalDateTime.parse(employeeDto.getDateOfBirth(), this.dateFormatter));
 		employee.setDelFlg(CrowdProjectConstants.LOGIC_DELETE_INITIAL);
 		this.employeeMapper.insertById(employee);
 		if ((employeeDto.getRoleId() != null) && !Objects.equals(Long.valueOf(0L), employeeDto.getRoleId())) {
@@ -150,17 +160,17 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 	@Override
 	public ResultDto<String> update(final EmployeeDto employeeDto) {
-		final Employee entity = new Employee();
-		entity.setId(employeeDto.getId());
-		final Employee employee = this.employeeMapper.selectById(entity);
-		SecondBeanUtils.copyNullableProperties(employee, entity);
+		final Employee originalEntity = new Employee();
+		final Employee employee = this.employeeMapper.selectById(employeeDto.getId());
+		SecondBeanUtils.copyNullableProperties(employee, originalEntity);
 		SecondBeanUtils.copyNullableProperties(employeeDto, employee);
+		employee.setDateOfBirth(LocalDateTime.parse(employeeDto.getDateOfBirth(), this.dateFormatter));
 		if (StringUtils.isNotEmpty(employeeDto.getPassword())) {
 			final String encoded = this.passwordEncoder.encode(employeeDto.getPassword());
 			employee.setPassword(encoded);
 		}
 		final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(employeeDto.getId());
-		if (employee.equals(entity) && Objects.equals(employeeDto.getRoleId(), employeeRole.getRoleId())) {
+		if (originalEntity.equals(employee) && Objects.equals(employeeDto.getRoleId(), employeeRole.getRoleId())) {
 			return ResultDto.failed(CrowdProjectConstants.MESSAGE_STRING_NOCHANGE);
 		}
 		employeeRole.setRoleId(employeeDto.getRoleId());
