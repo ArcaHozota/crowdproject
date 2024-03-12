@@ -17,6 +17,7 @@
 		    , PE.USERNAME
 		    , PE.EMAIL
 		    , PE.CREATED_TIME
+		    , PE.DATE_OF_BIRTH
 		    , PE.DEL_FLG
 		) 
 		VALUES ( 
@@ -26,6 +27,7 @@
 		    , #{username,jdbcType=NVARCHAR}
 		    , #{email,jdbcType=NVARCHAR}
 		    , #{createdTime,jdbcType=TIMESTAMP}
+		    , #{dateOfBirth,jdbcType=TIMESTAMP}
 		    , #{delFlg,jdbcType=NVARCHAR}
 		)
 	</insert>
@@ -53,8 +55,8 @@
 			<if test="email != null">
 				PE.EMAIL = #{email,jdbcType=NVARCHAR},
 			</if>
-			<if test="createdTime != null">
-				PE.CREATED_TIME = #{createdTime,jdbcType=TIMESTAMP},
+			<if test="dateOfBirth != null">
+				PE.DATE_OF_BIRTH = #{dateOfBirth,jdbcType=TIMESTAMP},
 			</if>
 		</set>
 		WHERE

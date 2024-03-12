@@ -47,6 +47,11 @@ public final class Employee implements Serializable {
 	private LocalDateTime createdTime;
 
 	/**
+	 * 生年月日
+	 */
+	private LocalDateTime dateOfBirth;
+
+	/**
 	 * 論理削除フラグ
 	 */
 	private String delFlg;

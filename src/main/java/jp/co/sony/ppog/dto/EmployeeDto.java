@@ -41,6 +41,11 @@ public final class EmployeeDto implements Serializable {
 	private String email;
 
 	/**
+	 * 生年月日
+	 */
+	private String dateOfBirth;
+
+	/**
 	 * 役割ID
 	 */
 	private Long roleId;
