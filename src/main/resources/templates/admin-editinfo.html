@@ -3,6 +3,23 @@
 <div th:replace="~{commons::header}"></div>
 
 <body>
+	<style>
+		.card-header {
+			color: #fff !important;
+			background-color: #002fa7 !important;
+		}
+
+		.border-primary {
+			--bs-border-opacity: 1;
+			border-color: #002fa7 !important;
+		}
+
+		.btn-primary {
+			--bs-btn-color: #fff;
+			--bs-btn-bg: #002fa7;
+			--bs-btn-border-color: #002fa7;
+		}
+	</style>
 	<div th:replace="~{commons::navibar}"></div>
 	<div class="container-fluid">
 		<div class="row">
