@@ -44,6 +44,11 @@ import oracle.jdbc.driver.OracleSQLException;
 public class EmployeeServiceImpl implements IEmployeeService {
 
 	/**
+	 * 日時フォマーター
+	 */
+	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+	/**
 	 * 権限マッパー
 	 */
 	private final AuthorityMapper authorityMapper;
@@ -68,11 +73,6 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	 */
 	private final CrowdProjectPasswordEncoder passwordEncoder = new CrowdProjectPasswordEncoder();
 
-	/**
-	 * 日時フォマーター
-	 */
-	private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
 	@Override
 	public ResultDto<String> check(final String loginAccount) {
 		return this.employeeMapper.checkDuplicated(loginAccount) > 0
@@ -95,7 +95,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		} else {
 			employeeDto.setCheckFlg(Boolean.TRUE);
 		}
-		employeeDto.setDateOfBirth(employee.getDateOfBirth().format(this.dateFormatter));
+		employeeDto.setDateOfBirth(employee.getDateOfBirth().format(DATE_TIME_FORMATTER));
 		employeeDto.setRoleId(role.getId());
 		return employeeDto;
 	}
@@ -113,7 +113,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 			final Employee employee = this.employeeMapper.selectById(userId);
 			final EmployeeDto employeeDto = new EmployeeDto();
 			SecondBeanUtils.copyNullableProperties(employee, employeeDto);
-			employeeDto.setDateOfBirth(employee.getDateOfBirth().format(this.dateFormatter));
+			employeeDto.setDateOfBirth(employee.getDateOfBirth().format(DATE_TIME_FORMATTER));
 			final List<EmployeeDto> dtoList = new ArrayList<>();
 			dtoList.add(employeeDto);
 			return Pagination.of(dtoList, dtoList.size(), pageNum, pageSize);
@@ -125,7 +125,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 				.map(item -> {
 					final EmployeeDto employeeDto = new EmployeeDto();
 					SecondBeanUtils.copyNullableProperties(item, employeeDto);
-					employeeDto.setDateOfBirth(item.getDateOfBirth().format(this.dateFormatter));
+					employeeDto.setDateOfBirth(item.getDateOfBirth().format(DATE_TIME_FORMATTER));
 					return employeeDto;
 				}).collect(Collectors.toList());
 		return Pagination.of(pages, records, pageNum, pageSize);
@@ -147,7 +147,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		employee.setId(SnowflakeUtils.snowflakeId());
 		employee.setPassword(password);
 		employee.setCreatedTime(LocalDateTime.now());
-		employee.setDateOfBirth(LocalDateTime.parse(employeeDto.getDateOfBirth(), this.dateFormatter));
+		employee.setDateOfBirth(LocalDateTime.parse(employeeDto.getDateOfBirth(), DATE_TIME_FORMATTER));
 		employee.setDelFlg(CrowdProjectConstants.LOGIC_DELETE_INITIAL);
 		this.employeeMapper.insertById(employee);
 		if ((employeeDto.getRoleId() != null) && !Objects.equals(Long.valueOf(0L), employeeDto.getRoleId())) {
@@ -164,7 +164,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		final Employee employee = this.employeeMapper.selectById(employeeDto.getId());
 		SecondBeanUtils.copyNullableProperties(employee, originalEntity);
 		SecondBeanUtils.copyNullableProperties(employeeDto, employee);
-		employee.setDateOfBirth(LocalDateTime.parse(employeeDto.getDateOfBirth(), this.dateFormatter));
+		employee.setDateOfBirth(LocalDateTime.parse(employeeDto.getDateOfBirth(), DATE_TIME_FORMATTER));
 		if (StringUtils.isNotEmpty(employeeDto.getPassword())) {
 			final String encoded = this.passwordEncoder.encode(employeeDto.getPassword());
 			employee.setPassword(encoded);
