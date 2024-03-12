@@ -72,15 +72,21 @@ $(function() {
 		openNodeLinkOnNewTab: true
 	});
 	$("#logoutBtn").on('click', function() {
-		swal({
-			title: 'TIPS',
+		swal.fire({
+			title: 'メッセージ',
 			text: 'ログアウトしてよろしいでしょうか。',
-			type: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: '#7F0020',
-			cancelButtonText: 'キャンセル',
+			icon: 'question',
+			showDenyButton: true,
+			denyButtonText: 'いいえ',
 			confirmButtonText: 'はい',
-			closeModal: true
+			confirmButtonColor: '#7F0020',
+			denyButtonColor: '#003153'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				$("#logoutForm").submit();
+			} else if (result.isDenied) {
+				$(this).close();
+			}
 		});
 	});
 	$("#logoutLink").on('click', function(e) {
