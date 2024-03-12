@@ -39,10 +39,10 @@ function buildTableBody(result) {
 		let flagImg = $("<img>").attr('src', '../static/image/flags/' + item.cityFlag + '.svg').attr('alt', '').height(27).width(40);
 		let flagTd = $("<td scope='row' class='text-center table-light' style='width:50px;vertical-align:middle;'></td>").append(flagImg);
 		let editBtn = $("<button></button>").addClass("btn btn-primary btn-sm edit-btn")
-			.append($("<i class='bi bi-pencil-fill'></i>")).append("編集");
+			.append($("<i class='fa-solid fa-pencil'></i>")).append("編集");
 		editBtn.attr("editId", item.id);
 		let deleteBtn = $("<button></button>").addClass("btn btn-danger btn-sm delete-btn")
-			.append($("<i class='bi bi-trash-fill'></i>")).append("削除");
+			.append($("<i class='fa-solid fa-trash'></i>")).append("削除");
 		deleteBtn.attr("deleteId", item.id);
 		let btnTd = $("<td class='text-center table-light' style='width:100px;vertical-align:middle;'></td>").append(editBtn).append(" ").append(deleteBtn);
 		$("<tr></tr>").append(idTd).append(nameTd).append(pronunciationTd).append(districtTd).append(populationTd).append(flagTd).append(btnTd).appendTo("#tableBody");
