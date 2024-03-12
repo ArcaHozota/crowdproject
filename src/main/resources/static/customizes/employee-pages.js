@@ -197,11 +197,11 @@ $("#resetBtn").on('click', function() {
 	formReset($("#inputForm"));
 });
 $("#restoreBtn").on('click', function() {
-	let userId = $("#editId").text();
+	let editId = $("#editId").text();
 	formReset($("#editForm"));
 	$.ajax({
 		url: '/pgcrowd/employee/inforestore',
-		data: 'userId=' + userId,
+		data: 'editId=' + editId,
 		type: 'GET',
 		dataType: 'json',
 		success: function(result) {
@@ -209,6 +209,7 @@ $("#restoreBtn").on('click', function() {
 			$("#usernameEdit").val(restoredInfo.username);
 			$("#passwordEdit").val('**************************************');
 			$("#emailEdit").val(restoredInfo.email);
+			$("#dateEdit").val(restoredInfo.dateOfBirth);
 		}
 	});
 });

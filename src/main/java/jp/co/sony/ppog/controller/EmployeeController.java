@@ -90,15 +90,15 @@ public final class EmployeeController {
 	}
 
 	/**
-	 * ログインアカウントによって社員情報を取得する
+	 * IDによって社員情報を復元する
 	 *
-	 * @param loginAccount ログインアカウント
+	 * @param editId 編集されるユーザID
 	 * @return ResultDto<String>
 	 */
 	@GetMapping("/inforestore")
 	@ResponseBody
-	public ResultDto<EmployeeDto> restoreInfo(@RequestParam("userId") final Long userId) {
-		final EmployeeDto employee = this.iEmployeeService.getEmployeeById(userId);
+	public ResultDto<EmployeeDto> restoreInfo(@RequestParam("editId") final Long editId) {
+		final EmployeeDto employee = this.iEmployeeService.getEmployeeById(editId);
 		return ResultDto.successWithData(employee);
 	}
 
