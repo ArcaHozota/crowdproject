@@ -161,7 +161,6 @@ $("#tableBody").on('click', '.fuyo-btn', function() {
 	let authModal = new bootstrap.Modal($("#authEditModal"), {
 		backdrop: 'static'
 	});
-	authModal.show();
 	let ajaxReturn = $.ajax({
 		url: '/pgcrowd/role/authlists',
 		type: 'GET',
@@ -172,6 +171,7 @@ $("#tableBody").on('click', '.fuyo-btn', function() {
 		layer.msg(ajaxResult.responseJSON.message);
 		return;
 	}
+	authModal.show();
 	let setting = {
 		'data': {
 			'simpleData': {
