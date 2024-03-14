@@ -169,7 +169,7 @@ $("#tableBody").on('click', '.fuyo-btn', function() {
 		async: false
 	});
 	if (ajaxReturn.status !== 200) {
-		layer.msg('リクエスト処理異常。' + ajaxReturn.statusText);
+		layer.msg(ajaxResult.responseJSON.message);
 		return;
 	}
 	let setting = {
@@ -212,15 +212,6 @@ $("#tableBody").on('click', '.fuyo-btn', function() {
 	}
 });
 $("#authChangeBtn").on('click', function() {
-	let ajaxResult = $.ajax({
-		url: '/pgcrowd/role/checkEdition',
-		type: 'GET',
-		async: false
-	});
-	if (ajaxResult.status !== 200) {
-		layer.msg(ajaxResult.responseJSON.message);
-		return;
-	}
 	let fuyoId = $(this).attr("fuyoId");
 	let authIdArray = [];
 	let zTreeObj = $.fn.zTree.getZTreeObj("authTree");

@@ -49,6 +49,9 @@ public final class CrowdProjectURLConstants {
 	public static final RequestMatcher URL_ROLE_PAGINATION = new AntPathRequestMatcher("/pgcrowd/role/pagination",
 			RequestMethod.GET.toString());
 
+	public static final RequestMatcher URL_ROLE_AUTHLIST = new AntPathRequestMatcher("/pgcrowd/role/authlist",
+			RequestMethod.GET.toString());
+
 	public static final RequestMatcher URL_ROLE_GET_ASSIGNED = new AntPathRequestMatcher("/pgcrowd/role/getAssigned",
 			RequestMethod.GET.toString());
 
