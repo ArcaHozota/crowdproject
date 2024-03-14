@@ -1,5 +1,6 @@
 package jp.co.sony.ppog.service.impl;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -145,9 +146,8 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		SecondBeanUtils.copyNullableProperties(employeeDto, employee);
 		employee.setId(SnowflakeUtils.snowflakeId());
 		employee.setPassword(password);
+		employee.setDateOfBirth(LocalDate.parse(employeeDto.getDateOfBirth(), EmployeeServiceImpl.DATE_TIME_FORMATTER));
 		employee.setCreatedTime(LocalDateTime.now());
-		employee.setDateOfBirth(LocalDateTime.parse(employeeDto.getDateOfBirth().concat(" 12:00:00"),
-				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 		employee.setDelFlg(CrowdProjectConstants.LOGIC_DELETE_INITIAL);
 		this.employeeMapper.insertById(employee);
 		if ((employeeDto.getRoleId() != null) && !Objects.equals(Long.valueOf(0L), employeeDto.getRoleId())) {
@@ -164,8 +164,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		final Employee employee = this.employeeMapper.selectById(employeeDto.getId());
 		SecondBeanUtils.copyNullableProperties(employee, originalEntity);
 		SecondBeanUtils.copyNullableProperties(employeeDto, employee);
-		employee.setDateOfBirth(LocalDateTime.parse(employeeDto.getDateOfBirth().concat(" 12:00:00"),
-				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+		employee.setDateOfBirth(LocalDate.parse(employeeDto.getDateOfBirth(), EmployeeServiceImpl.DATE_TIME_FORMATTER));
 		final String encoded = this.passwordEncoder.encode(employeeDto.getPassword());
 		employee.setPassword(encoded);
 		final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(employeeDto.getId());

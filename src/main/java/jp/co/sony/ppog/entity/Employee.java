@@ -1,6 +1,7 @@
 package jp.co.sony.ppog.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import lombok.Data;
@@ -42,14 +43,14 @@ public final class Employee implements Serializable {
 	private String email;
 
 	/**
+	 * 生年月日
+	 */
+	private LocalDate dateOfBirth;
+
+	/**
 	 * 作成時間
 	 */
 	private LocalDateTime createdTime;
-
-	/**
-	 * 生年月日
-	 */
-	private LocalDateTime dateOfBirth;
 
 	/**
 	 * 論理削除フラグ
