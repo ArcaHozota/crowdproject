@@ -65,14 +65,13 @@ public class WebSecurityConfiguration {
 						CrowdProjectURLConstants.URL_EMPLOYEE_CHECK_DELETE)
 				.hasAuthority("employee%delete")
 				.requestMatchers(CrowdProjectURLConstants.URL_ROLE_TO_PAGES,
-						CrowdProjectURLConstants.URL_ROLE_PAGINATION, CrowdProjectURLConstants.URL_ROLE_GET_ASSIGNED)
+						CrowdProjectURLConstants.URL_ROLE_PAGINATION)
 				.hasAuthority("role%retrieve")
 				.requestMatchers(CrowdProjectURLConstants.URL_ROLE_INFOSAVE, CrowdProjectURLConstants.URL_ROLE_INFOUPD,
-						CrowdProjectURLConstants.URL_ROLE_CHECK_EDITION,
-						CrowdProjectURLConstants.URL_ROLE_DO_ASSIGNMENT)
+						CrowdProjectURLConstants.URL_ROLE_CHECK_EDITION, CrowdProjectURLConstants.URL_ROLE_AUTHLIST)
 				.hasAuthority("role%edition")
-				.requestMatchers(CrowdProjectURLConstants.URL_ROLE_DELETE,
-						CrowdProjectURLConstants.URL_ROLE_CHECK_DELETE)
+				.requestMatchers(CrowdProjectURLConstants.URL_ROLE_DO_ASSIGNMENT,
+						CrowdProjectURLConstants.URL_ROLE_DELETE, CrowdProjectURLConstants.URL_ROLE_CHECK_DELETE)
 				.hasAuthority("role%delete").requestMatchers(CrowdProjectURLConstants.URL_DISTRICT_PAGIANTION)
 				.hasAuthority("district%retrieve").requestMatchers(CrowdProjectURLConstants.URL_DISTRICT_INFOUPD)
 				.hasAuthority("district%edition")
