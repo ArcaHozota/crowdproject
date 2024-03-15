@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -48,6 +49,11 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	 * 日時フォマーター
 	 */
 	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+	/**
+	 * Randomナンバー
+	 */
+	private static final Random RANDOM = new Random();
 
 	/**
 	 * 権限マッパー
@@ -131,6 +137,23 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		return Pagination.of(pages, records, pageNum, pageSize);
 	}
 
+	/**
+	 * ランダムのストリングを生成する
+	 *
+	 * @return ランダムストリング
+	 */
+	private String getRandomStr() {
+		final String stry = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		final char[] cr1 = stry.toCharArray();
+		final char[] cr2 = stry.toLowerCase().toCharArray();
+		final StringBuilder builder = new StringBuilder();
+		builder.append(cr1[RANDOM.nextInt(cr1.length)]);
+		for (int i = 0; i < 7; i++) {
+			builder.append(cr2[RANDOM.nextInt(cr2.length)]);
+		}
+		return builder.toString();
+	}
+
 	@Override
 	public void removeById(final Long userId) {
 		final Employee entity = new Employee();
@@ -156,6 +179,25 @@ public class EmployeeServiceImpl implements IEmployeeService {
 			employeeEx.setRoleId(employeeDto.getRoleId());
 			this.employeeRoleMapper.insertById(employeeEx);
 		}
+	}
+
+	@Override
+	public Boolean toroku(final EmployeeDto employeeDto) {
+		final Employee selectByLoginAcct = this.employeeMapper.selectByLoginAcct(employeeDto.getEmail());
+		if (selectByLoginAcct != null) {
+			return Boolean.FALSE;
+		}
+		final String password = this.passwordEncoder.encode(employeeDto.getPassword());
+		final Employee employee = new Employee();
+		SecondBeanUtils.copyNullableProperties(employeeDto, employee);
+		employee.setId(SnowflakeUtils.snowflakeId());
+		employee.setLoginAccount(this.getRandomStr());
+		employee.setPassword(password);
+		employee.setDelFlg(CrowdProjectConstants.LOGIC_DELETE_INITIAL);
+		employee.setCreatedTime(LocalDateTime.now());
+		employee.setDateOfBirth(LocalDate.parse(employeeDto.getDateOfBirth(), EmployeeServiceImpl.DATE_TIME_FORMATTER));
+		this.employeeMapper.insertById(employee);
+		return Boolean.TRUE;
 	}
 
 	@Override

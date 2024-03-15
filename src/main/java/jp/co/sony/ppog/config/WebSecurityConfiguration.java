@@ -104,7 +104,7 @@ public class WebSecurityConfiguration {
 					} catch (final Exception e) {
 						throw new CrowdProjectException(CrowdProjectConstants.MESSAGE_STRING_FATAL_ERROR);
 					}
-				}).rememberMe().key("crowdproject").tokenValiditySeconds(1320);
+				}).rememberMe().key(CrowdProjectConstants.DEFAULT_PROJECT_TOKEN).tokenValiditySeconds(1320);
 		log.info(CrowdProjectConstants.MESSAGE_SPRING_SECURITY);
 		return http.build();
 	}

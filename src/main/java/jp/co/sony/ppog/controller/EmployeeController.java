@@ -166,6 +166,30 @@ public final class EmployeeController {
 	}
 
 	/**
+	 * 社員登録
+	 *
+	 * @param employeeDto 社員情報DTO
+	 * @return ResultDto<String>
+	 */
+	@PostMapping("/toroku")
+	public ModelAndView toroku(@RequestParam("email") final String email,
+			@RequestParam("password") final String password, @RequestParam("dateOfBirth") final String dateOfBirth) {
+		final EmployeeDto employeeDto = new EmployeeDto();
+		employeeDto.setEmail(email);
+		employeeDto.setPassword(password);
+		employeeDto.setDateOfBirth(dateOfBirth);
+		final Boolean toroku = this.iEmployeeService.toroku(employeeDto);
+		final ModelAndView mAndView = new ModelAndView("admin-login");
+		if (Boolean.FALSE.equals(toroku)) {
+			mAndView.addObject("torokuMsg", CrowdProjectConstants.MESSAGE_TOROKU_FAILURE);
+		} else {
+			mAndView.addObject("torokuMsg", CrowdProjectConstants.MESSAGE_TOROKU_SUCCESS);
+		}
+		mAndView.addObject("registeredEmail", email);
+		return mAndView;
+	}
+
+	/**
 	 * 情報更新
 	 *
 	 * @param employeeDto 社員情報DTO
