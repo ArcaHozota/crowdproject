@@ -72,6 +72,10 @@ Copyright: 2023 ©MdRasen */
 	filter: invert(100%);
 }
 
+.input-box input[type="date"]::-webkit-calendar-picker-indicator {
+	filter: invert(100%);
+}
+
 .input-box .icon {
 	position: absolute;
 	right: 8px;
