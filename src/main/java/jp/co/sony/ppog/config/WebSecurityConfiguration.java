@@ -52,7 +52,9 @@ public class WebSecurityConfiguration {
 
 	@Bean
 	protected SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(authorize -> authorize.requestMatchers(CrowdProjectURLConstants.URL_STATIC_RESOURCE)
+		http.authorizeHttpRequests(authorize -> authorize
+				.requestMatchers(CrowdProjectURLConstants.URL_STATIC_RESOURCE, CrowdProjectURLConstants.URL_TO_SIGN_UP,
+						CrowdProjectURLConstants.URL_DO_SIGN_UP)
 				.permitAll()
 				.requestMatchers(CrowdProjectURLConstants.URL_EMPLOYEE_TO_PAGES,
 						CrowdProjectURLConstants.URL_EMPLOYEE_PAGINATION,

@@ -28,7 +28,11 @@
 			display: none;
 		}
 
-		.input-box .icon #eyeIcons {
+		.container .login-box {
+			height: 550px;
+		}
+
+		.input-box .icon #eyeIcons2 {
 			position: absolute;
 			cursor: pointer;
 			right: 30px;
@@ -38,30 +42,31 @@
 		}
 	</style>
 	<div class="container">
-		<p th:text="${session['SPRING_SECURITY_LAST_EXCEPTION']} eq null ? '' : ${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
-			id="errorMsg" hidden />
-		<p th:text="${registeredEmail eq null ? '' : registeredEmail}" id="emailAddress" hidden />
-		<p th:text="${torokuMsg eq null ? '' : torokuMsg}" id="torokuMsg" hidden />
 		<div class="login-box">
 			<!-- Login Form -->
-			<form th:action="@{/pgcrowd/employee/do/login}" th:method="post" class="form-signin" role="form">
-				<h2>ログイン</h2>
+			<form th:action="@{/pgcrowd/employee/toroku}" th:method="post" class="form-signin" role="form"
+				id="torokuForm">
+				<h2>登録</h2>
 				<div class="input-box">
 					<span class="icon"><i class="fa-solid fa-envelope"></i></span>
-					<input type="text" name="loginAcct" id="accountIpt" placeholder="メール或いはアカウント" required>
+					<input type="text" name="email" id="emailIpt" placeholder="メールアドレス" required>
 				</div>
 				<div class="input-box">
-					<span class="icon"><i class="fa-solid fa-lock"></i></span>
-					<span class="icon"><i class="fa-solid fa-eye" id="eyeIcons"></i></span>
-					<input type="password" name="userPswd" id="passwordIpt" placeholder="パスワード" required>
+					<span class="icon"><i class="fa-solid fa-key" id="passwordkeyIcn1"></i></span>
+					<span class="icon"><i class="fa-solid fa-eye" id="eyeIcons2"></i></span>
+					<input type="password" name="password" id="passwordIpt1" placeholder="パスワード" required>
 				</div>
-				<div class="remember-forget">
-					<label><input type="checkbox" name="remember-me">Remember Me</label>
-					<a href="#">Forgot Password?</a>
+				<div class="input-box">
+					<span class="icon"><i class="fa-solid fa-key" id="passwordkeyIcn2"></i></span>
+					<input type="password" name="password" id="passwordIpt2" placeholder="パスワード再入力" required>
 				</div>
-				<button type="submit">Login</button>
+				<div class="input-box">
+					<span class="icon"><i class="fa-solid fa-calendar"></i></span>
+					<input type="date" name="dateOfBirth" id="dateOfBirthIpt" required>
+				</div>
+				<button type="button" id="torokuBtn">Sign up</button>
 				<div class="register-link">
-					<a th:href="@{/pgcrowd/employee/to/signup}">まだ登録しなかったですか。登録しましょう！</a>
+					<a th:href="@{/pgcrowd/employee/login}">Already has an account? Login!</a>
 				</div>
 			</form>
 		</div>

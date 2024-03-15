@@ -90,4 +90,10 @@ public final class CrowdProjectURLConstants {
 
 	public static final RequestMatcher URL_CITY_INFOUPD = new AntPathRequestMatcher("/pgcrowd/city/infoupd",
 			RequestMethod.PUT.toString());
+
+	public static final RequestMatcher URL_TO_SIGN_UP = new AntPathRequestMatcher("/pgcrowd/employee/to/signup",
+			RequestMethod.GET.toString());
+
+	public static final RequestMatcher URL_DO_SIGN_UP = new AntPathRequestMatcher("/pgcrowd/employee/toroku",
+			RequestMethod.POST.toString());
 }
