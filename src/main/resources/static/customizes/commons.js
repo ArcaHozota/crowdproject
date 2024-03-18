@@ -52,11 +52,6 @@ $(function() {
 							id: "toCity",
 							text: "都市一覧",
 							icon: "bi bi-building-fill-check"
-						},
-						{
-							id: "toStation",
-							text: "駅一覧",
-							icon: "bi bi-buildings-fill"
 						}
 					]
 				}
