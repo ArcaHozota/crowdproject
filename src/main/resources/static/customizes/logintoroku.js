@@ -18,13 +18,11 @@ $(document).ready(function() {
 	$("#eyeIcons").on('click', function() {
 		if (flag === 0) {
 			$("#passwordIpt").attr('type', 'text');
-			$(this).removeClass('fa-eye');
-			$(this).addClass('fa-eye-slash');
+			$(this).attr('name', 'eye-off-outline');
 			flag = 1;
 		} else {
 			$("#passwordIpt").attr('type', 'password');
-			$(this).removeClass('fa-eye-slash');
-			$(this).addClass('fa-eye');
+			$(this).attr('name', 'eye-outline');
 			flag = 0;
 		}
 	});
