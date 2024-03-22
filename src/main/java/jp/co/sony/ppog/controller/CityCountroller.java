@@ -55,6 +55,16 @@ public final class CityCountroller {
 	}
 
 	/**
+	 * 編集権限チェック
+	 *
+	 * @return ResultDto<String>
+	 */
+	@GetMapping("/checkEdition")
+	public ResultDto<String> checkEdition() {
+		return ResultDto.successWithoutData();
+	}
+
+	/**
 	 * 地域情報初期表示
 	 *
 	 * @param cityId 都市ID
