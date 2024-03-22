@@ -75,12 +75,15 @@ public class WebSecurityConfiguration {
 				.requestMatchers(CrowdProjectURLConstants.URL_ROLE_DO_ASSIGNMENT,
 						CrowdProjectURLConstants.URL_ROLE_DELETE, CrowdProjectURLConstants.URL_ROLE_CHECK_DELETE)
 				.hasAuthority("role%delete").requestMatchers(CrowdProjectURLConstants.URL_DISTRICT_PAGIANTION)
-				.hasAuthority("district%retrieve").requestMatchers(CrowdProjectURLConstants.URL_DISTRICT_INFOUPD)
+				.hasAuthority("district%retrieve")
+				.requestMatchers(CrowdProjectURLConstants.URL_DISTRICT_INFOUPD,
+						CrowdProjectURLConstants.URL_DISTRICT_CHECK_EDITION)
 				.hasAuthority("district%edition")
 				.requestMatchers(CrowdProjectURLConstants.URL_CITY_DISTRICT_LIST,
 						CrowdProjectURLConstants.URL_CITY_PAGIANTION)
 				.hasAuthority("city%retrieve")
-				.requestMatchers(CrowdProjectURLConstants.URL_CITY_INFOSAVE, CrowdProjectURLConstants.URL_CITY_INFOUPD)
+				.requestMatchers(CrowdProjectURLConstants.URL_CITY_INFOSAVE, CrowdProjectURLConstants.URL_CITY_INFOUPD,
+						CrowdProjectURLConstants.URL_CITY_CHECK_EDITION)
 				.hasAuthority("city%edition").anyRequest().authenticated())
 				.csrf(csrf -> csrf.ignoringRequestMatchers(CrowdProjectURLConstants.URL_STATIC_RESOURCE)
 						.csrfTokenRepository(new CookieCsrfTokenRepository()))

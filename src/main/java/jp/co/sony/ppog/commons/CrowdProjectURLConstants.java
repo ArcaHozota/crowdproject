@@ -79,6 +79,9 @@ public final class CrowdProjectURLConstants {
 	public static final RequestMatcher URL_DISTRICT_INFOUPD = new AntPathRequestMatcher("/pgcrowd/district/infoupd",
 			RequestMethod.PUT.toString());
 
+	public static final RequestMatcher URL_DISTRICT_CHECK_EDITION = new AntPathRequestMatcher(
+			"/pgcrowd/district/checkEdition", RequestMethod.GET.toString());
+
 	public static final RequestMatcher URL_CITY_PAGIANTION = new AntPathRequestMatcher("/pgcrowd/city/pagination",
 			RequestMethod.GET.toString());
 
@@ -90,6 +93,9 @@ public final class CrowdProjectURLConstants {
 
 	public static final RequestMatcher URL_CITY_INFOUPD = new AntPathRequestMatcher("/pgcrowd/city/infoupd",
 			RequestMethod.PUT.toString());
+
+	public static final RequestMatcher URL_CITY_CHECK_EDITION = new AntPathRequestMatcher("/pgcrowd/city/checkEdition",
+			RequestMethod.GET.toString());
 
 	public static final RequestMatcher URL_TO_SIGN_UP = new AntPathRequestMatcher("/pgcrowd/employee/to/signup",
 			RequestMethod.GET.toString());

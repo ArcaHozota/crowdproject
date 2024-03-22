@@ -46,6 +46,15 @@ function buildTableBody(result) {
 	});
 }
 $("#tableBody").on('click', '.edit-btn', function() {
+	let ajaxResult = $.ajax({
+		url: '/pgcrowd/district/checkEdition',
+		type: 'GET',
+		async: false
+	});
+	if (ajaxResult.status !== 200) {
+		layer.msg(ajaxResult.responseJSON.message);
+		return;
+	}
 	formReset("#districtEditModal form");
 	let editId = $(this).attr("editId");
 	$("#districtInfoChangeBtn").val(editId);
