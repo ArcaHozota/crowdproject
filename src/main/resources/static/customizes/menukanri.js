@@ -76,8 +76,4 @@ $(document).ready(function() {
 		let url = '/pgcrowd/category/to/cityPages';
 		checkPermissionAndTransfer(url);
 	});
-	$("#stationQueryTree").on('click', function() {
-		let url = '/pgcrowd/category/to/stationPages';
-		checkPermissionAndTransfer(url);
-	});
 });
