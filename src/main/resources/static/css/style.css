@@ -3,9 +3,7 @@ Youtube: https://youtube.com/@devRasen
 Copyright: 2023 ©MdRasen */
 
 /* Google Font */
-@import
-	url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap")
-	;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap");
 
 /* General CSS */
 * {
@@ -19,7 +17,7 @@ Copyright: 2023 ©MdRasen */
 .container {
 	width: 100%;
 	height: 100vh;
-	background: url("../image/bg-img.jpg") no-repeat;
+	background: url(../image/background.jpg) no-repeat;
 	background-size: cover;
 	background-position: center;
 	display: flex;
@@ -121,26 +119,29 @@ Copyright: 2023 ©MdRasen */
 	margin: 20px 0 10px;
 }
 
-.remember-forget a, .register-link a {
+.remember-forget a,
+.register-link a {
 	color: #fff;
 	text-decoration: none;
 }
 
-.remember-forget a:hover, .register-link a:hover {
+.remember-forget a:hover,
+.register-link a:hover {
 	text-decoration: underline;
 }
 
 /* Responsive Design */
-@media ( max-width : 460px) {
+@media (max-width : 460px) {
 	.container .login-box {
 		width: 350px;
 	}
+
 	.login-box .input-box {
 		width: 290px;
 	}
 }
 
-@media ( max-width : 360px) {
+@media (max-width : 360px) {
 	.container .login-box {
 		width: 100%;
 		height: 100vh;
