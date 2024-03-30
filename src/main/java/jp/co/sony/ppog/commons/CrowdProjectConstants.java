@@ -14,6 +14,8 @@ public final class CrowdProjectConstants {
 
 	public static final Integer DEFAULT_PAGE_SIZE = 5;
 
+	public static final Integer DEFAULT_TOKEN_EXPIRED = 1320;
+
 	public static final String MESSAGE_SPRING_MVCCONVERTOR = "拡張メッセージコンバーターの設置は完了しました。";
 
 	public static final String MESSAGE_SPRING_MAPPER = "静的リソースのマッピングが開始しました。";
@@ -46,7 +48,7 @@ public final class CrowdProjectConstants {
 
 	public static final String MESSAGE_STRING_PROHIBITED = "ユーザは存在しません、もう一度やり直してください";
 
-	public static final String MESSAGE_STRING_NOTEXISTS = "役割は存在しません、もう一度やり直してください";
+	public static final String MESSAGE_STRING_NOT_EXISTS = "役割は存在しません、もう一度やり直してください";
 
 	public static final String MESSAGE_STRING_FORBIDDEN = "役割は利用されています、削除できません。";
 
@@ -57,6 +59,8 @@ public final class CrowdProjectConstants {
 	public static final String MESSAGE_STRING_DUPLICATED = "ログインアカウントがすでに存在します。";
 
 	public static final String MESSAGE_ROLE_NAME_DUPLICATED = "役割名称がすでに存在します。";
+
+	public static final String MESSAGE_DISTRICT_NAME_DUPLICATED = "地域名称がすでに存在します。";
 
 	public static final String MESSAGE_CITY_NAME_DUPLICATED = "都市名称がすでに存在します。";
 
@@ -73,8 +77,6 @@ public final class CrowdProjectConstants {
 	public static final String MESSAGE_SPRINGSECURITY_LOGINERROR4 = "入力したパスワードが正しくありません。";
 
 	public static final String DEFAULT_ROLE_NAME = "---------------------------";
-
-	public static final String DEFAULT_PROJECT_TOKEN = "crowdproject";
 
 	public static final String MESSAGE_SPRING_SECURITY = "スプリングセキュリティ作動中。";
 

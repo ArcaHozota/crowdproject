@@ -1,5 +1,7 @@
 package jp.co.sony.ppog.config;
 
+import java.util.UUID;
+
 import javax.annotation.Resource;
 
 import org.springframework.context.annotation.Bean;
@@ -107,7 +109,8 @@ public class WebSecurityConfiguration {
 					} catch (final Exception e) {
 						throw new CrowdProjectException(CrowdProjectConstants.MESSAGE_STRING_FATAL_ERROR);
 					}
-				}).rememberMe().key(CrowdProjectConstants.DEFAULT_PROJECT_TOKEN).tokenValiditySeconds(1320);
+				}).rememberMe().key(UUID.randomUUID().toString())
+				.tokenValiditySeconds(CrowdProjectConstants.DEFAULT_TOKEN_EXPIRED);
 		log.info(CrowdProjectConstants.MESSAGE_SPRING_SECURITY);
 		return http.build();
 	}
