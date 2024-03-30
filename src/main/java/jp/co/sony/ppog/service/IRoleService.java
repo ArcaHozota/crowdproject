@@ -74,7 +74,7 @@ public interface IRoleService {
 	Pagination<RoleDto> getRolesByKeyword(Integer pageNum, String keyword);
 
 	/**
-	 * 役割IDによって情報を削除する
+	 * IDによって情報を削除する
 	 *
 	 * @param id 役割ID
 	 * @return ResultDto<String>
