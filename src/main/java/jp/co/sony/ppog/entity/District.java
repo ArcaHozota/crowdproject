@@ -28,7 +28,7 @@ public final class District implements Serializable {
 	/**
 	 * 州都ID
 	 */
-	private String shutoId;
+	private Long shutoId;
 
 	/**
 	 * 州都名称

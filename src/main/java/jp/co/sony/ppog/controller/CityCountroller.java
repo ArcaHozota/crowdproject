@@ -2,7 +2,9 @@ package jp.co.sony.ppog.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -62,6 +64,17 @@ public final class CityCountroller {
 	@GetMapping("/checkEdition")
 	public ResultDto<String> checkEdition() {
 		return ResultDto.successWithoutData();
+	}
+
+	/**
+	 * 都市情報削除
+	 *
+	 * @param cityId 都市ID
+	 * @return ResultDto<String>
+	 */
+	@DeleteMapping("/delete/{cityId}")
+	public ResultDto<String> deleteInfo(@PathVariable("cityId") final Long cityId) {
+		return this.iCityService.removeById(cityId);
 	}
 
 	/**

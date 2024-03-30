@@ -155,9 +155,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	}
 
 	@Override
-	public void removeById(final Long userId) {
+	public void removeById(final Long id) {
 		final Employee entity = new Employee();
-		entity.setId(userId);
+		entity.setId(id);
 		entity.setDelFlg(CrowdProjectConstants.LOGIC_DELETE_FLG);
 		this.employeeMapper.removeById(entity);
 	}

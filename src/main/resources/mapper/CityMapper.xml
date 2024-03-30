@@ -55,6 +55,14 @@
 		    PC.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
 		    AND PC.ID = #{id,jdbcType=NUMERIC}
 	</update>
+	<update id="removeById"
+		parameterType="jp.co.sony.ppog.entity.City">
+		UPDATE PPOG_CITIES PC 
+		SET
+		    PC.DEL_FLG = #{delFlg,jdbcType=NVARCHAR} 
+		WHERE
+		    PC.ID = #{id,jdbcType=NUMERIC}
+	</update>
 	<select id="selectById" resultMap="BasicResultMap">
 		SELECT
 		    PCV.* 

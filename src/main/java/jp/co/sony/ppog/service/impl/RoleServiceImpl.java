@@ -171,13 +171,13 @@ public class RoleServiceImpl implements IRoleService {
 	}
 
 	@Override
-	public ResultDto<String> removeById(final Long roleId) {
-		final List<EmployeeRole> list = this.employeeRoleMapper.selectByRoleId(roleId);
+	public ResultDto<String> removeById(final Long id) {
+		final List<EmployeeRole> list = this.employeeRoleMapper.selectByRoleId(id);
 		if (!list.isEmpty()) {
 			return ResultDto.failed(CrowdProjectConstants.MESSAGE_STRING_FORBIDDEN);
 		}
 		final Role entity = new Role();
-		entity.setId(roleId);
+		entity.setId(id);
 		entity.setDelFlg(CrowdProjectConstants.LOGIC_DELETE_FLG);
 		this.roleMapper.removeById(entity);
 		return ResultDto.successWithoutData();

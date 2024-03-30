@@ -76,10 +76,10 @@ public interface IRoleService {
 	/**
 	 * 役割IDによって情報を削除する
 	 *
-	 * @param roleId 役割ID
+	 * @param id 役割ID
 	 * @return ResultDto<String>
 	 */
-	ResultDto<String> removeById(Long roleId);
+	ResultDto<String> removeById(Long id);
 
 	/**
 	 * 役割情報追加

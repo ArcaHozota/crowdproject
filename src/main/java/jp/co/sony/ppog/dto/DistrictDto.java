@@ -28,7 +28,7 @@ public final class DistrictDto implements Serializable {
 	/**
 	 * 州都ID
 	 */
-	private String shutoId;
+	private Long shutoId;
 
 	/**
 	 * 州都名称

@@ -60,6 +60,8 @@ public final class CrowdProjectConstants {
 
 	public static final String MESSAGE_CITY_NAME_DUPLICATED = "都市名称がすでに存在します。";
 
+	public static final String MESSAGE_STRING_FORBIDDEN3 = "当都市は州都です、削除できません。";
+
 	public static final String MESSAGE_SPRINGSECURITY_REQUIRED_AUTH = "当ユーザの相応的な権限がないのでリクエスト拒否。";
 
 	public static final String MESSAGE_SPRINGSECURITY_LOGINERROR1 = "当ユーザは存在しません。もう一度やり直してください。";

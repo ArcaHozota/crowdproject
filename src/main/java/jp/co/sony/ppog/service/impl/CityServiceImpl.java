@@ -1,6 +1,7 @@
 package jp.co.sony.ppog.service.impl;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -9,7 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import jp.co.sony.ppog.commons.CrowdProjectConstants;
 import jp.co.sony.ppog.dto.CityDto;
 import jp.co.sony.ppog.entity.City;
+import jp.co.sony.ppog.entity.District;
 import jp.co.sony.ppog.mapper.CityMapper;
+import jp.co.sony.ppog.mapper.DistrictMapper;
 import jp.co.sony.ppog.service.ICityService;
 import jp.co.sony.ppog.utils.Pagination;
 import jp.co.sony.ppog.utils.ResultDto;
@@ -35,6 +38,11 @@ public class CityServiceImpl implements ICityService {
 	 * 都市マッパー
 	 */
 	private final CityMapper cityMapper;
+
+	/**
+	 * 地域マッパー
+	 */
+	private final DistrictMapper districtMapper;
 
 	@Override
 	public ResultDto<String> check(final String name, final Long districtId) {
@@ -76,6 +84,18 @@ public class CityServiceImpl implements ICityService {
 					return cityDto;
 				}).collect(Collectors.toList());
 		return Pagination.of(pages, records, pageNum, pageSize);
+	}
+
+	@Override
+	public ResultDto<String> removeById(final Long id) {
+		final City city = this.cityMapper.selectById(id);
+		final District district = this.districtMapper.selectById(city.getDistrictId());
+		if (Objects.equals(id, district.getShutoId())) {
+			return ResultDto.failed(CrowdProjectConstants.MESSAGE_STRING_FORBIDDEN3);
+		}
+		city.setDelFlg(CrowdProjectConstants.LOGIC_DELETE_FLG);
+		this.cityMapper.removeById(city);
+		return ResultDto.successWithoutData();
 	}
 
 	@Override

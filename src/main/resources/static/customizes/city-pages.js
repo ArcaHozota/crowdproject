@@ -158,6 +158,33 @@ $("#cityInfoChangeBtn").on('click', function() {
 		pgcrowdAjaxModify('/pgcrowd/city/infoupd', 'PUT', putData, putSuccessFunction);
 	}
 });
+$("#tableBody").on('click', '.delete-btn', function() {
+	let ajaxResult = $.ajax({
+		url: '/pgcrowd/city/checkEdition',
+		type: 'GET',
+		async: false
+	});
+	if (ajaxResult.status !== 200) {
+		layer.msg(ajaxResult.responseJSON.message);
+		return;
+	}
+	let cityName = $(this).parents("tr").find("td:eq(0)").text().trim();
+	let cityId = $(this).attr("deleteId");
+	swal.fire({
+		title: 'メッセージ',
+		text: 'この「' + cityName + '」という都市の情報を削除する、よろしいでしょうか。',
+		icon: 'question',
+		showCloseButton: true,
+		confirmButtonText: 'はい',
+		confirmButtonColor: '#7F0020'
+	}).then((result) => {
+		if (result.isConfirmed) {
+			pgcrowdAjaxModify('/pgcrowd/city/delete/' + cityId, 'DELETE', null, normalDeleteSuccessFunction);
+		} else {
+			$(this).close();
+		}
+	});
+});
 function checkCityName(cityName, district) {
 	let nameVal = $(cityName).val().trim();
 	let districtVal = $(district).val();

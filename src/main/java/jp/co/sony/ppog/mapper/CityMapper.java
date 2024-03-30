@@ -59,6 +59,13 @@ public interface CityMapper {
 			@Param("pageSize") Integer pageSize);
 
 	/**
+	 * IDによって論理削除を行う
+	 *
+	 * @param city 都市エンティティ
+	 */
+	void removeById(City city);
+
+	/**
 	 * IDによって情報を検索する
 	 *
 	 * @param city 都市エンティティ

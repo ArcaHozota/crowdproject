@@ -47,9 +47,9 @@ public interface IEmployeeService {
 	/**
 	 * 社員情報削除
 	 *
-	 * @param userId 社員ID
+	 * @param id 社員ID
 	 */
-	void removeById(Long userId);
+	void removeById(Long id);
 
 	/**
 	 * 社員情報追加
