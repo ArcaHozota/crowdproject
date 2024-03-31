@@ -12,13 +12,13 @@ $(function() {
 			nodes: [
 				{
 					id: "toAdmin",
-					text: "ユーザ管理",
+					text: "社員管理",
 					icon: "fa-solid fa-user-group"
 				},
 				{
 					id: "toRole",
 					text: "役割管理",
-					icon: "fa-solid fa-user-tie"
+					icon: "fa-solid fa-user-gear"
 				},
 				{
 					id: "toMenu",

@@ -3,7 +3,7 @@ $(document).ready(function() {
 	let treeData = [
 		{
 			text: "社員管理",
-			icon: "fa-solid fa-circle-user",
+			icon: "fa-solid fa-user-group",
 			expanded: true,
 			nodes: [
 				{
