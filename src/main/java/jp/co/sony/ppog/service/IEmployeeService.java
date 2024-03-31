@@ -64,7 +64,7 @@ public interface IEmployeeService {
 	 * @param employeeDto 社員情報DTO
 	 * @return Boolean
 	 */
-	Boolean toroku(EmployeeDto employeeDto);
+	Boolean register(EmployeeDto employeeDto);
 
 	/**
 	 * 社員情報行更新

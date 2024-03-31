@@ -178,7 +178,7 @@ public final class EmployeeController {
 		employeeDto.setEmail(email);
 		employeeDto.setPassword(password);
 		employeeDto.setDateOfBirth(dateOfBirth);
-		final Boolean toroku = this.iEmployeeService.toroku(employeeDto);
+		final Boolean toroku = this.iEmployeeService.register(employeeDto);
 		final ModelAndView mAndView = new ModelAndView("admin-login");
 		if (Boolean.FALSE.equals(toroku)) {
 			mAndView.addObject("torokuMsg", CrowdProjectConstants.MESSAGE_TOROKU_FAILURE);

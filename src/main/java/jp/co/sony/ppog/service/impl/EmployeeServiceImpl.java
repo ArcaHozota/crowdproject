@@ -182,7 +182,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	}
 
 	@Override
-	public Boolean toroku(final EmployeeDto employeeDto) {
+	public Boolean register(final EmployeeDto employeeDto) {
 		final Employee selectByLoginAcct = this.employeeMapper.selectByLoginAcct(employeeDto.getEmail());
 		if (selectByLoginAcct != null) {
 			return Boolean.FALSE;
