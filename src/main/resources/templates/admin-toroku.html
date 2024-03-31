@@ -7,7 +7,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="_csrf_header" th:content="${_csrf.headerName}">
 	<meta name="_csrf_token" th:content="${_csrf.token}">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 	<link rel="stylesheet" th:href="@{/static/css/style.css}">
 	<link rel="shortcut icon" type="image/x-icon" th:href="@{/static/favicon.ico}">
 	<script type="text/javascript" th:src="@{/static/jquery/jquery-3.7.1.min.js}"></script>
@@ -32,13 +31,13 @@
 			height: 550px;
 		}
 
-		.input-box .icon #eyeIcons2 {
+		.input-box #eyeIcons2 {
 			position: absolute;
 			cursor: pointer;
 			right: 30px;
 			color: #fff;
-			font-size: 18px;
-			line-height: 50px;
+			font-size: 1.2em;
+			top: 20px;
 		}
 	</style>
 	<div class="container">
@@ -48,28 +47,30 @@
 				id="torokuForm">
 				<h2>登録</h2>
 				<div class="input-box">
-					<span class="icon"><i class="fa-solid fa-envelope"></i></span>
+					<ion-icon name="mail-outline"></ion-icon>
 					<input type="text" name="email" id="emailIpt" placeholder="メールアドレス" required>
 				</div>
 				<div class="input-box">
-					<span class="icon"><i class="fa-solid fa-key" id="passwordkeyIcn1"></i></span>
-					<span class="icon"><i class="fa-solid fa-eye" id="eyeIcons2"></i></span>
+					<ion-icon name="key-outline"></ion-icon>
+					<ion-icon name="eye-outline" id="eyeIcons2"></ion-icon>
 					<input type="password" name="password" id="passwordIpt1" placeholder="パスワード" required>
 				</div>
 				<div class="input-box">
-					<span class="icon"><i class="fa-solid fa-key" id="passwordkeyIcn2"></i></span>
+					<ion-icon name="key-outline"></ion-icon>
 					<input type="password" name="password" id="passwordIpt2" placeholder="パスワード再入力" required>
 				</div>
 				<div class="input-box">
-					<span class="icon"><i class="fa-solid fa-calendar"></i></span>
+					<ion-icon name="calendar-outline"></ion-icon>
 					<input type="date" name="dateOfBirth" id="dateOfBirthIpt" required>
 				</div>
 				<button type="button" id="torokuBtn">登録</button>
 				<div class="register-link">
-					<a th:href="@{/pgcrowd/employee/login}">すでにアカウント持ち? ログイン!</a>
+					<p>すでにアカウント持ち? <a th:href="@{/pgcrowd/employee/login}">ログイン!</a></p>
 				</div>
 			</form>
 		</div>
+		<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+		<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 	</div>
 	<script type="text/javascript" th:src="@{/static/customizes/logintoroku.js}"></script>
 </body>

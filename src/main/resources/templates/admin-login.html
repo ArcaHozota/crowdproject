@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="_csrf_header" th:content="${_csrf.headerName}">
 	<meta name="_csrf_token" th:content="${_csrf.token}">
-	<link rel="stylesheet" th:href="@{/static/css/newstyle.css}">
+	<link rel="stylesheet" th:href="@{/static/css/style.css}">
 	<link rel="shortcut icon" type="image/x-icon" th:href="@{/static/favicon.ico}">
 	<script type="text/javascript" th:src="@{/static/jquery/jquery-3.7.1.min.js}"></script>
 	<script type="text/javascript" th:src="@{/static/layer/layer.js}"></script>
@@ -27,7 +27,7 @@
 			display: none;
 		}
 
-		.inputbox #eyeIcons {
+		.input-box #eyeIcons {
 			position: absolute;
 			cursor: pointer;
 			right: 30px;
@@ -41,35 +41,29 @@
 			id="errorMsg" hidden />
 		<p th:text="${registeredEmail eq null ? '' : registeredEmail}" id="emailAddress" hidden />
 		<p th:text="${torokuMsg eq null ? '' : torokuMsg}" id="torokuMsg" hidden />
-		<section>
-			<div class="form-box">
-				<div class="form-value">
-					<form th:action="@{/pgcrowd/employee/do/login}" method="post">
-						<h2>ログイン</h2>
-						<div class="inputbox">
-							<ion-icon name="mail-outline"></ion-icon>
-							<input type="text" name="loginAcct" id="accountIpt" required>
-							<label for="accountIpt">アカウント</label>
-						</div>
-						<div class="inputbox">
-							<ion-icon name="lock-closed-outline"></ion-icon>
-							<ion-icon name="eye-outline" id="eyeIcons"></ion-icon>
-							<input type="password" name="userPswd" id="passwordIpt" required>
-							<label for="passwordIpt">パスワード</label>
-						</div>
-						<div class="forget">
-							<label for="rmbcheckbox"><input type="checkbox" name="remember-me" id="rmbcheckbox">Remember
-								Me</label>
-							<a href="#">Forget password?</a>
-						</div>
-						<button type="submit">ログイン</button>
-						<div class="register">
-							<p>アカウント無し？<a th:href="@{/pgcrowd/employee/to/signup}">登録しましょう</a></p>
-						</div>
-					</form>
+		<div class="login-box">
+			<!-- Login Form -->
+			<form th:action="@{/pgcrowd/employee/do/login}" th:method="post" class="form-signin" role="form">
+				<h2>ログイン</h2>
+				<div class="input-box">
+					<ion-icon name="mail-outline"></ion-icon>
+					<input type="text" name="loginAcct" id="accountIpt" placeholder="アカウント" required>
 				</div>
-			</div>
-		</section>
+				<div class="input-box">
+					<ion-icon name="lock-closed-outline"></ion-icon>
+					<ion-icon name="eye-outline" id="eyeIcons"></ion-icon>
+					<input type="password" name="userPswd" id="passwordIpt" placeholder="パスワード" required>
+				</div>
+				<div class="remember-forget">
+					<label><input type="checkbox" name="remember-me">Remember Me</label>
+					<a href="#">Forgot Password?</a>
+				</div>
+				<button type="submit">ログイン</button>
+				<div class="register-link">
+					<p>アカウント無し？<a th:href="@{/pgcrowd/employee/to/signup}">登録しましょう</a></p>
+				</div>
+			</form>
+		</div>
 		<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 		<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 	</div>
