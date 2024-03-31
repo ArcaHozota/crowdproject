@@ -2,6 +2,7 @@ let pageNum, totalRecords, totalPages, keyword;
 $(document).ready(function() {
 	$("#toAdmin").css('color', '#7F0020');
 	toSelectedPg(1, keyword);
+	$("#toAdmin").addClass('animate__animated animate__flipInY');
 });
 $("#searchBtn2").on('click', function() {
 	keyword = $("#keywordInput").val();
