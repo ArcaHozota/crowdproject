@@ -17,10 +17,10 @@ public interface IDistrictService {
 	/**
 	 * IDによって地域情報を取得する
 	 *
-	 * @param id 地域ID
+	 * @param cityId 都市ID
 	 * @return List<District>
 	 */
-	List<DistrictDto> getDistrictList(String id);
+	List<DistrictDto> getDistrictsByCityId(String cityId);
 
 	/**
 	 * キーワードによって地域情報を取得する

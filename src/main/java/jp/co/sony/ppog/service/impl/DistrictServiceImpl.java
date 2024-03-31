@@ -44,14 +44,14 @@ public class DistrictServiceImpl implements IDistrictService {
 	private final DistrictMapper districtMapper;
 
 	@Override
-	public List<DistrictDto> getDistrictList(final String id) {
+	public List<DistrictDto> getDistrictsByCityId(final String cityId) {
 		final List<DistrictDto> list = new ArrayList<>();
 		final List<DistrictDto> districtDtos = this.districtMapper.selectAll().stream().map(item -> {
 			final DistrictDto districtDto = new DistrictDto();
 			SecondBeanUtils.copyNullableProperties(item, districtDto);
 			return districtDto;
 		}).collect(Collectors.toList());
-		if (StringUtils.isEmpty(id) || StringUtils.isEqual("null", id)) {
+		if (StringUtils.isEmpty(cityId) || StringUtils.isEqual("null", cityId)) {
 			final DistrictDto districtDto = new DistrictDto();
 			districtDto.setId(0L);
 			districtDto.setName(CrowdProjectConstants.DEFAULT_ROLE_NAME);
@@ -59,7 +59,7 @@ public class DistrictServiceImpl implements IDistrictService {
 			list.addAll(districtDtos);
 			return list;
 		}
-		final Long districtId = this.cityMapper.selectById(Long.parseLong(id)).getDistrictId();
+		final Long districtId = this.cityMapper.selectById(Long.parseLong(cityId)).getDistrictId();
 		final List<DistrictDto> collect = districtDtos.stream().filter(a -> Objects.equals(districtId, a.getId()))
 				.collect(Collectors.toList());
 		list.addAll(collect);

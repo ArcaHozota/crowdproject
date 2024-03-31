@@ -210,11 +210,11 @@ function checkCityName(cityName, district) {
 		});
 	}
 }
-function getDistricts(element, districtId) {
+function getDistricts(element, cityId) {
 	$(element).empty();
 	$.ajax({
 		url: '/pgcrowd/city/districtlist',
-		data: 'districtId=' + districtId,
+		data: 'cityId=' + cityId,
 		type: 'GET',
 		dataType: 'json',
 		success: function(result) {
