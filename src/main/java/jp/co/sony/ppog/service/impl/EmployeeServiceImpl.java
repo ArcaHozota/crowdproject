@@ -207,8 +207,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		SecondBeanUtils.copyNullableProperties(employee, originalEntity);
 		SecondBeanUtils.copyNullableProperties(employeeDto, employee);
 		employee.setDateOfBirth(LocalDate.parse(employeeDto.getDateOfBirth(), EmployeeServiceImpl.DATE_TIME_FORMATTER));
-		final String encoded = this.passwordEncoder.encode(employeeDto.getPassword());
-		employee.setPassword(encoded);
+		if (StringUtils.isNotEmpty(employeeDto.getPassword())) {
+			final String encoded = this.passwordEncoder.encode(employeeDto.getPassword());
+			employee.setPassword(encoded);
+		}
 		final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(employeeDto.getId());
 		if (originalEntity.equals(employee) && Objects.equals(employeeDto.getRoleId(), employeeRole.getRoleId())) {
 			return ResultDto.failed(CrowdProjectConstants.MESSAGE_STRING_NOCHANGE);
