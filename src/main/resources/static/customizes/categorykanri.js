@@ -3,18 +3,18 @@ $(document).ready(function() {
 	let treeData = [
 		{
 			text: "分類管理",
-			icon: "bi bi-list",
+			icon: "fa-solid fa-list",
 			expanded: true,
 			nodes: [
 				{
 					id: "districtQueryTree",
 					text: "地域一覧",
-					icon: "bi bi-globe-americas"
+					icon: "fa-solid fa-earth-americas"
 				},
 				{
 					id: "cityQueryTree",
 					text: "都市一覧",
-					icon: "bi bi-building-fill-check"
+					icon: "fa-solid fa-tree-city"
 				}
 			]
 		}

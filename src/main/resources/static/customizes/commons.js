@@ -3,55 +3,55 @@ $(function() {
 		{
 			id: "toMainmenu",
 			text: "コントロールパネル",
-			icon: "bi bi-speedometer",
+			icon: "fa-solid fa-compass",
 		},
 		{
 			text: "権限管理",
-			icon: "bi bi-bank2",
+			icon: "fa-solid fa-building-columns",
 			expanded: true,
 			nodes: [
 				{
 					id: "toAdmin",
 					text: "ユーザ管理",
-					icon: "bi bi-people-fill"
+					icon: "fa-solid fa-user-group"
 				},
 				{
 					id: "toRole",
 					text: "役割管理",
-					icon: "bi bi-list-check"
+					icon: "fa-solid fa-user-tie"
 				},
 				{
 					id: "toMenu",
 					text: "メニュー管理",
-					icon: "bi bi-menu-down"
+					icon: "fa-solid fa-bars"
 				}
 			]
 		},
 		{
 			text: "ビジネス管理",
-			icon: "bi bi-boombox-fill",
+			icon: "fa-solid fa-radio",
 			expanded: true,
 			nodes: [
 				{
 					id: "toCertification",
 					text: "資格維持",
-					icon: "bi bi-check-circle-fill"
+					icon: "fa-solid fa-circle-check"
 				},
 				{
 					id: "toCategory",
 					text: "分類管理",
-					icon: "bi bi-list",
+					icon: "fa-solid fa-list",
 					expanded: true,
 					nodes: [
 						{
 							id: "toDistrict",
 							text: "地域一覧",
-							icon: "bi bi-globe-americas"
+							icon: "fa-solid fa-earth-americas"
 						},
 						{
 							id: "toCity",
 							text: "都市一覧",
-							icon: "bi bi-building-fill-check"
+							icon: "fa-solid fa-tree-city"
 						}
 					]
 				}
