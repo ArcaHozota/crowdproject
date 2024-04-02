@@ -49,7 +49,7 @@
 						<input type="text" class="form-control" id="searchInput" placeholder="検索"
 							style="max-width: 180px;">
 						<button class="input-group-text bg-transparent p-0 px-2" id="searchBtn">
-							<i class="bi bi-search"></i>
+							<i class="fa-solid fa-magnifying-glass"></i>
 						</button>
 					</div>
 					<ul class="navbar-nav mb-2 mb-lg-0 d-flex" id="dropdown-info">
@@ -61,14 +61,14 @@
 							<ul class="dropdown-menu dropdown-menu-end" role="menu">
 								<li>
 									<a class="dropdown-item" href="#" id="toPersonal">
-										<i class="bi bi-gear-wide-connected"></i> 個人設定
+										<i class="fa-solid fa-user-gear"></i> 個人設定
 										<p th:text="${#authentication.getPrincipal().getOriginalAdmin().getId()}"
 											hidden />
 									</a>
 								</li>
 								<li>
 									<a class="dropdown-item" href="#">
-										<i class="bi bi-chat-dots"></i> メッセージ
+										<i class="fa-solid fa-comments"></i> メッセージ
 									</a>
 								</li>
 								<li>

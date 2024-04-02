@@ -20,7 +20,7 @@ $(document).ready(function() {
 		},
 		{
 			text: "役割管理",
-			icon: "fa-solid fa-user-gear",
+			icon: "fa-solid fa-user-shield",
 			expanded: true,
 			nodes: [
 				{

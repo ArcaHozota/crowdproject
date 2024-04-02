@@ -220,7 +220,7 @@ function getDistricts(element, cityId) {
 		success: function(result) {
 			$.each(result.data, (index, item) => {
 				let optionElement = $("<option></option>").attr('value', item.id)
-					.attr('flagval', item.districtFlag).text(item.name);
+					.attr('flagval', item.districtFlag).text(item.name + '----------------' + item.chiho);
 				optionElement.appendTo(element);
 			});
 		}
