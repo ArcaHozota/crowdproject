@@ -174,10 +174,6 @@ $("#editInfoBtn").on('click', function() {
 	} else if ($("#editForm").find('*').hasClass('is-invalid')) {
 		layer.msg('入力情報不正。');
 	} else {
-		let rawPassword = $("#passwordEdit").val().trim();
-		if (rawPassword === "**************************************") {
-			rawPassword = null;
-		}
 		let roleId = $("#roleEdit").attr('value');
 		if (roleId === null || roleId === undefined) {
 			roleId = $("#roleEdit option:selected").val();
@@ -186,7 +182,7 @@ $("#editInfoBtn").on('click', function() {
 			'id': $("#editId").text(),
 			'loginAccount': $("#loginAccountEdit").text(),
 			'username': $("#usernameEdit").val().trim(),
-			'password': rawPassword,
+			'password': $("#passwordEdit").val().trim(),
 			'email': $("#emailEdit").val().trim(),
 			'dateOfBirth': $("#dateEdit").val(),
 			'roleId': roleId

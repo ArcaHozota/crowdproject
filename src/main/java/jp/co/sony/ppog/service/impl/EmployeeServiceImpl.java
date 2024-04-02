@@ -155,6 +155,25 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	}
 
 	@Override
+	public Boolean register(final EmployeeDto employeeDto) {
+		final Employee selectByLoginAcct = this.employeeMapper.selectByLoginAcct(employeeDto.getEmail());
+		if (selectByLoginAcct != null) {
+			return Boolean.FALSE;
+		}
+		final String password = this.passwordEncoder.encode(employeeDto.getPassword());
+		final Employee employee = new Employee();
+		SecondBeanUtils.copyNullableProperties(employeeDto, employee);
+		employee.setId(SnowflakeUtils.snowflakeId());
+		employee.setLoginAccount(this.getRandomStr());
+		employee.setPassword(password);
+		employee.setDelFlg(CrowdProjectConstants.LOGIC_DELETE_INITIAL);
+		employee.setCreatedTime(LocalDateTime.now());
+		employee.setDateOfBirth(LocalDate.parse(employeeDto.getDateOfBirth(), EmployeeServiceImpl.DATE_TIME_FORMATTER));
+		this.employeeMapper.insertById(employee);
+		return Boolean.TRUE;
+	}
+
+	@Override
 	public void removeById(final Long id) {
 		final Employee entity = new Employee();
 		entity.setId(id);
@@ -182,35 +201,13 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	}
 
 	@Override
-	public Boolean register(final EmployeeDto employeeDto) {
-		final Employee selectByLoginAcct = this.employeeMapper.selectByLoginAcct(employeeDto.getEmail());
-		if (selectByLoginAcct != null) {
-			return Boolean.FALSE;
-		}
-		final String password = this.passwordEncoder.encode(employeeDto.getPassword());
-		final Employee employee = new Employee();
-		SecondBeanUtils.copyNullableProperties(employeeDto, employee);
-		employee.setId(SnowflakeUtils.snowflakeId());
-		employee.setLoginAccount(this.getRandomStr());
-		employee.setPassword(password);
-		employee.setDelFlg(CrowdProjectConstants.LOGIC_DELETE_INITIAL);
-		employee.setCreatedTime(LocalDateTime.now());
-		employee.setDateOfBirth(LocalDate.parse(employeeDto.getDateOfBirth(), EmployeeServiceImpl.DATE_TIME_FORMATTER));
-		this.employeeMapper.insertById(employee);
-		return Boolean.TRUE;
-	}
-
-	@Override
 	public ResultDto<String> update(final EmployeeDto employeeDto) {
 		final Employee originalEntity = new Employee();
 		final Employee employee = this.employeeMapper.selectById(employeeDto.getId());
 		SecondBeanUtils.copyNullableProperties(employee, originalEntity);
 		SecondBeanUtils.copyNullableProperties(employeeDto, employee);
 		employee.setDateOfBirth(LocalDate.parse(employeeDto.getDateOfBirth(), EmployeeServiceImpl.DATE_TIME_FORMATTER));
-		if (StringUtils.isNotEmpty(employeeDto.getPassword())) {
-			final String encoded = this.passwordEncoder.encode(employeeDto.getPassword());
-			employee.setPassword(encoded);
-		}
+		employee.setPassword(this.passwordEncoder.encode(employeeDto.getPassword()));
 		final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(employeeDto.getId());
 		if (originalEntity.equals(employee) && Objects.equals(employeeDto.getRoleId(), employeeRole.getRoleId())) {
 			return ResultDto.failed(CrowdProjectConstants.MESSAGE_STRING_NOCHANGE);
