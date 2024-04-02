@@ -37,7 +37,7 @@ function buildTableBody(result) {
 		let pronunciationTd = $("<td scope='row' class='text-center table-light' style='width:100px;vertical-align:middle;'></td>").append(item.pronunciation);
 		let districtTd = $("<td scope='row' class='text-center table-light' style='width:70px;vertical-align:middle;'></td>").append(item.districtName);
 		let populationTd = $("<td scope='row' class='text-center table-light' style='width:50px;vertical-align:middle;'></td>").append(patternedPop);
-		let flagImg = $("<img>").attr('src', '../static/image/flags/' + item.cityFlag + '.svg').attr('alt', '').height(27).width(40);
+		let flagImg = $("<img>").attr('src', '/pgcrowd/get/pictures/flags/' + item.cityFlag + '.svg').attr('alt', '').height(27).width(40);
 		let flagTd = $("<td scope='row' class='text-center table-light' style='width:50px;vertical-align:middle;'></td>").append(flagImg);
 		let editBtn = $("<button></button>").addClass("btn btn-primary btn-sm edit-btn")
 			.append($("<i class='fa-solid fa-pencil'></i>")).append("編集");
