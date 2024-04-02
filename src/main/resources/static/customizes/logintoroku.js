@@ -37,6 +37,19 @@ $(document).ready(function() {
 		$("#accountIpt").val(email);
 	}
 });
+$("#loginBtn").on('click', function() {
+	let account = $("#accountIpt").val().trim();
+	let password = $("#passwordIpt").val().trim();
+	if (account === "" && password === "") {
+		layer.msg('アカウントとパスワードを入力してください。');
+	} else if (account === "") {
+		layer.msg('アカウントを入力してください。');
+	} else if (password === "") {
+		layer.msg('パスワードを入力してください。');
+	} else {
+		$("#loginForm").submit();
+	}
+});
 $("#torokuBtn").on('click', function() {
 	let inputArrays = ["#emailIpt", "#passwordIpt1", "#passwordIpt2", "#dateOfBirthIpt"];
 	for (const element of inputArrays) {
