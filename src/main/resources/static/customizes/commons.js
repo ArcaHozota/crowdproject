@@ -2,7 +2,7 @@ $(function() {
 	let treeData = [
 		{
 			id: "toMainmenu",
-			text: "コントロールパネル",
+			text: "メインメニュー",
 			icon: "fa-solid fa-compass",
 		},
 		{
