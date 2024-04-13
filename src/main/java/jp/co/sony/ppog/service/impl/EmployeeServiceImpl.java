@@ -15,15 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import jp.co.sony.ppog.commons.CrowdProjectConstants;
 import jp.co.sony.ppog.config.CrowdProjectPasswordEncoder;
 import jp.co.sony.ppog.dto.EmployeeDto;
-import jp.co.sony.ppog.entity.Authority;
 import jp.co.sony.ppog.entity.Employee;
 import jp.co.sony.ppog.entity.EmployeeRole;
-import jp.co.sony.ppog.entity.Role;
-import jp.co.sony.ppog.entity.RoleAuth;
-import jp.co.sony.ppog.mapper.AuthorityMapper;
 import jp.co.sony.ppog.mapper.EmployeeMapper;
 import jp.co.sony.ppog.mapper.EmployeeRoleMapper;
-import jp.co.sony.ppog.mapper.RoleMapper;
 import jp.co.sony.ppog.service.IEmployeeService;
 import jp.co.sony.ppog.utils.Pagination;
 import jp.co.sony.ppog.utils.ResultDto;
@@ -56,19 +51,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	private static final Random RANDOM = new Random();
 
 	/**
-	 * 権限マッパー
-	 */
-	private final AuthorityMapper authorityMapper;
-
-	/**
 	 * 社員管理マッパー
 	 */
 	private final EmployeeMapper employeeMapper;
-
-	/**
-	 * 役割マッパー
-	 */
-	private final RoleMapper roleMapper;
 
 	/**
 	 * 社員役割連携マッパー
@@ -88,19 +73,6 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	}
 
 	@Override
-	public Boolean checkEdition(final Long id) {
-		final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(id);
-		final Role role = this.roleMapper.selectByIdWithAuth(employeeRole.getRoleId());
-		final List<Long> authIds = role.getRoleAuths().stream().map(RoleAuth::getAuthId).collect(Collectors.toList());
-		final List<String> authList = this.authorityMapper.selectByIds(authIds).stream().map(Authority::getName)
-				.collect(Collectors.toList());
-		if (!authList.contains("employee%edition") && !authList.contains("employee%delete")) {
-			return Boolean.FALSE;
-		}
-		return Boolean.TRUE;
-	}
-
-	@Override
 	public EmployeeDto getEmployeeById(final Long id) {
 		final EmployeeRole employeeRole = this.employeeRoleMapper.selectById(id);
 		final Employee employee = this.employeeMapper.selectById(id);
@@ -113,10 +85,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	}
 
 	@Override
-	public Pagination<EmployeeDto> getEmployeesByKeyword(final Integer pageNum, final String keyword,
-			final Long userId) {
+	public Pagination<EmployeeDto> getEmployeesByKeyword(final Integer pageNum, final String keyword, final Long userId,
+			final String authChkFlag) {
 		final Integer pageSize = CrowdProjectConstants.DEFAULT_PAGE_SIZE;
-		if (this.checkEdition(userId).equals(Boolean.FALSE)) {
+		if (Boolean.FALSE.equals(Boolean.valueOf(authChkFlag))) {
 			final Employee employee = this.employeeMapper.selectById(userId);
 			final EmployeeDto employeeDto = new EmployeeDto();
 			SecondBeanUtils.copyNullableProperties(employee, employeeDto);

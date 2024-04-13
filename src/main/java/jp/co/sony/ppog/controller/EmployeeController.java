@@ -95,8 +95,10 @@ public final class EmployeeController {
 	public ResultDto<Pagination<EmployeeDto>> pagination(
 			@RequestParam(name = "pageNum", defaultValue = "1") final Integer pageNum,
 			@RequestParam(name = "keyword", defaultValue = StringUtils.EMPTY_STRING) final String keyword,
-			@RequestParam(name = "userId") final Long userId) {
-		final Pagination<EmployeeDto> employees = this.iEmployeeService.getEmployeesByKeyword(pageNum, keyword, userId);
+			@RequestParam(name = "userId", required = false) final Long userId,
+			@RequestParam(name = "authChkFlag", defaultValue = "false") final String authChkFlag) {
+		final Pagination<EmployeeDto> employees = this.iEmployeeService.getEmployeesByKeyword(pageNum, keyword, userId,
+				authChkFlag);
 		return ResultDto.successWithData(employees);
 	}
 
@@ -148,10 +150,9 @@ public final class EmployeeController {
 	 */
 	@GetMapping("/to/edition")
 	public ModelAndView toEdition(@RequestParam("editId") final Long editId,
-			@RequestParam("userId") final Long userId) {
+			@RequestParam(name = "authChkFlag", defaultValue = "false") final String authChkFlag) {
 		final EmployeeDto employee = this.iEmployeeService.getEmployeeById(editId);
-		final Boolean checkEdition = this.iEmployeeService.checkEdition(userId);
-		if (Boolean.FALSE.equals(checkEdition)) {
+		if (Boolean.FALSE.equals(Boolean.valueOf(authChkFlag))) {
 			final ModelAndView modelAndView = new ModelAndView("admin-editinfo2");
 			modelAndView.addObject(CrowdProjectConstants.ATTRNAME_EDITED_INFO, employee);
 			final Role role = this.iRoleService.getRoleById(employee.getRoleId());

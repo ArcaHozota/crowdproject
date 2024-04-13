@@ -20,14 +20,6 @@ public interface IEmployeeService {
 	ResultDto<String> check(String loginAccount);
 
 	/**
-	 * ユーザ編集権限チェック
-	 *
-	 * @param id 社員ID
-	 * @return Boolean
-	 */
-	Boolean checkEdition(Long id);
-
-	/**
 	 * IDによって社員情報を取得する
 	 *
 	 * @param id 社員ID
@@ -42,7 +34,15 @@ public interface IEmployeeService {
 	 * @param keyword キーワード
 	 * @return Pagination<Employee>
 	 */
-	Pagination<EmployeeDto> getEmployeesByKeyword(Integer pageNum, String keyword, Long userId);
+	Pagination<EmployeeDto> getEmployeesByKeyword(Integer pageNum, String keyword, Long userId, String authChkFlag);
+
+	/**
+	 * 社員登録
+	 *
+	 * @param employeeDto 社員情報DTO
+	 * @return Boolean
+	 */
+	Boolean register(EmployeeDto employeeDto);
 
 	/**
 	 * 社員情報削除
@@ -57,14 +57,6 @@ public interface IEmployeeService {
 	 * @param employeeDto 社員情報転送クラス
 	 */
 	void save(EmployeeDto employeeDto);
-
-	/**
-	 * 社員登録
-	 *
-	 * @param employeeDto 社員情報DTO
-	 * @return Boolean
-	 */
-	Boolean register(EmployeeDto employeeDto);
 
 	/**
 	 * 社員情報行更新
