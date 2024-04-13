@@ -23,7 +23,7 @@ public interface IRoleService {
 	 * @param name 役割名称
 	 * @return true:重複する; false: 重複しない;
 	 */
-	ResultDto<String> check(String name);
+	ResultDto<String> checkDuplicated(String name);
 
 	/**
 	 * 権限を付与する
@@ -79,7 +79,7 @@ public interface IRoleService {
 	 * @param id 役割ID
 	 * @return ResultDto<String>
 	 */
-	ResultDto<String> removeById(Long id);
+	ResultDto<String> remove(Long id);
 
 	/**
 	 * 役割情報追加

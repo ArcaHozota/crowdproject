@@ -17,7 +17,7 @@ public interface IEmployeeService {
 	 *
 	 * @param loginAccount ログインアカウント
 	 */
-	ResultDto<String> check(String loginAccount);
+	ResultDto<String> checkDuplicated(String loginAccount);
 
 	/**
 	 * IDによって社員情報を取得する
@@ -49,7 +49,7 @@ public interface IEmployeeService {
 	 *
 	 * @param id 社員ID
 	 */
-	void removeById(Long id);
+	void remove(Long id);
 
 	/**
 	 * 社員情報追加

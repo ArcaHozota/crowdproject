@@ -66,7 +66,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	private final CrowdProjectPasswordEncoder passwordEncoder = new CrowdProjectPasswordEncoder();
 
 	@Override
-	public ResultDto<String> check(final String loginAccount) {
+	public ResultDto<String> checkDuplicated(final String loginAccount) {
 		return this.employeeMapper.checkDuplicated(loginAccount) > 0
 				? ResultDto.failed(CrowdProjectConstants.MESSAGE_STRING_DUPLICATED)
 				: ResultDto.successWithoutData();
@@ -147,7 +147,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	}
 
 	@Override
-	public void removeById(final Long id) {
+	public void remove(final Long id) {
 		final Employee entity = new Employee();
 		entity.setId(id);
 		entity.setDelFlg(CrowdProjectConstants.LOGIC_DELETE_FLG);

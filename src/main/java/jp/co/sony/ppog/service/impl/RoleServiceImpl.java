@@ -63,7 +63,7 @@ public class RoleServiceImpl implements IRoleService {
 	private final EmployeeRoleMapper employeeRoleMapper;
 
 	@Override
-	public ResultDto<String> check(final String name) {
+	public ResultDto<String> checkDuplicated(final String name) {
 		return this.roleMapper.checkDuplicated(name) > 0
 				? ResultDto.failed(CrowdProjectConstants.MESSAGE_ROLE_NAME_DUPLICATED)
 				: ResultDto.successWithoutData();
@@ -171,7 +171,7 @@ public class RoleServiceImpl implements IRoleService {
 	}
 
 	@Override
-	public ResultDto<String> removeById(final Long id) {
+	public ResultDto<String> remove(final Long id) {
 		final List<EmployeeRole> list = this.employeeRoleMapper.selectByRoleId(id);
 		if (!list.isEmpty()) {
 			return ResultDto.failed(CrowdProjectConstants.MESSAGE_STRING_FORBIDDEN);

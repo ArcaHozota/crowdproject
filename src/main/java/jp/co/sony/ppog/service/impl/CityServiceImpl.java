@@ -45,7 +45,7 @@ public class CityServiceImpl implements ICityService {
 	private final DistrictMapper districtMapper;
 
 	@Override
-	public ResultDto<String> check(final String name, final Long districtId) {
+	public ResultDto<String> checkDuplicated(final String name, final Long districtId) {
 		final City city = new City();
 		city.setName(name);
 		city.setDistrictId(districtId);
@@ -87,7 +87,7 @@ public class CityServiceImpl implements ICityService {
 	}
 
 	@Override
-	public ResultDto<String> removeById(final Long id) {
+	public ResultDto<String> remove(final Long id) {
 		final City city = this.cityMapper.selectById(id);
 		final District district = this.districtMapper.selectById(city.getDistrictId());
 		if (Objects.equals(id, district.getShutoId())) {

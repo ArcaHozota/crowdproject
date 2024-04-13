@@ -67,7 +67,7 @@ public final class EmployeeController {
 	@GetMapping("/check")
 	@ResponseBody
 	public ResultDto<String> checkDuplicated(@RequestParam("loginAcct") final String loginAccount) {
-		return this.iEmployeeService.check(loginAccount);
+		return this.iEmployeeService.checkDuplicated(loginAccount);
 	}
 
 	/**
@@ -79,7 +79,7 @@ public final class EmployeeController {
 	@DeleteMapping("/delete/{userId}")
 	@ResponseBody
 	public ResultDto<String> deleteInfo(@PathVariable("userId") final Long userId) {
-		this.iEmployeeService.removeById(userId);
+		this.iEmployeeService.remove(userId);
 		return ResultDto.successWithoutData();
 	}
 

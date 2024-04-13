@@ -68,7 +68,7 @@ public final class RoleController {
 	@GetMapping("/check")
 	public ResultDto<String> checkDuplicated(
 			@RequestParam(name = "name", defaultValue = StringUtils.EMPTY_STRING) final String name) {
-		return this.iRoleService.check(name);
+		return this.iRoleService.checkDuplicated(name);
 	}
 
 	/**
@@ -89,7 +89,7 @@ public final class RoleController {
 	 */
 	@DeleteMapping("/delete/{roleId}")
 	public ResultDto<String> deleteInfo(@PathVariable("roleId") final Long roleId) {
-		return this.iRoleService.removeById(roleId);
+		return this.iRoleService.remove(roleId);
 	}
 
 	/**
