@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- commons.html -->
-<html lang="ja-JP" xmlns:th="http://www.thymeleaf.org">
+<html lang="ja-JP" xmlns:th="https://www.thymeleaf.org">
 
 <head th:fragment="header">
 	<title>PGアプリケーション</title>
@@ -30,7 +30,6 @@
 	<script type="text/javascript" th:src="@{/static/jquery/jquery-3.7.1.min.js}"></script>
 	<script type="text/javascript" th:src="@{/static/jquery/docs.min.js}"></script>
 	<script type="text/javascript" th:src="@{/static/bootstrap/js/bootstrap.bundle.min.js}"></script>
-	<script type="text/javascript" th:src="@{/static/bootstrap/js/bootbox.all.min.js}"></script>
 	<script type="text/javascript" th:src="@{/static/layer/layer.js}"></script>
 	<script type="text/javascript" th:src="@{/static/ztree/jquery.ztree.all.js}"></script>
 	<script type="text/javascript" th:src="@{/static/treeview/js/bstreeview.js}"></script>
@@ -52,18 +51,18 @@
 							<i class="fa-solid fa-magnifying-glass"></i>
 						</button>
 					</div>
-					<ul class="navbar-nav mb-2 mb-lg-0 d-flex" id="dropdown-info">
+					<ul class="navbar-nav mb-2 mb-lg-0 d-flex" id="personalInfo"
+						th:with="securityPerson=${#authentication.getPrincipal()}">
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle btn btn-success me-2" href="#" role="button"
 								data-bs-toggle="dropdown" aria-expanded="false" style="height: 37.6px;">
 								<i class="fa-solid fa-user-circle"
-									th:text="${#authentication.getPrincipal().getOriginalAdmin().getUsername()}"></i></a>
+									th:text="${securityPerson.getOriginalAdmin().getUsername()}"></i></a>
 							<ul class="dropdown-menu dropdown-menu-end" role="menu">
 								<li>
 									<a class="dropdown-item" href="#" id="toPersonal">
 										<i class="fa-solid fa-user-gear"></i> 個人設定
-										<p th:text="${#authentication.getPrincipal().getOriginalAdmin().getId()}"
-											hidden />
+										<p th:text="${securityPerson.getOriginalAdmin().getId()}" hidden />
 									</a>
 								</li>
 								<li>
@@ -81,6 +80,11 @@
 								</li>
 								<form id="logoutForm" method="post" th:action="@{/pgcrowd/employee/logout}"
 									style="display:none;"></form>
+								<div th:with="authList=${T(jp.co.sony.ppog.utils.CrowdProjectUtils).getAuthNames(securityPerson.getAuthorities().stream())}"
+									hidden>
+									<p th:text="${authList.contains('employee%edition') or authList.contains('employee%delete') ? 'true' : 'false'}"
+										id="securityPersonalAuths" hidden>
+								</div>
 							</ul>
 						</li>
 					</ul>

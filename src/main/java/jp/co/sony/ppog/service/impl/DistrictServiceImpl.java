@@ -51,7 +51,7 @@ public class DistrictServiceImpl implements IDistrictService {
 			SecondBeanUtils.copyNullableProperties(item, districtDto);
 			return districtDto;
 		}).collect(Collectors.toList());
-		if (StringUtils.isEmpty(cityId) || StringUtils.isEqual("null", cityId)) {
+		if (StringUtils.isEmpty(cityId) || !StringUtils.isDigital(cityId)) {
 			final DistrictDto districtDto = new DistrictDto();
 			districtDto.setId(0L);
 			districtDto.setName(CrowdProjectConstants.DEFAULT_ROLE_NAME);
