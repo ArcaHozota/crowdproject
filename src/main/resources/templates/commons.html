@@ -28,7 +28,6 @@
 		}
 	</style>
 	<script type="text/javascript" th:src="@{/static/jquery/jquery-3.7.1.min.js}"></script>
-	<script type="text/javascript" th:src="@{/static/jquery/docs.min.js}"></script>
 	<script type="text/javascript" th:src="@{/static/bootstrap/js/bootstrap.bundle.min.js}"></script>
 	<script type="text/javascript" th:src="@{/static/layer/layer.js}"></script>
 	<script type="text/javascript" th:src="@{/static/ztree/jquery.ztree.all.js}"></script>
@@ -80,7 +79,7 @@
 								</li>
 								<form id="logoutForm" method="post" th:action="@{/pgcrowd/employee/logout}"
 									style="display:none;"></form>
-								<div th:with="authList=${T(jp.co.sony.ppog.utils.CrowdProjectUtils).getAuthNames(securityPerson.getAuthorities().stream())}"
+								<div th:with="authList=${T(jp.co.toshiba.ppocph.utils.PgCrowdUtils).getAuthNames(securityPerson.getAuthorities().stream())}"
 									hidden>
 									<p th:text="${authList.contains('employee%edition') or authList.contains('employee%delete') ? 'true' : 'false'}"
 										id="securityPersonalAuths" hidden>

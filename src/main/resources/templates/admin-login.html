@@ -39,7 +39,6 @@
 	<div class="container">
 		<p th:text="${session['SPRING_SECURITY_LAST_EXCEPTION']} eq null ? '' : ${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
 			id="errorMsg" hidden />
-		<p th:text="${registeredEmail eq null ? '' : registeredEmail}" id="emailAddress" hidden />
 		<p th:text="${torokuMsg eq null ? '' : torokuMsg}" id="torokuMsg" hidden />
 		<div class="login-box">
 			<!-- Login Form -->
@@ -48,7 +47,8 @@
 				<h2>ログイン</h2>
 				<div class="input-box">
 					<ion-icon name="mail-outline"></ion-icon>
-					<input type="text" name="loginAcct" id="accountIpt" placeholder="アカウント" required>
+					<input type="text" th:value="${registeredEmail eq null ? '' : registeredEmail}" name="loginAcct"
+						id="accountIpt" placeholder="アカウント" required>
 				</div>
 				<div class="input-box">
 					<ion-icon name="lock-closed-outline"></ion-icon>

@@ -32,10 +32,6 @@ $(document).ready(function() {
 	if (message2 !== '') {
 		layer.msg(message2);
 	}
-	let email = $("#emailAddress").text();
-	if (email !== '') {
-		$("#accountIpt").val(email);
-	}
 });
 $("#loginBtn").on('click', function() {
 	let account = $("#accountIpt").val().trim();
