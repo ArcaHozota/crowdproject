@@ -31,7 +31,6 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 	protected void addResourceHandlers(final ResourceHandlerRegistry registry) {
 		log.info(CrowdProjectConstants.MESSAGE_SPRING_MAPPER);
 		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
-		registry.addResourceHandler("/pgcrowd/get/pictures/**").addResourceLocations("classpath:/static/image/flags/");
 	}
 
 	/**

@@ -62,3 +62,13 @@ $("#torokuBtn").on('click', function() {
 		$("#torokuForm").submit();
 	}
 });
+$("#resetBtn").on('click', function() {
+	let inputArrays = ["#accountIpt2", "#emailIpt2", "#dateOfBirthIpt2"];
+	for (const element of inputArrays) {
+		if ($(element).val().trim() === "") {
+			layer.msg('入力しなかった情報があります。');
+			return;
+		}
+	}
+	$("#resetForm").submit();
+});

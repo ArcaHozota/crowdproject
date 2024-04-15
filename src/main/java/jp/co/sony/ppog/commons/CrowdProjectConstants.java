@@ -16,6 +16,8 @@ public final class CrowdProjectConstants {
 
 	public static final Integer DEFAULT_TOKEN_EXPIRED = 1320;
 
+	public static final String DEFAULT_PASSWORD = "00000000";
+
 	public static final String MESSAGE_SPRING_MVCCONVERTOR = "拡張メッセージコンバーターの設置は完了しました。";
 
 	public static final String MESSAGE_SPRING_MAPPER = "静的リソースのマッピングが開始しました。";
