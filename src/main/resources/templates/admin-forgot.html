@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja-JP" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+	<title>PGアプリケーション</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="_csrf_header" th:content="${_csrf.headerName}">
+	<meta name="_csrf_token" th:content="${_csrf.token}">
+	<link rel="stylesheet" th:href="@{/static/css/style.css}">
+	<link rel="shortcut icon" type="image/x-icon" th:href="@{/static/favicon.ico}">
+	<script type="text/javascript" th:src="@{/static/jquery/jquery-3.7.1.min.js}"></script>
+	<script type="text/javascript" th:src="@{/static/layer/layer.js}"></script>
+</head>
+
+<body>
+	<style>
+		.container .login-box {
+			height: 550px;
+		}
+	</style>
+	<div class="container">
+		<p th:text="${resetMsg eq null ? '' : resetMsg}" id="resetMsg" hidden />
+		<div class="login-box">
+			<!-- Login Form -->
+			<form th:action="@{/pgcrowd/employee/reset/password}" th:method="post" class="form-signin" role="form"
+				id="resetForm">
+				<h2>パスワードリセット</h2>
+				<div class="input-box">
+					<ion-icon name="person-circle-outline"></ion-icon>
+					<input type="text" name="account" id="accountIpt2" placeholder="アカウント" required>
+				</div>
+				<div class="input-box">
+					<ion-icon name="mail-outline"></ion-icon>
+					<input type="text" name="email" id="emailIpt2" placeholder="メールアドレス" required>
+				</div>
+				<div class="input-box">
+					<ion-icon name="calendar-number-outline"></ion-icon>
+					<input type="date" name="dateOfBirth" id="dateOfBirthIpt2" required>
+				</div>
+				<button type="button" id="resetBtn">リセット</button>
+				<div class="register-link">
+					<p>パスワードを00000000でリセットされます。</p>
+				</div>
+			</form>
+		</div>
+		<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+		<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+	</div>
+	<script type="text/javascript" th:src="@{/static/customizes/logintoroku.js}"></script>
+</body>
+
+</html>

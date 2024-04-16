@@ -38,7 +38,7 @@ function buildTableBody(result) {
 		let chihoTd = $("<td scope='row' class='text-center table-light' style='width:70px;vertical-align:middle;'></td>").append(item.chiho);
 		let populationTd = $("<td scope='row' class='text-center table-light' style='width:50px;vertical-align:middle;'></td>").append(patternedPop);
 		let flagImg = $("<img>").attr('src', '/static/image/flags/prefectures/' + item.districtFlag + '.svg').attr('alt', '').height(27).width(40);
-		let flagTd = $("<td scope='row' class='text-center table-light' style='width:50px;vertical-align:middle;'></td>").append(flagImg);
+		let flagTd = $("<td scope='row' class='text-center table-light district-flg-td' role='button' style='width:50px;vertical-align:middle;'></td>").append(flagImg);
 		let editBtn = $("<button style='width:100px;'></button>").addClass("btn btn-success btn-sm edit-btn")
 			.append($("<i class='fa-solid fa-pen-to-square'></i>")).append(" 編集");
 		editBtn.attr("editId", item.id);
@@ -87,6 +87,10 @@ $("#districtInfoChangeBtn").on('click', function() {
 		});
 		pgcrowdAjaxModify('/pgcrowd/district/infoupd', 'PUT', putData, putSuccessFunction);
 	}
+});
+$("#tableBody").on('click', '.district-flg-td', function() {
+	let nameVal = $(this).parent().find("td:eq(0)").text();
+	window.open('https://ja.wikipedia.org/wiki/' + nameVal);
 });
 function putSuccessFunction(result) {
 	if (result.status === 'SUCCESS') {

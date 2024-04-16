@@ -100,12 +100,14 @@ public class WebSecurityConfiguration {
 							CrowdProjectUtils.renderString(response, responseResult);
 						}))
 				.formLogin(formLogin -> {
-					formLogin.loginPage("/pgcrowd/employee/login").loginProcessingUrl("/pgcrowd/employee/do/login")
-							.defaultSuccessUrl("/pgcrowd/to/mainmenu").permitAll().usernameParameter("loginAcct")
-							.passwordParameter("userPswd");
+					formLogin.loginPage(CrowdProjectURLConstants.URL_TO_LOGIN.getPattern())
+							.loginProcessingUrl(CrowdProjectURLConstants.URL_DO_LOGIN.getPattern())
+							.defaultSuccessUrl(CrowdProjectURLConstants.URL_TO_MAINMENU.getPattern()).permitAll()
+							.usernameParameter("loginAcct").passwordParameter("userPswd");
 					try {
-						formLogin.and().logout(logout -> logout.logoutUrl("/pgcrowd/employee/logout")
-								.logoutSuccessUrl("/pgcrowd/employee/login"));
+						formLogin.and()
+								.logout(logout -> logout.logoutUrl(CrowdProjectURLConstants.URL_LOG_OUT.getPattern())
+										.logoutSuccessUrl(CrowdProjectURLConstants.URL_TO_LOGIN.getPattern()));
 					} catch (final Exception e) {
 						throw new CrowdProjectException(CrowdProjectConstants.MESSAGE_STRING_FATAL_ERROR);
 					}

@@ -85,4 +85,6 @@ public final class CrowdProjectConstants {
 	public static final String MESSAGE_TOROKU_SUCCESS = "登録成功しました！メールとパスワードでログインしてください。";
 
 	public static final String MESSAGE_TOROKU_FAILURE = "当メールは既に登録されまして直接ログインしてください。";
+
+	public static final String MESSAGE_RESET_PASSWORD = "パスワードをリセットされました。";
 }

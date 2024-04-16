@@ -32,6 +32,10 @@ $(document).ready(function() {
 	if (message2 !== '') {
 		layer.msg(message2);
 	}
+	let message3 = $("#resetMsg").text();
+	if (message3 !== '') {
+		layer.msg(message3);
+	}
 });
 $("#loginBtn").on('click', function() {
 	let account = $("#accountIpt").val().trim();

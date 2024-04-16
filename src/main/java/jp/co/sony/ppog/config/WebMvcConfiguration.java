@@ -10,6 +10,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 import jp.co.sony.ppog.commons.CrowdProjectConstants;
+import jp.co.sony.ppog.commons.CrowdProjectURLConstants;
 import lombok.extern.log4j.Log4j2;
 
 /**
@@ -30,7 +31,8 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 	@Override
 	protected void addResourceHandlers(final ResourceHandlerRegistry registry) {
 		log.info(CrowdProjectConstants.MESSAGE_SPRING_MAPPER);
-		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+		registry.addResourceHandler(CrowdProjectURLConstants.URL_STATIC_RESOURCE.getPattern())
+				.addResourceLocations("classpath:/static/");
 	}
 
 	/**
@@ -40,15 +42,18 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 	 */
 	@Override
 	public void addViewControllers(final ViewControllerRegistry registry) {
-		registry.addViewController("/pgcrowd/employee/to/signup").setViewName("admin-toroku");
-		registry.addViewController("/pgcrowd/employee/login").setViewName("admin-login");
-		registry.addViewController("/pgcrowd/to/mainmenu").setViewName("mainmenu");
-		registry.addViewController("/pgcrowd/menu/initial").setViewName("menukanri");
-		registry.addViewController("/pgcrowd/employee/to/pages").setViewName("admin-pages");
-		registry.addViewController("/pgcrowd/role/to/pages").setViewName("role-pages");
-		registry.addViewController("/pgcrowd/category/initial").setViewName("categorykanri");
-		registry.addViewController("/pgcrowd/category/to/districtPages").setViewName("district-pages");
-		registry.addViewController("/pgcrowd/category/to/cityPages").setViewName("city-pages");
+		registry.addViewController(CrowdProjectURLConstants.URL_TO_SIGN_UP.getPattern()).setViewName("admin-toroku");
+		registry.addViewController(CrowdProjectURLConstants.URL_TO_LOGIN.getPattern()).setViewName("admin-login");
+		registry.addViewController(CrowdProjectURLConstants.URL_TO_MAINMENU.getPattern()).setViewName("mainmenu");
+		registry.addViewController(CrowdProjectURLConstants.URL_MENU_INITIAL.getPattern()).setViewName("menukanri");
+		registry.addViewController(CrowdProjectURLConstants.URL_EMPLOYEE_TO_PAGES.getPattern())
+				.setViewName("admin-pages");
+		registry.addViewController(CrowdProjectURLConstants.URL_ROLE_TO_PAGES.getPattern()).setViewName("role-pages");
+		registry.addViewController(CrowdProjectURLConstants.URL_CATEGORY_INITIAL.getPattern())
+				.setViewName("categorykanri");
+		registry.addViewController(CrowdProjectURLConstants.URL_TO_DISTRICT_PAGES.getPattern())
+				.setViewName("district-pages");
+		registry.addViewController(CrowdProjectURLConstants.URL_TO_CITY_PAGES.getPattern()).setViewName("city-pages");
 	}
 
 	/**
