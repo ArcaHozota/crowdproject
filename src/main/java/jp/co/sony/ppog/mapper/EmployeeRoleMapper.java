@@ -17,6 +17,13 @@ import jp.co.sony.ppog.entity.EmployeeRole;
 public interface EmployeeRoleMapper {
 
 	/**
+	 * IDによって情報を削除する
+	 *
+	 * @param id 社員役割連携ID
+	 */
+	void deleteById(@Param("id") Long id);
+
+	/**
 	 * IDによって情報を挿入する
 	 *
 	 * @param employeeRole 社員役割連携エンティティ

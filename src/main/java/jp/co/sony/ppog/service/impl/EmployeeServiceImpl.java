@@ -152,6 +152,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 		entity.setId(id);
 		entity.setDelFlg(CrowdProjectConstants.LOGIC_DELETE_FLG);
 		this.employeeMapper.removeById(entity);
+		this.employeeRoleMapper.deleteById(id);
 	}
 
 	@Override

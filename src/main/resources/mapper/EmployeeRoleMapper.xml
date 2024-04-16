@@ -22,6 +22,11 @@
 		WHERE
 		    PPER.EMPLOYEE_ID = #{employeeId,jdbcType=NUMERIC}
 	</update>
+	<delete id="deleteById" parameterType="java.lang.Long">
+		DELETE FROM PPOG_EMPLOYEE_ROLE PPER 
+		WHERE
+		    PPER.EMPLOYEE_ID = #{id,jdbcType=NUMERIC}
+	</delete>
 	<select id="selectById" resultMap="BasicResultMap">
 		SELECT
 		    PERV.* 
