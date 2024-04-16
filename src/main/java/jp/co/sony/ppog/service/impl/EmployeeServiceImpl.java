@@ -155,6 +155,19 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	}
 
 	@Override
+	public Boolean resetPassword(final EmployeeDto employeeDto) {
+		final Employee employee = new Employee();
+		SecondBeanUtils.copyNullableProperties(employeeDto, employee);
+		final Employee selectByAccountAndEmail = this.employeeMapper.selectByAccountAndEmail(employee);
+		if (selectByAccountAndEmail == null) {
+			return Boolean.FALSE;
+		}
+		selectByAccountAndEmail.setPassword(this.passwordEncoder.encode(CrowdProjectConstants.DEFAULT_PASSWORD));
+		this.employeeMapper.insertById(selectByAccountAndEmail);
+		return Boolean.TRUE;
+	}
+
+	@Override
 	public void save(final EmployeeDto employeeDto) {
 		final Employee employee = new Employee();
 		final String password = this.passwordEncoder.encode(employeeDto.getPassword());

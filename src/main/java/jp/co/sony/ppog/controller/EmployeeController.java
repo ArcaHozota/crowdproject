@@ -103,6 +103,33 @@ public final class EmployeeController {
 	}
 
 	/**
+	 * パスワードをリセット
+	 *
+	 * @param account     アカウント
+	 * @param email       メール
+	 * @param dateOfBirth 生年月日
+	 * @return ModelAndView
+	 */
+	@PostMapping("/reset/password")
+	public ModelAndView resetPassword(@RequestParam("account") final String account,
+			@RequestParam("email") final String email, @RequestParam("dateOfBirth") final String dateOfBirth) {
+		final EmployeeDto employeeDto = new EmployeeDto();
+		employeeDto.setLoginAccount(account);
+		employeeDto.setEmail(email);
+		employeeDto.setDateOfBirth(dateOfBirth);
+		final Boolean resetPassword = this.iEmployeeService.resetPassword(employeeDto);
+		if (Boolean.FALSE.equals(resetPassword)) {
+			final ModelAndView modelAndView = new ModelAndView("admin-forgot");
+			modelAndView.addObject("resetMsg", CrowdProjectConstants.MESSAGE_STRING_PROHIBITED);
+			return modelAndView;
+		}
+		final ModelAndView modelAndView = new ModelAndView("admin-login");
+		modelAndView.addObject("resetMsg", CrowdProjectConstants.MESSAGE_RESET_PASSWORD);
+		modelAndView.addObject("registeredEmail", email);
+		return modelAndView;
+	}
+
+	/**
 	 * IDによって社員情報を復元する
 	 *
 	 * @param editId 編集されるユーザID
@@ -169,8 +196,10 @@ public final class EmployeeController {
 	/**
 	 * 社員登録
 	 *
-	 * @param employeeDto 社員情報DTO
-	 * @return ResultDto<String>
+	 * @param email       メール
+	 * @param password    パスワード
+	 * @param dateOfBirth 生年月日
+	 * @return ModelAndView
 	 */
 	@PostMapping("/toroku")
 	public ModelAndView toroku(@RequestParam("email") final String email,

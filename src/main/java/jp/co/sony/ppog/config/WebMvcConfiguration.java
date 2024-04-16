@@ -44,6 +44,8 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 	public void addViewControllers(final ViewControllerRegistry registry) {
 		registry.addViewController(CrowdProjectURLConstants.URL_TO_SIGN_UP.getPattern()).setViewName("admin-toroku");
 		registry.addViewController(CrowdProjectURLConstants.URL_TO_LOGIN.getPattern()).setViewName("admin-login");
+		registry.addViewController(CrowdProjectURLConstants.URL_FORGET_PASSWORD.getPattern())
+				.setViewName("admin-forgot");
 		registry.addViewController(CrowdProjectURLConstants.URL_TO_MAINMENU.getPattern()).setViewName("mainmenu");
 		registry.addViewController(CrowdProjectURLConstants.URL_MENU_INITIAL.getPattern()).setViewName("menukanri");
 		registry.addViewController(CrowdProjectURLConstants.URL_EMPLOYEE_TO_PAGES.getPattern())

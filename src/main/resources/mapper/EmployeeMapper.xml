@@ -91,6 +91,16 @@
 		    OR PEV.EMAIL LIKE #{keyword,jdbcType=NVARCHAR} 
 		    OFFSET #{offset,jdbcType=INTEGER} ROWS FETCH NEXT #{pageSize,jdbcType=INTEGER} ROWS ONLY
 	</select>
+	<select id="selectByAccountAndEmail" resultMap="BasicResultMap">
+		SELECT
+		    PEV.* 
+		FROM
+		    PPOG_EMPLOYEE_VIEW PEV 
+		WHERE
+		    PEV.LOGIN_ACCT = #{loginAccount,jdbcType=NVARCHAR} 
+		    AND PEV.EMAIL = #{email,jdbcType=NVARCHAR} 
+		    AND PEV.DATE_OF_BIRTH = #{dateOfBirth,jdbcType=TIMESTAMP}
+	</select>
 	<select id="countByKeyword" resultType="java.lang.Long">
 		SELECT
 		    COUNT(1) 

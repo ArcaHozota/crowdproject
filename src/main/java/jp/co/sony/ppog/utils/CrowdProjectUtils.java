@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.MediaType;
@@ -25,23 +24,6 @@ import lombok.NoArgsConstructor;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class CrowdProjectUtils {
-
-	/**
-	 * 現在のリクエストがAJAXリクエストであるかどうかを判断する
-	 *
-	 * @param request リクエスト
-	 * @return true: ajax-request, false: no-ajax
-	 */
-	public static boolean discernRequestType(final HttpServletRequest request) {
-		// リクエストヘッダー情報の取得する
-		final String acceptInformation = request.getHeader("Accept");
-		final String xRequestInformation = request.getHeader("X-Requested-With");
-		// 判断して返却する
-		return ((acceptInformation != null) && (acceptInformation.length() > 0)
-				&& acceptInformation.contains(MediaType.APPLICATION_JSON_VALUE))
-				|| ((xRequestInformation != null) && (xRequestInformation.length() > 0)
-						&& "XMLHttpRequest".equals(xRequestInformation));
-	}
 
 	/**
 	 * 共通権限管理ストリーム

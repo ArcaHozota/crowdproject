@@ -39,7 +39,7 @@ public interface IEmployeeService {
 	/**
 	 * 社員登録
 	 *
-	 * @param employeeDto 社員情報DTO
+	 * @param employeeDto 社員情報転送クラス
 	 * @return Boolean
 	 */
 	Boolean register(EmployeeDto employeeDto);
@@ -50,6 +50,14 @@ public interface IEmployeeService {
 	 * @param id 社員ID
 	 */
 	void remove(Long id);
+
+	/**
+	 * パスワードをリセットする
+	 *
+	 * @param employeeDto 社員情報転送クラス
+	 * @return Boolean
+	 */
+	Boolean resetPassword(EmployeeDto employeeDto);
 
 	/**
 	 * 社員情報追加

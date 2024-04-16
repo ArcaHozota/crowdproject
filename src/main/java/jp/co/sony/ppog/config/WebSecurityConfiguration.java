@@ -56,7 +56,8 @@ public class WebSecurityConfiguration {
 	protected SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(authorize -> authorize
 				.requestMatchers(CrowdProjectURLConstants.URL_STATIC_RESOURCE, CrowdProjectURLConstants.URL_TO_SIGN_UP,
-						CrowdProjectURLConstants.URL_DO_SIGN_UP)
+						CrowdProjectURLConstants.URL_DO_SIGN_UP, CrowdProjectURLConstants.URL_FORGET_PASSWORD,
+						CrowdProjectURLConstants.URL_RESET_PASSWORD)
 				.permitAll()
 				.requestMatchers(CrowdProjectURLConstants.URL_EMPLOYEE_TO_PAGES,
 						CrowdProjectURLConstants.URL_EMPLOYEE_PAGINATION,

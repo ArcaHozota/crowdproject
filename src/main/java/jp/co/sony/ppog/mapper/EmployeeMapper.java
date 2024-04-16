@@ -57,6 +57,14 @@ public interface EmployeeMapper {
 	void removeById(Employee employee);
 
 	/**
+	 * アカウント、メールと生年月日によって社員情報を取得する
+	 *
+	 * @param employee 社員エンティティ
+	 * @return Employee
+	 */
+	Employee selectByAccountAndEmail(Employee employee);
+
+	/**
 	 * IDによって情報を検索する
 	 *
 	 * @param employee 社員エンティティ
