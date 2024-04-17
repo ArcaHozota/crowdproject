@@ -129,7 +129,7 @@ $("#roleInfoChangeBtn").on('click', function() {
 });
 $("#tableBody").on('click', '.delete-btn', function() {
 	let ajaxResult = $.ajax({
-		url: '/pgcrowd/role/checkDelete',
+		url: '/pgcrowd/role/delete/0L',
 		type: 'GET',
 		async: false
 	});

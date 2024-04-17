@@ -1,3 +1,12 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
+
+/* General CSS */
+body {
+	font-style: normal;
+	font-family: 'Poppins', sans-serif;
+}
+
 .text-bg-klein {
 	color: #fff !important;
 	background-color: #002fa7 !important;

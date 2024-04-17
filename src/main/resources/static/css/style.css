@@ -3,14 +3,14 @@ Youtube: https://youtube.com/@devRasen
 Copyright: 2023 ©MdRasen */
 
 /* Google Font */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
 /* General CSS */
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: "Poppins", sans-serif;
+	font-family: 'Poppins', sans-serif;
 }
 
 /* Custom CSS */
